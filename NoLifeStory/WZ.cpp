@@ -17,7 +17,7 @@ bool NLS::WZ::Init(string path) {
 NLS::WZ::File::File(string name) {
 	this->name = name;
 	string filename = Path+name+".wz";
-	file.open(filename,ios_base::in|ios_base::binary);
+	file.open(filename,file.in|file.binary);
 	if(!file.is_open()){
 		delete this;
 		return;
@@ -29,4 +29,7 @@ NLS::WZ::File::File(string name) {
 NLS::WZ::Header::Header(string name, File* file) {
 	this->name = name;
 	type = ObjectType::TypeHeader;
+	char s1[4];
+	file->file.read(s1,4);
+	ident.assign(s1,4);
 }

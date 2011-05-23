@@ -11,5 +11,5 @@ namespace NLS {
 		//other crap
 		Connection(sf::TcpSocket*);
 	};
-	extern vector<Connection> Connections;
+	extern vector<Connection*> Connections;
 };
