@@ -5,6 +5,7 @@
 #include "Global.h"
 
 void NLS::Init(vector<string> args) {
+	Network::Init();
 	Time.Reset();
 	WZ::Init("C:\\Nexon\\MapleStory\\");
 	Time.Step();

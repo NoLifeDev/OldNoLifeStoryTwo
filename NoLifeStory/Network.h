@@ -2,10 +2,10 @@
 // This file is part of NoLifeStory.              //
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
-#pragma once
 
-#include "..\SuperGlobal.h"
-#include "WZ.h"
-#include "Client.h"
-#include "Time.h"
-#include "Network.h"
+namespace NLS {
+	namespace Network {
+		extern sf::TcpSocket Socket;
+		void Init();
+	};
+};
