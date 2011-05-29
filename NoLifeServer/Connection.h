@@ -10,6 +10,7 @@ namespace NLS {
 		string name;
 		//other crap
 		Connection(sf::TcpSocket*);
+		~Connection();
 	};
 	extern vector<Connection*> Connections;
 };

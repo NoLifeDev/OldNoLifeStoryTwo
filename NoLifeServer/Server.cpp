@@ -14,12 +14,34 @@ void NLS::Init(vector<string> args) {
 }
 
 bool NLS::Loop() {
-	if (Listener.Accept(*NextSocket)) {
+	if (Listener.Accept(*NextSocket)==sf::Socket::Done) {
+		cout << "Connection from " << NextSocket->GetRemoteAddress() << ":" << NextSocket->GetRemotePort() << endl;
 		new Connection(NextSocket);
 		NextSocket = new sf::TcpSocket;
 	}
+	for (auto it=Connections.begin();it!=Connections.end();) {
+		Connection* c = *it;
+		sf::Packet p;
+		auto s = c->socket->Receive(p);
+		switch (s) {
+		case sf::Socket::Error:
+			cout << "Error receiving packet from " << c->socket->GetRemoteAddress() << endl;
+			break;
+		case sf::Socket::Disconnected:
+			cout << c->socket->GetRemoteAddress() << " has disconnected" << endl;
+			it++;
+			delete c;
+			goto end;
+		case sf::Socket::NotReady:
+			cout << c->socket->GetRemoteAddress() << " is not ready" << endl;
+			break;
+		}
+		it++;
+		end:
+	}
 	//Other server stuff
 	//Everything happens here
+	sf::Sleep(0.01);
 	return true;
 }
 

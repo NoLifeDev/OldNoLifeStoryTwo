@@ -7,6 +7,7 @@
 vector<NLS::WZ::File*> Files;
 string Path;
 NLS::Node NLS::WZ::Top; 
+#define Read(f, v) f.read((char*)&v, sizeof(v))
 
 bool NLS::WZ::Init(string path) {
 	Path = path;
@@ -17,19 +18,27 @@ bool NLS::WZ::Init(string path) {
 NLS::WZ::File::File(string name) {
 	this->name = name;
 	string filename = Path+name+".wz";
-	file.open(filename,file.in|file.binary);
+	file.open(filename, file.in|file.binary);
 	if(!file.is_open()){
 		delete this;
 		return;
 	}
 	Files.push_back(this);
-	Header* head = new Header(name,this);
+	Header* head = new Header(name, this);
 }
 
 NLS::WZ::Header::Header(string name, File* file) {
 	this->name = name;
 	type = ObjectType::TypeHeader;
 	char s1[4];
-	file->file.read(s1,4);
-	ident.assign(s1,4);
+	file->file.read(s1, 4);
+	ident.assign(s1, 4);
+	Read(file->file, fileSize);
+	Read(file->file, fileStart);
+	file->file >> copyright;
+	auto p = file->file.tellg();
+	file->file.seekg(fileStart);
+	Read(file->file, version);
+	file->file.seekg(p);
+	parsed = true;
 }

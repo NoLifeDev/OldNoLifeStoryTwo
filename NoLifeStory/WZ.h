@@ -69,13 +69,12 @@ namespace NLS {
 			uint32_t Size();
 			ObjectType type;
 			string name;
+			bool parsed;
 		private:
 			Object* parent;
-			bool parsed;
 			uint32_t blocksize;
 			uint32_t checksum;
 			uint32_t offset;
-			uint32_t id;
 			uint32_t count;
 		};
 		class Header: public Object {
