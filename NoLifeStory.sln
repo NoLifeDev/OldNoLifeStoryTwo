@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoLifeStory", "NoLifeStory\NoLifeStory.vcxproj", "{0A12B499-321B-47C5-8595-4E0BD970C4E0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoLifeServer", "NoLifeServer\NoLifeServer.vcxproj", "{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Header Files", "Header Files", "{45597A3B-D3C3-4113-B265-538F8919E6EB}"
+	ProjectSection(SolutionItems) = preProject
+		Resource.h = Resource.h
+		SuperGlobal.h = SuperGlobal.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +21,10 @@ Global
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Debug|Win32.Build.0 = Debug|Win32
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Release|Win32.ActiveCfg = Release|Win32
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Release|Win32.Build.0 = Release|Win32
+		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Debug|Win32.Build.0 = Debug|Win32
+		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Release|Win32.ActiveCfg = Release|Win32
+		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

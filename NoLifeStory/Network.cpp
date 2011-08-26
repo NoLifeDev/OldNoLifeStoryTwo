@@ -7,9 +7,7 @@
 sf::TcpSocket NLS::Network::Socket;
 
 void NLS::Network::Init() {
-	if (Socket.Connect("localhost",10273)!=sf::Socket::Done) {
-		cout << "Failed to connect to server" << endl;
-		cin.clear(1024);
-		cin.get();
+	if (Socket.Connect("localhost", 10273) != sf::Socket::Done) {
+		cerr << "ERROR: Failed to connect to server" << endl;
 	}
 }

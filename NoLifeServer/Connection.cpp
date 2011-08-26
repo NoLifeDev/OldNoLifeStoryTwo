@@ -4,7 +4,7 @@
 ///////////////////////////////////////////////
 #include "Global.h"
 
-vector<NLS::Connection*> NLS::Connections;
+set<NLS::Connection*> NLS::Connections;
 
 NLS::Connection::Connection(sf::TcpSocket* socket) {
 	this->socket = socket;

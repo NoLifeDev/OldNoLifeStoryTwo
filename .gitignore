@@ -1,4 +1,7 @@
-
+lib
+ipch
+Debug
+Release
 *.opensdf
 *.sdf
 *.suo

@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////////////
-// Copyright 2010 Peter (Retep998)                                      //
-// Contributers include:                                                //
+// Copyright 2011 Peter Atechian (Retep998)                             //
+// Contributers include (in no particular order):                       //
 // Calc0000                                                             //
-// Diamondo25                                                           //
+// Erwin Oeg1ma (Diamondo25)                                            //
 // David (Jvlaple)                                                      //
-// Inumedia                                                             //
-// Csharp                                                               //
+// Andy Turner (Inumedia)                                               //
+// Cedric Van Goethem (Csharp)                                          //
 // Anthony Wolfe Vaughn                                                 //
-// Nate                                                                 //
+// Nate Bender                                                          //
 //////////////////////////////////////////////////////////////////////////
 // This file is part of NoLifeStory.                                    //
 //                                                                      //

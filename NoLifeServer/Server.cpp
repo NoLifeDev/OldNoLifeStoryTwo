@@ -29,7 +29,7 @@ bool NLS::Loop() {
 			break;
 		case sf::Socket::Disconnected:
 			cout << c->socket->GetRemoteAddress() << " has disconnected" << endl;
-			it++;
+			Connections.erase(it++);
 			delete c;
 			goto end;
 		case sf::Socket::NotReady:
