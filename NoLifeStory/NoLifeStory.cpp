@@ -8,7 +8,7 @@ int main(int argc, char **argv) {//Not much to do here
 #ifdef NLS_WINDOWS
 	SetConsoleTitleA("NoLifeStory::Console");
 #endif
-	cout << "Loading NoLifeStory..." << endl;
+	cout << "INFO: Loading NoLifeStory" << endl;
 	vector<string> strs(argv, argv+argc);
 	//Actually run NLS here
 	NLS::Init(strs);

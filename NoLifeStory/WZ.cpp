@@ -15,8 +15,11 @@ bool NLS::WZ::Init(string path) {
 	return true;
 }
 
+
+
 NLS::WZ::File::File(string name) {
 	this->name = name;
+	type = TypeFile;
 	string filename = Path+name+".wz";
 	file.open(filename, file.in|file.binary);
 	if (!file.is_open()) {
@@ -31,6 +34,8 @@ NLS::WZ::File::File(string name) {
 			version = i;
 		}
 	}
+	new Directory(name, this, Top);
+	parsed = true;
 }
 
 uint32_t NLS::WZ::File::Hash(uint16_t enc, uint16_t real) {
@@ -60,4 +65,15 @@ NLS::WZ::Header::Header(string name, File* file) {
 	file->file >> copyright;
 	file->file.seekg(fileStart);
 	Read(file->file, version);
+	parsed = true;
+}
+
+NLS::WZ::Directory::Directory(string name, File* file, Node n) {
+	this->name = name;
+	Node nn = n.g(name);
+}
+
+NLS::NodeData::NodeData() {
+	image = 0;
+	has = 0;
 }

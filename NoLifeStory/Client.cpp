@@ -14,8 +14,15 @@ void NLS::Init(vector<string> args) {
 }
 
 bool NLS::Loop() {
+	static uint64_t counter(0);
+	static double fps;
 	Time.Step();
-	cout << Time.delta << endl;
+	fps += Time.delta;
+	counter++;
+	if (counter%100000 == 0) {
+		cout << 100000/fps << endl;
+		fps = 0;
+	}
 	return true;
 }
 

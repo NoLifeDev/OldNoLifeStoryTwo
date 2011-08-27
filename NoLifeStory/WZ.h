@@ -7,18 +7,23 @@ namespace NLS {
 	//Node classes
 	class Node {
 	public:
-		class NodeData* data;
-	};
-	class NodeData {
-	public:
-		NodeData();
-		string stringValue;
-		double realValue;
-		uint8_t has;
-		map <string, Node> children;
-		Node parent;
+		Node();
+		Node(const Node&);
+		Node& operator= (const Node&);
+		Node& operator[] (const string&);
+		Node& operator[] (const char[]);
+		Node& g(const string&);
+		map<string, Node>::iterator Begin();
+		map<string, Node>::iterator End();
+		operator bool();
+		operator string();
+		operator double();
+		operator int();
+		void operator= (const string&);
+		void operator= (const double&);
+		void operator= (const int&);
 	private:
-		NodeData(const NodeData&);
+		class NodeData* data;
 	};
 	namespace WZ {
 		extern Node Top;
@@ -64,6 +69,7 @@ namespace NLS {
 		//And now lets define them somehow
 		class Object {
 		public:
+			Object();
 			uint32_t Size();
 			ObjectType type;
 			string name;
@@ -74,6 +80,8 @@ namespace NLS {
 			uint32_t offset;
 			uint32_t count;
 		private:
+			Object(const Object&);
+			Object& operator= (const Object&);
 		};
 		class Header: public Object {
 		public:
@@ -86,9 +94,13 @@ namespace NLS {
 			uint32_t versionHash;
 		private:
 			Header();
-			Header(const Header&);
 		};
 		class Directory: public Object {
+		public:
+			Directory(string name, File* file, Node n);
+			File* file;
+		private:
+			Directory();
 		};
 		class File: public Object {
 		public:
@@ -98,7 +110,6 @@ namespace NLS {
 			uint16_t version;
 		private:
 			File();
-			File(const File&);
 		};
 		class Property {
 		public:
@@ -107,4 +118,17 @@ namespace NLS {
 		//Functions
 		bool Init(string path);
 	}
+	class NodeData {
+	public:
+		NodeData();
+		string stringValue;
+		double floatValue;
+		int intValue;
+		uint8_t has;
+		map <string, Node> children;
+		WZ::Image* image;
+	private:
+		NodeData(const NodeData&);
+		NodeData& operator= (const NodeData&);
+	};
 };
