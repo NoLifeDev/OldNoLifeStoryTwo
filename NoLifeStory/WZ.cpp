@@ -83,6 +83,11 @@ NLS::Node::Node(const Node& other) {
 	data = other.data;
 }
 
+NLS::Node& NLS::Node::operator= (const Node& other) {
+	data = other.data;
+	return *this;
+}
+
 NLS::Node& NLS::Node::operator[] (const string& key) {
 	if (data) {
 		return data->children[key];
@@ -97,6 +102,30 @@ NLS::Node& NLS::Node::operator[] (const char key[]) {
 	} else {
 		return WZ::Empty;
 	}
+}
+
+NLS::Node& NLS::Node::g(const string& key) {
+	if (!data) {
+		throw(string("Horrible loading skills"));
+	}
+	Node& n = data->children[key];
+	n.data = new NodeData();
+	n.data->parent = *this;
+	return n;
+}
+
+map<string, NLS::Node>::iterator NLS::Node::Begin() {
+	if (!data) {
+		throw(string("Failed to obtain iterator"));
+	}
+	return data->children.begin();
+}
+
+map<string, NLS::Node>::iterator NLS::Node::End() {
+	if (!data) {
+		throw(string("Failed to obtain iterator"));
+	}
+	return data->children.end();
 }
 
 NLS::NodeData::NodeData() {
