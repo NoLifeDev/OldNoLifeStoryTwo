@@ -27,6 +27,7 @@ namespace NLS {
 	};
 	namespace WZ {
 		extern Node Top;
+		extern Node Empty;
 		//Enumerations
 		enum ObjectType {
 			TypeUnknown = 0,
@@ -74,7 +75,6 @@ namespace NLS {
 			ObjectType type;
 			string name;
 			bool parsed;
-			Object* parent;
 			uint32_t blocksize;
 			uint32_t checksum;
 			uint32_t offset;
@@ -127,6 +127,7 @@ namespace NLS {
 		uint8_t has;
 		map <string, Node> children;
 		WZ::Image* image;
+		Node parent;
 	private:
 		NodeData(const NodeData&);
 		NodeData& operator= (const NodeData&);

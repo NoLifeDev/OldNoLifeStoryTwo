@@ -6,7 +6,8 @@
 
 set<NLS::WZ::File*> Files;
 string Path;
-NLS::Node NLS::WZ::Top; 
+NLS::Node NLS::WZ::Top;
+NLS::Node NLS::WZ::Empty;
 #define Read(f, v) f.read((char*)&v, sizeof(v))
 
 bool NLS::WZ::Init(string path) {
@@ -15,7 +16,9 @@ bool NLS::WZ::Init(string path) {
 	return true;
 }
 
-
+NLS::WZ::Object::Object() {
+	parsed = false;
+}
 
 NLS::WZ::File::File(string name) {
 	this->name = name;
@@ -55,7 +58,6 @@ uint32_t NLS::WZ::File::Hash(uint16_t enc, uint16_t real) {
 
 NLS::WZ::Header::Header(string name, File* file) {
 	this->name = name;
-	parent = file;
 	type = TypeHeader;
 	char s1[4];
 	file->file.read(s1, 4);
@@ -71,6 +73,30 @@ NLS::WZ::Header::Header(string name, File* file) {
 NLS::WZ::Directory::Directory(string name, File* file, Node n) {
 	this->name = name;
 	Node nn = n.g(name);
+}
+
+NLS::Node::Node() {
+	data = 0;
+}
+
+NLS::Node::Node(const Node& other) {
+	data = other.data;
+}
+
+NLS::Node& NLS::Node::operator[] (const string& key) {
+	if (data) {
+		return data->children[key];
+	} else {
+		return WZ::Empty;
+	}
+}
+
+NLS::Node& NLS::Node::operator[] (const char key[]) {
+	if (data) {
+		return data->children[key];
+	} else {
+		return WZ::Empty;
+	}
 }
 
 NLS::NodeData::NodeData() {
