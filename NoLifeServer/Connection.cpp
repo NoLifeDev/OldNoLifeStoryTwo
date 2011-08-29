@@ -8,10 +8,10 @@ set<NLS::Connection*> NLS::Connections;
 
 NLS::Connection::Connection(sf::TcpSocket* socket) {
 	this->socket = socket;
-	Connections.push_back(this);
+	Connections.insert(this);
 }
 
 NLS::Connection::~Connection() {
 	delete socket;
-	Connections.erase(find(Connections.begin(),Connections.end(),this));
+	Connections.erase(this);
 }

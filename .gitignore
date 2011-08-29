@@ -1,7 +1,10 @@
-lib
 ipch
-Debug
-Release
+/Debug
+/Release
+/NoLifeStory/Debug
+/NoLifeStory/Release
+/NoLifeServer/Debug
+/NoLifeServer/Release
 *.opensdf
 *.sdf
 *.suo

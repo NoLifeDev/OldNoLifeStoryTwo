@@ -5,6 +5,7 @@
 #pragma once
 
 #include "..\SuperGlobal.h"
+#include "Utilities.h"
 #include "WZ.h"
 #include "Client.h"
 #include "Time.h"
