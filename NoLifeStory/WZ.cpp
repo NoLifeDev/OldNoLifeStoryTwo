@@ -10,6 +10,19 @@ NLS::Node NLS::WZ::Top;
 NLS::Node NLS::WZ::Empty;
 #define Read(f, v) f.read((char*)&v, sizeof(v))
 
+int ReadCInt(ifstream& file) {
+	int8_t a;
+	int32_t b;
+	Read(file, a);
+	if (a != -128) {
+		return a;
+	} else {
+		Read(file, b);
+		return b;
+	}
+}
+
+#pragma region Parsing Stuff
 bool NLS::WZ::Init(string path) {
 	Path = path;
 	Top.data = new NodeData();
@@ -38,7 +51,7 @@ NLS::WZ::File::File(string name) {
 			version = i;
 		}
 	}
-	new Directory(name, this, Top);
+	delete new Directory(name, this, Top);
 	parsed = true;
 }
 
@@ -74,8 +87,14 @@ NLS::WZ::Header::Header(string name, File* file) {
 NLS::WZ::Directory::Directory(string name, File* file, Node n) {
 	this->name = name;
 	Node nn = n.g(name);
-}
+	int32_t count = ReadCInt(file->file);
+	for (int i = 0; i < count; i++) {
 
+	}
+}
+#pragma endregion
+
+#pragma region Node Stuff
 NLS::Node::Node() {
 	data = 0;
 }
@@ -218,3 +237,4 @@ NLS::NodeData::NodeData() {
 	image = 0;
 	has = 0;
 }
+#pragma endregion
