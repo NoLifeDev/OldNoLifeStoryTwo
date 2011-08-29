@@ -12,6 +12,7 @@ NLS::Node NLS::WZ::Empty;
 
 bool NLS::WZ::Init(string path) {
 	Path = path;
+	Top.data = new NodeData();
 	new File("Base");
 	return true;
 }
@@ -43,8 +44,8 @@ NLS::WZ::File::File(string name) {
 
 uint32_t NLS::WZ::File::Hash(uint16_t enc, uint16_t real) {
 	char s[5];
-	int hash = 0;
 	int l = sprintf(s, "%d", real);
+	int hash = 0;
 	for (int i = 0; i < l; i++) {
 		hash = 32*hash+s[i]+1;
 	}
@@ -126,6 +127,91 @@ map<string, NLS::Node>::iterator NLS::Node::End() {
 		throw(string("Failed to obtain iterator"));
 	}
 	return data->children.end();
+}
+
+NLS::Node::operator bool() {
+	return (bool)data;
+}
+
+NLS::Node::operator string() {
+	if (!data) {
+		return string();
+	} else if (data->has&0x1) {
+		return data->stringValue;
+	} else if (data->has&0x2) {
+		data->stringValue = tostring(data->floatValue);
+		data->has |= 0x2;
+		return data->stringValue;
+	} else if (data->has&0x4) {
+		data->stringValue = tostring(data->intValue);
+		data->has |= 0x4;
+		return data->stringValue;
+	} else {
+		return string();
+	}
+}
+
+NLS::Node::operator double() {
+	if (!data) {
+		return 0;
+	} else if (data->has&0x2) {
+		return data->floatValue;
+	} else if (data->has&0x1) {
+		data->floatValue = todouble(data->stringValue);
+		data->has |= 0x1;
+		return data->floatValue;
+	} else if (data->has&0x4) {
+		data->floatValue = (double)data->intValue;
+		data->has |= 0x4;
+		return data->floatValue;
+	} else {
+		return 0;
+	}
+}
+
+NLS::Node::operator int() {
+	if (!data) {
+		return 0;
+	} else if (data->has&0x4) {
+		return data->intValue;
+	} else if (data->has&0x1) {
+		data->intValue = toint(data->stringValue);
+		data->has |= 0x1;
+		return data->intValue;
+	} else if (data->has&0x2) {
+		data->intValue = (int)data->floatValue;
+		data->has |= 0x2;
+		return data->intValue;
+	} else {
+		return 0;
+	}
+}
+
+NLS::Node& NLS::Node::operator= (const string& v) {
+	if (!data) {
+		throw(string("You fail at loading"));
+	}
+	data->stringValue = v;
+	data->has |= 0x1;
+	return *this;
+}
+
+NLS::Node& NLS::Node::operator= (const double& v) {
+	if (!data) {
+		throw(string("You fail at loading"));
+	}
+	data->floatValue = v;
+	data->has |= 0x2;
+	return *this;
+}
+
+NLS::Node& NLS::Node::operator= (const int& v) {
+	if (!data) {
+		throw(string("You fail at loading"));
+	}
+	data->intValue = v;
+	data->has |= 0x4;
+	return *this;
 }
 
 NLS::NodeData::NodeData() {

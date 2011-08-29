@@ -19,10 +19,9 @@ namespace NLS {
 		operator string();
 		operator double();
 		operator int();
-		void operator= (const string&);
-		void operator= (const double&);
-		void operator= (const int&);
-	private:
+		Node& operator= (const string&);
+		Node& operator= (const double&);
+		Node& operator= (const int&);
 		class NodeData* data;
 	};
 	namespace WZ {

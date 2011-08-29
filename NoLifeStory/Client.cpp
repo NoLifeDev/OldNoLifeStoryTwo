@@ -19,8 +19,8 @@ bool NLS::Loop() {
 	Time.Step();
 	fps += Time.delta;
 	counter++;
-	if (counter%100000 == 0) {
-		cout << 100000/fps << endl;
+	if (counter%1000000 == 0) {
+		cout << 1000000/fps << endl;
 		fps = 0;
 	}
 	return true;
