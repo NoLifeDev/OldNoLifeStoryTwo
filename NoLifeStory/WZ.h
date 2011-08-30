@@ -73,7 +73,6 @@ namespace NLS {
 			uint32_t Size();
 			ObjectType type;
 			string name;
-			bool parsed;
 			uint32_t blocksize;
 			uint32_t checksum;
 			uint32_t offset;
@@ -124,9 +123,10 @@ namespace NLS {
 		double floatValue;
 		int intValue;
 		uint8_t has;
+		Node parent;
+		string name;
 		map <string, Node> children;
 		WZ::Image* image;
-		Node parent;
 	private:
 		NodeData(const NodeData&);
 		NodeData& operator= (const NodeData&);

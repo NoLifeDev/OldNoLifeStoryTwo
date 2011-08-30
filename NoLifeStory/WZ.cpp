@@ -8,9 +8,13 @@ set<NLS::WZ::File*> Files;
 string Path;
 NLS::Node NLS::WZ::Top;
 NLS::Node NLS::WZ::Empty;
-#define Read(f, v) f.read((char*)&v, sizeof(v))
 
-int ReadCInt(ifstream& file) {
+template <class t>
+inline void Read(ifstream& file, t v) {
+	file.read((char*)&v, sizeof(v));
+}
+
+inline int32_t ReadCInt(ifstream& file) {
 	int8_t a;
 	int32_t b;
 	Read(file, a);
@@ -22,25 +26,45 @@ int ReadCInt(ifstream& file) {
 	}
 }
 
+inline uint32_t ReadOffset(ifstream& file) {
+	//TODO
+}
+
 #pragma region Parsing Stuff
 bool NLS::WZ::Init(string path) {
 	Path = path;
 	Top.data = new NodeData();
 	new File("Base");
+	new File("Character");
+	new File("Effect");
+	new File("Etc");
+	new File("Item");
+	new File("Map");
+	new File("Mob");
+	new File("Morph");
+	new File("Npc");
+	new File("Quest");
+	new File("Reactor");
+	new File("Skill");
+	new File("Sound");
+	new File("String");
+	new File("TamingMob");
+	new File("UI");
 	return true;
 }
 
 NLS::WZ::Object::Object() {
-	parsed = false;
 }
 
 NLS::WZ::File::File(string name) {
 	this->name = name;
 	type = TypeFile;
 	string filename = Path+name+".wz";
+	cout << "INFO: Loading WZ file: " << filename << endl;
 	file.open(filename, file.in|file.binary);
 	if (!file.is_open()) {
 		cerr << "ERROR: Failed to load WZ file: " << filename << endl;
+		throw(273);
 	}
 	Files.insert(this);
 	Header* head = new Header(name, this);
@@ -51,8 +75,7 @@ NLS::WZ::File::File(string name) {
 			version = i;
 		}
 	}
-	delete new Directory(name, this, Top);
-	parsed = true;
+	new Directory(name, this, Top);
 }
 
 uint32_t NLS::WZ::File::Hash(uint16_t enc, uint16_t real) {
@@ -81,16 +104,24 @@ NLS::WZ::Header::Header(string name, File* file) {
 	file->file >> copyright;
 	file->file.seekg(fileStart);
 	Read(file->file, version);
-	parsed = true;
 }
 
 NLS::WZ::Directory::Directory(string name, File* file, Node n) {
 	this->name = name;
 	Node nn = n.g(name);
 	int32_t count = ReadCInt(file->file);
+	cout << "INFO: " << count << endl;
 	for (int i = 0; i < count; i++) {
-
+		char garbage[1024];
+		uint8_t type;
+		Read(file->file, type);
+		if (type == 1) {
+			file->file.read(garbage, 6);
+			//Magic offset reading
+			continue;
+		}
 	}
+	delete this;
 }
 #pragma endregion
 
@@ -126,7 +157,8 @@ NLS::Node& NLS::Node::operator[] (const char key[]) {
 
 NLS::Node& NLS::Node::g(const string& key) {
 	if (!data) {
-		throw(string("Horrible loading skills"));
+		cerr << "ERROR: Failed to initialize child" << endl;
+		throw(273);
 	}
 	Node& n = data->children[key];
 	n.data = new NodeData();
@@ -136,14 +168,16 @@ NLS::Node& NLS::Node::g(const string& key) {
 
 map<string, NLS::Node>::iterator NLS::Node::Begin() {
 	if (!data) {
-		throw(string("Failed to obtain iterator"));
+		cerr << "ERROR: Failed to obtain iterator" << endl;
+		throw(273);
 	}
 	return data->children.begin();
 }
 
 map<string, NLS::Node>::iterator NLS::Node::End() {
 	if (!data) {
-		throw(string("Failed to obtain iterator"));
+		cerr << "ERROR: Failed to obtain iterator" << endl;
+		throw(273);
 	}
 	return data->children.end();
 }
@@ -208,7 +242,8 @@ NLS::Node::operator int() {
 
 NLS::Node& NLS::Node::operator= (const string& v) {
 	if (!data) {
-		throw(string("You fail at loading"));
+		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
+		throw(273);
 	}
 	data->stringValue = v;
 	data->has |= 0x1;
@@ -217,7 +252,8 @@ NLS::Node& NLS::Node::operator= (const string& v) {
 
 NLS::Node& NLS::Node::operator= (const double& v) {
 	if (!data) {
-		throw(string("You fail at loading"));
+		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
+		throw(273);
 	}
 	data->floatValue = v;
 	data->has |= 0x2;
@@ -226,7 +262,8 @@ NLS::Node& NLS::Node::operator= (const double& v) {
 
 NLS::Node& NLS::Node::operator= (const int& v) {
 	if (!data) {
-		throw(string("You fail at loading"));
+		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
+		throw(273);
 	}
 	data->intValue = v;
 	data->has |= 0x4;
