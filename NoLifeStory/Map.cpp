@@ -15,9 +15,14 @@ void NLS::Map::Load(string id, string portal) {
 
 void NLS::Map::Load() {
 	char zone;
-	nextmap.insert(0, 9-nextmap.size(), '0');
-	zone = nextmap[0];
-	node = WZ::Top["Map"]["Map"][string("Map")+zone][nextmap];
+	if (nextmap == "login") {
+		//Uh....
+		throw(273);
+	} else {
+		nextmap.insert(0, 9-nextmap.size(), '0');
+		zone = nextmap[0];
+		node = WZ::Top["Map"]["Map"][string("Map")+zone][nextmap];
+	}
 	string bgm = node["info"]["bgm"];
 	cout << "INFO: Background music: " << bgm << endl;
 }

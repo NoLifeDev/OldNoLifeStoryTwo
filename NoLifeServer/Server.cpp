@@ -4,46 +4,21 @@
 ///////////////////////////////////////////////
 #include "Global.h"
 
-sf::TcpListener Listener;
-sf::TcpSocket* NextSocket;
+NLS::LoginServer* loginServer;
 
 void NLS::Init(vector<string> args) {
-	Listener.Listen(10273);
-	Listener.SetBlocking(false);
-	NextSocket = new sf::TcpSocket;
+	loginServer = new LoginServer();
+	//for each world
+	//do the same with a WorldServer
+	//plus for each channel in that world
+	//do the same with a ChannelServer
 }
 
 bool NLS::Loop() {
-	if (Listener.Accept(*NextSocket) == sf::Socket::Done) {
-		cout << "Connection from " << NextSocket->GetRemoteAddress() << ":" << NextSocket->GetRemotePort() << endl;
-		new Connection(NextSocket);
-		NextSocket = new sf::TcpSocket;
-	}
-	stack<Connection*> towipe;
-	for (auto it = Connections.begin(); it != Connections.end(); it++) {
-		Connection* c = *it;
-		sf::Packet p;
-		auto s = c->socket->Receive(p);
-		switch (s) {
-		case sf::Socket::Error:
-			cout << "Error receiving packet from " << c->socket->GetRemoteAddress() << endl;
-			break;
-		case sf::Socket::Disconnected:
-			cout << c->socket->GetRemoteAddress() << " has disconnected" << endl;
-			towipe.push(c);
-			break;
-		case sf::Socket::NotReady:
-			cout << c->socket->GetRemoteAddress() << " is not ready" << endl;
-			break;
-		}
-	}
-	while (!towipe.empty()) {
-		delete towipe.top();
-		towipe.pop();
-	}
-	//Other server stuff
-	//Everything happens here
-	sf::Sleep(0.01);
+	char s[1024];
+	cin.getline(s, 1024);
+	string command = s;
+	//Do stuff with the command
 	return true;
 }
 

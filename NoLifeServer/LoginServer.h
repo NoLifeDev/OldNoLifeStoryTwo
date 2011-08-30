@@ -4,13 +4,11 @@
 ///////////////////////////////////////////////
 
 namespace NLS {
-	class Connection {
+	class LoginServer {
 	public:
-		sf::TcpSocket* socket;
-		string name;
-		//other crap
-		Connection(sf::TcpSocket*);
-		~Connection();
+		LoginServer();
+		void Loop();
+	private:
+		sf::Thread* thread;
 	};
-	extern set<Connection*> Connections;
 };
