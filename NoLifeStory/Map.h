@@ -7,5 +7,8 @@ namespace NLS {
 	namespace Map {
 		void Load(string id, string portal);
 		void Load();
+		extern Node node;
+		extern string nextmap;
+		extern string nextportal;
 	};
 };

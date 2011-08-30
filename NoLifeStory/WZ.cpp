@@ -91,7 +91,7 @@ inline string ReadEncString(ifstream& file) {
 	}
 }
 
-string ReadString(ifstream& file, uint32_t offset) {
+inline string ReadString(ifstream& file, uint32_t offset) {
 	uint8_t a;
 	Read(file, a);
 	switch (a) {
@@ -113,6 +113,14 @@ string ReadString(ifstream& file, uint32_t offset) {
 	default:
 		return string();
 	}
+}
+
+inline string ReadStringOffset(ifstream& file, uint32_t offset) {
+	uint32_t p = file.tellg();
+	file.seekg(offset);
+	string s = ReadEncString(file);
+	file.seekg(p);
+	return s;
 }
 #pragma endregion
 
@@ -191,8 +199,7 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 		uint8_t type;
 		Read(file->file, type);
 		if (type == 1) {
-			char garbage[6];
-			file->file.read(garbage, 10);
+			file->file.seekg(10, ios_base::cur);
 			continue;
 		} else if (type == 2) {
 			int32_t s;
@@ -227,6 +234,7 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 
 NLS::WZ::Image::Image(File* file, Node n, uint32_t offset) {
 	this->n = n;
+	n.data->image = this;
 	this->offset = offset;
 	this->file = file;
 }
@@ -253,7 +261,7 @@ void NLS::WZ::Image::Parse() {
 	}
 	new SubProperty(file, n, offset);
 	file->file.seekg(p);
-	//Resolve the UOLs
+	//TODO: Resolve the UOLs
 	delete this;
 }
 
@@ -317,7 +325,66 @@ NLS::WZ::SubProperty::SubProperty(File* file, Node n, uint32_t offset) {
 }
 
 NLS::WZ::ExtendedProperty::ExtendedProperty(File* file, Node n, uint32_t offset, uint32_t eob) {
-	//Magic
+	string name;
+	uint8_t a;
+	Read(file->file, a);
+	if (a == 0x1B) {
+		int32_t inc;
+		Read(file->file, inc);
+		uint32_t pos = offset+inc;
+		uint32_t p = file->file.tellg();
+		file->file.seekg(pos);
+		name = ReadEncString(file->file);
+		file->file.seekg(p);
+	} else {
+		name = ReadEncString(file->file);
+	}
+	if (name == "Property") {
+		file->file.seekg(2, ios_base::cur);
+		new SubProperty(file, n, offset);
+	} else if (name == "Canvas") {
+		file->file.seekg(1, ios_base::cur);
+		uint8_t b;
+		Read(file->file, b);
+		if (b == 1) {
+			file->file.seekg(2, ios_base::cur);
+			new SubProperty(file, n, offset);
+		}
+		//TODO: Do something with the png property
+	} else if (name == "Shape2D#Vector2D") {
+		n.g("x") = ReadCInt(file->file);
+		n.g("y") = ReadCInt(file->file);
+	} else if (name == "Shape2D#Convex2D") {
+		int32_t ec = ReadCInt(file->file);
+		for (int i = 0; i < ec; i++) {
+			new ExtendedProperty(file, n.g(name), offset, eob);
+		}
+	} else if (name == "Sound_DX8") {
+		//TODO: Do something with the mp3 property
+	} else if (name == "UOL") {
+		file->file.seekg(1, ios_base::cur);
+		uint8_t b;
+		Read(file->file, b);
+		switch (b) {
+		case 0:
+			n.g(name) = string("|UOL|")+ReadEncString(file->file);
+			break;
+		case 1:
+			{
+				uint32_t off;
+				Read(file->file, off);
+				n.g(name) = string("|UOL|")+ReadStringOffset(file->file, offset+off);
+				break;
+			}
+		default:
+			cerr << "ERROR: Wat?" << endl;
+			throw(273);
+		}
+	} else {
+		cerr << "ERROR: Wat?" << endl;
+		throw(273);
+	}
+	delete this;
 }
 #pragma endregion
 
@@ -349,6 +416,10 @@ NLS::Node& NLS::Node::operator[] (const string& key) {
 
 NLS::Node& NLS::Node::operator[] (const char key[]) {
 	if (data) {
+		if (data->image) {
+			data->image->Parse();
+			data->image = 0;
+		}
 		return data->children[key];
 	} else {
 		return WZ::Empty;
