@@ -265,32 +265,59 @@ NLS::WZ::SubProperty::SubProperty(File* file, Node n, uint32_t offset) {
 		Read(file->file, a);
 		switch (a) {
 		case 0x00:
-			//Stuff
+			n.g(name);
 			break;
 		case 0x0B:
 		case 0x02:
-			//Stuff
-			break;
+			{
+				uint16_t v;
+				Read(file->file, v);
+				n.g(name) = v;
+				break;
+			}
 		case 0x03:
-			//Stuff
+			n.g(name) = ReadCInt(file->file);
 			break;
 		case 0x04:
-			//Stuff
-			break;
+			{
+				uint8_t type;
+				Read(file->file, type);
+				if (type == 0x80) {
+					float v;
+					Read(file->file, v);
+					n.g(name) = v;
+				}
+				break;
+			}
 		case 0x05:
-			//Stuff
-			break;
+			{
+				double v;
+				Read(file->file, v);
+				n.g(name) = v;
+				break;
+			}
 		case 0x08:
-			//Stuff
+			n.g(name) = ReadString(file->file, offset);
 			break;
 		case 0x09:
-			//Stuff
-			break;
+			{
+				uint32_t temp;
+				Read(file->file, temp);
+				uint32_t eob = temp+file->file.tellg();
+				new ExtendedProperty(file, n.g(name), offset, eob);
+				file->file.seekg(eob);
+				break;
+			}
 		default:
 			cerr << "ERROR: Wat?" << endl;
 			throw(273);
 		}
 	}
+	delete this;
+}
+
+NLS::WZ::ExtendedProperty::ExtendedProperty(File* file, Node n, uint32_t offset, uint32_t eob) {
+	//Magic
 }
 #pragma endregion
 

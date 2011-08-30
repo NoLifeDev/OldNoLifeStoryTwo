@@ -90,6 +90,10 @@ namespace NLS {
 		public:
 			SubProperty(File* file, Node n, uint32_t offset);
 		};
+		class ExtendedProperty {
+		public:
+			ExtendedProperty(File* file, Node n, uint32_t offset, uint32_t eob);
+		};
 		//Functions
 		bool Init(string path);
 	}
