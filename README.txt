@@ -1,9 +1,17 @@
 Welcome to NoLifeStory!
 
-NoLifeServer and NoLifeStory are 2 separate programs with common dependencies and files.
-So if you're using Visual Studio, same solution, but different projects.
-There are images available for use as the program icon.
+If you're using windows...
 
-Dependencies
-SFML2
+In the NoLifeStory solution you'll find 2 projects:
+NoLifeStory is the client
+NoLifeServer is the server
+All the dependencies are included in the git repo so all you have to do is open the solution and run the project you want.
+
+If you're not using windows...
+
+Get the following libraries:
 zlib
+SFML2
+
+Then make yourself a makefile or project for whatever IDE you use, and build it somehow.
+It's all standard C++ so you shouldn't have any major problems.
