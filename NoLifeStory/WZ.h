@@ -27,15 +27,6 @@ namespace NLS {
 	namespace WZ {
 		extern Node Top;
 		extern Node Empty;
-		//Enumerations
-		enum ObjectType {
-			TypeUnknown = 0,
-			TypeFile,
-			TypeHeader,
-			TypeImage,
-			TypeDirectory,
-			TypeProperty
-		};
 		enum PropertyType {
 			PropUnknown = 0,
 			PropPrim = 400,
@@ -53,8 +44,6 @@ namespace NLS {
 			PropPNG = 700,
 			PropMP3 = 800
 		};
-		class Key;
-		class Object;
 		class Header;
 		class Directory;
 		class File;
@@ -65,53 +54,36 @@ namespace NLS {
 		class CanvasProperty;
 		class PNGProperty;
 		class SoundProperty;
-		class Entry;
 		//And now lets define them somehow
-		class Object {
+		class Header {
 		public:
-			Object();
-			uint32_t Size();
-			ObjectType type;
-			string name;
-			uint32_t blocksize;
-			uint32_t checksum;
-			uint32_t offset;
-			uint32_t count;
-		private:
-			Object(const Object&);
-			Object& operator= (const Object&);
-		};
-		class Header: public Object {
-		public:
-			Header(string name, File* file);
+			Header(File* file);
 			string ident;
 			uint64_t fileSize;
 			uint32_t fileStart;
 			uint16_t version;
 			string copyright;
 			uint32_t versionHash;
-		private:
-			Header();
 		};
-		class Directory: public Object {
+		class Directory {
 		public:
-			Directory(string name, File* file, Node n);
+			Directory(File* file, Node n);
 			File* file;
-		private:
-			Directory();
 		};
-		class File: public Object {
+		class File {
 		public:
 			File(string name);
 			ifstream file;
 			uint32_t Hash(uint16_t enc, uint16_t real);
 			uint16_t version;
-		private:
-			File();
+			Header* head;
 		};
-		class Property {
+		class Image {
 		public:
-			PropertyType type;
+			Image(string name, File* file, Node n, uint32_t offset);
+			Node n;
+			string name;
+			uint32_t offset;
 		};
 		//Functions
 		bool Init(string path);
