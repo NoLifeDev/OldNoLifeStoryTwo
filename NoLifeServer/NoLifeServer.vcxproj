@@ -93,12 +93,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Connection.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="LoginServer.h" />
     <ClInclude Include="Server.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="LoginServer.cpp" />
     <ClCompile Include="NoLifeServer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

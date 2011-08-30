@@ -5,5 +5,5 @@
 #pragma once
 
 #include "..\SuperGlobal.h"
+#include "LoginServer.h"
 #include "Server.h"
-#include "Connection.h"
