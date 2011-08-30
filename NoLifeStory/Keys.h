@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////
+// This file is part of NoLifeStory.              //
+// Please see SuperGlobal.h for more information. //
+////////////////////////////////////////////////////
 //Anyone feel like formatting the whole file to match the first few lines?
 const uint8_t WZKey[] = {
 0x96,0xAE,0x3F,0xA4,0x48,0xFA,0xDD,0x90,

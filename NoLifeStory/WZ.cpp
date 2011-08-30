@@ -90,13 +90,37 @@ inline string ReadEncString(ifstream& file) {
 		return s;
 	}
 }
+
+string ReadString(ifstream& file, uint32_t offset) {
+	uint8_t a;
+	Read(file, a);
+	switch (a) {
+	case 0x00:
+	case 0x73:
+		return ReadEncString(file);
+	case 0x01:
+	case 0x1B:
+		{
+			int32_t off;
+			Read(file, off);
+			offset += off;
+			uint32_t p = file.tellg();
+			file.seekg(offset);
+			string s = ReadEncString(file);
+			file.seekg(p);
+			return s;
+		}
+	default:
+		return string();
+	}
+}
 #pragma endregion
 
 #pragma region Parsing Stuff
 bool NLS::WZ::Init(string path) {
 	Path = path;
 	Top.data = new NodeData();
-	//new File("Base");
+	new File("Base");
 	new File("Character");
 	new File("Effect");
 	new File("Etc");
@@ -194,20 +218,79 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 			new Directory(file, n.g(name));
 			file->file.seekg(p);
 		} else {
-			new Image(name, file, n.g(name), offset);
+			name.erase(name.size()-4);
+			new Image(file, n.g(name), offset);
 		}
 	}
 	delete this;
 }
 
-NLS::WZ::Image::Image(string name, File* file, Node n, uint32_t offset) {
+NLS::WZ::Image::Image(File* file, Node n, uint32_t offset) {
 	this->n = n;
-	this->name = name;
 	this->offset = offset;
+	this->file = file;
 }
 
 void NLS::WZ::Image::Parse() {
-	//Do nothing
+	uint32_t p = file->file.tellg();
+	file->file.seekg(offset);
+	uint8_t a;
+	Read(file->file, a);
+	if (a != 0x73) {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	string s = ReadEncString(file->file);
+	if (s != "Property") {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	uint16_t b;
+	Read(file->file, b);
+	if (b != 0) {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	new SubProperty(file, n, offset);
+	file->file.seekg(p);
+	//Resolve the UOLs
+	delete this;
+}
+
+NLS::WZ::SubProperty::SubProperty(File* file, Node n, uint32_t offset) {
+	int32_t count = ReadCInt(file->file);
+	for (int i = 0; i < count; i++) {
+		string name = ReadString(file->file, offset);
+		uint8_t a;
+		Read(file->file, a);
+		switch (a) {
+		case 0x00:
+			//Stuff
+			break;
+		case 0x0B:
+		case 0x02:
+			//Stuff
+			break;
+		case 0x03:
+			//Stuff
+			break;
+		case 0x04:
+			//Stuff
+			break;
+		case 0x05:
+			//Stuff
+			break;
+		case 0x08:
+			//Stuff
+			break;
+		case 0x09:
+			//Stuff
+			break;
+		default:
+			cerr << "ERROR: Wat?" << endl;
+			throw(273);
+		}
+	}
 }
 #pragma endregion
 
@@ -229,6 +312,7 @@ NLS::Node& NLS::Node::operator[] (const string& key) {
 	if (data) {
 		if (data->image) {
 			data->image->Parse();
+			data->image = 0;
 		}
 		return data->children[key];
 	} else {

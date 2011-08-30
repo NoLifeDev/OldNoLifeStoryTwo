@@ -48,7 +48,6 @@ namespace NLS {
 		class Directory;
 		class File;
 		class Image;
-		class Property;
 		class PrimitiveProperty;
 		class SubProperty;
 		class CanvasProperty;
@@ -80,11 +79,16 @@ namespace NLS {
 		};
 		class Image {
 		public:
-			Image(string name, File* file, Node n, uint32_t offset);
+			Image(File* file, Node n, uint32_t offset);
 			void Parse();
 			Node n;
 			string name;
 			uint32_t offset;
+			File* file;
+		};
+		class SubProperty {
+		public:
+			SubProperty(File* file, Node n, uint32_t offset);
 		};
 		//Functions
 		bool Init(string path);
