@@ -90,13 +90,45 @@ inline string ReadEncString(ifstream& file) {
 		return s;
 	}
 }
+
+inline string ReadString(ifstream& file, uint32_t offset) {
+	uint8_t a;
+	Read(file, a);
+	switch (a) {
+	case 0x00:
+	case 0x73:
+		return ReadEncString(file);
+	case 0x01:
+	case 0x1B:
+		{
+			int32_t off;
+			Read(file, off);
+			offset += off;
+			uint32_t p = file.tellg();
+			file.seekg(offset);
+			string s = ReadEncString(file);
+			file.seekg(p);
+			return s;
+		}
+	default:
+		return string();
+	}
+}
+
+inline string ReadStringOffset(ifstream& file, uint32_t offset) {
+	uint32_t p = file.tellg();
+	file.seekg(offset);
+	string s = ReadEncString(file);
+	file.seekg(p);
+	return s;
+}
 #pragma endregion
 
 #pragma region Parsing Stuff
 bool NLS::WZ::Init(string path) {
 	Path = path;
 	Top.data = new NodeData();
-	//new File("Base");
+	new File("Base");
 	new File("Character");
 	new File("Effect");
 	new File("Etc");
@@ -167,8 +199,7 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 		uint8_t type;
 		Read(file->file, type);
 		if (type == 1) {
-			char garbage[6];
-			file->file.read(garbage, 10);
+			file->file.seekg(10, ios_base::cur);
 			continue;
 		} else if (type == 2) {
 			int32_t s;
@@ -194,16 +225,166 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 			new Directory(file, n.g(name));
 			file->file.seekg(p);
 		} else {
-			new Image(name, file, n.g(name), offset);
+			name.erase(name.size()-4);
+			new Image(file, n.g(name), offset);
 		}
 	}
 	delete this;
 }
 
-NLS::WZ::Image::Image(string name, File* file, Node n, uint32_t offset) {
+NLS::WZ::Image::Image(File* file, Node n, uint32_t offset) {
 	this->n = n;
-	this->name = name;
+	n.data->image = this;
 	this->offset = offset;
+	this->file = file;
+}
+
+void NLS::WZ::Image::Parse() {
+	uint32_t p = file->file.tellg();
+	file->file.seekg(offset);
+	uint8_t a;
+	Read(file->file, a);
+	if (a != 0x73) {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	string s = ReadEncString(file->file);
+	if (s != "Property") {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	uint16_t b;
+	Read(file->file, b);
+	if (b != 0) {
+		cerr << "ERROR: Parsing fail" << endl;
+		throw(273);
+	}
+	new SubProperty(file, n, offset);
+	file->file.seekg(p);
+	//TODO: Resolve the UOLs
+	delete this;
+}
+
+NLS::WZ::SubProperty::SubProperty(File* file, Node n, uint32_t offset) {
+	int32_t count = ReadCInt(file->file);
+	for (int i = 0; i < count; i++) {
+		string name = ReadString(file->file, offset);
+		uint8_t a;
+		Read(file->file, a);
+		switch (a) {
+		case 0x00:
+			n.g(name);
+			break;
+		case 0x0B:
+		case 0x02:
+			{
+				uint16_t v;
+				Read(file->file, v);
+				n.g(name) = v;
+				break;
+			}
+		case 0x03:
+			n.g(name) = ReadCInt(file->file);
+			break;
+		case 0x04:
+			{
+				uint8_t type;
+				Read(file->file, type);
+				if (type == 0x80) {
+					float v;
+					Read(file->file, v);
+					n.g(name) = v;
+				}
+				break;
+			}
+		case 0x05:
+			{
+				double v;
+				Read(file->file, v);
+				n.g(name) = v;
+				break;
+			}
+		case 0x08:
+			n.g(name) = ReadString(file->file, offset);
+			break;
+		case 0x09:
+			{
+				uint32_t temp;
+				Read(file->file, temp);
+				uint32_t eob = temp+file->file.tellg();
+				new ExtendedProperty(file, n.g(name), offset, eob);
+				file->file.seekg(eob);
+				break;
+			}
+		default:
+			cerr << "ERROR: Wat?" << endl;
+			throw(273);
+		}
+	}
+	delete this;
+}
+
+NLS::WZ::ExtendedProperty::ExtendedProperty(File* file, Node n, uint32_t offset, uint32_t eob) {
+	string name;
+	uint8_t a;
+	Read(file->file, a);
+	if (a == 0x1B) {
+		int32_t inc;
+		Read(file->file, inc);
+		uint32_t pos = offset+inc;
+		uint32_t p = file->file.tellg();
+		file->file.seekg(pos);
+		name = ReadEncString(file->file);
+		file->file.seekg(p);
+	} else {
+		name = ReadEncString(file->file);
+	}
+	if (name == "Property") {
+		file->file.seekg(2, ios_base::cur);
+		new SubProperty(file, n, offset);
+	} else if (name == "Canvas") {
+		file->file.seekg(1, ios_base::cur);
+		uint8_t b;
+		Read(file->file, b);
+		if (b == 1) {
+			file->file.seekg(2, ios_base::cur);
+			new SubProperty(file, n, offset);
+		}
+		//TODO: Do something with the png property
+	} else if (name == "Shape2D#Vector2D") {
+		n.g("x") = ReadCInt(file->file);
+		n.g("y") = ReadCInt(file->file);
+	} else if (name == "Shape2D#Convex2D") {
+		int32_t ec = ReadCInt(file->file);
+		for (int i = 0; i < ec; i++) {
+			new ExtendedProperty(file, n.g(name), offset, eob);
+		}
+	} else if (name == "Sound_DX8") {
+		//TODO: Do something with the mp3 property
+	} else if (name == "UOL") {
+		file->file.seekg(1, ios_base::cur);
+		uint8_t b;
+		Read(file->file, b);
+		switch (b) {
+		case 0:
+			n.g(name) = string("|UOL|")+ReadEncString(file->file);
+			break;
+		case 1:
+			{
+				uint32_t off;
+				Read(file->file, off);
+				n.g(name) = string("|UOL|")+ReadStringOffset(file->file, offset+off);
+				break;
+			}
+		default:
+			cerr << "ERROR: Wat?" << endl;
+			throw(273);
+		}
+	} else {
+		cerr << "ERROR: Wat?" << endl;
+		throw(273);
+	}
+	delete this;
 }
 #pragma endregion
 
@@ -224,7 +405,8 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 NLS::Node& NLS::Node::operator[] (const string& key) {
 	if (data) {
 		if (data->image) {
-			data->image.Parse();
+			data->image->Parse();
+			data->image = 0;
 		}
 		return data->children[key];
 	} else {
@@ -234,6 +416,10 @@ NLS::Node& NLS::Node::operator[] (const string& key) {
 
 NLS::Node& NLS::Node::operator[] (const char key[]) {
 	if (data) {
+		if (data->image) {
+			data->image->Parse();
+			data->image = 0;
+		}
 		return data->children[key];
 	} else {
 		return WZ::Empty;

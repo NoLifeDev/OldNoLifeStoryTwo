@@ -10,3 +10,4 @@
 #include "Client.h"
 #include "Time.h"
 #include "Network.h"
+#include "Map.h"

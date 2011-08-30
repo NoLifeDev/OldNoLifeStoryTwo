@@ -1,6 +1,8 @@
 //////////////////////////////////////////////////////////////////////////
 // Copyright 2011 Peter Atechian (Retep998)                             //
-// Contributers include (in no particular order):                       //
+// All code in this version of NLS (aside from the libraries),          //
+// was written by Retep998.                                             //
+// Contributers to previous versions include (in no particular order):  //
 // Calc0000                                                             //
 // Erwin Oeg1ma (Diamondo25)                                            //
 // David (Jvlaple)                                                      //

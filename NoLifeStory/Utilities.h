@@ -19,7 +19,7 @@ inline string tostring(const int& t, const int& len) {
 	stringstream ss;
 	ss << t;
 	string s = ss.str();
-	return s.insert(0, '0', len-s.size());
+	return s.insert(0, len-s.size(), '0');
 }
 
 inline double todouble(const string& t) {

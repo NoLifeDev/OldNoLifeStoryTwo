@@ -11,6 +11,8 @@ void NLS::Init(vector<string> args) {
 	Time.Step();
 	cout << "Initializing WZ data took: " << Time.tdelta << " seconds!" << endl;
 	Time.Reset();
+	Map::Load("100000000", "");
+	Map::Load();
 }
 
 bool NLS::Loop() {
