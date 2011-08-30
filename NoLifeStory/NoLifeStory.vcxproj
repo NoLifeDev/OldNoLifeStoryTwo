@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Keys.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Utilities.h" />
