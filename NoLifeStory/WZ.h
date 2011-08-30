@@ -81,6 +81,7 @@ namespace NLS {
 		class Image {
 		public:
 			Image(string name, File* file, Node n, uint32_t offset);
+			void Parse();
 			Node n;
 			string name;
 			uint32_t offset;
@@ -94,7 +95,6 @@ namespace NLS {
 		string stringValue;
 		double floatValue;
 		int intValue;
-		uint8_t has;
 		Node parent;
 		string name;
 		map <string, Node> children;

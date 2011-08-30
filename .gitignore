@@ -10,3 +10,5 @@ ipch
 *.suo
 *.db
 *.aps
+*.psess
+*.vsp

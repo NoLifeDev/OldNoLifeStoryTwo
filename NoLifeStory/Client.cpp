@@ -9,7 +9,7 @@ void NLS::Init(vector<string> args) {
 	Time.Reset();
 	WZ::Init("C:\\Nexon\\MapleStory\\");
 	Time.Step();
-	cout << "Initializing wz data took: " << Time.tdelta << " seconds!" << endl;
+	cout << "Initializing WZ data took: " << Time.tdelta << " seconds!" << endl;
 	Time.Reset();
 }
 
@@ -23,7 +23,7 @@ bool NLS::Loop() {
 		cout << 1000000/fps << endl;
 		fps = 0;
 	}
-	return true;
+	return false;
 }
 
 void NLS::Unload() {

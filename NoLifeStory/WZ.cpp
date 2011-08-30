@@ -117,7 +117,6 @@ bool NLS::WZ::Init(string path) {
 
 NLS::WZ::File::File(string name) {
 	string filename = Path+name+".wz";
-	//cout << "INFO: Loading WZ file: " << filename << endl;
 	file.open(filename, file.in|file.binary);
 	if (!file.is_open()) {
 		cerr << "ERROR: Failed to load WZ file: " << filename << endl;
@@ -190,7 +189,6 @@ NLS::WZ::Directory::Directory(File* file, Node n) {
 		int32_t checksum = ReadCInt(file->file);
 		uint32_t offset = ReadOffset(file);
 		if (type == 3) {
-			//cout << "INFO: Parsing directory: " << name << endl;
 			uint32_t p = file->file.tellg();
 			file->file.seekg(offset);
 			new Directory(file, n.g(name));
@@ -225,6 +223,9 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 
 NLS::Node& NLS::Node::operator[] (const string& key) {
 	if (data) {
+		if (data->image) {
+			data->image.Parse();
+		}
 		return data->children[key];
 	} else {
 		return WZ::Empty;
@@ -240,10 +241,7 @@ NLS::Node& NLS::Node::operator[] (const char key[]) {
 }
 
 NLS::Node& NLS::Node::g(const string& key) {
-	if (!data) {
-		cerr << "ERROR: Failed to initialize child" << endl;
-		throw(273);
-	}
+	assert(data);
 	Node& n = data->children[key];
 	n.data = new NodeData();
 	n.data->parent = *this;
@@ -251,18 +249,12 @@ NLS::Node& NLS::Node::g(const string& key) {
 }
 
 map<string, NLS::Node>::iterator NLS::Node::Begin() {
-	if (!data) {
-		cerr << "ERROR: Failed to obtain iterator" << endl;
-		throw(273);
-	}
+	assert(data);
 	return data->children.begin();
 }
 
 map<string, NLS::Node>::iterator NLS::Node::End() {
-	if (!data) {
-		cerr << "ERROR: Failed to obtain iterator" << endl;
-		throw(273);
-	}
+	assert(data);
 	return data->children.end();
 }
 
@@ -271,91 +263,47 @@ NLS::Node::operator bool() {
 }
 
 NLS::Node::operator string() {
-	if (!data) {
-		return string();
-	} else if (data->has&0x1) {
-		return data->stringValue;
-	} else if (data->has&0x2) {
-		data->stringValue = tostring(data->floatValue);
-		data->has |= 0x2;
-		return data->stringValue;
-	} else if (data->has&0x4) {
-		data->stringValue = tostring(data->intValue);
-		data->has |= 0x4;
-		return data->stringValue;
-	} else {
-		return string();
-	}
+	assert(data);
+	return data->stringValue;
 }
 
 NLS::Node::operator double() {
-	if (!data) {
-		return 0;
-	} else if (data->has&0x2) {
-		return data->floatValue;
-	} else if (data->has&0x1) {
-		data->floatValue = todouble(data->stringValue);
-		data->has |= 0x1;
-		return data->floatValue;
-	} else if (data->has&0x4) {
-		data->floatValue = (double)data->intValue;
-		data->has |= 0x4;
-		return data->floatValue;
-	} else {
-		return 0;
-	}
+	assert(data);
+	return data->floatValue;
 }
 
 NLS::Node::operator int() {
-	if (!data) {
-		return 0;
-	} else if (data->has&0x4) {
-		return data->intValue;
-	} else if (data->has&0x1) {
-		data->intValue = toint(data->stringValue);
-		data->has |= 0x1;
-		return data->intValue;
-	} else if (data->has&0x2) {
-		data->intValue = (int)data->floatValue;
-		data->has |= 0x2;
-		return data->intValue;
-	} else {
-		return 0;
-	}
+	assert(data);
+	return data->intValue;
 }
 
 NLS::Node& NLS::Node::operator= (const string& v) {
-	if (!data) {
-		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
-		throw(273);
-	}
+	assert(data);
+	data->intValue = toint(v);
+	data->floatValue = todouble(v);
 	data->stringValue = v;
-	data->has |= 0x1;
 	return *this;
 }
 
 NLS::Node& NLS::Node::operator= (const double& v) {
-	if (!data) {
-		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
-		throw(273);
-	}
+	assert(data);
+	data->intValue = v;
 	data->floatValue = v;
-	data->has |= 0x2;
+	data->stringValue = tostring(v);
 	return *this;
 }
 
 NLS::Node& NLS::Node::operator= (const int& v) {
-	if (!data) {
-		cerr << "ERROR: Attempting to assign value to uninitialized node" << endl;
-		throw(273);
-	}
+	assert(data);
 	data->intValue = v;
-	data->has |= 0x4;
+	data->floatValue = v;
+	data->stringValue = tostring(v);
 	return *this;
 }
 
 NLS::NodeData::NodeData() {
 	image = 0;
-	has = 0;
+	intValue = 0;
+	floatValue = 0;
 }
 #pragma endregion
