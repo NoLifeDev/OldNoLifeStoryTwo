@@ -205,6 +205,10 @@ NLS::WZ::Image::Image(string name, File* file, Node n, uint32_t offset) {
 	this->name = name;
 	this->offset = offset;
 }
+
+void NLS::WZ::Image::Parse() {
+	//Do nothing
+}
 #pragma endregion
 
 #pragma region Node Stuff
@@ -224,7 +228,7 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 NLS::Node& NLS::Node::operator[] (const string& key) {
 	if (data) {
 		if (data->image) {
-			data->image.Parse();
+			data->image->Parse();
 		}
 		return data->children[key];
 	} else {
