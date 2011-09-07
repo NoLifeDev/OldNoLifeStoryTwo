@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_n_l_s_1_1_node.html" title="{NLS::Node\n|+ data\l|+ Node()\l+ Node()\l+ operator=()\l+ operator[]()\l+ operator[]()\l+ g()\l+ Begin()\l+ End()\l+ operator bool()\l+ operator string()\l+ operator double()\l+ operator int()\l+ operator=()\l+ operator=()\l+ operator=()\l}" alt="" coords="5,264,136,547"/>
+<area shape="rect" id="node5" href="$class_n_l_s_1_1_w_z_1_1_image.html" title="{NLS::WZ::Image\n|+ n\l+ name\l+ offset\l+ file\l|+ Image()\l+ Parse()\l}" alt="" coords="125,611,243,747"/>
+<area shape="rect" id="node7" href="$class_n_l_s_1_1_w_z_1_1_file.html" title="{NLS::WZ::File\n|+ file\l+ version\l+ head\l|+ File()\l+ Hash()\l}" alt="" coords="248,345,352,466"/>
+<area shape="rect" id="node9" href="$class_n_l_s_1_1_w_z_1_1_header.html" title="{NLS::WZ::Header\n|+ ident\l+ fileSize\l+ fileStart\l+ version\l+ copyright\l+ versionHash\l|+ Header()\l}" alt="" coords="238,27,361,178"/>
+</map>
