@@ -126,12 +126,12 @@ Variables</h2></td></tr>
 
 <p>Definition at line <a class="el" href="_network_8cpp_source.html#l00009">9</a> of file <a class="el" href="_network_8cpp_source.html">Network.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8h_source.html#l00047">NLS::C()</a>, <a class="el" href="_console_8cpp_source.html#l00009">NLS::Endl</a>, and <a class="el" href="_network_8cpp_source.html#l00007">Socket</a>.</p>
+<p>References <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, and <a class="el" href="_network_8cpp_source.html#l00007">Socket</a>.</p>
 <div class="fragment"><pre class="fragment">                      {
-    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_network.html#a57b6f73c4da897dafd3991df7a5f9e69">Socket</a>.Connect(<span class="stringliteral">&quot;141.157.161.118&quot;</span>, 8484, 3) != sf::Socket::Done) {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Failed to connect to server at 141.157.161.118:8484&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_network.html#a57b6f73c4da897dafd3991df7a5f9e69">Socket</a>.Connect(<span class="stringliteral">&quot;localhost&quot;</span>, 8484, 3) != sf::Socket::Done) {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Failed to connect to server at 141.157.161.118:8484&quot;</span> &lt;&lt; endl;
     } <span class="keywordflow">else</span> {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Connected to LoginServer at 141.157.161.118:8484&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Connected to LoginServer at 141.157.161.118:8484&quot;</span> &lt;&lt; endl;
     }
 }</pre></div>
 <p><div class="dynheader">
@@ -174,7 +174,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -184,7 +184,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

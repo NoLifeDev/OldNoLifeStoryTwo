@@ -99,6 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <div class="textblock"><code>#include &quot;..\SuperGlobal.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_console_8h_source.html">Console.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_utilities_8h_source.html">Utilities.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_sprite_8h_source.html">Sprite.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_w_z_8h_source.html">WZ.h</a>&quot;</code><br/>
@@ -107,15 +108,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="_client_8h_source.html">Client.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_time_8h_source.html">Time.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_network_8h_source.html">Network.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_obj_8h_source.html">Obj.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_tile_8h_source.html">Tile.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_map_8h_source.html">Map.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_view_8h_source.html">View.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="_console_8h_source.html">Console.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_config_8h_source.html">Config.h</a>&quot;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Global.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_no_life_story_2_global_8h__incl.png" border="0" usemap="#_no_life_story_2_global_8h" alt=""/></div>
 <map name="_no_life_story_2_global_8h" id="_no_life_story_2_global_8h">
-<area shape="rect" id="node5" href="_utilities_8h.html" title="Utilities.h" alt="" coords="145,80,220,107"/><area shape="rect" id="node7" href="_sprite_8h.html" title="Sprite.h" alt="" coords="245,80,312,107"/><area shape="rect" id="node9" href="_w_z_8h.html" title="WZ.h" alt="" coords="336,80,389,107"/><area shape="rect" id="node11" href="_graphics_8h.html" title="Graphics.h" alt="" coords="413,80,499,107"/><area shape="rect" id="node13" href="_foothold_8h.html" title="Foothold.h" alt="" coords="523,80,605,107"/><area shape="rect" id="node15" href="_client_8h.html" title="Client.h" alt="" coords="629,80,696,107"/><area shape="rect" id="node17" href="_time_8h.html" title="Time.h" alt="" coords="720,80,781,107"/><area shape="rect" id="node19" href="_network_8h.html" title="Network.h" alt="" coords="805,80,885,107"/><area shape="rect" id="node21" href="_map_8h.html" title="Map.h" alt="" coords="909,80,968,107"/><area shape="rect" id="node23" href="_view_8h.html" title="View.h" alt="" coords="992,80,1053,107"/><area shape="rect" id="node25" href="_console_8h.html" title="Console.h" alt="" coords="1077,80,1157,107"/></map>
+<area shape="rect" id="node5" href="_console_8h.html" title="Console.h" alt="" coords="145,80,225,107"/><area shape="rect" id="node7" href="_utilities_8h.html" title="Utilities.h" alt="" coords="250,80,325,107"/><area shape="rect" id="node9" href="_sprite_8h.html" title="Sprite.h" alt="" coords="351,80,417,107"/><area shape="rect" id="node11" href="_w_z_8h.html" title="WZ.h" alt="" coords="441,80,495,107"/><area shape="rect" id="node13" href="_graphics_8h.html" title="Graphics.h" alt="" coords="519,80,604,107"/><area shape="rect" id="node15" href="_foothold_8h.html" title="Foothold.h" alt="" coords="628,80,711,107"/><area shape="rect" id="node17" href="_client_8h.html" title="Client.h" alt="" coords="735,80,801,107"/><area shape="rect" id="node19" href="_time_8h.html" title="Time.h" alt="" coords="825,80,887,107"/><area shape="rect" id="node21" href="_network_8h.html" title="Network.h" alt="" coords="911,80,991,107"/><area shape="rect" id="node23" href="_obj_8h.html" title="Obj.h" alt="" coords="1015,80,1068,107"/><area shape="rect" id="node25" href="_tile_8h.html" title="Tile.h" alt="" coords="1092,80,1145,107"/><area shape="rect" id="node27" href="_map_8h.html" title="Map.h" alt="" coords="1169,80,1228,107"/><area shape="rect" id="node29" href="_view_8h.html" title="View.h" alt="" coords="1252,80,1313,107"/><area shape="rect" id="node31" href="_config_8h.html" title="Config.h" alt="" coords="1337,80,1407,107"/></map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -136,7 +139,7 @@ This graph shows which files directly or indirectly include this file:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -146,7 +149,7 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:03 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

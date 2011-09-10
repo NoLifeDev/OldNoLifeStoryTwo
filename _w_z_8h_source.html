@@ -111,104 +111,89 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00012"></a>00012         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp;);
 <a name="l00013"></a>00013         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a74b97f164de8f27b9a5a378ad2b12924">operator[] </a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
 <a name="l00014"></a>00014         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a74b97f164de8f27b9a5a378ad2b12924">operator[] </a>(<span class="keyword">const</span> <span class="keywordtype">char</span>[]);
-<a name="l00015"></a>00015         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65">g</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
-<a name="l00016"></a>00016         map&lt;string, Node&gt;::iterator <a class="code" href="class_n_l_s_1_1_node.html#af1425ee083332f4f6e347930a833ccdd">Begin</a>();
-<a name="l00017"></a>00017         map&lt;string, Node&gt;::iterator <a class="code" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451">End</a>();
-<a name="l00018"></a>00018         <a class="code" href="class_n_l_s_1_1_node.html#a23e3670f3f703d8f4a256eb79d065ece">operator bool</a>();
-<a name="l00019"></a>00019         <a class="code" href="class_n_l_s_1_1_node.html#a8bb0110a0263c8c49a0e5be927110df8">operator string</a>();
-<a name="l00020"></a>00020         <a class="code" href="class_n_l_s_1_1_node.html#a56c97176875feba962eddc648ab5c390">operator double</a>();
-<a name="l00021"></a>00021         <a class="code" href="class_n_l_s_1_1_node.html#a755efb84f029659f7e037f3061d3c2cc">operator int</a>();
-<a name="l00022"></a>00022         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
-<a name="l00023"></a>00023         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp;);
-<a name="l00024"></a>00024         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp;);
-<a name="l00025"></a><a class="code" href="class_n_l_s_1_1_node.html#ac79bdf403a550f937c724225c0f46326">00025</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>* <a class="code" href="class_n_l_s_1_1_node.html#ac79bdf403a550f937c724225c0f46326">data</a>;
-<a name="l00026"></a>00026     };
-<a name="l00027"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html">00027</a>     <span class="keyword">namespace </span>WZ {
-<a name="l00028"></a>00028         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>;
-<a name="l00029"></a>00029         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="namespace_n_l_s_1_1_w_z.html#aa1e7322898f47fa9633003efcdc14221">Empty</a>;
-<a name="l00030"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2">00030</a>         <span class="keyword">enum</span> <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2">PropertyType</a> {
-<a name="l00031"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a942b1c600300d7c387f88b3e74ef4443">00031</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a942b1c600300d7c387f88b3e74ef4443">PropUnknown</a> = 0,
-<a name="l00032"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ac7c8b6f21d3a1f6586a5cafaf7b4e39e">00032</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ac7c8b6f21d3a1f6586a5cafaf7b4e39e">PropPrim</a> = 400,
-<a name="l00033"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a95f0ac6b2906312941a33a4c9cca22b6">00033</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a95f0ac6b2906312941a33a4c9cca22b6">PropNull</a> = 401,
-<a name="l00034"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ad0fd73c92e7e4a6664dafa306e1a5ff4">00034</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ad0fd73c92e7e4a6664dafa306e1a5ff4">PropUnsignedShort</a> = 402,
-<a name="l00035"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a5b30404cf949e93dbdc0c304d6693775">00035</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a5b30404cf949e93dbdc0c304d6693775">PropCompressedInt</a> = 403,
-<a name="l00036"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a03101fe84c3747ca55fef977cf65abf4">00036</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a03101fe84c3747ca55fef977cf65abf4">PropVector</a> = 404,
-<a name="l00037"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ab2c914ba5950a3c1f0cbd24b668b4cef">00037</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ab2c914ba5950a3c1f0cbd24b668b4cef">PropFloat</a> = 405,
-<a name="l00038"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a362fd31621f1539cf9760d7719834048">00038</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a362fd31621f1539cf9760d7719834048">PropDouble</a> = 406,
-<a name="l00039"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a57515e04d713cb18e36076feb9736865">00039</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a57515e04d713cb18e36076feb9736865">PropString</a> = 407,
-<a name="l00040"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a55c0bc017618b3c36febb43896b80b2a">00040</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a55c0bc017618b3c36febb43896b80b2a">PropUOL</a> = 408,
-<a name="l00041"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2aad8292799135037c02e70a2b556cb02b">00041</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2aad8292799135037c02e70a2b556cb02b">PropSub</a> = 500,
-<a name="l00042"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2af768ed1a512ff9037985a03090975267">00042</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2af768ed1a512ff9037985a03090975267">PropCanvas</a> = 501,
-<a name="l00043"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a7e213996717f1ecea6be207c6d4d3800">00043</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2a7e213996717f1ecea6be207c6d4d3800">PropConvex</a> = 502,
-<a name="l00044"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ae2c792865ee9d267da0634f44b5bbeef">00044</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ae2c792865ee9d267da0634f44b5bbeef">PropPNG</a> = 700,
-<a name="l00045"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ad7200827b0b2fa84c2863f3c4ad55d2c">00045</a>             <a class="code" href="namespace_n_l_s_1_1_w_z.html#a0ece1f88418630ff6a6c7a046dd82be2ad7200827b0b2fa84c2863f3c4ad55d2c">PropMP3</a> = 800
-<a name="l00046"></a>00046         };
-<a name="l00047"></a>00047         <span class="keyword">class </span>Header;
-<a name="l00048"></a>00048         <span class="keyword">class </span>Directory;
-<a name="l00049"></a>00049         <span class="keyword">class </span>File;
-<a name="l00050"></a>00050         <span class="keyword">class </span>Image;
-<a name="l00051"></a>00051         <span class="keyword">class </span>SubProperty;
-<a name="l00052"></a>00052         <span class="keyword">class </span>PNGProperty;
-<a name="l00053"></a>00053         <span class="keyword">class </span>SoundProperty;
-<a name="l00054"></a>00054         <span class="comment">//And now lets define them somehow</span>
-<a name="l00055"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html">00055</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html">Header</a> {
-<a name="l00056"></a>00056         <span class="keyword">public</span>:
-<a name="l00057"></a>00057             <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a0ce84b966f3733ce9e95bd653ccc28ae">Header</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file);
-<a name="l00058"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a7d9e38d1389d69035d8ead15bfb13ee2">00058</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a7d9e38d1389d69035d8ead15bfb13ee2">ident</a>;
-<a name="l00059"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#ab09368c9fb8ff4543b43c76900a36bda">00059</a>             uint64_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#ab09368c9fb8ff4543b43c76900a36bda">fileSize</a>;
-<a name="l00060"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a5dd5cde696d273631b5972316ac1a16b">00060</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a5dd5cde696d273631b5972316ac1a16b">fileStart</a>;
-<a name="l00061"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a049f03710739e5a6bdb186fb648be861">00061</a>             int16_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a049f03710739e5a6bdb186fb648be861">version</a>;
-<a name="l00062"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#af2055a74455d9e671e19d493acb67d7e">00062</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#af2055a74455d9e671e19d493acb67d7e">copyright</a>;
-<a name="l00063"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a1ddca8e1ef83e8252386f804880a2c2e">00063</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html#a1ddca8e1ef83e8252386f804880a2c2e">versionHash</a>;
+<a name="l00015"></a>00015         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a74b97f164de8f27b9a5a378ad2b12924">operator[] </a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp;);
+<a name="l00016"></a>00016         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65">g</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
+<a name="l00017"></a>00017         map&lt;string, Node&gt;::iterator <a class="code" href="class_n_l_s_1_1_node.html#af1425ee083332f4f6e347930a833ccdd">Begin</a>();
+<a name="l00018"></a>00018         map&lt;string, Node&gt;::iterator <a class="code" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451">End</a>();
+<a name="l00019"></a>00019         <a class="code" href="class_n_l_s_1_1_node.html#a23e3670f3f703d8f4a256eb79d065ece">operator bool</a>();
+<a name="l00020"></a>00020         <a class="code" href="class_n_l_s_1_1_node.html#a8bb0110a0263c8c49a0e5be927110df8">operator string</a>();
+<a name="l00021"></a>00021         <a class="code" href="class_n_l_s_1_1_node.html#a56c97176875feba962eddc648ab5c390">operator double</a>();
+<a name="l00022"></a>00022         <a class="code" href="class_n_l_s_1_1_node.html#a755efb84f029659f7e037f3061d3c2cc">operator int</a>();
+<a name="l00023"></a>00023         <a class="code" href="class_n_l_s_1_1_node.html#a2a366290eb58a237ebd35846589cf992">operator Sprite</a>();
+<a name="l00024"></a>00024         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
+<a name="l00025"></a>00025         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp;);
+<a name="l00026"></a>00026         <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_node.html#a023055a533cbc9facff9a2572b879077">operator= </a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp;);
+<a name="l00027"></a><a class="code" href="class_n_l_s_1_1_node.html#ac79bdf403a550f937c724225c0f46326">00027</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>* <a class="code" href="class_n_l_s_1_1_node.html#ac79bdf403a550f937c724225c0f46326">data</a>;
+<a name="l00028"></a>00028     };
+<a name="l00029"></a><a class="code" href="namespace_n_l_s_1_1_w_z.html">00029</a>     <span class="keyword">namespace </span>WZ {
+<a name="l00030"></a>00030         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>;
+<a name="l00031"></a>00031         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="namespace_n_l_s_1_1_w_z.html#aa1e7322898f47fa9633003efcdc14221">Empty</a>;
+<a name="l00032"></a>00032         <span class="comment">//And now lets define them somehow</span>
+<a name="l00033"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">00033</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a> {
+<a name="l00034"></a>00034         <span class="keyword">public</span>:
+<a name="l00035"></a>00035             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#ab4926151951db1fd2753368b4b7455c1">File</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name);
+<a name="l00036"></a>00036             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#ab4926151951db1fd2753368b4b7455c1">File</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name, <span class="keywordtype">bool</span> beta);
+<a name="l00037"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a928034611f7d7ecddb34db437e4aee16">00037</a>             ifstream <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a928034611f7d7ecddb34db437e4aee16">file</a>;
+<a name="l00038"></a>00038             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a640ddc849e899b47569d2b36e214cd57">Hash</a>(uint16_t enc, uint16_t real);
+<a name="l00039"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a084689fee419b8c27cc4c0674027e55f">00039</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a084689fee419b8c27cc4c0674027e55f">ident</a>;
+<a name="l00040"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#af861a07c595f9283ac8e839bfa9d1979">00040</a>             uint64_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#af861a07c595f9283ac8e839bfa9d1979">fileSize</a>;
+<a name="l00041"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#af4dba765e824c2fd6c8a89d2b8b4e0d1">00041</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#af4dba765e824c2fd6c8a89d2b8b4e0d1">fileStart</a>;
+<a name="l00042"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#abf73031eea9847f5337b38b5c6c0c8a4">00042</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#abf73031eea9847f5337b38b5c6c0c8a4">copyright</a>;
+<a name="l00043"></a>00043         };
+<a name="l00044"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html">00044</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html">Directory</a> {
+<a name="l00045"></a>00045         <span class="keyword">public</span>:
+<a name="l00046"></a>00046             <a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html#afbd19a153da3dc39626f7b4edd522914">Directory</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file, <a class="code" href="class_n_l_s_1_1_node.html">Node</a> n);
+<a name="l00047"></a>00047         };
+<a name="l00048"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">00048</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">Image</a> {
+<a name="l00049"></a>00049         <span class="keyword">public</span>:
+<a name="l00050"></a>00050             <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#af8fcaaa158a1db897e3763905be6e114">Image</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">file</a>, <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">n</a>, uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">offset</a>);
+<a name="l00051"></a>00051             <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a">Parse</a>();
+<a name="l00052"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">00052</a>             <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">n</a>;
+<a name="l00053"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a61d09c36f59230af38808666fbeb4ed3">00053</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a61d09c36f59230af38808666fbeb4ed3">name</a>;
+<a name="l00054"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">00054</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">offset</a>;
+<a name="l00055"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">00055</a>             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">file</a>;
+<a name="l00056"></a>00056         };
+<a name="l00057"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html">00057</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html">SubProperty</a> {
+<a name="l00058"></a>00058         <span class="keyword">public</span>:
+<a name="l00059"></a>00059             <a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html#ab29c3ef542fa09ba3e5ceae505837cb0">SubProperty</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file, <a class="code" href="class_n_l_s_1_1_node.html">Node</a> n, uint32_t offset);
+<a name="l00060"></a>00060         };
+<a name="l00061"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html">00061</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html">ExtendedProperty</a> {
+<a name="l00062"></a>00062         <span class="keyword">public</span>:
+<a name="l00063"></a>00063             <a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#a1ff2cd19d43115190d6a89c1c0d4e9fc">ExtendedProperty</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file, <a class="code" href="class_n_l_s_1_1_node.html">Node</a> n, uint32_t offset, uint32_t eob);
 <a name="l00064"></a>00064         };
-<a name="l00065"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html">00065</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html">Directory</a> {
+<a name="l00065"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html">00065</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html">PNGProperty</a> {
 <a name="l00066"></a>00066         <span class="keyword">public</span>:
-<a name="l00067"></a>00067             <a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html#abea5d775d57d07c01d5869ece0e7f5b2">Directory</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html#a39c74bb90313767b116330db7a33386c">file</a>, <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; n);
-<a name="l00068"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html#a39c74bb90313767b116330db7a33386c">00068</a>             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_directory.html#a39c74bb90313767b116330db7a33386c">file</a>;
-<a name="l00069"></a>00069         };
-<a name="l00070"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">00070</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a> {
-<a name="l00071"></a>00071         <span class="keyword">public</span>:
-<a name="l00072"></a>00072             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#ab4926151951db1fd2753368b4b7455c1">File</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name);
-<a name="l00073"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a928034611f7d7ecddb34db437e4aee16">00073</a>             ifstream <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a928034611f7d7ecddb34db437e4aee16">file</a>;
-<a name="l00074"></a>00074             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a640ddc849e899b47569d2b36e214cd57">Hash</a>(uint16_t enc, uint16_t real);
-<a name="l00075"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a617ad29a3f3d55a8d217b48bd0eb99e1">00075</a>             uint16_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a617ad29a3f3d55a8d217b48bd0eb99e1">version</a>;
-<a name="l00076"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a148c6eeddc4e299aa8e02b6cf6b61b8e">00076</a>             <a class="code" href="class_n_l_s_1_1_w_z_1_1_header.html">Header</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html#a148c6eeddc4e299aa8e02b6cf6b61b8e">head</a>;
-<a name="l00077"></a>00077         };
-<a name="l00078"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">00078</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">Image</a> {
-<a name="l00079"></a>00079         <span class="keyword">public</span>:
-<a name="l00080"></a>00080             <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a16620064992e1e80ce35fc8a9b1c009d">Image</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">file</a>, <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">n</a>, uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">offset</a>);
-<a name="l00081"></a>00081             <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a">Parse</a>();
-<a name="l00082"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">00082</a>             <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a7c84d95e799118e780457a6f6ed9ffd4">n</a>;
-<a name="l00083"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a61d09c36f59230af38808666fbeb4ed3">00083</a>             <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a61d09c36f59230af38808666fbeb4ed3">name</a>;
-<a name="l00084"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">00084</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#aba42d920adfdaa9d6b05c96abfed3863">offset</a>;
-<a name="l00085"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">00085</a>             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html#a98b804093688c6b1f8ed07dc893b4d47">file</a>;
-<a name="l00086"></a>00086         };
-<a name="l00087"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html">00087</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html">SubProperty</a> {
-<a name="l00088"></a>00088         <span class="keyword">public</span>:
-<a name="l00089"></a>00089             <a class="code" href="class_n_l_s_1_1_w_z_1_1_sub_property.html#a5b761e18e5c8f3c51d67b39d8a97f487">SubProperty</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file, <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; n, uint32_t offset);
-<a name="l00090"></a>00090         };
-<a name="l00091"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html">00091</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html">ExtendedProperty</a> {
-<a name="l00092"></a>00092         <span class="keyword">public</span>:
-<a name="l00093"></a>00093             <a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#ad1cac8da1f39f63ef7ffb2eb1cb72c8c">ExtendedProperty</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* file, <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; n, uint32_t offset, uint32_t eob);
-<a name="l00094"></a>00094         };
-<a name="l00095"></a>00095         <span class="comment">//Functions</span>
-<a name="l00096"></a>00096         <span class="keywordtype">bool</span> <a class="code" href="namespace_n_l_s_1_1_w_z.html#a671528c9271df4bfc1db8cf17d23211c">Init</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; path);
-<a name="l00097"></a>00097     }
-<a name="l00098"></a><a class="code" href="class_n_l_s_1_1_node_data.html">00098</a>     <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a> {
-<a name="l00099"></a>00099     <span class="keyword">public</span>:
-<a name="l00100"></a>00100         <a class="code" href="class_n_l_s_1_1_node_data.html#a6a28fdd4aa4c5d93bde9345117788ba8">NodeData</a>();
-<a name="l00101"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a63f760a5b01e695d125dc32fd860d921">00101</a>         <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a63f760a5b01e695d125dc32fd860d921">stringValue</a>;
-<a name="l00102"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a5a137fc9dccdd1508d997302bbeddffa">00102</a>         <span class="keywordtype">double</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a5a137fc9dccdd1508d997302bbeddffa">floatValue</a>;
-<a name="l00103"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">00103</a>         <span class="keywordtype">int</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">intValue</a>;
-<a name="l00104"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a0f4dd4ffe68226317483413d9285186e">00104</a>         <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="class_n_l_s_1_1_node_data.html#a0f4dd4ffe68226317483413d9285186e">parent</a>;
-<a name="l00105"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a1e4b29b4ccdc27376805a5b48b4f6327">00105</a>         <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a1e4b29b4ccdc27376805a5b48b4f6327">name</a>;
-<a name="l00106"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a17edf47b75fe7bef000d99cd9416ec33">00106</a>         map &lt;string, Node&gt; <a class="code" href="class_n_l_s_1_1_node_data.html#a17edf47b75fe7bef000d99cd9416ec33">children</a>;
-<a name="l00107"></a><a class="code" href="class_n_l_s_1_1_node_data.html#abaeecefcc2697b30c53d03e4bacae7d0">00107</a>         <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">WZ::Image</a>* <a class="code" href="class_n_l_s_1_1_node_data.html#abaeecefcc2697b30c53d03e4bacae7d0">image</a>;
-<a name="l00108"></a>00108     <span class="keyword">private</span>:
-<a name="l00109"></a>00109         <a class="code" href="class_n_l_s_1_1_node_data.html#a6a28fdd4aa4c5d93bde9345117788ba8">NodeData</a>(<span class="keyword">const</span> <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp;);
-<a name="l00110"></a>00110         <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp; <a class="code" href="class_n_l_s_1_1_node_data.html#a24bd4ea52665f2cfc8eeacdb13f7f7d6">operator= </a>(<span class="keyword">const</span> <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp;);
-<a name="l00111"></a>00111     };
-<a name="l00112"></a>00112 };
+<a name="l00067"></a>00067             <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#afe8074dca5f4a76d543023efd7cb0124">PNGProperty</a>(<a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a2b4370913732ad16249088832846da0b">file</a>, <a class="code" href="class_n_l_s_1_1_sprite.html">Sprite</a> spr);
+<a name="l00068"></a>00068             <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a532c19f5b008f101003ae1375ffc5ce6">Parse</a>();
+<a name="l00069"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a2b4370913732ad16249088832846da0b">00069</a>             <a class="code" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a>* <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a2b4370913732ad16249088832846da0b">file</a>;
+<a name="l00070"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a52f2f27d42aca3960cf95941f603dfe6">00070</a>             <a class="code" href="class_n_l_s_1_1_sprite.html">Sprite</a> <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a52f2f27d42aca3960cf95941f603dfe6">sprite</a>;
+<a name="l00071"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a27402b856011e95a60d1181ea9f2ceaf">00071</a>             int32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a27402b856011e95a60d1181ea9f2ceaf">format</a>;
+<a name="l00072"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a64dc4eddb1229fef07d433e5d94adc19">00072</a>             uint8_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a64dc4eddb1229fef07d433e5d94adc19">format2</a>;
+<a name="l00073"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#af584fc8742e5a451577dd57150c98c40">00073</a>             int32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#af584fc8742e5a451577dd57150c98c40">length</a>;
+<a name="l00074"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a2473785edc303afbfd673d595ffa2099">00074</a>             uint32_t <a class="code" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html#a2473785edc303afbfd673d595ffa2099">offset</a>;
+<a name="l00075"></a>00075         };
+<a name="l00076"></a><a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html">00076</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html">SoundProperty</a> {
+<a name="l00077"></a>00077         <span class="keyword">public</span>:
+<a name="l00078"></a>00078         };
+<a name="l00079"></a>00079         <span class="comment">//Functions</span>
+<a name="l00080"></a>00080         <span class="keywordtype">bool</span> <a class="code" href="namespace_n_l_s_1_1_w_z.html#a671528c9271df4bfc1db8cf17d23211c">Init</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; path);
+<a name="l00081"></a>00081     }
+<a name="l00082"></a><a class="code" href="class_n_l_s_1_1_node_data.html">00082</a>     <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a> {
+<a name="l00083"></a>00083     <span class="keyword">public</span>:
+<a name="l00084"></a>00084         <a class="code" href="class_n_l_s_1_1_node_data.html#a6a28fdd4aa4c5d93bde9345117788ba8">NodeData</a>();
+<a name="l00085"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a63f760a5b01e695d125dc32fd860d921">00085</a>         <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a63f760a5b01e695d125dc32fd860d921">stringValue</a>;
+<a name="l00086"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a5a137fc9dccdd1508d997302bbeddffa">00086</a>         <span class="keywordtype">double</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a5a137fc9dccdd1508d997302bbeddffa">floatValue</a>;
+<a name="l00087"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">00087</a>         <span class="keywordtype">int</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">intValue</a>;
+<a name="l00088"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a533a06efc9bf1c77a892ca68a31f7e30">00088</a>         <a class="code" href="class_n_l_s_1_1_sprite.html">Sprite</a> <a class="code" href="class_n_l_s_1_1_node_data.html#a533a06efc9bf1c77a892ca68a31f7e30">sprite</a>;
+<a name="l00089"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a0f4dd4ffe68226317483413d9285186e">00089</a>         <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="class_n_l_s_1_1_node_data.html#a0f4dd4ffe68226317483413d9285186e">parent</a>;
+<a name="l00090"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a1e4b29b4ccdc27376805a5b48b4f6327">00090</a>         <span class="keywordtype">string</span> <a class="code" href="class_n_l_s_1_1_node_data.html#a1e4b29b4ccdc27376805a5b48b4f6327">name</a>;
+<a name="l00091"></a><a class="code" href="class_n_l_s_1_1_node_data.html#a17edf47b75fe7bef000d99cd9416ec33">00091</a>         map &lt;string, Node&gt; <a class="code" href="class_n_l_s_1_1_node_data.html#a17edf47b75fe7bef000d99cd9416ec33">children</a>;
+<a name="l00092"></a><a class="code" href="class_n_l_s_1_1_node_data.html#abaeecefcc2697b30c53d03e4bacae7d0">00092</a>         <a class="code" href="class_n_l_s_1_1_w_z_1_1_image.html">WZ::Image</a>* <a class="code" href="class_n_l_s_1_1_node_data.html#abaeecefcc2697b30c53d03e4bacae7d0">image</a>;
+<a name="l00093"></a>00093     <span class="keyword">private</span>:
+<a name="l00094"></a>00094         <a class="code" href="class_n_l_s_1_1_node_data.html#a6a28fdd4aa4c5d93bde9345117788ba8">NodeData</a>(<span class="keyword">const</span> <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp;);
+<a name="l00095"></a>00095         <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp; <a class="code" href="class_n_l_s_1_1_node_data.html#a24bd4ea52665f2cfc8eeacdb13f7f7d6">operator= </a>(<span class="keyword">const</span> <a class="code" href="class_n_l_s_1_1_node_data.html">NodeData</a>&amp;);
+<a name="l00096"></a>00096     };
+<a name="l00097"></a>00097 };
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -219,7 +204,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -229,7 +214,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:28 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:03 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

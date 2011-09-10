@@ -1,6 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="227,5,291,32"/>
-<area shape="rect" id="node5" href="$class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="209,56,309,83"/>
-<area shape="rect" id="node7" href="$class_n_l_s_1_1_w_z_1_1_file.html#a640ddc849e899b47569d2b36e214cd57" title="NLS::WZ::File::Hash" alt="" coords="187,107,330,133"/>
-<area shape="rect" id="node9" href="$_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="379,107,445,133"/>
+<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="205,5,269,32"/>
+<area shape="rect" id="node5" href="$class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="187,56,287,83"/>
 </map>

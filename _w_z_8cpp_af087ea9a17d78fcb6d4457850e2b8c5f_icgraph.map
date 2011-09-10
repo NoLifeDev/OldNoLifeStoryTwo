@@ -1,8 +1,9 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$class_n_l_s_1_1_w_z_1_1_directory.html#abea5d775d57d07c01d5869ece0e7f5b2" title="NLS::WZ::Directory::Directory" alt="" coords="163,5,357,32"/>
-<area shape="rect" id="node5" href="$class_n_l_s_1_1_w_z_1_1_extended_property.html#ad1cac8da1f39f63ef7ffb2eb1cb72c8c" title="NLS::WZ::ExtendedProperty::ExtendedProperty" alt="" coords="405,107,704,133"/>
-<area shape="rect" id="node7" href="$class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a" title="NLS::WZ::Image::Parse" alt="" coords="180,107,340,133"/>
-<area shape="rect" id="node9" href="$_w_z_8cpp.html#a0be14645e1fc6ce733b9edb9ea628933" title="ReadString" alt="" coords="217,208,303,235"/>
-<area shape="rect" id="node13" href="$_w_z_8cpp.html#aa8eed6af426f04411afc9c9e9c0894ad" title="ReadStringOffset" alt="" coords="200,157,320,184"/>
-<area shape="rect" id="node11" href="$class_n_l_s_1_1_w_z_1_1_sub_property.html#a5b761e18e5c8f3c51d67b39d8a97f487" title="NLS::WZ::SubProperty::SubProperty" alt="" coords="437,208,672,235"/>
+<area shape="rect" id="node3" href="$class_n_l_s_1_1_w_z_1_1_directory.html#afbd19a153da3dc39626f7b4edd522914" title="NLS::WZ::Directory::Directory" alt="" coords="163,5,357,32"/>
+<area shape="rect" id="node5" href="$class_n_l_s_1_1_w_z_1_1_extended_property.html#a1ff2cd19d43115190d6a89c1c0d4e9fc" title="NLS::WZ::ExtendedProperty::ExtendedProperty" alt="" coords="405,132,704,159"/>
+<area shape="rect" id="node7" href="$class_n_l_s_1_1_w_z_1_1_file.html#af918ca1686c5b966d044e10e580d3c39" title="NLS::WZ::File::File" alt="" coords="193,107,327,133"/>
+<area shape="rect" id="node9" href="$class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a" title="NLS::WZ::Image::Parse" alt="" coords="180,157,340,184"/>
+<area shape="rect" id="node11" href="$_w_z_8cpp.html#a0be14645e1fc6ce733b9edb9ea628933" title="ReadString" alt="" coords="217,259,303,285"/>
+<area shape="rect" id="node15" href="$_w_z_8cpp.html#aa8eed6af426f04411afc9c9e9c0894ad" title="ReadStringOffset" alt="" coords="200,208,320,235"/>
+<area shape="rect" id="node13" href="$class_n_l_s_1_1_w_z_1_1_sub_property.html#ab29c3ef542fa09ba3e5ceae505837cb0" title="NLS::WZ::SubProperty::SubProperty" alt="" coords="437,259,672,285"/>
 </map>

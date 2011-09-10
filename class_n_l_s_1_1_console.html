@@ -146,13 +146,13 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00011">11</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00009">9</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8cpp_source.html#l00019">Loop()</a>, <a class="el" href="_console_8h_source.html#l00024">show</a>, <a class="el" href="_console_8h_source.html#l00021">shutdown</a>, <a class="el" href="_console_8h_source.html#l00022">t</a>, and <a class="el" href="_console_8h_source.html#l00024">toggle</a>.</p>
+<p>References <a class="el" href="_console_8cpp_source.html#l00017">Loop()</a>, <a class="el" href="_console_8h_source.html#l00024">show</a>, <a class="el" href="_console_8h_source.html#l00021">shutdown</a>, <a class="el" href="_console_8h_source.html#l00022">t</a>, and <a class="el" href="_console_8h_source.html#l00024">toggle</a>.</p>
 <div class="fragment"><pre class="fragment">                    {
     <a class="code" href="class_n_l_s_1_1_console.html#abb4738a022c3f6ebcb91324e747edd4d">shutdown</a> = <span class="keyword">false</span>;
     <a class="code" href="class_n_l_s_1_1_console.html#a4bf4494b47323aa8c1de988bffc9ae3f">toggle</a> = <span class="keyword">false</span>;
-    <a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a> = <span class="keyword">true</span>;
+    <a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a> = <span class="keyword">false</span>;
     <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a> = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">Loop</a>();});
     <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a>-&gt;Launch();
 }
@@ -182,7 +182,7 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00129">129</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00131">131</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                     {
     <a class="code" href="class_n_l_s_1_1_console.html#abb4738a022c3f6ebcb91324e747edd4d">shutdown</a> = <span class="keyword">true</span>;
     <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a>-&gt;Wait();
@@ -206,7 +206,7 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00108">108</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00110">110</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                {
     istringstream iss(<a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>);
     vector&lt;string&gt; command;
@@ -233,11 +233,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00019">19</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00017">17</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 
-<p>References <a class="el" href="_resource_8h_source.html#l00006">IDI_NOLIFESTORY_ICON</a>, and <a class="el" href="_graphics_8cpp_source.html#l00007">NLS::window</a>.</p>
+<p>References <a class="el" href="_resource_8h_source.html#l00006">IDI_NOLIFESTORY_ICON</a>, <a class="el" href="_view_8cpp_source.html#l00007">NLS::View</a>, and <a class="el" href="_graphics_8cpp_source.html#l00007">NLS::window</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00011">Console()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00009">Console()</a>.</p>
 <div class="fragment"><pre class="fragment">                      {
     <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a> = <span class="keyword">new</span> sf::RenderWindow(sf::VideoMode(400,400,32), <span class="stringliteral">&quot;NoLifeStory::FancyConsole&quot;</span>, sf::Style::Resize|sf::Style::Close, sf::ContextSettings(0, 0, 0, 2, 0));
     <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;Show(<a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a>);
@@ -257,27 +257,27 @@ Here is the call graph for this function:</div>
             <a class="code" href="class_n_l_s_1_1_console.html#a4bf4494b47323aa8c1de988bffc9ae3f">toggle</a> = <span class="keyword">false</span>;
         }
         sf::Event e;
-        <span class="keywordflow">while</span> (<a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetEvent(e)) {
+        <span class="keywordflow">while</span> (<a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;PollEvent(e)) {
             <span class="keywordflow">switch</span> (e.Type) {
             <span class="keywordflow">case</span> sf::Event::KeyPressed:
                 <span class="keywordflow">switch</span> (e.Key.Code) {
-                <span class="keywordflow">case</span> sf::Key::Back:
+                <span class="keywordflow">case</span> sf::Keyboard::Back:
                     <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a> != 0) {
                         <a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>.erase(--<a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a>, 1);
                     }
                     <span class="keywordflow">break</span>;
-                <span class="keywordflow">case</span> sf::Key::Delete:
+                <span class="keywordflow">case</span> sf::Keyboard::Delete:
                     <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a> != <a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>.size()) {
                         <a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>.erase(<a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a>, 1);
                     }
                     <span class="keywordflow">break</span>;
-                <span class="keywordflow">case</span> sf::Key::Left:
+                <span class="keywordflow">case</span> sf::Keyboard::Left:
                     <a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a> = max&lt;int32_t&gt;(0, <a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a>-1);
                     <span class="keywordflow">break</span>;
-                <span class="keywordflow">case</span> sf::Key::Right:
+                <span class="keywordflow">case</span> sf::Keyboard::Right:
                     <a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a> = min&lt;int32_t&gt;(<a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>.size(), <a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a>+1);
                     <span class="keywordflow">break</span>;
-                <span class="keywordflow">case</span> sf::Key::Return:
+                <span class="keywordflow">case</span> sf::Keyboard::Return:
                     <a class="code" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3">HandleCommand</a>(<a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>);
                     <a class="code" href="class_n_l_s_1_1_console.html#aa76958d9bcca772f0e67197f363d9d3d">m</a>.Lock();
                     <a class="code" href="class_n_l_s_1_1_console.html#a38bccf47b07ced5db273bb50d9bbe4a4">strs</a>.push_back(<a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>);
@@ -285,7 +285,7 @@ Here is the call graph for this function:</div>
                     <a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>.clear();
                     <a class="code" href="class_n_l_s_1_1_console.html#af22cc5d9b08721b3a76e19f4e638e0a5">pos</a> = 0;
                     <span class="keywordflow">break</span>;
-                <span class="keywordflow">case</span> sf::Key::Tilde:
+                <span class="keywordflow">case</span> sf::Keyboard::Tilde:
                     <a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">Toggle</a>();
                     <span class="keywordflow">break</span>;
                 }
@@ -300,7 +300,7 @@ Here is the call graph for this function:</div>
                 <a class="code" href="class_n_l_s_1_1_console.html#a4bf4494b47323aa8c1de988bffc9ae3f">toggle</a> = <span class="keyword">true</span>;
                 <span class="keywordflow">break</span>;
             <span class="keywordflow">case</span> sf::Event::Resized:
-                <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;SetView(sf::View(sf::FloatRect(0, 0, <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetWidth(), <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetHeight())));
+                <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;SetView(<a class="code" href="namespace_n_l_s.html#ab8595bcd4dd056dab28e173270679f22">sf::View</a>(sf::FloatRect(0, 0, <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetWidth(), <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetHeight())));
                 <span class="keywordflow">break</span>;
             }
         }
@@ -321,7 +321,11 @@ Here is the call graph for this function:</div>
         sf::Shape s = sf::Shape::Line(0, <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetHeight()-12, <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetWidth(), <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetHeight()-12, 1, sf::Color::White);
         <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;Draw(s);
         <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;Display();
-        sf::Sleep(max(0.02-<a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetFrameTime(), 0.));
+        <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a>) {
+            sf::Sleep(max(50-(<span class="keywordtype">int</span>)<a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetFrameTime(), 0));
+        } <span class="keywordflow">else</span> {
+            sf::Sleep(max(1000-(<span class="keywordtype">int</span>)<a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>-&gt;GetFrameTime(), 0));
+        }
     }
     <span class="keyword">delete</span> <a class="code" href="class_n_l_s_1_1_console.html#a3ea16579410ceda184e3edd36e00a266">font</a>;
     <span class="keyword">delete</span> <a class="code" href="class_n_l_s_1_1_console.html#ace661cd4742548c41488b0250b6d70ed">window</a>;
@@ -353,9 +357,9 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00118">118</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00120">120</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8h_source.html#l00036">NLS::Stream::operator()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8h_source.html#l00034">NLS::Stream::operator&lt;&lt;()</a>.</p>
 <div class="fragment"><pre class="fragment">                                       {
     <a class="code" href="class_n_l_s_1_1_console.html#aa76958d9bcca772f0e67197f363d9d3d">m</a>.Lock();
     <a class="code" href="class_n_l_s_1_1_console.html#a38bccf47b07ced5db273bb50d9bbe4a4">strs</a>.push_back(<a class="code" href="class_n_l_s_1_1_console.html#ab5151c993aae2024c85dc5915f20d830">str</a>);
@@ -367,7 +371,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_n_l_s_1_1_console_a8480851afff3b518b1a0472be56c5f10_icgraph.png" border="0" usemap="#class_n_l_s_1_1_console_a8480851afff3b518b1a0472be56c5f10_icgraph" alt=""/></div>
 <map name="class_n_l_s_1_1_console_a8480851afff3b518b1a0472be56c5f10_icgraph" id="class_n_l_s_1_1_console_a8480851afff3b518b1a0472be56c5f10_icgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_stream.html#addeb52914088ad5ba1e781e7054957ab" title="NLS::Stream::operator" alt="" coords="195,5,347,32"/></map>
+<area shape="rect" id="node3" href="class_n_l_s_1_1_stream.html#a2f131e096a050f0e0eaa9e4cf62a6e1e" title="NLS::Stream::operator\&lt;\&lt;" alt="" coords="195,5,363,32"/></map>
 </div>
 </p>
 
@@ -387,7 +391,7 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00124">124</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_console_8cpp_source.html#l00126">126</a> of file <a class="el" href="_console_8cpp_source.html">Console.cpp</a>.</p>
 
 <p>Referenced by <a class="el" href="_client_8cpp_source.html#l00020">NLS::Loop()</a>.</p>
 <div class="fragment"><pre class="fragment">                        {
@@ -465,7 +469,7 @@ Here is the caller graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_console_8h_source.html#l00024">24</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00011">Console()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00009">Console()</a>.</p>
 
 </div>
 </div>
@@ -482,7 +486,7 @@ Here is the caller graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_console_8h_source.html#l00021">21</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00011">Console()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00009">Console()</a>.</p>
 
 </div>
 </div>
@@ -529,7 +533,7 @@ Here is the caller graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_console_8h_source.html#l00022">22</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00011">Console()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00009">Console()</a>.</p>
 
 </div>
 </div>
@@ -546,7 +550,7 @@ Here is the caller graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_console_8h_source.html#l00024">24</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00011">Console()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00009">Console()</a>.</p>
 
 </div>
 </div>
@@ -580,7 +584,7 @@ Here is the caller graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -590,7 +594,7 @@ Here is the caller graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

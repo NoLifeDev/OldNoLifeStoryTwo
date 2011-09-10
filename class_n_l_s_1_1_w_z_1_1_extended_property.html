@@ -108,13 +108,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#ad1cac8da1f39f63ef7ffb2eb1cb72c8c">ExtendedProperty</a> (<a class="el" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a> *file, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> &amp;n, uint32_t offset, uint32_t eob)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#a1ff2cd19d43115190d6a89c1c0d4e9fc">ExtendedProperty</a> (<a class="el" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a> *file, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> n, uint32_t offset, uint32_t eob)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00091">91</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00061">61</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad1cac8da1f39f63ef7ffb2eb1cb72c8c"></a><!-- doxytag: member="NLS::WZ::ExtendedProperty::ExtendedProperty" ref="ad1cac8da1f39f63ef7ffb2eb1cb72c8c" args="(File *file, Node &amp;n, uint32_t offset, uint32_t eob)" -->
+<a class="anchor" id="a1ff2cd19d43115190d6a89c1c0d4e9fc"></a><!-- doxytag: member="NLS::WZ::ExtendedProperty::ExtendedProperty" ref="a1ff2cd19d43115190d6a89c1c0d4e9fc" args="(File *file, Node n, uint32_t offset, uint32_t eob)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -127,7 +127,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_n_l_s_1_1_node.html">Node</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td>
           <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
@@ -151,10 +151,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00336">336</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00446">446</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8h_source.html#l00047">NLS::C()</a>, <a class="el" href="_console_8cpp_source.html#l00009">NLS::Endl</a>, <a class="el" href="_w_z_8h_source.html#l00073">NLS::WZ::File::file</a>, <a class="el" href="_w_z_8cpp_source.html#l00433">NLS::Node::g()</a>, <a class="el" href="_w_z_8cpp_source.html#l00031">ReadCInt()</a>, <a class="el" href="_w_z_8cpp_source.html#l00053">ReadEncString()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00122">ReadStringOffset()</a>.</p>
-<div class="fragment"><pre class="fragment">                                                                                          {
+<p>References <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_sprite_8h_source.html#l00020">NLS::Sprite::data</a>, <a class="el" href="_w_z_8h_source.html#l00027">NLS::Node::data</a>, <a class="el" href="_w_z_8h_source.html#l00037">NLS::WZ::File::file</a>, <a class="el" href="_w_z_8cpp_source.html#l00636">NLS::Node::g()</a>, <a class="el" href="_sprite_8h_source.html#l00012">NLS::SpriteData::originx</a>, <a class="el" href="_sprite_8h_source.html#l00012">NLS::SpriteData::originy</a>, <a class="el" href="_sprite_8h_source.html#l00014">NLS::SpriteData::png</a>, <a class="el" href="_w_z_8cpp_source.html#l00067">ReadCInt()</a>, <a class="el" href="_w_z_8cpp_source.html#l00089">ReadEncString()</a>, <a class="el" href="_w_z_8cpp_source.html#l00182">ReadStringOffset()</a>, and <a class="el" href="_w_z_8h_source.html#l00088">NLS::NodeData::sprite</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                                         {
     <span class="keywordtype">string</span> name;
     uint8_t a = Read&lt;uint8_t&gt;(file);
     <span class="keywordflow">if</span> (a == 0x1B) {
@@ -177,14 +177,17 @@ Public Member Functions</h2></td></tr>
             file-&gt;file.seekg(2, ios_base::cur);
             <span class="keyword">new</span> SubProperty(file, n, offset);
         }
-        <span class="comment">//TODO: Do something with the png property</span>
+        n.data-&gt;sprite.data = <span class="keyword">new</span> SpriteData;
+        n.data-&gt;sprite.data-&gt;png = <span class="keyword">new</span> PNGProperty(file, n.data-&gt;sprite);
+        n.data-&gt;sprite.data-&gt;originx = n[<span class="stringliteral">&quot;origin&quot;</span>][<span class="stringliteral">&quot;x&quot;</span>];
+        n.data-&gt;sprite.data-&gt;originy = n[<span class="stringliteral">&quot;origin&quot;</span>][<span class="stringliteral">&quot;y&quot;</span>];
     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Shape2D#Vector2D&quot;</span>) {
         n.g(<span class="stringliteral">&quot;x&quot;</span>) = <a class="code" href="_w_z_8cpp.html#adc1a2f08507f2063cfdfb65ab5017502">ReadCInt</a>(file-&gt;file);
         n.g(<span class="stringliteral">&quot;y&quot;</span>) = <a class="code" href="_w_z_8cpp.html#adc1a2f08507f2063cfdfb65ab5017502">ReadCInt</a>(file-&gt;file);
     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Shape2D#Convex2D&quot;</span>) {
         int32_t ec = <a class="code" href="_w_z_8cpp.html#adc1a2f08507f2063cfdfb65ab5017502">ReadCInt</a>(file-&gt;file);
         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; ec; i++) {
-            <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#ad1cac8da1f39f63ef7ffb2eb1cb72c8c">ExtendedProperty</a>(file, n.g(name), offset, eob);
+            <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_w_z_1_1_extended_property.html#a1ff2cd19d43115190d6a89c1c0d4e9fc">ExtendedProperty</a>(file, n.g(name), offset, eob);
         }
     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Sound_DX8&quot;</span>) {
         <span class="comment">//TODO: Do something with the mp3 property</span>
@@ -202,11 +205,11 @@ Public Member Functions</h2></td></tr>
                 <span class="keywordflow">break</span>;
             }
         <span class="keywordflow">default</span>:
-            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown UOL type&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown UOL type&quot;</span> &lt;&lt; endl;
             <span class="keywordflow">throw</span>(273);
         }
     } <span class="keywordflow">else</span> {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown ExtendedProperty type&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown ExtendedProperty type&quot;</span> &lt;&lt; endl;
         <span class="keywordflow">throw</span>(273);
     }
     <span class="keyword">delete</span> <span class="keyword">this</span>;
@@ -215,8 +218,8 @@ Public Member Functions</h2></td></tr>
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_n_l_s_1_1_w_z_1_1_extended_property_ad1cac8da1f39f63ef7ffb2eb1cb72c8c_cgraph.png" border="0" usemap="#class_n_l_s_1_1_w_z_1_1_extended_property_ad1cac8da1f39f63ef7ffb2eb1cb72c8c_cgraph" alt=""/></div>
-<map name="class_n_l_s_1_1_w_z_1_1_extended_property_ad1cac8da1f39f63ef7ffb2eb1cb72c8c_cgraph" id="class_n_l_s_1_1_w_z_1_1_extended_property_ad1cac8da1f39f63ef7ffb2eb1cb72c8c_cgraph">
+<div class="center"><img src="class_n_l_s_1_1_w_z_1_1_extended_property_a1ff2cd19d43115190d6a89c1c0d4e9fc_cgraph.png" border="0" usemap="#class_n_l_s_1_1_w_z_1_1_extended_property_a1ff2cd19d43115190d6a89c1c0d4e9fc_cgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_w_z_1_1_extended_property_a1ff2cd19d43115190d6a89c1c0d4e9fc_cgraph" id="class_n_l_s_1_1_w_z_1_1_extended_property_a1ff2cd19d43115190d6a89c1c0d4e9fc_cgraph">
 <area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="380,5,444,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="362,56,462,83"/><area shape="rect" id="node7" href="_w_z_8cpp.html#adc1a2f08507f2063cfdfb65ab5017502" title="ReadCInt" alt="" coords="375,107,449,133"/><area shape="rect" id="node9" href="_w_z_8cpp.html#af087ea9a17d78fcb6d4457850e2b8c5f" title="ReadEncString" alt="" coords="520,183,629,209"/><area shape="rect" id="node11" href="_w_z_8cpp.html#aa8eed6af426f04411afc9c9e9c0894ad" title="ReadStringOffset" alt="" coords="352,208,472,235"/></map>
 </div>
 </p>
@@ -239,7 +242,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -249,7 +252,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

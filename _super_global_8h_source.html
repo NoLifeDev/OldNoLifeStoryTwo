@@ -126,98 +126,101 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00027"></a>00027 <span class="comment">// along with NoLifeStory.  If not, see &lt;http://www.gnu.org/licenses/&gt;. //</span>
 <a name="l00029"></a>00029 <span class="comment"></span><span class="preprocessor">#ifdef _WIN32</span>
 <a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define NLS_WINDOWS</span>
-<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#elif defined(UNIX)</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define NLS_UNIX</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#elif defined(MAC)</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define NLS_MAC</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#else</span>
-<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#error &quot;Unknown platform. Define either _WIN32, UNIX or MAC&quot;</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
-<a name="l00038"></a>00038 <span class="preprocessor"></span>
-<a name="l00039"></a>00039 <span class="comment">//SFML</span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;SFML/Config.hpp&gt;</span>
-<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span>
-<a name="l00043"></a>00043 <span class="preprocessor">#include &lt;SFML/Network.hpp&gt;</span>
-<a name="l00044"></a>00044 <span class="preprocessor">#include &lt;SFML/OpenGL.hpp&gt;</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#include &lt;Windows.h&gt;</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#elif defined(UNIX)</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#define NLS_UNIX</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#elif defined(MAC)</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#define NLS_MAC</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#else</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#error &quot;Unknown platform. Define either _WIN32, UNIX or MAC&quot;</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span>
+<a name="l00040"></a>00040 <span class="comment">//SFML</span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span>
+<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;SFML/Config.hpp&gt;</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span>
+<a name="l00044"></a>00044 <span class="preprocessor">#include &lt;SFML/Network.hpp&gt;</span>
 <a name="l00045"></a>00045 <span class="preprocessor">#include &lt;SFML/System.hpp&gt;</span>
 <a name="l00046"></a>00046 <span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span>
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048 <span class="comment">//Zlib</span>
-<a name="l00049"></a>00049 <span class="preprocessor">#include &lt;zlib.h&gt;</span>
+<a name="l00048"></a>00048 <span class="comment">//GLEW</span>
+<a name="l00049"></a>00049 <span class="preprocessor">#include &lt;glew.h&gt;</span>
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051 <span class="comment">//The entire STL</span>
-<a name="l00052"></a>00052 <span class="preprocessor">#include &lt;algorithm&gt;</span>
-<a name="l00053"></a>00053 <span class="preprocessor">#include &lt;allocators&gt;</span>
-<a name="l00054"></a>00054 <span class="preprocessor">#include &lt;array&gt;</span>
-<a name="l00055"></a>00055 <span class="preprocessor">#include &lt;bitset&gt;</span>
-<a name="l00056"></a>00056 <span class="preprocessor">#include &lt;cassert&gt;</span>
-<a name="l00057"></a>00057 <span class="preprocessor">#include &lt;ccomplex&gt;</span>
-<a name="l00058"></a>00058 <span class="preprocessor">#include &lt;cctype&gt;</span>
-<a name="l00059"></a>00059 <span class="preprocessor">#include &lt;cerrno&gt;</span>
-<a name="l00060"></a>00060 <span class="preprocessor">#include &lt;cfloat&gt;</span>
-<a name="l00061"></a>00061 <span class="preprocessor">#include &lt;ciso646&gt;</span>
-<a name="l00062"></a>00062 <span class="preprocessor">#include &lt;climits&gt;</span>
-<a name="l00063"></a>00063 <span class="preprocessor">#include &lt;clocale&gt;</span>
-<a name="l00064"></a>00064 <span class="preprocessor">#include &lt;cmath&gt;</span>
-<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;codecvt&gt;</span>
-<a name="l00066"></a>00066 <span class="preprocessor">#include &lt;complex&gt;</span>
-<a name="l00067"></a>00067 <span class="preprocessor">#include &lt;csignal&gt;</span>
-<a name="l00068"></a>00068 <span class="preprocessor">#include &lt;cstdarg&gt;</span>
-<a name="l00069"></a>00069 <span class="preprocessor">#include &lt;cstddef&gt;</span>
-<a name="l00070"></a>00070 <span class="preprocessor">#include &lt;cstdint&gt;</span>
-<a name="l00071"></a>00071 <span class="preprocessor">#include &lt;cstdio&gt;</span>
-<a name="l00072"></a>00072 <span class="preprocessor">#include &lt;cstdlib&gt;</span>
-<a name="l00073"></a>00073 <span class="preprocessor">#include &lt;cstring&gt;</span>
-<a name="l00074"></a>00074 <span class="preprocessor">#include &lt;ctime&gt;</span>
-<a name="l00075"></a>00075 <span class="preprocessor">#include &lt;cwchar&gt;</span>
-<a name="l00076"></a>00076 <span class="preprocessor">#include &lt;cwctype&gt;</span>
-<a name="l00077"></a>00077 <span class="preprocessor">#include &lt;deque&gt;</span>
-<a name="l00078"></a>00078 <span class="preprocessor">#include &lt;exception&gt;</span>
-<a name="l00079"></a>00079 <span class="preprocessor">#include &lt;forward_list&gt;</span>
-<a name="l00080"></a>00080 <span class="preprocessor">#include &lt;fstream&gt;</span>
-<a name="l00081"></a>00081 <span class="preprocessor">#include &lt;functional&gt;</span>
-<a name="l00082"></a>00082 <span class="preprocessor">#include &lt;hash_map&gt;</span>
-<a name="l00083"></a>00083 <span class="preprocessor">#include &lt;hash_set&gt;</span>
-<a name="l00084"></a>00084 <span class="preprocessor">#include &lt;initializer_list&gt;</span>
-<a name="l00085"></a>00085 <span class="preprocessor">#include &lt;iomanip&gt;</span>
-<a name="l00086"></a>00086 <span class="preprocessor">#include &lt;ios&gt;</span>
-<a name="l00087"></a>00087 <span class="preprocessor">#include &lt;iosfwd&gt;</span>
-<a name="l00088"></a>00088 <span class="preprocessor">#include &lt;iostream&gt;</span>
-<a name="l00089"></a>00089 <span class="preprocessor">#include &lt;istream&gt;</span>
-<a name="l00090"></a>00090 <span class="preprocessor">#include &lt;iterator&gt;</span>
-<a name="l00091"></a>00091 <span class="preprocessor">#include &lt;limits&gt;</span>
-<a name="l00092"></a>00092 <span class="preprocessor">#include &lt;list&gt;</span>
-<a name="l00093"></a>00093 <span class="preprocessor">#include &lt;locale&gt;</span>
-<a name="l00094"></a>00094 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00095"></a>00095 <span class="preprocessor">#include &lt;memory&gt;</span>
-<a name="l00096"></a>00096 <span class="preprocessor">#include &lt;new&gt;</span>
-<a name="l00097"></a>00097 <span class="preprocessor">#include &lt;numeric&gt;</span>
-<a name="l00098"></a>00098 <span class="preprocessor">#include &lt;ostream&gt;</span>
-<a name="l00099"></a>00099 <span class="preprocessor">#include &lt;queue&gt;</span>
-<a name="l00100"></a>00100 <span class="preprocessor">#include &lt;random&gt;</span>
-<a name="l00101"></a>00101 <span class="preprocessor">#include &lt;regex&gt;</span>
-<a name="l00102"></a>00102 <span class="preprocessor">#include &lt;set&gt;</span>
-<a name="l00103"></a>00103 <span class="preprocessor">#include &lt;sstream&gt;</span>
-<a name="l00104"></a>00104 <span class="preprocessor">#include &lt;stack&gt;</span>
-<a name="l00105"></a>00105 <span class="preprocessor">#include &lt;stdexcept&gt;</span>
-<a name="l00106"></a>00106 <span class="preprocessor">#include &lt;streambuf&gt;</span>
-<a name="l00107"></a>00107 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00108"></a>00108 <span class="preprocessor">#include &lt;strstream&gt;</span>
-<a name="l00109"></a>00109 <span class="preprocessor">#include &lt;system_error&gt;</span>
-<a name="l00110"></a>00110 <span class="preprocessor">#include &lt;tuple&gt;</span>
-<a name="l00111"></a>00111 <span class="preprocessor">#include &lt;type_traits&gt;</span>
-<a name="l00112"></a>00112 <span class="preprocessor">#include &lt;typeindeX&gt;</span>
-<a name="l00113"></a>00113 <span class="preprocessor">#include &lt;typeinfo&gt;</span>
-<a name="l00114"></a>00114 <span class="preprocessor">#include &lt;unordered_map&gt;</span>
-<a name="l00115"></a>00115 <span class="preprocessor">#include &lt;unordered_set&gt;</span>
-<a name="l00116"></a>00116 <span class="preprocessor">#include &lt;utility&gt;</span>
-<a name="l00117"></a>00117 <span class="preprocessor">#include &lt;valarray&gt;</span>
-<a name="l00118"></a>00118 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00119"></a>00119 <span class="keyword">using namespace </span>std;
-<a name="l00120"></a>00120 
-<a name="l00121"></a>00121 <span class="comment">//And resources</span>
-<a name="l00122"></a>00122 <span class="preprocessor">#include &quot;<a class="code" href="_resource_8h.html">Resource.h</a>&quot;</span>
+<a name="l00051"></a>00051 <span class="comment">//Zlib</span>
+<a name="l00052"></a>00052 <span class="preprocessor">#include &lt;zlib.h&gt;</span>
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054 <span class="comment">//The entire STL</span>
+<a name="l00055"></a>00055 <span class="preprocessor">#include &lt;algorithm&gt;</span>
+<a name="l00056"></a>00056 <span class="preprocessor">#include &lt;allocators&gt;</span>
+<a name="l00057"></a>00057 <span class="preprocessor">#include &lt;array&gt;</span>
+<a name="l00058"></a>00058 <span class="preprocessor">#include &lt;bitset&gt;</span>
+<a name="l00059"></a>00059 <span class="preprocessor">#include &lt;cassert&gt;</span>
+<a name="l00060"></a>00060 <span class="preprocessor">#include &lt;ccomplex&gt;</span>
+<a name="l00061"></a>00061 <span class="preprocessor">#include &lt;cctype&gt;</span>
+<a name="l00062"></a>00062 <span class="preprocessor">#include &lt;cerrno&gt;</span>
+<a name="l00063"></a>00063 <span class="preprocessor">#include &lt;cfloat&gt;</span>
+<a name="l00064"></a>00064 <span class="preprocessor">#include &lt;ciso646&gt;</span>
+<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;climits&gt;</span>
+<a name="l00066"></a>00066 <span class="preprocessor">#include &lt;clocale&gt;</span>
+<a name="l00067"></a>00067 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00068"></a>00068 <span class="preprocessor">#include &lt;codecvt&gt;</span>
+<a name="l00069"></a>00069 <span class="preprocessor">#include &lt;complex&gt;</span>
+<a name="l00070"></a>00070 <span class="preprocessor">#include &lt;csignal&gt;</span>
+<a name="l00071"></a>00071 <span class="preprocessor">#include &lt;cstdarg&gt;</span>
+<a name="l00072"></a>00072 <span class="preprocessor">#include &lt;cstddef&gt;</span>
+<a name="l00073"></a>00073 <span class="preprocessor">#include &lt;cstdint&gt;</span>
+<a name="l00074"></a>00074 <span class="preprocessor">#include &lt;cstdio&gt;</span>
+<a name="l00075"></a>00075 <span class="preprocessor">#include &lt;cstdlib&gt;</span>
+<a name="l00076"></a>00076 <span class="preprocessor">#include &lt;cstring&gt;</span>
+<a name="l00077"></a>00077 <span class="preprocessor">#include &lt;ctime&gt;</span>
+<a name="l00078"></a>00078 <span class="preprocessor">#include &lt;cwchar&gt;</span>
+<a name="l00079"></a>00079 <span class="preprocessor">#include &lt;cwctype&gt;</span>
+<a name="l00080"></a>00080 <span class="preprocessor">#include &lt;deque&gt;</span>
+<a name="l00081"></a>00081 <span class="preprocessor">#include &lt;exception&gt;</span>
+<a name="l00082"></a>00082 <span class="preprocessor">#include &lt;forward_list&gt;</span>
+<a name="l00083"></a>00083 <span class="preprocessor">#include &lt;fstream&gt;</span>
+<a name="l00084"></a>00084 <span class="preprocessor">#include &lt;functional&gt;</span>
+<a name="l00085"></a>00085 <span class="preprocessor">#include &lt;hash_map&gt;</span>
+<a name="l00086"></a>00086 <span class="preprocessor">#include &lt;hash_set&gt;</span>
+<a name="l00087"></a>00087 <span class="preprocessor">#include &lt;initializer_list&gt;</span>
+<a name="l00088"></a>00088 <span class="preprocessor">#include &lt;iomanip&gt;</span>
+<a name="l00089"></a>00089 <span class="preprocessor">#include &lt;ios&gt;</span>
+<a name="l00090"></a>00090 <span class="preprocessor">#include &lt;iosfwd&gt;</span>
+<a name="l00091"></a>00091 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00092"></a>00092 <span class="preprocessor">#include &lt;istream&gt;</span>
+<a name="l00093"></a>00093 <span class="preprocessor">#include &lt;iterator&gt;</span>
+<a name="l00094"></a>00094 <span class="preprocessor">#include &lt;limits&gt;</span>
+<a name="l00095"></a>00095 <span class="preprocessor">#include &lt;list&gt;</span>
+<a name="l00096"></a>00096 <span class="preprocessor">#include &lt;locale&gt;</span>
+<a name="l00097"></a>00097 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00098"></a>00098 <span class="preprocessor">#include &lt;memory&gt;</span>
+<a name="l00099"></a>00099 <span class="preprocessor">#include &lt;new&gt;</span>
+<a name="l00100"></a>00100 <span class="preprocessor">#include &lt;numeric&gt;</span>
+<a name="l00101"></a>00101 <span class="preprocessor">#include &lt;ostream&gt;</span>
+<a name="l00102"></a>00102 <span class="preprocessor">#include &lt;queue&gt;</span>
+<a name="l00103"></a>00103 <span class="preprocessor">#include &lt;random&gt;</span>
+<a name="l00104"></a>00104 <span class="preprocessor">#include &lt;regex&gt;</span>
+<a name="l00105"></a>00105 <span class="preprocessor">#include &lt;set&gt;</span>
+<a name="l00106"></a>00106 <span class="preprocessor">#include &lt;sstream&gt;</span>
+<a name="l00107"></a>00107 <span class="preprocessor">#include &lt;stack&gt;</span>
+<a name="l00108"></a>00108 <span class="preprocessor">#include &lt;stdexcept&gt;</span>
+<a name="l00109"></a>00109 <span class="preprocessor">#include &lt;streambuf&gt;</span>
+<a name="l00110"></a>00110 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00111"></a>00111 <span class="preprocessor">#include &lt;strstream&gt;</span>
+<a name="l00112"></a>00112 <span class="preprocessor">#include &lt;system_error&gt;</span>
+<a name="l00113"></a>00113 <span class="preprocessor">#include &lt;tuple&gt;</span>
+<a name="l00114"></a>00114 <span class="preprocessor">#include &lt;type_traits&gt;</span>
+<a name="l00115"></a>00115 <span class="preprocessor">#include &lt;typeindeX&gt;</span>
+<a name="l00116"></a>00116 <span class="preprocessor">#include &lt;typeinfo&gt;</span>
+<a name="l00117"></a>00117 <span class="preprocessor">#include &lt;unordered_map&gt;</span>
+<a name="l00118"></a>00118 <span class="preprocessor">#include &lt;unordered_set&gt;</span>
+<a name="l00119"></a>00119 <span class="preprocessor">#include &lt;utility&gt;</span>
+<a name="l00120"></a>00120 <span class="preprocessor">#include &lt;valarray&gt;</span>
+<a name="l00121"></a>00121 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00122"></a>00122 <span class="keyword">using namespace </span>std;
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124 <span class="comment">//And resources</span>
+<a name="l00125"></a>00125 <span class="preprocessor">#include &quot;<a class="code" href="_resource_8h.html">Resource.h</a>&quot;</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -228,7 +231,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -238,7 +241,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:28 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:03 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

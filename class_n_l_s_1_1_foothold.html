@@ -117,7 +117,6 @@ Collaboration diagram for NLS::Foothold:</div>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_foothold.html#a50fcc2e91c2d4f0015b7d266df8c644e">Load</a> (<a class="el" href="class_n_l_s_1_1_node.html">Node</a> n)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_foothold.html#a550c85860d26716fc94b7f2c159e7cf5">Unload</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_foothold.html#a790e8b32f413c4ddbb8f4b9bcd14aa56">Draw</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -156,10 +155,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_foothold_8cpp_source.html#l00056">56</a> of file <a class="el" href="_foothold_8cpp_source.html">Foothold.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_foothold_8cpp_source.html#l00060">60</a> of file <a class="el" href="_foothold_8cpp_source.html">Foothold.cpp</a>.</p>
 
 <p>References <a class="el" href="_foothold_8cpp_source.html#l00007">NLS::footholds</a>.</p>
 <div class="fragment"><pre class="fragment">                       {
+    glPushMatrix();
     glColor4f(1, 1, 1, 1);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBegin(GL_LINES);
@@ -168,8 +168,8 @@ Public Attributes</h2></td></tr>
         glVertex2f((*i)-&gt;x2, (*i)-&gt;y2);
     }
     glEnd();
-}
-</pre></div>
+    glPopMatrix();
+}</pre></div>
 </div>
 </div>
 <a class="anchor" id="a50fcc2e91c2d4f0015b7d266df8c644e"></a><!-- doxytag: member="NLS::Foothold::Load" ref="a50fcc2e91c2d4f0015b7d266df8c644e" args="(Node n)" -->
@@ -189,11 +189,15 @@ Public Attributes</h2></td></tr>
 
 <p>Definition at line <a class="el" href="_foothold_8cpp_source.html#l00009">9</a> of file <a class="el" href="_foothold_8cpp_source.html">Foothold.cpp</a>.</p>
 
-<p>References <a class="el" href="_w_z_8cpp_source.html#l00442">NLS::Node::Begin()</a>, <a class="el" href="_console_8h_source.html#l00047">NLS::C()</a>, <a class="el" href="_foothold_8h_source.html#l00010">dir</a>, <a class="el" href="_w_z_8cpp_source.html#l00447">NLS::Node::End()</a>, <a class="el" href="_console_8cpp_source.html#l00009">NLS::Endl</a>, <a class="el" href="_foothold_8cpp_source.html#l00007">NLS::footholds</a>, <a class="el" href="_foothold_8h_source.html#l00015">forbid</a>, <a class="el" href="_foothold_8h_source.html#l00014">force</a>, <a class="el" href="_foothold_8h_source.html#l00013">group</a>, <a class="el" href="_foothold_8h_source.html#l00012">id</a>, <a class="el" href="_foothold_8h_source.html#l00013">layer</a>, <a class="el" href="_foothold_8h_source.html#l00010">len</a>, <a class="el" href="_foothold_8h_source.html#l00011">next</a>, <a class="el" href="_foothold_8h_source.html#l00012">nextid</a>, <a class="el" href="_utilities_8h_source.html#l00053">pdir()</a>, <a class="el" href="_utilities_8h_source.html#l00049">pdis()</a>, <a class="el" href="_foothold_8h_source.html#l00011">prev</a>, <a class="el" href="_foothold_8h_source.html#l00012">previd</a>, <a class="el" href="_utilities_8h_source.html#l00037">toint()</a>, <a class="el" href="_foothold_8h_source.html#l00016">walk</a>, <a class="el" href="_foothold_8h_source.html#l00009">x1</a>, <a class="el" href="_foothold_8h_source.html#l00009">x2</a>, <a class="el" href="_foothold_8h_source.html#l00009">y1</a>, and <a class="el" href="_foothold_8h_source.html#l00009">y2</a>.</p>
+<p>References <a class="el" href="_w_z_8cpp_source.html#l00645">NLS::Node::Begin()</a>, <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_foothold_8h_source.html#l00010">dir</a>, <a class="el" href="_w_z_8cpp_source.html#l00650">NLS::Node::End()</a>, <a class="el" href="_foothold_8cpp_source.html#l00007">NLS::footholds</a>, <a class="el" href="_foothold_8h_source.html#l00015">forbid</a>, <a class="el" href="_foothold_8h_source.html#l00014">force</a>, <a class="el" href="_foothold_8h_source.html#l00013">group</a>, <a class="el" href="_foothold_8h_source.html#l00012">id</a>, <a class="el" href="_foothold_8h_source.html#l00013">layer</a>, <a class="el" href="_foothold_8h_source.html#l00010">len</a>, <a class="el" href="_foothold_8h_source.html#l00011">next</a>, <a class="el" href="_foothold_8h_source.html#l00012">nextid</a>, <a class="el" href="_utilities_8h_source.html#l00053">pdir()</a>, <a class="el" href="_utilities_8h_source.html#l00049">pdis()</a>, <a class="el" href="_foothold_8h_source.html#l00011">prev</a>, <a class="el" href="_foothold_8h_source.html#l00012">previd</a>, <a class="el" href="_utilities_8h_source.html#l00037">toint()</a>, <a class="el" href="_foothold_8h_source.html#l00016">walk</a>, <a class="el" href="_foothold_8h_source.html#l00009">x1</a>, <a class="el" href="_foothold_8h_source.html#l00009">x2</a>, <a class="el" href="_foothold_8h_source.html#l00009">y1</a>, and <a class="el" href="_foothold_8h_source.html#l00009">y2</a>.</p>
 <div class="fragment"><pre class="fragment">                             {
+    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
+        <span class="keyword">delete</span> *i;
+    }
+    <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.clear();
     n = n[<span class="stringliteral">&quot;foothold&quot;</span>];
     <span class="keywordflow">if</span> (!n) {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;No foothold node&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;No foothold node&quot;</span> &lt;&lt; endl;
         <span class="keywordflow">throw</span>(273);
     }
     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = n.Begin(); i != n.End(); i++) {
@@ -201,7 +205,7 @@ Public Attributes</h2></td></tr>
         <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = i-&gt;second.Begin(); j != i-&gt;second.End(); j++) {
             <span class="keywordtype">int</span> fhgroup = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(j-&gt;first);
             <span class="keywordflow">for</span> (<span class="keyword">auto</span> k = j-&gt;second.Begin(); k != j-&gt;second.End(); k++) {
-                Node&amp; fn = k-&gt;second;
+                Node fn = k-&gt;second;
                 Foothold* fh = <span class="keyword">new</span> Foothold();
                 fh-&gt;x1 = fn[<span class="stringliteral">&quot;x1&quot;</span>];
                 fh-&gt;y1 = fn[<span class="stringliteral">&quot;y1&quot;</span>];
@@ -246,32 +250,6 @@ Here is the call graph for this function:</div>
 </div>
 </p>
 
-</div>
-</div>
-<a class="anchor" id="a550c85860d26716fc94b7f2c159e7cf5"></a><!-- doxytag: member="NLS::Foothold::Unload" ref="a550c85860d26716fc94b7f2c159e7cf5" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NLS::Foothold::Unload </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_foothold_8cpp_source.html#l00067">67</a> of file <a class="el" href="_foothold_8cpp_source.html">Foothold.cpp</a>.</p>
-
-<p>References <a class="el" href="_foothold_8cpp_source.html#l00007">NLS::footholds</a>.</p>
-<div class="fragment"><pre class="fragment">                         {
-    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
-        <span class="keyword">auto</span> f = *i;
-        <span class="keyword">delete</span> f;
-    }
-    <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.clear();
-}</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -562,7 +540,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -572,7 +550,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

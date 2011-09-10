@@ -95,6 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -102,17 +103,56 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Load</a> (const string &amp;id, const string &amp;portal)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a65ac7bf7f27016615c186d712001eafd">Load</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#abb25932960b161c06889b7c20343984a">Draw</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a> [8]</td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
+<a class="anchor" id="abb25932960b161c06889b7c20343984a"></a><!-- doxytag: member="NLS::Map::Draw" ref="abb25932960b161c06889b7c20343984a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::Map::Draw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00034">34</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>References <a class="el" href="_map_8cpp_source.html#l00040">NLS::Map::Layer::Draw()</a>, and <a class="el" href="_map_8cpp_source.html#l00010">Layers</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; 8; i++) {
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[i].Draw();
+    }
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_map_abb25932960b161c06889b7c20343984a_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_map_abb25932960b161c06889b7c20343984a_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_map_abb25932960b161c06889b7c20343984a_cgraph" id="namespace_n_l_s_1_1_map_abb25932960b161c06889b7c20343984a_cgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_map_1_1_layer.html#aecee055e3ab224d28b080d9909148b3d" title="NLS::Map::Layer::Draw" alt="" coords="171,5,328,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="a0103b219e68f9dfcc89d68643b50277e"></a><!-- doxytag: member="NLS::Map::Load" ref="a0103b219e68f9dfcc89d68643b50277e" args="(const string &amp;id, const string &amp;portal)" -->
 <div class="memitem">
 <div class="memproto">
@@ -138,11 +178,11 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00011">11</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00012">12</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
 <p>References <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, and <a class="el" href="_map_8cpp_source.html#l00009">nextportal</a>.</p>
 
-<p>Referenced by <a class="el" href="_client_8cpp_source.html#l00007">NLS::Init()</a>, and <a class="el" href="_map_8cpp_source.html#l00016">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_client_8cpp_source.html#l00007">NLS::Init()</a>, and <a class="el" href="_map_8cpp_source.html#l00017">Load()</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
     <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> = id;
     <a class="code" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a> = portal;
@@ -173,11 +213,11 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00016">16</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00017">17</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8h_source.html#l00047">NLS::C()</a>, <a class="el" href="_console_8cpp_source.html#l00009">NLS::Endl</a>, <a class="el" href="_map_8cpp_source.html#l00011">Load()</a>, <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, <a class="el" href="_map_8cpp_source.html#l00007">node</a>, <a class="el" href="_w_z_8cpp_source.html#l00010">NLS::WZ::Top</a>, and <a class="el" href="_client_8cpp_source.html#l00047">NLS::Unload()</a>.</p>
+<p>References <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>, <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, <a class="el" href="_map_8cpp_source.html#l00007">node</a>, and <a class="el" href="_w_z_8cpp_source.html#l00010">NLS::WZ::Top</a>.</p>
 <div class="fragment"><pre class="fragment">                  {
-    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading map &quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
+    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading map &quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> &lt;&lt; endl;
     <span class="keywordtype">char</span> zone;
     <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> == <span class="stringliteral">&quot;login&quot;</span>) {
         <span class="comment">//Uh....</span>
@@ -188,22 +228,40 @@ Here is the caller graph for this function:</div>
         <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a> = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">WZ::Top</a>[<span class="stringliteral">&quot;Map&quot;</span>][<span class="stringliteral">&quot;Map&quot;</span>][string(<span class="stringliteral">&quot;Map&quot;</span>)+zone][<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>];
     }
     <span class="keywordtype">string</span> bgm = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;bgm&quot;</span>];
-    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Background music: &quot;</span> &lt;&lt; bgm &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
-    <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">Foothold::Unload</a>();
+    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Background music: &quot;</span> &lt;&lt; bgm &lt;&lt; endl;
     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Foothold::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
-}</pre></div>
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Tile::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+}
+</pre></div>
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph" alt=""/></div>
 <map name="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph" id="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph">
-<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="197,5,261,32"/><area shape="rect" id="node5" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="171,56,287,83"/><area shape="rect" id="node7" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="182,107,277,133"/></map>
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="197,5,261,32"/><area shape="rect" id="node5" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="171,56,287,83"/></map>
 </div>
 </p>
 
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="a4115ebdae58b21aab1f76fa882b4e24a"></a><!-- doxytag: member="NLS::Map::Layers" ref="a4115ebdae58b21aab1f76fa882b4e24a" args="[8]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_n_l_s_1_1_map_1_1_layer.html">NLS::Map::Layer</a> <a class="el" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">NLS::Map::Layers</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00010">10</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00034">Draw()</a>, and <a class="el" href="_tile_8cpp_source.html#l00009">NLS::Tile::Load()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a81dd3a85562675c83041218b5bf6edb6"></a><!-- doxytag: member="NLS::Map::nextmap" ref="a81dd3a85562675c83041218b5bf6edb6" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +275,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_map_8cpp_source.html#l00008">8</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00011">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>.</p>
 
 </div>
 </div>
@@ -234,7 +292,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_map_8cpp_source.html#l00009">9</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00011">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>.</p>
 
 </div>
 </div>
@@ -251,7 +309,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_map_8cpp_source.html#l00007">7</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00016">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00017">Load()</a>.</p>
 
 </div>
 </div>
@@ -266,7 +324,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -276,7 +334,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

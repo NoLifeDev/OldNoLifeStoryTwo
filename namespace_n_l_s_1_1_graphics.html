@@ -122,16 +122,33 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_graphics_8cpp_source.html#l00035">35</a> of file <a class="el" href="_graphics_8cpp_source.html">Graphics.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_graphics_8cpp_source.html#l00034">34</a> of file <a class="el" href="_graphics_8cpp_source.html">Graphics.cpp</a>.</p>
 
-<p>References <a class="el" href="_graphics_8cpp_source.html#l00007">NLS::window</a>.</p>
+<p>References <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_view_8cpp_source.html#l00022">NLS::View_::Step()</a>, <a class="el" href="_view_8cpp_source.html#l00007">NLS::View</a>, and <a class="el" href="_graphics_8cpp_source.html#l00007">NLS::window</a>.</p>
 
 <p>Referenced by <a class="el" href="_client_8cpp_source.html#l00020">NLS::Loop()</a>.</p>
 <div class="fragment"><pre class="fragment">                       {
     glClear(GL_COLOR_BUFFER_BIT);
+    <a class="code" href="namespace_n_l_s.html#ab8595bcd4dd056dab28e173270679f22">View</a>.<a class="code" href="class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735">Step</a>();
+    <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Map::Draw</a>();
     <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Foothold::Draw</a>();
     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Display();
+    <span class="keywordflow">switch</span> (glGetError()) {
+    <span class="keywordflow">case</span> GL_NO_ERROR:
+        <span class="keywordflow">break</span>;
+    <span class="keywordflow">default</span>:
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;OH GOD OPENGL FAILED&quot;</span> &lt;&lt; endl;
+    }
 }</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_graphics_a775e67981512c721037b4eeb6f74e033_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_graphics_a775e67981512c721037b4eeb6f74e033_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_graphics_a775e67981512c721037b4eeb6f74e033_cgraph" id="namespace_n_l_s_1_1_graphics_a775e67981512c721037b4eeb6f74e033_cgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="228,5,292,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735" title="NLS::View_::Step" alt="" coords="197,56,323,83"/><area shape="rect" id="node7" href="_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1" title="sign" alt="" coords="371,56,418,83"/></map>
+</div>
+</p>
+
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -161,7 +178,7 @@ Here is the caller graph for this function:</div>
 
 <p>References <a class="el" href="_resource_8h_source.html#l00006">IDI_NOLIFESTORY_ICON</a>, and <a class="el" href="_graphics_8cpp_source.html#l00007">NLS::window</a>.</p>
 <div class="fragment"><pre class="fragment">                       {
-    <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a> = <span class="keyword">new</span> sf::Window(sf::VideoMode(800, 600), <span class="stringliteral">&quot;NoLifeStory::Loading&quot;</span>, sf::Style::Close, sf::ContextSettings(0, 0, 0, 2, 0));
+    <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a> = <span class="keyword">new</span> sf::Window(sf::VideoMode(800, 600), <span class="stringliteral">&quot;NoLifeStory::Loading&quot;</span>, sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 0));
 <span class="preprocessor">#ifdef NLS_WINDOWS</span>
 <span class="preprocessor"></span>    HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(<a class="code" href="_resource_8h.html#a7d8721a980767947232a4fe8692f9621">IDI_NOLIFESTORY_ICON</a>));
     HWND hWnd = <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetSystemHandle();
@@ -179,7 +196,6 @@ Here is the caller graph for this function:</div>
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, 800, 600, 0, -1, 1);
-    glPushMatrix();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClear(GL_COLOR_BUFFER_BIT);
@@ -215,7 +231,7 @@ Here is the caller graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -225,7 +241,7 @@ Here is the caller graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

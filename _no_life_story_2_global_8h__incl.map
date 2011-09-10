@@ -1,13 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="node5" href="$_utilities_8h.html" title="Utilities.h" alt="" coords="145,80,220,107"/>
-<area shape="rect" id="node7" href="$_sprite_8h.html" title="Sprite.h" alt="" coords="245,80,312,107"/>
-<area shape="rect" id="node9" href="$_w_z_8h.html" title="WZ.h" alt="" coords="336,80,389,107"/>
-<area shape="rect" id="node11" href="$_graphics_8h.html" title="Graphics.h" alt="" coords="413,80,499,107"/>
-<area shape="rect" id="node13" href="$_foothold_8h.html" title="Foothold.h" alt="" coords="523,80,605,107"/>
-<area shape="rect" id="node15" href="$_client_8h.html" title="Client.h" alt="" coords="629,80,696,107"/>
-<area shape="rect" id="node17" href="$_time_8h.html" title="Time.h" alt="" coords="720,80,781,107"/>
-<area shape="rect" id="node19" href="$_network_8h.html" title="Network.h" alt="" coords="805,80,885,107"/>
-<area shape="rect" id="node21" href="$_map_8h.html" title="Map.h" alt="" coords="909,80,968,107"/>
-<area shape="rect" id="node23" href="$_view_8h.html" title="View.h" alt="" coords="992,80,1053,107"/>
-<area shape="rect" id="node25" href="$_console_8h.html" title="Console.h" alt="" coords="1077,80,1157,107"/>
+<area shape="rect" id="node5" href="$_console_8h.html" title="Console.h" alt="" coords="145,80,225,107"/>
+<area shape="rect" id="node7" href="$_utilities_8h.html" title="Utilities.h" alt="" coords="250,80,325,107"/>
+<area shape="rect" id="node9" href="$_sprite_8h.html" title="Sprite.h" alt="" coords="351,80,417,107"/>
+<area shape="rect" id="node11" href="$_w_z_8h.html" title="WZ.h" alt="" coords="441,80,495,107"/>
+<area shape="rect" id="node13" href="$_graphics_8h.html" title="Graphics.h" alt="" coords="519,80,604,107"/>
+<area shape="rect" id="node15" href="$_foothold_8h.html" title="Foothold.h" alt="" coords="628,80,711,107"/>
+<area shape="rect" id="node17" href="$_client_8h.html" title="Client.h" alt="" coords="735,80,801,107"/>
+<area shape="rect" id="node19" href="$_time_8h.html" title="Time.h" alt="" coords="825,80,887,107"/>
+<area shape="rect" id="node21" href="$_network_8h.html" title="Network.h" alt="" coords="911,80,991,107"/>
+<area shape="rect" id="node23" href="$_obj_8h.html" title="Obj.h" alt="" coords="1015,80,1068,107"/>
+<area shape="rect" id="node25" href="$_tile_8h.html" title="Tile.h" alt="" coords="1092,80,1145,107"/>
+<area shape="rect" id="node27" href="$_map_8h.html" title="Map.h" alt="" coords="1169,80,1228,107"/>
+<area shape="rect" id="node29" href="$_view_8h.html" title="View.h" alt="" coords="1252,80,1313,107"/>
+<area shape="rect" id="node31" href="$_config_8h.html" title="Config.h" alt="" coords="1337,80,1407,107"/>
 </map>

@@ -111,56 +111,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_stream.html">Stream</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_stream.html#afed935ada54c9e9c342be24f858b22c0">operator&lt;&lt;</a> (T v)</td></tr>
-<tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_stream.html">Stream</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_stream.html#addeb52914088ad5ba1e781e7054957ab">operator</a> (<a class="el" href="class_n_l_s_1_1_endl__.html">Endl_</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_stream.html">Stream</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_stream.html#a2f131e096a050f0e0eaa9e4cf62a6e1e">operator&lt;&lt;</a> (ostream &amp;(ostream &amp;))</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_console_8h_source.html#l00028">28</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
+<p>Definition at line <a class="el" href="_console_8h_source.html#l00027">27</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="addeb52914088ad5ba1e781e7054957ab"></a><!-- doxytag: member="NLS::Stream::operator" ref="addeb52914088ad5ba1e781e7054957ab" args="(Endl_)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_n_l_s_1_1_stream.html">Stream</a>&amp; NLS::Stream::operator </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_n_l_s_1_1_endl__.html">Endl_</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_console_8h_source.html#l00036">36</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
-
-<p>References <a class="el" href="_console_8cpp_source.html#l00007">NLS::console</a>, <a class="el" href="_console_8h_source.html#l00045">line</a>, and <a class="el" href="_console_8cpp_source.html#l00118">NLS::Console::Push()</a>.</p>
-<div class="fragment"><pre class="fragment">                                            {
-            <span class="keywordtype">string</span> s = <a class="code" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a>.str();
-            <span class="keywordflow">if</span> (!s.empty()) {
-                <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">console</a>-&gt;Push(s);
-                <a class="code" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a>.str(<span class="stringliteral">&quot;&quot;</span>);
-            }
-            <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-        }
-</pre></div>
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_n_l_s_1_1_stream_addeb52914088ad5ba1e781e7054957ab_cgraph.png" border="0" usemap="#class_n_l_s_1_1_stream_addeb52914088ad5ba1e781e7054957ab_cgraph" alt=""/></div>
-<map name="class_n_l_s_1_1_stream_addeb52914088ad5ba1e781e7054957ab_cgraph" id="class_n_l_s_1_1_stream_addeb52914088ad5ba1e781e7054957ab_cgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10" title="NLS::Console::Push" alt="" coords="206,5,346,32"/></map>
-</div>
-</p>
-
-</div>
-</div>
 <a class="anchor" id="afed935ada54c9e9c342be24f858b22c0"></a><!-- doxytag: member="NLS::Stream::operator&lt;&lt;" ref="afed935ada54c9e9c342be24f858b22c0" args="(T v)" -->
 <div class="memitem">
 <div class="memproto">
@@ -178,14 +137,52 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8h_source.html#l00031">31</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
+<p>Definition at line <a class="el" href="_console_8h_source.html#l00030">30</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>References <a class="el" href="_console_8h_source.html#l00045">line</a>.</p>
+<p>References <a class="el" href="_console_8h_source.html#l00043">line</a>.</p>
 <div class="fragment"><pre class="fragment">                                  {
             <a class="code" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a> &lt;&lt; v;
             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
         }
 </pre></div>
+</div>
+</div>
+<a class="anchor" id="a2f131e096a050f0e0eaa9e4cf62a6e1e"></a><!-- doxytag: member="NLS::Stream::operator&lt;&lt;" ref="a2f131e096a050f0e0eaa9e4cf62a6e1e" args="(ostream &amp;(ostream &amp;))" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_n_l_s_1_1_stream.html">Stream</a>&amp; NLS::Stream::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">ostream &amp;&#160;</td>
+          <td class="paramname">ostream &amp;</td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_console_8h_source.html#l00034">34</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
+
+<p>References <a class="el" href="_console_8cpp_source.html#l00007">NLS::console</a>, <a class="el" href="_console_8h_source.html#l00043">line</a>, and <a class="el" href="_console_8cpp_source.html#l00120">NLS::Console::Push()</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+            <span class="keywordtype">string</span> s = <a class="code" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a>.str();
+            <span class="keywordflow">if</span> (!s.empty()) {
+                <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">console</a>-&gt;Push(s);
+                <a class="code" href="class_n_l_s_1_1_stream.html#a990adf5cd70bb056f1b710f678b1f2e9">line</a>.str(<span class="stringliteral">&quot;&quot;</span>);
+            }
+            <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+        }
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_n_l_s_1_1_stream_a2f131e096a050f0e0eaa9e4cf62a6e1e_cgraph.png" border="0" usemap="#class_n_l_s_1_1_stream_a2f131e096a050f0e0eaa9e4cf62a6e1e_cgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_stream_a2f131e096a050f0e0eaa9e4cf62a6e1e_cgraph" id="class_n_l_s_1_1_stream_a2f131e096a050f0e0eaa9e4cf62a6e1e_cgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10" title="NLS::Console::Push" alt="" coords="222,5,362,32"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -200,9 +197,9 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_console_8h_source.html#l00045">45</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
+<p>Definition at line <a class="el" href="_console_8h_source.html#l00043">43</a> of file <a class="el" href="_console_8h_source.html">Console.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_console_8h_source.html#l00036">operator()</a>, and <a class="el" href="_console_8h_source.html#l00031">operator&lt;&lt;()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8h_source.html#l00030">operator&lt;&lt;()</a>.</p>
 
 </div>
 </div>
@@ -220,7 +217,7 @@ template&lt;class T &gt; </div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -230,7 +227,7 @@ template&lt;class T &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:29 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:04 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

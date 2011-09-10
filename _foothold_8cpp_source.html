@@ -106,70 +106,68 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00007"></a><a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">00007</a> set &lt;NLS::Foothold*&gt; <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">NLS::footholds</a>;
 <a name="l00008"></a>00008 
 <a name="l00009"></a><a class="code" href="class_n_l_s_1_1_foothold.html#a50fcc2e91c2d4f0015b7d266df8c644e">00009</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_foothold.html#a50fcc2e91c2d4f0015b7d266df8c644e">NLS::Foothold::Load</a>(<a class="code" href="class_n_l_s_1_1_node.html">Node</a> n) {
-<a name="l00010"></a>00010     n = n[<span class="stringliteral">&quot;foothold&quot;</span>];
-<a name="l00011"></a>00011     <span class="keywordflow">if</span> (!n) {
-<a name="l00012"></a>00012         <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;No foothold node&quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s.html#a5d4fdf28c0e66e778ab0446f959aa9aa">Endl</a>;
-<a name="l00013"></a>00013         <span class="keywordflow">throw</span>(273);
-<a name="l00014"></a>00014     }
-<a name="l00015"></a>00015     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = n.<a class="code" href="class_n_l_s_1_1_node.html#af1425ee083332f4f6e347930a833ccdd">Begin</a>(); i != n.<a class="code" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451">End</a>(); i++) {
-<a name="l00016"></a>00016         <span class="keywordtype">int</span> fhdepth = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(i-&gt;first);
-<a name="l00017"></a>00017         <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = i-&gt;second.Begin(); j != i-&gt;second.End(); j++) {
-<a name="l00018"></a>00018             <span class="keywordtype">int</span> fhgroup = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(j-&gt;first);
-<a name="l00019"></a>00019             <span class="keywordflow">for</span> (<span class="keyword">auto</span> k = j-&gt;second.Begin(); k != j-&gt;second.End(); k++) {
-<a name="l00020"></a>00020                 <a class="code" href="class_n_l_s_1_1_node.html">Node</a>&amp; fn = k-&gt;second;
-<a name="l00021"></a>00021                 <a class="code" href="class_n_l_s_1_1_foothold.html">Foothold</a>* fh = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_foothold.html">Foothold</a>();
-<a name="l00022"></a>00022                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a> = fn[<span class="stringliteral">&quot;x1&quot;</span>];
-<a name="l00023"></a>00023                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a> = fn[<span class="stringliteral">&quot;y1&quot;</span>];
-<a name="l00024"></a>00024                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a> = fn[<span class="stringliteral">&quot;x2&quot;</span>];
-<a name="l00025"></a>00025                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a> = fn[<span class="stringliteral">&quot;y2&quot;</span>];
-<a name="l00026"></a>00026                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#af0817cc5b7795e2b7cdbfa502e1fc82c">nextid</a> = fn[<span class="stringliteral">&quot;next&quot;</span>];
-<a name="l00027"></a>00027                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a30c785a48897efa940022bda45f56d6f">previd</a> = fn[<span class="stringliteral">&quot;prev&quot;</span>];
-<a name="l00028"></a>00028                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a08fed584cbb30924cee6bd49c0f809c5">force</a> = fn[<span class="stringliteral">&quot;force&quot;</span>];
-<a name="l00029"></a>00029                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fe4dbf520d589a9d2a2ff691d9e18c8">forbid</a> = (int)fn[<span class="stringliteral">&quot;forbidFallDown&quot;</span>];
-<a name="l00030"></a>00030                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a809fa6fc048280a9996324dd46151bd4">id</a> = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(k-&gt;first);
-<a name="l00031"></a>00031                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a2f4b6998dfec486db88b8ea79bda6dca">layer</a> = fhdepth;
-<a name="l00032"></a>00032                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a4f615514cf42e7664d98c14fcfcc7d32">group</a> = fhgroup;
-<a name="l00033"></a>00033                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> = <a class="code" href="_utilities_8h.html#a8edbe4e0779140099fceecfd012c2f99">pdir</a>(fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a>);
-<a name="l00034"></a>00034                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a268773e6722e2aaa3c43265eb285c81e">len</a> = <a class="code" href="_utilities_8h.html#ae64e5ae7dc38614686e114d641b3ccbe">pdis</a>(fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a>);
-<a name="l00035"></a>00035                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a38fd2837daaaf7d64c7e8821c58f3e4a">walk</a> = fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> &lt; 90 and fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> &gt; -90;
-<a name="l00036"></a>00036                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#ae8685953202221fed6202109d882f59e">next</a> = 0;
-<a name="l00037"></a>00037                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#ae74483c5cec9b3b8d77a9f12a4b7ef07">prev</a> = 0;
-<a name="l00038"></a>00038                 <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.insert(fh);
-<a name="l00039"></a>00039             }
-<a name="l00040"></a>00040         }
-<a name="l00041"></a>00041     }
-<a name="l00042"></a>00042     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
-<a name="l00043"></a>00043         <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); j != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); j++) {
-<a name="l00044"></a>00044             <span class="keyword">auto</span> fi = *i;
-<a name="l00045"></a>00045             <span class="keyword">auto</span> fj = *j;
-<a name="l00046"></a>00046             <span class="keywordflow">if</span> (fi-&gt;nextid == fj-&gt;id) {
-<a name="l00047"></a>00047                 fi-&gt;next = fj;
-<a name="l00048"></a>00048             }
-<a name="l00049"></a>00049             <span class="keywordflow">if</span> (fi-&gt;previd == fj-&gt;id) {
-<a name="l00050"></a>00050                 fi-&gt;prev = fj;
-<a name="l00051"></a>00051             }
-<a name="l00052"></a>00052         }
-<a name="l00053"></a>00053     }
-<a name="l00054"></a>00054 }
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="class_n_l_s_1_1_foothold.html#a790e8b32f413c4ddbb8f4b9bcd14aa56">00056</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">NLS::Foothold::Draw</a>() {
-<a name="l00057"></a>00057     glColor4f(1, 1, 1, 1);
-<a name="l00058"></a>00058     glBindTexture(GL_TEXTURE_2D, 0);
-<a name="l00059"></a>00059     glBegin(GL_LINES);
-<a name="l00060"></a>00060     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
-<a name="l00061"></a>00061         glVertex2f((*i)-&gt;x1, (*i)-&gt;y1);
-<a name="l00062"></a>00062         glVertex2f((*i)-&gt;x2, (*i)-&gt;y2);
-<a name="l00063"></a>00063     }
-<a name="l00064"></a>00064     glEnd();
-<a name="l00065"></a>00065 }
-<a name="l00066"></a>00066 
-<a name="l00067"></a><a class="code" href="class_n_l_s_1_1_foothold.html#a550c85860d26716fc94b7f2c159e7cf5">00067</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">NLS::Foothold::Unload</a>() {
-<a name="l00068"></a>00068     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
-<a name="l00069"></a>00069         <span class="keyword">auto</span> f = *i;
-<a name="l00070"></a>00070         <span class="keyword">delete</span> f;
-<a name="l00071"></a>00071     }
-<a name="l00072"></a>00072     <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.clear();
-<a name="l00073"></a>00073 }
+<a name="l00010"></a>00010     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
+<a name="l00011"></a>00011         <span class="keyword">delete</span> *i;
+<a name="l00012"></a>00012     }
+<a name="l00013"></a>00013     <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.clear();
+<a name="l00014"></a>00014     n = n[<span class="stringliteral">&quot;foothold&quot;</span>];
+<a name="l00015"></a>00015     <span class="keywordflow">if</span> (!n) {
+<a name="l00016"></a>00016         <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;No foothold node&quot;</span> &lt;&lt; endl;
+<a name="l00017"></a>00017         <span class="keywordflow">throw</span>(273);
+<a name="l00018"></a>00018     }
+<a name="l00019"></a>00019     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = n.<a class="code" href="class_n_l_s_1_1_node.html#af1425ee083332f4f6e347930a833ccdd">Begin</a>(); i != n.<a class="code" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451">End</a>(); i++) {
+<a name="l00020"></a>00020         <span class="keywordtype">int</span> fhdepth = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(i-&gt;first);
+<a name="l00021"></a>00021         <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = i-&gt;second.Begin(); j != i-&gt;second.End(); j++) {
+<a name="l00022"></a>00022             <span class="keywordtype">int</span> fhgroup = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(j-&gt;first);
+<a name="l00023"></a>00023             <span class="keywordflow">for</span> (<span class="keyword">auto</span> k = j-&gt;second.Begin(); k != j-&gt;second.End(); k++) {
+<a name="l00024"></a>00024                 <a class="code" href="class_n_l_s_1_1_node.html">Node</a> fn = k-&gt;second;
+<a name="l00025"></a>00025                 <a class="code" href="class_n_l_s_1_1_foothold.html">Foothold</a>* fh = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_foothold.html">Foothold</a>();
+<a name="l00026"></a>00026                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a> = fn[<span class="stringliteral">&quot;x1&quot;</span>];
+<a name="l00027"></a>00027                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a> = fn[<span class="stringliteral">&quot;y1&quot;</span>];
+<a name="l00028"></a>00028                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a> = fn[<span class="stringliteral">&quot;x2&quot;</span>];
+<a name="l00029"></a>00029                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a> = fn[<span class="stringliteral">&quot;y2&quot;</span>];
+<a name="l00030"></a>00030                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#af0817cc5b7795e2b7cdbfa502e1fc82c">nextid</a> = fn[<span class="stringliteral">&quot;next&quot;</span>];
+<a name="l00031"></a>00031                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a30c785a48897efa940022bda45f56d6f">previd</a> = fn[<span class="stringliteral">&quot;prev&quot;</span>];
+<a name="l00032"></a>00032                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a08fed584cbb30924cee6bd49c0f809c5">force</a> = fn[<span class="stringliteral">&quot;force&quot;</span>];
+<a name="l00033"></a>00033                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fe4dbf520d589a9d2a2ff691d9e18c8">forbid</a> = (int)fn[<span class="stringliteral">&quot;forbidFallDown&quot;</span>];
+<a name="l00034"></a>00034                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a809fa6fc048280a9996324dd46151bd4">id</a> = <a class="code" href="_utilities_8h.html#a48c9dc67f5fe9905d4cf698542d8362b">toint</a>(k-&gt;first);
+<a name="l00035"></a>00035                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a2f4b6998dfec486db88b8ea79bda6dca">layer</a> = fhdepth;
+<a name="l00036"></a>00036                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a4f615514cf42e7664d98c14fcfcc7d32">group</a> = fhgroup;
+<a name="l00037"></a>00037                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> = <a class="code" href="_utilities_8h.html#a8edbe4e0779140099fceecfd012c2f99">pdir</a>(fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a>);
+<a name="l00038"></a>00038                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a268773e6722e2aaa3c43265eb285c81e">len</a> = <a class="code" href="_utilities_8h.html#ae64e5ae7dc38614686e114d641b3ccbe">pdis</a>(fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#aa8f9f702e419c2903a7b1889e4400b33">x1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a8c5bca9f45e15a7400e225800cfffcfe">y1</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a77a18566780fbfadd60bb2d2457d7b79">x2</a>, fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a6495356b7c5c5d8e384cf66ffd7bd988">y2</a>);
+<a name="l00039"></a>00039                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a38fd2837daaaf7d64c7e8821c58f3e4a">walk</a> = fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> &lt; 90 and fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#a0fb24d1714370b66392d0086af694960">dir</a> &gt; -90;
+<a name="l00040"></a>00040                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#ae8685953202221fed6202109d882f59e">next</a> = 0;
+<a name="l00041"></a>00041                 fh-&gt;<a class="code" href="class_n_l_s_1_1_foothold.html#ae74483c5cec9b3b8d77a9f12a4b7ef07">prev</a> = 0;
+<a name="l00042"></a>00042                 <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.insert(fh);
+<a name="l00043"></a>00043             }
+<a name="l00044"></a>00044         }
+<a name="l00045"></a>00045     }
+<a name="l00046"></a>00046     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
+<a name="l00047"></a>00047         <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); j != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); j++) {
+<a name="l00048"></a>00048             <span class="keyword">auto</span> fi = *i;
+<a name="l00049"></a>00049             <span class="keyword">auto</span> fj = *j;
+<a name="l00050"></a>00050             <span class="keywordflow">if</span> (fi-&gt;nextid == fj-&gt;id) {
+<a name="l00051"></a>00051                 fi-&gt;next = fj;
+<a name="l00052"></a>00052             }
+<a name="l00053"></a>00053             <span class="keywordflow">if</span> (fi-&gt;previd == fj-&gt;id) {
+<a name="l00054"></a>00054                 fi-&gt;prev = fj;
+<a name="l00055"></a>00055             }
+<a name="l00056"></a>00056         }
+<a name="l00057"></a>00057     }
+<a name="l00058"></a>00058 }
+<a name="l00059"></a>00059 
+<a name="l00060"></a><a class="code" href="class_n_l_s_1_1_foothold.html#a790e8b32f413c4ddbb8f4b9bcd14aa56">00060</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">NLS::Foothold::Draw</a>() {
+<a name="l00061"></a>00061     glPushMatrix();
+<a name="l00062"></a>00062     glColor4f(1, 1, 1, 1);
+<a name="l00063"></a>00063     glBindTexture(GL_TEXTURE_2D, 0);
+<a name="l00064"></a>00064     glBegin(GL_LINES);
+<a name="l00065"></a>00065     <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); i != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); i++) {
+<a name="l00066"></a>00066         glVertex2f((*i)-&gt;x1, (*i)-&gt;y1);
+<a name="l00067"></a>00067         glVertex2f((*i)-&gt;x2, (*i)-&gt;y2);
+<a name="l00068"></a>00068     }
+<a name="l00069"></a>00069     glEnd();
+<a name="l00070"></a>00070     glPopMatrix();
+<a name="l00071"></a>00071 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -180,7 +178,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -190,7 +188,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Tue Sep 6 2011 22:38:28 for NoLifeStory by
+    <li class="footer">Generated on Sat Sep 10 2011 16:53:02 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
