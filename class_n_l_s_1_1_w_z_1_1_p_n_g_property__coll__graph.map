@@ -1,5 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_l_s_1_1_w_z_1_1_file.html" title="{NLS::WZ::File\n|+ file\l+ ident\l+ fileSize\l+ fileStart\l+ copyright\l|+ File()\l+ File()\l+ Hash()\l}" alt="" coords="5,264,109,429"/>
-<area shape="rect" id="node4" href="$class_n_l_s_1_1_sprite.html" title="{NLS::Sprite\n|+ data\l|+ Draw()\l+ GetTexture()\l}" alt="" coords="133,301,240,393"/>
-<area shape="rect" id="node6" href="$class_n_l_s_1_1_sprite_data.html" title="{NLS::SpriteData\n|+ texture\l+ width\l+ height\l+ twidth\l+ theight\l+ originx\l+ originy\l+ loaded\l+ png\l|}" alt="" coords="129,5,244,200"/>
+<area shape="rect" id="node2" href="$class_n_l_s_1_1_sprite.html" title="NLS::Sprite" alt="" coords="41,96,129,123"/>
+<area shape="rect" id="node4" href="$class_n_l_s_1_1_sprite_data.html" title="NLS::SpriteData" alt="" coords="27,5,143,32"/>
 </map>

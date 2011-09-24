@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Time.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Time.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -107,15 +107,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00008"></a>00008 
 <a name="l00009"></a><a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">00009</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">NLS::_Time::Reset</a>() {
 <a name="l00010"></a>00010     <a class="code" href="class_n_l_s_1_1___time.html#ab2d5e81978e22d5a44d60653d97af6f9">clock</a>.Reset();
-<a name="l00011"></a>00011     <a class="code" href="class_n_l_s_1_1___time.html#a9c00ebf7afd073c441236f9b2a1cad7f">delta</a> = 0;
-<a name="l00012"></a>00012     <a class="code" href="class_n_l_s_1_1___time.html#adc18bdd307fe3ce0e86e367ef95ccbc7">tdelta</a> = 0;
-<a name="l00013"></a>00013 }
-<a name="l00014"></a>00014 
-<a name="l00015"></a><a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">00015</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">NLS::_Time::Step</a>() {
-<a name="l00016"></a>00016     <span class="keywordtype">double</span> temp = clock.GetElapsedTime();
-<a name="l00017"></a>00017     delta = temp-tdelta;
-<a name="l00018"></a>00018     tdelta = temp;
-<a name="l00019"></a>00019 }
+<a name="l00011"></a>00011     <a class="code" href="class_n_l_s_1_1___time.html#ac0adb3a6a985a10ff6b89ff5481d7990">delta</a> = 0;
+<a name="l00012"></a>00012     <a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a> = 0;
+<a name="l00013"></a>00013     <a class="code" href="class_n_l_s_1_1___time.html#a650b9711e87c97cabf4566dabf07b8b0">fps</a> = 0;
+<a name="l00014"></a>00014     <a class="code" href="class_n_l_s_1_1___time.html#ac762e1e9f3729801c82d4f8a3d8bcff9">output</a> = <span class="keyword">true</span>;
+<a name="l00015"></a>00015 }
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">00017</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">NLS::_Time::Step</a>() {
+<a name="l00018"></a>00018     uint32_t temp = clock.GetElapsedTime();
+<a name="l00019"></a>00019     delta = temp-tdelta;
+<a name="l00020"></a>00020     tdelta = temp;
+<a name="l00021"></a>00021     fps = fps*0.99 + (1000/(double)max(delta, 1))*0.01;
+<a name="l00022"></a>00022     sf::Sleep(min(max(fps-100, 0), 10));
+<a name="l00023"></a>00023     <span class="keywordflow">if</span> (output) {
+<a name="l00024"></a>00024         <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Time taken: &quot;</span> &lt;&lt; delta &lt;&lt; <span class="stringliteral">&quot; ms&quot;</span> &lt;&lt; endl;
+<a name="l00025"></a>00025         output = <span class="keyword">false</span>;
+<a name="l00026"></a>00026     }
+<a name="l00027"></a>00027 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -126,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -136,7 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:14 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Obj.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Obj.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -103,6 +103,84 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00003"></a>00003 <span class="comment">// Please see SuperGlobal.h for more information. //</span>
 <a name="l00005"></a>00005 <span class="comment"></span><span class="preprocessor">#include &quot;Global.h&quot;</span>
 <a name="l00006"></a>00006 
+<a name="l00007"></a>00007 set &lt;NLS::Obj*&gt; <a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">NLS::Obj::Objs</a>;
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="class_n_l_s_1_1_obj.html#a5c3b8b6bc85cff85251bf8102705f080">00009</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_obj.html#a5c3b8b6bc85cff85251bf8102705f080">NLS::Obj::Load</a>(<a class="code" href="class_n_l_s_1_1_node.html">Node</a> n) {
+<a name="l00010"></a>00010     <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = <a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">Objs</a>.begin(); it != <a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">Objs</a>.end(); it++) {
+<a name="l00011"></a>00011         <span class="keyword">delete</span> *it;
+<a name="l00012"></a>00012     }
+<a name="l00013"></a>00013     <a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">Objs</a>.clear();
+<a name="l00014"></a>00014     <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; 8; i++) {
+<a name="l00015"></a>00015         <a class="code" href="class_n_l_s_1_1_node.html">Node</a> ln = n[i];
+<a name="l00016"></a>00016         <span class="keywordflow">if</span> (!ln[<span class="stringliteral">&quot;obj&quot;</span>]) {
+<a name="l00017"></a>00017             <span class="keywordflow">continue</span>;
+<a name="l00018"></a>00018         }
+<a name="l00019"></a>00019         <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = ln[<span class="stringliteral">&quot;obj&quot;</span>].Begin(); it != ln[<span class="stringliteral">&quot;obj&quot;</span>].<a class="code" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451">End</a>(); it++) {
+<a name="l00020"></a>00020             <a class="code" href="class_n_l_s_1_1_node.html">Node</a> on = it-&gt;second;
+<a name="l00021"></a>00021             <span class="keywordtype">string</span> t1 = on[<span class="stringliteral">&quot;oS&quot;</span>];
+<a name="l00022"></a>00022             <span class="keywordtype">string</span> t2 = on[<span class="stringliteral">&quot;l0&quot;</span>];
+<a name="l00023"></a>00023             <span class="keywordtype">string</span> t3 = on[<span class="stringliteral">&quot;l1&quot;</span>];
+<a name="l00024"></a>00024             <span class="keywordtype">string</span> t4 = on[<span class="stringliteral">&quot;l2&quot;</span>];
+<a name="l00025"></a>00025             <a class="code" href="class_n_l_s_1_1_node.html">Node</a> od = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">WZ::Top</a>[<span class="stringliteral">&quot;Map&quot;</span>][<span class="stringliteral">&quot;Obj&quot;</span>][t1][t2][t3][t4];
+<a name="l00026"></a>00026             <a class="code" href="class_n_l_s_1_1_obj.html">Obj</a>* o = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_obj.html">Obj</a>;
+<a name="l00027"></a>00027             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a7cdae78b82a34ec576ffd06293761ac2">x</a> = on[<span class="stringliteral">&quot;x&quot;</span>];
+<a name="l00028"></a>00028             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#abd4de6009fefbd3df6838d5e990d06b1">y</a> = on[<span class="stringliteral">&quot;y&quot;</span>];
+<a name="l00029"></a>00029             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a935baf9f1e19dab3c08ab5e6f77cc56a">z</a> = on[<span class="stringliteral">&quot;z&quot;</span>];
+<a name="l00030"></a>00030             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a32ef1b478145b075f473b72abef85a00">flow</a> = (int)on[<span class="stringliteral">&quot;flow&quot;</span>];
+<a name="l00031"></a>00031             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a1bcabda5b8448600d183b91518a984ac">rx</a> = on[<span class="stringliteral">&quot;rx&quot;</span>];
+<a name="l00032"></a>00032             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a3f7f6951ecf43849a750acab03bf90bc">ry</a> = on[<span class="stringliteral">&quot;ry&quot;</span>];
+<a name="l00033"></a>00033             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a469234f0415b8a73df1109234e5174a6">f</a> = (int)on[<span class="stringliteral">&quot;f&quot;</span>];
+<a name="l00034"></a>00034             <a class="code" href="class_n_l_s_1_1_node.html">Node</a> d = od[0];
+<a name="l00035"></a>00035             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a41312f2a98d1fc22ef3656c5785b1689">repeat</a> = !(int)d[<span class="stringliteral">&quot;repeat&quot;</span>];
+<a name="l00036"></a>00036             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a4534cc7d3812068006877bee70ad596e">movetype</a> = d[<span class="stringliteral">&quot;moveType&quot;</span>];
+<a name="l00037"></a>00037             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a4f804fd242b62198a120574eb270a91d">movew</a> = d[<span class="stringliteral">&quot;moveW&quot;</span>];
+<a name="l00038"></a>00038             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a2156ebf87c3e103d177aa138861bfe3b">moveh</a> = d[<span class="stringliteral">&quot;moveH&quot;</span>];
+<a name="l00039"></a>00039             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a7d8532488a8319771b63963a3ea8c948">movep</a> = d[<span class="stringliteral">&quot;moveP&quot;</span>];
+<a name="l00040"></a>00040             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a153b0475418d29622dae66d8121621e2">mover</a> = d[<span class="stringliteral">&quot;moveR&quot;</span>];
+<a name="l00041"></a>00041             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a787b78dd5f65ab4dc97e7019a46d32a2">spr</a>.<a class="code" href="class_n_l_s_1_1_ani_sprite.html#a292b44201067ff8f0d5e05df482ef502">Set</a>(od);
+<a name="l00042"></a>00042             o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a787b78dd5f65ab4dc97e7019a46d32a2">spr</a>.<a class="code" href="class_n_l_s_1_1_ani_sprite.html#a700a3125ba906ef9a1164b852af3a259">repeat</a> = o-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a41312f2a98d1fc22ef3656c5785b1689">repeat</a>;
+<a name="l00043"></a>00043             <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Map::Layers</a>[i].Objs.push_back(o);
+<a name="l00044"></a>00044             <a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">Objs</a>.insert(o);
+<a name="l00045"></a>00045         }
+<a name="l00046"></a>00046         sort(<a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Map::Layers</a>[i].<a class="code" href="class_n_l_s_1_1_obj.html#af1f3f48b0041309764a78100bd62a739">Objs</a>.begin(), <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Map::Layers</a>[i].Objs.end(), [](<a class="code" href="class_n_l_s_1_1_obj.html">Obj</a>* o1, <a class="code" href="class_n_l_s_1_1_obj.html">Obj</a>* o2){<span class="keywordflow">return</span> o1-&gt;<a class="code" href="class_n_l_s_1_1_obj.html#a935baf9f1e19dab3c08ab5e6f77cc56a">z</a> &lt; o2-&gt;z;});
+<a name="l00047"></a>00047     }
+<a name="l00048"></a>00048 }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="class_n_l_s_1_1_obj.html#a02605dd572e8cd8babe15785260bd079">00050</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">NLS::Obj::Draw</a>() {
+<a name="l00051"></a>00051     spr.Step();
+<a name="l00052"></a>00052     <span class="keywordtype">int</span> ax = 0;
+<a name="l00053"></a>00053     <span class="keywordtype">int</span> ay = 0;
+<a name="l00054"></a>00054     <span class="keywordtype">double</span> ang = 0;
+<a name="l00055"></a>00055     <span class="keywordflow">switch</span>(movetype) {
+<a name="l00056"></a>00056     <span class="keywordflow">case</span> 1:
+<a name="l00057"></a>00057         <span class="keywordflow">if</span> (movep) {
+<a name="l00058"></a>00058             ax = movew*sin((<span class="keywordtype">double</span>)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>*2*<a class="code" href="_utilities_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>/movep);
+<a name="l00059"></a>00059         } <span class="keywordflow">else</span> {
+<a name="l00060"></a>00060             ax = movew*sin((<span class="keywordtype">double</span>)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>/1000);
+<a name="l00061"></a>00061         }
+<a name="l00062"></a>00062         <span class="keywordflow">break</span>;
+<a name="l00063"></a>00063     <span class="keywordflow">case</span> 2:
+<a name="l00064"></a>00064         <span class="keywordflow">if</span> (movep) {
+<a name="l00065"></a>00065             ay = moveh*sin((<span class="keywordtype">double</span>)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>*2*<a class="code" href="_utilities_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>/movep);
+<a name="l00066"></a>00066         } <span class="keywordflow">else</span> {
+<a name="l00067"></a>00067             ay = moveh*sin((<span class="keywordtype">double</span>)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>/1000);
+<a name="l00068"></a>00068         }
+<a name="l00069"></a>00069         <span class="keywordflow">break</span>;
+<a name="l00070"></a>00070     <span class="keywordflow">case</span> 3:
+<a name="l00071"></a>00071         ang = (double)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>/mover*<a class="code" href="_utilities_8h.html#a3855863521e2d92ec990c39c96f81b78">radtodeg</a>;
+<a name="l00072"></a>00072         <span class="keywordflow">break</span>;
+<a name="l00073"></a>00073     };
+<a name="l00074"></a>00074     <span class="keywordflow">if</span> (flow) {
+<a name="l00075"></a>00075         ax += (double)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#ad42781dad153b5a2c8d561ed7ce7fdb0">tdelta</a>*rx/1000*5;
+<a name="l00076"></a>00076         <span class="comment">//int cx = View.xmax-View.xmin;</span>
+<a name="l00077"></a>00077         <span class="keywordtype">int</span> cx = 800;<span class="comment">//For now</span>
+<a name="l00078"></a>00078         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = (x+ax-<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a>)%cx-cx+<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a>; i &lt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a>+800+cx; i += cx) {
+<a name="l00079"></a>00079             spr.Draw(i, y+ay, f, ang);
+<a name="l00080"></a>00080         }
+<a name="l00081"></a>00081     } <span class="keywordflow">else</span> {
+<a name="l00082"></a>00082         spr.Draw(x+ax, y+ay, f, ang);
+<a name="l00083"></a>00083     }
+<a name="l00084"></a>00084 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -113,7 +191,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -123,7 +201,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:14 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

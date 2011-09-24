@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeServer/LoginServer.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeServer/LoginServer.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -103,36 +103,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00003"></a>00003 <span class="comment">// Please see SuperGlobal.h for more information. //</span>
 <a name="l00005"></a>00005 <span class="comment"></span><span class="preprocessor">#include &quot;Global.h&quot;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">00007</a> <a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">NLS::LoginServer::LoginServer</a>() {
-<a name="l00008"></a>00008     <a class="code" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">done</a> = <span class="keyword">false</span>;
-<a name="l00009"></a>00009     <a class="code" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">listener</a>.SetBlocking(<span class="keyword">false</span>);
-<a name="l00010"></a>00010     <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">listener</a>.Listen(8484) == sf::Socket::Error) {
-<a name="l00011"></a>00011         cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: LoginServer failed to listen on port 8484&quot;</span> &lt;&lt; endl;
-<a name="l00012"></a>00012         <span class="keywordflow">throw</span>(273);
+<a name="l00007"></a>00007 <a class="code" href="class_n_l_s_1_1_login_server.html">NLS::LoginServer</a> *<a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">NLS::LoginServer::instance</a> = <span class="keyword">nullptr</span>;
+<a name="l00008"></a>00008 
+<a name="l00009"></a><a class="code" href="class_n_l_s_1_1_login_server.html#a375492f790aab759b259d46780b01bbc">00009</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_login_server.html#a375492f790aab759b259d46780b01bbc">NLS::LoginServer::Start</a>() {
+<a name="l00010"></a>00010     <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> != <span class="keyword">nullptr</span>) {
+<a name="l00011"></a>00011         cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Instance of LoginServer already exists!&quot;</span> &lt;&lt; endl;
+<a name="l00012"></a>00012         <a class="code" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c">Shutdown</a>();
 <a name="l00013"></a>00013     }
-<a name="l00014"></a>00014     cout &lt;&lt; <span class="stringliteral">&quot;INFO: LoginServer up and listening on port 8484&quot;</span> &lt;&lt; endl;
-<a name="l00015"></a>00015     <span class="comment">//Create world servers</span>
-<a name="l00016"></a>00016     <a class="code" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">thread</a> = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838">Loop</a>();});
-<a name="l00017"></a>00017     <a class="code" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">thread</a>-&gt;Launch();
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838">00020</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264">NLS::LoginServer::Loop</a>() {
-<a name="l00021"></a>00021     <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
-<a name="l00022"></a>00022         <span class="keyword">static</span> sf::TcpSocket* next(<span class="keyword">new</span> sf::TcpSocket());
-<a name="l00023"></a>00023         <span class="keywordflow">if</span> (listener.Accept(*next) == sf::Socket::Done) {
-<a name="l00024"></a>00024             cout &lt;&lt; <span class="stringliteral">&quot;INFO: Player connected from &quot;</span> &lt;&lt; next-&gt;GetRemoteAddress() &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; next-&gt;GetRemotePort() &lt;&lt; endl;
-<a name="l00025"></a>00025             <span class="comment">//Do stuff with next</span>
-<a name="l00026"></a>00026             next = <span class="keyword">new</span> sf::TcpSocket();
-<a name="l00027"></a>00027         }
-<a name="l00028"></a>00028         sf::Sleep(0.1);
-<a name="l00029"></a>00029         <span class="keywordflow">if</span> (done) {
-<a name="l00030"></a>00030             <span class="comment">//Shutdown world serverz</span>
-<a name="l00031"></a>00031             cout &lt;&lt; <span class="stringliteral">&quot;INFO: Shutting down LoginServer&quot;</span> &lt;&lt; endl;
-<a name="l00032"></a>00032             <span class="comment">//Clean up stuff</span>
-<a name="l00033"></a>00033             <span class="keywordflow">break</span>;
-<a name="l00034"></a>00034         }
-<a name="l00035"></a>00035     }
-<a name="l00036"></a>00036 }
+<a name="l00014"></a>00014     cout &lt;&lt; <span class="stringliteral">&quot;INFO: Starting up LoginServer&quot;</span> &lt;&lt; endl;
+<a name="l00015"></a>00015     <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">LoginServer</a>();
+<a name="l00016"></a>00016 }
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">00018</a> <a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">NLS::LoginServer::LoginServer</a>() {
+<a name="l00019"></a>00019     done = <span class="keyword">false</span>;
+<a name="l00020"></a>00020     listener.SetBlocking(<span class="keyword">false</span>);
+<a name="l00021"></a>00021     <span class="keywordflow">if</span> (listener.Listen(8484) == sf::Socket::Error) {
+<a name="l00022"></a>00022         cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: LoginServer failed to listen on port 8484&quot;</span> &lt;&lt; endl;
+<a name="l00023"></a>00023         <span class="keywordflow">throw</span>(273);
+<a name="l00024"></a>00024     }
+<a name="l00025"></a>00025     thread = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d">Loop</a>();});
+<a name="l00026"></a>00026     thread-&gt;Launch();
+<a name="l00027"></a>00027     cout &lt;&lt; <span class="stringliteral">&quot;INFO: LoginServer up and listening on port 8484&quot;</span> &lt;&lt; endl;
+<a name="l00028"></a>00028 }
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838">00030</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d">NLS::LoginServer::Loop</a>() {
+<a name="l00031"></a>00031     <span class="keywordflow">while</span> (!done) {
+<a name="l00032"></a>00032         <span class="keyword">static</span> sf::TcpSocket* next(<span class="keyword">new</span> sf::TcpSocket());
+<a name="l00033"></a>00033         <span class="keywordflow">if</span> (listener.Accept(*next) == sf::Socket::Done) {
+<a name="l00034"></a>00034             cout &lt;&lt; <span class="stringliteral">&quot;INFO: Player connected from &quot;</span> &lt;&lt; next-&gt;GetRemoteAddress() &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; next-&gt;GetRemotePort() &lt;&lt; endl;
+<a name="l00035"></a>00035             <span class="comment">//Do stuff with next</span>
+<a name="l00036"></a>00036             next = <span class="keyword">new</span> sf::TcpSocket();
+<a name="l00037"></a>00037         }
+<a name="l00038"></a>00038         sf::Sleep(0.1);
+<a name="l00039"></a>00039     }
+<a name="l00040"></a>00040 }
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c">00042</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c">NLS::LoginServer::Shutdown</a>() {
+<a name="l00043"></a>00043     cout &lt;&lt; <span class="stringliteral">&quot;INFO: Shutting down LoginServer&quot;</span> &lt;&lt; endl;
+<a name="l00044"></a>00044     instance-&gt;done = <span class="keyword">true</span>;
+<a name="l00045"></a>00045     instance-&gt;thread-&gt;Wait();
+<a name="l00046"></a>00046     <span class="keyword">delete</span> instance;
+<a name="l00047"></a>00047     instance = <span class="keyword">nullptr</span>;
+<a name="l00048"></a>00048 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -143,7 +155,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -153,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:13 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:29 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

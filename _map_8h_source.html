@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Map.h Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Map.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -110,15 +110,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00011"></a>00011         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_node.html">Node</a> <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>;
 <a name="l00012"></a>00012         <span class="keyword">extern</span> <span class="keywordtype">string</span> <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>;
 <a name="l00013"></a>00013         <span class="keyword">extern</span> <span class="keywordtype">string</span> <a class="code" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a>;
-<a name="l00014"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">00014</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a> {
-<a name="l00015"></a>00015         <span class="keyword">public</span>:
-<a name="l00016"></a>00016             <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#aecee055e3ab224d28b080d9909148b3d">Draw</a>();
-<a name="l00017"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#a111fe135a7a7fbb30ce39cb82396c755">00017</a>             vector&lt;Obj*&gt; <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#a111fe135a7a7fbb30ce39cb82396c755">Objs</a>;
-<a name="l00018"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#af6ad2df36f310ff924e0728ff4d48c09">00018</a>             vector&lt;Tile*&gt; <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#af6ad2df36f310ff924e0728ff4d48c09">Tiles</a>;
-<a name="l00019"></a>00019         };
-<a name="l00020"></a>00020         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a> <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[8];
-<a name="l00021"></a>00021     };
-<a name="l00022"></a>00022 };
+<a name="l00014"></a>00014         <span class="keyword">extern</span> <span class="keywordtype">string</span> <a class="code" href="namespace_n_l_s_1_1_map.html#aadd2758c7855be9c6c018179d06c29e8">curmap</a>;
+<a name="l00015"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">00015</a>         <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a> {
+<a name="l00016"></a>00016         <span class="keyword">public</span>:
+<a name="l00017"></a>00017             <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#aecee055e3ab224d28b080d9909148b3d">Draw</a>();
+<a name="l00018"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#a111fe135a7a7fbb30ce39cb82396c755">00018</a>             vector&lt;Obj*&gt; <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#a111fe135a7a7fbb30ce39cb82396c755">Objs</a>;
+<a name="l00019"></a><a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#af6ad2df36f310ff924e0728ff4d48c09">00019</a>             vector&lt;Tile*&gt; <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html#af6ad2df36f310ff924e0728ff4d48c09">Tiles</a>;
+<a name="l00020"></a>00020         };
+<a name="l00021"></a>00021         <span class="keyword">extern</span> vector&lt;Back*&gt; <a class="code" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">Backgrounds</a>;
+<a name="l00022"></a>00022         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a> <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[8];
+<a name="l00023"></a>00023         <span class="keyword">extern</span> vector&lt;Back*&gt; <a class="code" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">Foregrounds</a>;
+<a name="l00024"></a>00024         <span class="keyword">extern</span> <a class="code" href="class_n_l_s_1_1_sound.html">Sound</a> <a class="code" href="namespace_n_l_s_1_1_map.html#a170f299d6136e04dd3aa2ef849806192">bgmusic</a>;
+<a name="l00025"></a>00025     };
+<a name="l00026"></a>00026 };
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -129,7 +133,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -139,7 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:14 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

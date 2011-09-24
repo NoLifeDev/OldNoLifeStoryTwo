@@ -1,3 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$class_n_l_s_1_1_foothold.html#a50fcc2e91c2d4f0015b7d266df8c644e" title="NLS::Foothold::Load" alt="" coords="181,5,323,32"/>
+<area shape="rect" id="node3" href="$class_n_l_s_1_1_back.html#a437265e222e6d1e0eea924c72f5267f4" title="NLS::Back::Load" alt="" coords="191,5,313,32"/>
+<area shape="rect" id="node5" href="$class_n_l_s_1_1_portal.html#a68d6db2bc89530163a7ff3cc5650b802" title="NLS::Portal::Load" alt="" coords="189,56,315,83"/>
+<area shape="rect" id="node7" href="$class_n_l_s_1_1_foothold.html#a50fcc2e91c2d4f0015b7d266df8c644e" title="NLS::Foothold::Load" alt="" coords="181,107,323,133"/>
 </map>

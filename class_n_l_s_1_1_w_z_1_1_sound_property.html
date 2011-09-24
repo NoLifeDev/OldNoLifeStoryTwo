@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -95,17 +95,131 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
 <div id="doc-content">
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">NLS::WZ::SoundProperty Class Reference</div>  </div>
 </div>
 <div class="contents">
 <!-- doxytag: class="NLS::WZ::SoundProperty" -->
 <p><code>#include &lt;<a class="el" href="_w_z_8h_source.html">WZ.h</a>&gt;</code></p>
+
+<p><a href="class_n_l_s_1_1_w_z_1_1_sound_property-members.html">List of all members.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#ab3ead639b2f645a25bd289bd170e5471">SoundProperty</a> (ifstream *file, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> n)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a99c1b03fb0a8e8fb258426b83d07d0df">Parse</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a45bd7cbf10667e08d6b9b769da2d23c3">len</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a06db05d3a8d888467b99f1cb9cd237af">data</a></td></tr>
+</table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00076">76</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>NoLifeStory/<a class="el" href="_w_z_8h_source.html">WZ.h</a></li>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00082">82</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ab3ead639b2f645a25bd289bd170e5471"></a><!-- doxytag: member="NLS::WZ::SoundProperty::SoundProperty" ref="ab3ead639b2f645a25bd289bd170e5471" args="(ifstream *file, Node n)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NLS::WZ::SoundProperty::SoundProperty </td>
+          <td>(</td>
+          <td class="paramtype">ifstream *&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00600">600</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+
+<p>References <a class="el" href="_w_z_8h_source.html#l00057">NLS::Node::data</a>, <a class="el" href="_w_z_8cpp_source.html#l00060">ReadCInt()</a>, and <a class="el" href="_w_z_8h_source.html#l00100">NLS::NodeData::sound</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+    file-&gt;seekg(1, ios::cur);
+    <a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a45bd7cbf10667e08d6b9b769da2d23c3">len</a> = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+    <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+    file-&gt;seekg(82, ios::cur);
+    <a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a06db05d3a8d888467b99f1cb9cd237af">data</a> = <span class="keyword">new</span> uint8_t[<a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a45bd7cbf10667e08d6b9b769da2d23c3">len</a>];
+    file-&gt;read((<span class="keywordtype">char</span>*)<a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a06db05d3a8d888467b99f1cb9cd237af">data</a>, <a class="code" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a45bd7cbf10667e08d6b9b769da2d23c3">len</a>);
+    n.data-&gt;sound = <span class="keyword">this</span>;
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_n_l_s_1_1_w_z_1_1_sound_property_ab3ead639b2f645a25bd289bd170e5471_cgraph.png" border="0" usemap="#class_n_l_s_1_1_w_z_1_1_sound_property_ab3ead639b2f645a25bd289bd170e5471_cgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_w_z_1_1_sound_property_ab3ead639b2f645a25bd289bd170e5471_cgraph" id="class_n_l_s_1_1_w_z_1_1_sound_property_ab3ead639b2f645a25bd289bd170e5471_cgraph">
+<area shape="rect" id="node3" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7" title="ReadCInt" alt="" coords="317,5,392,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a99c1b03fb0a8e8fb258426b83d07d0df"></a><!-- doxytag: member="NLS::WZ::SoundProperty::Parse" ref="a99c1b03fb0a8e8fb258426b83d07d0df" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::WZ::SoundProperty::Parse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a06db05d3a8d888467b99f1cb9cd237af"></a><!-- doxytag: member="NLS::WZ::SoundProperty::data" ref="a06db05d3a8d888467b99f1cb9cd237af" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* <a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a06db05d3a8d888467b99f1cb9cd237af">NLS::WZ::SoundProperty::data</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00087">87</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a45bd7cbf10667e08d6b9b769da2d23c3"></a><!-- doxytag: member="NLS::WZ::SoundProperty::len" ref="a45bd7cbf10667e08d6b9b769da2d23c3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html#a45bd7cbf10667e08d6b9b769da2d23c3">NLS::WZ::SoundProperty::len</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00086">86</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/NoLifeStory/<a class="el" href="_w_z_8h_source.html">WZ.h</a></li>
+<li>src/NoLifeStory/<a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -119,7 +233,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -129,7 +243,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:16 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:32 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

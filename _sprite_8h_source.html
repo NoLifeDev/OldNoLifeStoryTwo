@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Sprite.h Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Sprite.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -106,19 +106,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00007"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html">00007</a>     <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_sprite_data.html">SpriteData</a> {
 <a name="l00008"></a>00008     <span class="keyword">public</span>:
 <a name="l00009"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a27317bfae64878eef2ac5ab6c574a378">00009</a>         GLuint <a class="code" href="class_n_l_s_1_1_sprite_data.html#a27317bfae64878eef2ac5ab6c574a378">texture</a>;
-<a name="l00010"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#aa71e347c2be4f80342719e87026b4a28">00010</a>         GLuint <a class="code" href="class_n_l_s_1_1_sprite_data.html#aa71e347c2be4f80342719e87026b4a28">width</a>, <a class="code" href="class_n_l_s_1_1_sprite_data.html#a9debd49f3ebf91293a9c192889fd04ca">height</a>;
-<a name="l00011"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a7b1b01f6d0ce32813f0658aaeb43f3e8">00011</a>         GLfloat <a class="code" href="class_n_l_s_1_1_sprite_data.html#a7b1b01f6d0ce32813f0658aaeb43f3e8">twidth</a>, <a class="code" href="class_n_l_s_1_1_sprite_data.html#a877c80a6ae7e50adbf26faee58bf7af8">theight</a>;
-<a name="l00012"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#ae0fbc512bab5f7a3ae5fbb2a54f74ddb">00012</a>         GLint <a class="code" href="class_n_l_s_1_1_sprite_data.html#a54cbd4d3ad425828d5f9130e398a2a01">originx</a>, <a class="code" href="class_n_l_s_1_1_sprite_data.html#ae0fbc512bab5f7a3ae5fbb2a54f74ddb">originy</a>;
-<a name="l00013"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a9b5677fa704aed64072852ca26478d22">00013</a>         <span class="keywordtype">bool</span> <a class="code" href="class_n_l_s_1_1_sprite_data.html#a9b5677fa704aed64072852ca26478d22">loaded</a>;
-<a name="l00014"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a87f8f36f7818a7a3feb6d9dfc78bb805">00014</a>         <span class="keywordtype">void</span>* <a class="code" href="class_n_l_s_1_1_sprite_data.html#a87f8f36f7818a7a3feb6d9dfc78bb805">png</a>;
-<a name="l00015"></a>00015     };
-<a name="l00016"></a><a class="code" href="class_n_l_s_1_1_sprite.html">00016</a>     <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_sprite.html">Sprite</a> {
-<a name="l00017"></a>00017     <span class="keyword">public</span>:
+<a name="l00010"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a448d86c16564d89e852be581980b78a9">00010</a>         GLint <a class="code" href="class_n_l_s_1_1_sprite_data.html#a448d86c16564d89e852be581980b78a9">width</a>, <a class="code" href="class_n_l_s_1_1_sprite_data.html#aff183a6297fb1560014a9f78c5b31c77">height</a>;
+<a name="l00011"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#ae0fbc512bab5f7a3ae5fbb2a54f74ddb">00011</a>         GLint <a class="code" href="class_n_l_s_1_1_sprite_data.html#a54cbd4d3ad425828d5f9130e398a2a01">originx</a>, <a class="code" href="class_n_l_s_1_1_sprite_data.html#ae0fbc512bab5f7a3ae5fbb2a54f74ddb">originy</a>;
+<a name="l00012"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a9b5677fa704aed64072852ca26478d22">00012</a>         <span class="keywordtype">bool</span> <a class="code" href="class_n_l_s_1_1_sprite_data.html#a9b5677fa704aed64072852ca26478d22">loaded</a>;
+<a name="l00013"></a><a class="code" href="class_n_l_s_1_1_sprite_data.html#a87f8f36f7818a7a3feb6d9dfc78bb805">00013</a>         <span class="keywordtype">void</span>* <a class="code" href="class_n_l_s_1_1_sprite_data.html#a87f8f36f7818a7a3feb6d9dfc78bb805">png</a>;
+<a name="l00014"></a>00014     };
+<a name="l00015"></a><a class="code" href="class_n_l_s_1_1_sprite.html">00015</a>     <span class="keyword">class </span><a class="code" href="class_n_l_s_1_1_sprite.html">Sprite</a> {
+<a name="l00016"></a>00016     <span class="keyword">public</span>:
+<a name="l00017"></a>00017         <a class="code" href="class_n_l_s_1_1_sprite.html#a3cfd6edf03b2ca16050a9bb2422b1022">Sprite</a>();
 <a name="l00018"></a>00018         <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_sprite.html#a7eca85a86c81a09c006ad4df098cea37">Draw</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">bool</span> flipped = <span class="keyword">false</span>, <span class="keywordtype">float</span> alpha = 1, <span class="keywordtype">float</span> rotation = 0);
 <a name="l00019"></a>00019         <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_sprite.html#a573443dbc850c0e37cbfa3186a313981">GetTexture</a>();
-<a name="l00020"></a><a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">00020</a>         <a class="code" href="class_n_l_s_1_1_sprite_data.html">SpriteData</a>* <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>;
-<a name="l00021"></a>00021     };
-<a name="l00022"></a>00022 };
+<a name="l00020"></a>00020         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_sprite.html#ad0ed86abd9f13dbcf44096a42f2cfaa8">Unload</a>();
+<a name="l00021"></a><a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">00021</a>         <a class="code" href="class_n_l_s_1_1_sprite_data.html">SpriteData</a>* <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>;
+<a name="l00022"></a><a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">00022</a>         <span class="keyword">static</span> deque &lt;SpriteData*&gt; <a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>;
+<a name="l00023"></a>00023     };
+<a name="l00024"></a>00024 };
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -129,7 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -139,7 +141,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:14 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -116,7 +116,11 @@ Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#aadd2758c7855be9c6c018179d06c29e8">curmap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_l_s_1_1_back.html">Back</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">Backgrounds</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_map_1_1_layer.html">Layer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a> [8]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_l_s_1_1_back.html">Back</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">Foregrounds</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_sound.html">Sound</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_map.html#a170f299d6136e04dd3aa2ef849806192">bgmusic</a></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="abb25932960b161c06889b7c20343984a"></a><!-- doxytag: member="NLS::Map::Draw" ref="abb25932960b161c06889b7c20343984a" args="()" -->
@@ -133,12 +137,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00034">34</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00088">88</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>References <a class="el" href="_map_8cpp_source.html#l00040">NLS::Map::Layer::Draw()</a>, and <a class="el" href="_map_8cpp_source.html#l00010">Layers</a>.</p>
+<p>References <a class="el" href="_map_8cpp_source.html#l00011">Backgrounds</a>, <a class="el" href="_map_8cpp_source.html#l00103">NLS::Map::Layer::Draw()</a>, <a class="el" href="_map_8cpp_source.html#l00013">Foregrounds</a>, and <a class="el" href="_map_8cpp_source.html#l00012">Layers</a>.</p>
 <div class="fragment"><pre class="fragment">                  {
+    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; <a class="code" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">Backgrounds</a>.size(); i++) {
+        <a class="code" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">Backgrounds</a>[i]-&gt;Draw();
+    }
     <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; 8; i++) {
         <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[i].Draw();
+    }
+    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; Portal::Portals.size(); i++) {
+        Portal::Portals[i]-&gt;Draw();
+    }
+    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">Foregrounds</a>.size(); i++) {
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">Foregrounds</a>[i]-&gt;Draw();
     }
 }
 </pre></div>
@@ -178,11 +191,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00012">12</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00016">16</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>References <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, and <a class="el" href="_map_8cpp_source.html#l00009">nextportal</a>.</p>
+<p>References <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, and <a class="el" href="_map_8cpp_source.html#l00010">nextportal</a>.</p>
 
-<p>Referenced by <a class="el" href="_client_8cpp_source.html#l00007">NLS::Init()</a>, and <a class="el" href="_map_8cpp_source.html#l00017">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_console_8cpp_source.html#l00127">NLS::Console::HandleCommand()</a>, <a class="el" href="_client_8cpp_source.html#l00012">NLS::Init()</a>, and <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
     <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> = id;
     <a class="code" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a> = portal;
@@ -193,7 +206,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespace_n_l_s_1_1_map_a0103b219e68f9dfcc89d68643b50277e_icgraph.png" border="0" usemap="#namespace_n_l_s_1_1_map_a0103b219e68f9dfcc89d68643b50277e_icgraph" alt=""/></div>
 <map name="namespace_n_l_s_1_1_map_a0103b219e68f9dfcc89d68643b50277e_icgraph" id="namespace_n_l_s_1_1_map_a0103b219e68f9dfcc89d68643b50277e_icgraph">
-<area shape="rect" id="node3" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1" title="NLS::Init" alt="" coords="193,5,265,32"/><area shape="rect" id="node7" href="namespace_n_l_s_1_1_map.html#a65ac7bf7f27016615c186d712001eafd" title="NLS::Map::Load" alt="" coords="171,56,287,83"/><area shape="rect" id="node5" href="_no_life_server_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="main" alt="" coords="336,5,387,32"/></map>
+<area shape="rect" id="node3" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3" title="NLS::Console::HandleCommand" alt="" coords="171,5,381,32"/><area shape="rect" id="node5" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1" title="NLS::Init" alt="" coords="240,56,312,83"/><area shape="rect" id="node7" href="namespace_n_l_s_1_1_map.html#a65ac7bf7f27016615c186d712001eafd" title="NLS::Map::Load" alt="" coords="218,107,334,133"/></map>
 </div>
 </p>
 
@@ -213,24 +226,74 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00017">17</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00021">21</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>, <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, <a class="el" href="_map_8cpp_source.html#l00007">node</a>, and <a class="el" href="_w_z_8cpp_source.html#l00010">NLS::WZ::Top</a>.</p>
+<p>References <a class="el" href="_map_8cpp_source.html#l00011">Backgrounds</a>, <a class="el" href="_map_8cpp_source.html#l00014">bgmusic</a>, <a class="el" href="_console_8h_source.html#l00051">NLS::C()</a>, <a class="el" href="_map_8cpp_source.html#l00009">curmap</a>, <a class="el" href="_foothold_8cpp_source.html#l00007">NLS::footholds</a>, <a class="el" href="_map_8cpp_source.html#l00013">Foregrounds</a>, <a class="el" href="_view_8h_source.html#l00013">NLS::_View::height</a>, <a class="el" href="_map_8cpp_source.html#l00012">Layers</a>, <a class="el" href="_map_8cpp_source.html#l00016">Load()</a>, <a class="el" href="_map_8cpp_source.html#l00008">nextmap</a>, <a class="el" href="_map_8cpp_source.html#l00010">nextportal</a>, <a class="el" href="_map_8cpp_source.html#l00007">node</a>, <a class="el" href="_map_8h_source.html#l00018">NLS::Map::Layer::Objs</a>, <a class="el" href="_sound_8cpp_source.html#l00011">NLS::Sound::Play()</a>, <a class="el" href="_time_8cpp_source.html#l00009">NLS::_Time::Reset()</a>, <a class="el" href="_map_8h_source.html#l00019">NLS::Map::Layer::Tiles</a>, <a class="el" href="_time_8cpp_source.html#l00007">NLS::Time</a>, <a class="el" href="_w_z_8cpp_source.html#l00010">NLS::WZ::Top</a>, <a class="el" href="_view_8h_source.html#l00010">NLS::_View::tx</a>, <a class="el" href="_view_8h_source.html#l00010">NLS::_View::ty</a>, <a class="el" href="_server_8cpp_source.html#l00055">NLS::Unload()</a>, <a class="el" href="_view_8cpp_source.html#l00007">NLS::View</a>, <a class="el" href="_view_8h_source.html#l00011">NLS::_View::xmax</a>, <a class="el" href="_view_8h_source.html#l00011">NLS::_View::xmin</a>, <a class="el" href="_view_8h_source.html#l00011">NLS::_View::ymax</a>, and <a class="el" href="_view_8h_source.html#l00011">NLS::_View::ymin</a>.</p>
 <div class="fragment"><pre class="fragment">                  {
-    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading map &quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> &lt;&lt; endl;
-    <span class="keywordtype">char</span> zone;
-    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> == <span class="stringliteral">&quot;login&quot;</span>) {
-        <span class="comment">//Uh....</span>
-        <span class="keywordflow">throw</span>(273);
+    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#aadd2758c7855be9c6c018179d06c29e8">curmap</a> == <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>) {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;The specified map is already loaded&quot;</span> &lt;&lt; endl;
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> = <span class="stringliteral">&quot;&quot;</span>;
+        <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> == <span class="stringliteral">&quot;MapLogin&quot;</span>) {
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a> = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">WZ::Top</a>[<span class="stringliteral">&quot;UI&quot;</span>][<span class="stringliteral">&quot;MapLogin&quot;</span>];
+        <span class="comment">//throw(273);</span>
     } <span class="keywordflow">else</span> {
-        <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>.insert(0, 9-<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>.size(), <span class="charliteral">&#39;0&#39;</span>);
-        zone = <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>[0];
+        <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>.size() &lt; 9) {
+            <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>.insert(0, 9-<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>.size(), <span class="charliteral">&#39;0&#39;</span>);
+        }
+        <span class="keywordtype">char</span> zone = <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>[0];
         <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a> = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">WZ::Top</a>[<span class="stringliteral">&quot;Map&quot;</span>][<span class="stringliteral">&quot;Map&quot;</span>][string(<span class="stringliteral">&quot;Map&quot;</span>)+zone][<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>];
     }
+    <span class="keywordflow">if</span> (!<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>) {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unable to locate map &quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> &lt;&lt; endl;
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> = <span class="stringliteral">&quot;&quot;</span>;
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a> = <span class="stringliteral">&quot;&quot;</span>;
+        <span class="keywordflow">return</span>;
+    }
+    <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">Reset</a>();
+    <a class="code" href="namespace_n_l_s_1_1_map.html#aadd2758c7855be9c6c018179d06c29e8">curmap</a> = <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a>;
+    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading map &quot;</span> &lt;&lt; <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> &lt;&lt; endl;
     <span class="keywordtype">string</span> bgm = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;bgm&quot;</span>];
-    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Background music: &quot;</span> &lt;&lt; bgm &lt;&lt; endl;
+    <span class="keyword">auto</span> p = bgm.find(<span class="charliteral">&#39;/&#39;</span>);
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a170f299d6136e04dd3aa2ef849806192">bgmusic</a> = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">WZ::Top</a>[<span class="stringliteral">&quot;Sound&quot;</span>][bgm.substr(0, p)][bgm.substr(p+1)];
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a170f299d6136e04dd3aa2ef849806192">bgmusic</a>.Play(<span class="keyword">true</span>);
+    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; 8; i++) {
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[i].Tiles.clear();
+        <a class="code" href="namespace_n_l_s_1_1_map.html#a4115ebdae58b21aab1f76fa882b4e24a">Layers</a>[i].Objs.clear();
+    }
+    <a class="code" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">Backgrounds</a>.clear();
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">Foregrounds</a>.clear();
+    <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">Sprite::Unload</a>();
     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Foothold::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Tile::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Obj::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Back::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Portal::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Reactor::Load</a>(<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>);
+    <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a46439b75f79fcf130b57b42ec83268f5">tx</a> = 0;
+    <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a3a37ad900505473c8d7844e653119287">ty</a> = 0;
+    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;VRLeft&quot;</span>]) {
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a240c9eba78b46e3c48a3f98505dd7192">xmin</a> = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;VRLeft&quot;</span>];
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#afbdbe9792af29565529cb71a0586aabe">xmax</a> = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;VRRight&quot;</span>];
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d16bf6bb1f02fc2c517ed8449901bca">ymin</a> = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;VRTop&quot;</span>];
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#af670146252a277d71a5d4b0646d0df7b">ymax</a> = <a class="code" href="namespace_n_l_s_1_1_map.html#a783b161c1220f21521b63cc40064bab4">node</a>[<span class="stringliteral">&quot;info&quot;</span>][<span class="stringliteral">&quot;VRBottom&quot;</span>];
+    } <span class="keywordflow">else</span> {
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a240c9eba78b46e3c48a3f98505dd7192">xmin</a> = 1000000;
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#afbdbe9792af29565529cb71a0586aabe">xmax</a> = -1000000;
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d16bf6bb1f02fc2c517ed8449901bca">ymin</a> = 1000000;
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#af670146252a277d71a5d4b0646d0df7b">ymax</a> = -1000000;
+        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.begin(); it != <a class="code" href="namespace_n_l_s.html#a8918388dc608c647d37e95e90cf99626">footholds</a>.end(); it++) {
+            <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a240c9eba78b46e3c48a3f98505dd7192">xmin</a> = min(min(<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a240c9eba78b46e3c48a3f98505dd7192">xmin</a>, (*it)-&gt;x1), (*it)-&gt;x2);
+            <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d16bf6bb1f02fc2c517ed8449901bca">ymin</a> = min(min(<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d16bf6bb1f02fc2c517ed8449901bca">ymin</a>, (*it)-&gt;y1), (*it)-&gt;y2);
+            <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#afbdbe9792af29565529cb71a0586aabe">xmax</a> = max(max(<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#afbdbe9792af29565529cb71a0586aabe">xmax</a>, (*it)-&gt;x1), (*it)-&gt;x2);
+            <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#af670146252a277d71a5d4b0646d0df7b">ymax</a> = max(max(<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#af670146252a277d71a5d4b0646d0df7b">ymax</a>, (*it)-&gt;y1), (*it)-&gt;y2);
+        }
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#af670146252a277d71a5d4b0646d0df7b">ymax</a> += 128;
+        <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d16bf6bb1f02fc2c517ed8449901bca">ymin</a> -= <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#adad1ab78ebea4eca8161874ed66ff648">height</a>;
+    }
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">nextmap</a> = <span class="stringliteral">&quot;&quot;</span>;
+    <a class="code" href="namespace_n_l_s_1_1_map.html#a730275bd0ee42b7cde77ca7fe412661a">nextportal</a> = <span class="stringliteral">&quot;&quot;</span>;
 }
 </pre></div>
 <p><div class="dynheader">
@@ -238,13 +301,81 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph" alt=""/></div>
 <map name="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph" id="namespace_n_l_s_1_1_map_a65ac7bf7f27016615c186d712001eafd_cgraph">
-<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="197,5,261,32"/><area shape="rect" id="node5" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="171,56,287,83"/></map>
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="205,5,269,32"/><area shape="rect" id="node5" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="179,56,295,83"/><area shape="rect" id="node7" href="class_n_l_s_1_1_sound.html#ae291713b86ae01a88a433c4b8d0fbc76" title="NLS::Sound::Play" alt="" coords="174,107,301,133"/><area shape="rect" id="node9" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9" title="NLS::_Time::Reset" alt="" coords="171,157,303,184"/><area shape="rect" id="node11" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="190,208,285,235"/></map>
 </div>
 </p>
 
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
+<a class="anchor" id="af2d91182484057b106c6496549bcd9b9"></a><!-- doxytag: member="NLS::Map::Backgrounds" ref="af2d91182484057b106c6496549bcd9b9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_n_l_s_1_1_back.html">NLS::Back</a> * &gt; <a class="el" href="namespace_n_l_s_1_1_map.html#af2d91182484057b106c6496549bcd9b9">NLS::Map::Backgrounds</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00011">11</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00088">Draw()</a>, <a class="el" href="_back_8cpp_source.html#l00009">NLS::Back::Load()</a>, and <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a170f299d6136e04dd3aa2ef849806192"></a><!-- doxytag: member="NLS::Map::bgmusic" ref="a170f299d6136e04dd3aa2ef849806192" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_n_l_s_1_1_sound.html">NLS::Sound</a> <a class="el" href="namespace_n_l_s_1_1_map.html#a170f299d6136e04dd3aa2ef849806192">NLS::Map::bgmusic</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00014">14</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aadd2758c7855be9c6c018179d06c29e8"></a><!-- doxytag: member="NLS::Map::curmap" ref="aadd2758c7855be9c6c018179d06c29e8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="namespace_n_l_s_1_1_map.html#aadd2758c7855be9c6c018179d06c29e8">NLS::Map::curmap</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00009">9</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f01dfeda76f9585e3bf2f5c98c8828d"></a><!-- doxytag: member="NLS::Map::Foregrounds" ref="a0f01dfeda76f9585e3bf2f5c98c8828d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_n_l_s_1_1_back.html">NLS::Back</a> * &gt; <a class="el" href="namespace_n_l_s_1_1_map.html#a0f01dfeda76f9585e3bf2f5c98c8828d">NLS::Map::Foregrounds</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00013">13</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00088">Draw()</a>, <a class="el" href="_back_8cpp_source.html#l00009">NLS::Back::Load()</a>, and <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a4115ebdae58b21aab1f76fa882b4e24a"></a><!-- doxytag: member="NLS::Map::Layers" ref="a4115ebdae58b21aab1f76fa882b4e24a" args="[8]" -->
 <div class="memitem">
 <div class="memproto">
@@ -256,9 +387,9 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00010">10</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00012">12</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00034">Draw()</a>, and <a class="el" href="_tile_8cpp_source.html#l00009">NLS::Tile::Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00088">Draw()</a>, <a class="el" href="_tile_8cpp_source.html#l00009">NLS::Tile::Load()</a>, <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>, and <a class="el" href="_obj_8cpp_source.html#l00009">NLS::Obj::Load()</a>.</p>
 
 </div>
 </div>
@@ -275,7 +406,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_map_8cpp_source.html#l00008">8</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00016">Load()</a>.</p>
 
 </div>
 </div>
@@ -290,9 +421,9 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00009">9</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_map_8cpp_source.html#l00010">10</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00012">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00016">Load()</a>.</p>
 
 </div>
 </div>
@@ -309,7 +440,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_map_8cpp_source.html#l00007">7</a> of file <a class="el" href="_map_8cpp_source.html">Map.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00017">Load()</a>.</p>
+<p>Referenced by <a class="el" href="_map_8cpp_source.html#l00021">Load()</a>.</p>
 
 </div>
 </div>
@@ -324,7 +455,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -334,7 +465,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:16 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:31 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

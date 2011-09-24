@@ -1,6 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="160,5,224,32"/>
-<area shape="rect" id="node5" href="$namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="134,56,250,83"/>
-<area shape="rect" id="node7" href="$class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9" title="NLS::_Time::Reset" alt="" coords="126,107,258,133"/>
-<area shape="rect" id="node9" href="$class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5" title="NLS::_Time::Step" alt="" coords="129,157,255,184"/>
+<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="307,84,371,111"/>
+<area shape="rect" id="node5" href="$namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d" title="NLS::Init" alt="" coords="156,34,228,60"/>
+<area shape="rect" id="node7" href="$namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="134,84,250,111"/>
+<area shape="rect" id="node9" href="$class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9" title="NLS::_Time::Reset" alt="" coords="126,135,258,162"/>
+<area shape="rect" id="node11" href="$class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5" title="NLS::_Time::Step" alt="" coords="129,186,255,212"/>
 </map>

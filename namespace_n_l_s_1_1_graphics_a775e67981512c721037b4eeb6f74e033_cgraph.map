@@ -1,5 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="228,5,292,32"/>
-<area shape="rect" id="node5" href="$class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735" title="NLS::View_::Step" alt="" coords="197,56,323,83"/>
-<area shape="rect" id="node7" href="$_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1" title="sign" alt="" coords="371,56,418,83"/>
+<area shape="rect" id="node3" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="379,27,443,54"/>
+<area shape="rect" id="node5" href="$class_n_l_s_1_1___view.html#adaf2c3b472d0465833a65d2b95fa314e" title="NLS::_View::Reset" alt="" coords="198,27,330,54"/>
+<area shape="rect" id="node7" href="$class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5" title="NLS::_Time::Step" alt="" coords="201,78,327,105"/>
+<area shape="rect" id="node10" href="$class_n_l_s_1_1___view.html#a565923f1baa6e113d02a3d663e329805" title="NLS::_View::Step" alt="" coords="201,129,327,155"/>
+<area shape="rect" id="node14" href="$_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="231,179,297,206"/>
+<area shape="rect" id="node12" href="$_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1" title="sign" alt="" coords="387,129,434,155"/>
 </map>

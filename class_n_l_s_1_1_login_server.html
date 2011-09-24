@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -96,26 +96,42 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">NLS::LoginServer Class Reference</div>  </div>
 </div>
 <div class="contents">
 <!-- doxytag: class="NLS::LoginServer" -->
 <p><code>#include &lt;<a class="el" href="_login_server_8h_source.html">LoginServer.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for NLS::LoginServer:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_n_l_s_1_1_login_server__coll__graph.png" border="0" usemap="#_n_l_s_1_1_login_server_coll__map" alt="Collaboration graph"/></div>
+<map name="_n_l_s_1_1_login_server_coll__map" id="_n_l_s_1_1_login_server_coll__map">
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="class_n_l_s_1_1_login_server-members.html">List of all members.</a></p>
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a375492f790aab759b259d46780b01bbc">Start</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c">Shutdown</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">LoginServer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838">Loop</a> ()</td></tr>
-<tr><td colspan="2"><h2><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">done</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">sf::Thread *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">thread</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">sf::TcpListener&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">listener</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_n_l_s_1_1_login_server.html">LoginServer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> = nullptr</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
@@ -129,15 +145,17 @@ Public Attributes</h2></td></tr>
           <td class="memname">NLS::LoginServer::LoginServer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00007">7</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00018">18</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
 
-<p>References <a class="el" href="_login_server_8h_source.html#l00011">done</a>, <a class="el" href="_login_server_8h_source.html#l00013">listener</a>, <a class="el" href="_login_server_8cpp_source.html#l00020">Loop()</a>, and <a class="el" href="_login_server_8h_source.html#l00012">thread</a>.</p>
+<p>References <a class="el" href="_server_8cpp_source.html#l00015">NLS::Loop()</a>.</p>
+
+<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00009">Start()</a>.</p>
 <div class="fragment"><pre class="fragment">                            {
     <a class="code" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">done</a> = <span class="keyword">false</span>;
     <a class="code" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">listener</a>.SetBlocking(<span class="keyword">false</span>);
@@ -145,10 +163,9 @@ Public Attributes</h2></td></tr>
         cerr &lt;&lt; <span class="stringliteral">&quot;ERROR: LoginServer failed to listen on port 8484&quot;</span> &lt;&lt; endl;
         <span class="keywordflow">throw</span>(273);
     }
-    cout &lt;&lt; <span class="stringliteral">&quot;INFO: LoginServer up and listening on port 8484&quot;</span> &lt;&lt; endl;
-    <span class="comment">//Create world servers</span>
     <a class="code" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">thread</a> = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838">Loop</a>();});
     <a class="code" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">thread</a>-&gt;Launch();
+    cout &lt;&lt; <span class="stringliteral">&quot;INFO: LoginServer up and listening on port 8484&quot;</span> &lt;&lt; endl;
 }
 </pre></div>
 <p><div class="dynheader">
@@ -156,7 +173,16 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_cgraph.png" border="0" usemap="#class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_cgraph" alt=""/></div>
 <map name="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_cgraph" id="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_cgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_login_server.html#a5c09ac08f113d714bd19cbda58910838" title="NLS::LoginServer::Loop" alt="" coords="251,5,410,32"/></map>
+<area shape="rect" id="node3" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d" title="NLS::Loop" alt="" coords="251,5,333,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_icgraph.png" border="0" usemap="#class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_icgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_icgraph" id="class_n_l_s_1_1_login_server_af95f69b92777259409f5657716715fec_icgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_login_server.html#a375492f790aab759b259d46780b01bbc" title="NLS::LoginServer::Start" alt="" coords="251,5,410,32"/></map>
 </div>
 </p>
 
@@ -171,17 +197,15 @@ Here is the call graph for this function:</div>
           <td class="memname">void NLS::LoginServer::Loop </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00020">20</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
-
-<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00007">LoginServer()</a>.</p>
+<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00030">30</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                          {
-    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
+    <span class="keywordflow">while</span> (!<a class="code" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">done</a>) {
         <span class="keyword">static</span> sf::TcpSocket* next(<span class="keyword">new</span> sf::TcpSocket());
         <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">listener</a>.Accept(*next) == sf::Socket::Done) {
             cout &lt;&lt; <span class="stringliteral">&quot;INFO: Player connected from &quot;</span> &lt;&lt; next-&gt;GetRemoteAddress() &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; next-&gt;GetRemotePort() &lt;&lt; endl;
@@ -189,20 +213,78 @@ Here is the call graph for this function:</div>
             next = <span class="keyword">new</span> sf::TcpSocket();
         }
         sf::Sleep(0.1);
-        <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">done</a>) {
-            <span class="comment">//Shutdown world serverz</span>
-            cout &lt;&lt; <span class="stringliteral">&quot;INFO: Shutting down LoginServer&quot;</span> &lt;&lt; endl;
-            <span class="comment">//Clean up stuff</span>
-            <span class="keywordflow">break</span>;
-        }
     }
+}
+</pre></div>
+</div>
+</div>
+<a class="anchor" id="a3f4fce026c0e263376cda7e70519183c"></a><!-- doxytag: member="NLS::LoginServer::Shutdown" ref="a3f4fce026c0e263376cda7e70519183c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::LoginServer::Shutdown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00042">42</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
+
+<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00009">Start()</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    cout &lt;&lt; <span class="stringliteral">&quot;INFO: Shutting down LoginServer&quot;</span> &lt;&lt; endl;
+    <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a>-&gt;done = <span class="keyword">true</span>;
+    <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a>-&gt;thread-&gt;Wait();
+    <span class="keyword">delete</span> <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a>;
+    <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> = <span class="keyword">nullptr</span>;
 }</pre></div>
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_n_l_s_1_1_login_server_a5c09ac08f113d714bd19cbda58910838_icgraph.png" border="0" usemap="#class_n_l_s_1_1_login_server_a5c09ac08f113d714bd19cbda58910838_icgraph" alt=""/></div>
-<map name="class_n_l_s_1_1_login_server_a5c09ac08f113d714bd19cbda58910838_icgraph" id="class_n_l_s_1_1_login_server_a5c09ac08f113d714bd19cbda58910838_icgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec" title="NLS::LoginServer::LoginServer" alt="" coords="213,5,411,32"/></map>
+<div class="center"><img src="class_n_l_s_1_1_login_server_a3f4fce026c0e263376cda7e70519183c_icgraph.png" border="0" usemap="#class_n_l_s_1_1_login_server_a3f4fce026c0e263376cda7e70519183c_icgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_login_server_a3f4fce026c0e263376cda7e70519183c_icgraph" id="class_n_l_s_1_1_login_server_a3f4fce026c0e263376cda7e70519183c_icgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_login_server.html#a375492f790aab759b259d46780b01bbc" title="NLS::LoginServer::Start" alt="" coords="241,5,399,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a375492f790aab759b259d46780b01bbc"></a><!-- doxytag: member="NLS::LoginServer::Start" ref="a375492f790aab759b259d46780b01bbc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::LoginServer::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_login_server_8cpp_source.html#l00009">9</a> of file <a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a>.</p>
+
+<p>References <a class="el" href="_login_server_8h_source.html#l00017">instance</a>, <a class="el" href="_login_server_8cpp_source.html#l00018">LoginServer()</a>, and <a class="el" href="_login_server_8cpp_source.html#l00042">Shutdown()</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> != <span class="keyword">nullptr</span>) {
+        cout &lt;&lt; <span class="stringliteral">&quot;WARNING: Instance of LoginServer already exists!&quot;</span> &lt;&lt; endl;
+        <a class="code" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c">Shutdown</a>();
+    }
+    cout &lt;&lt; <span class="stringliteral">&quot;INFO: Starting up LoginServer&quot;</span> &lt;&lt; endl;
+    <a class="code" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">instance</a> = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec">LoginServer</a>();
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_n_l_s_1_1_login_server_a375492f790aab759b259d46780b01bbc_cgraph.png" border="0" usemap="#class_n_l_s_1_1_login_server_a375492f790aab759b259d46780b01bbc_cgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_login_server_a375492f790aab759b259d46780b01bbc_cgraph" id="class_n_l_s_1_1_login_server_a375492f790aab759b259d46780b01bbc_cgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_login_server.html#af95f69b92777259409f5657716715fec" title="NLS::LoginServer::LoginServer" alt="" coords="213,5,411,32"/><area shape="rect" id="node7" href="class_n_l_s_1_1_login_server.html#a3f4fce026c0e263376cda7e70519183c" title="NLS::LoginServer::Shutdown" alt="" coords="219,56,405,83"/><area shape="rect" id="node5" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d" title="NLS::Loop" alt="" coords="459,5,541,32"/></map>
 </div>
 </p>
 
@@ -214,15 +296,30 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">NLS::LoginServer::done</a></td>
+          <td class="memname">bool <a class="el" href="class_n_l_s_1_1_login_server.html#aba89f305769976057f2d7aad2e8b62db">NLS::LoginServer::done</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00011">11</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
+<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00014">14</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00007">LoginServer()</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a96496f7ac4429376c8632216d4b78a5c"></a><!-- doxytag: member="NLS::LoginServer::instance" ref="a96496f7ac4429376c8632216d4b78a5c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_n_l_s_1_1_login_server.html">NLS::LoginServer</a> * <a class="el" href="class_n_l_s_1_1_login_server.html#a96496f7ac4429376c8632216d4b78a5c">NLS::LoginServer::instance</a> = nullptr<code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00017">17</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00009">Start()</a>.</p>
 
 </div>
 </div>
@@ -231,15 +328,13 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sf::TcpListener <a class="el" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">NLS::LoginServer::listener</a></td>
+          <td class="memname">sf::TcpListener <a class="el" href="class_n_l_s_1_1_login_server.html#a4d59f421a3c9509627abc4b12c45b89f">NLS::LoginServer::listener</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00013">13</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
-
-<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00007">LoginServer()</a>.</p>
+<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00016">16</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
 
 </div>
 </div>
@@ -248,21 +343,19 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Thread* <a class="el" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">NLS::LoginServer::thread</a></td>
+          <td class="memname">sf::Thread* <a class="el" href="class_n_l_s_1_1_login_server.html#a3e5dc78dbc1fabbf076f22d33a0688af">NLS::LoginServer::thread</a><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00012">12</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
-
-<p>Referenced by <a class="el" href="_login_server_8cpp_source.html#l00007">LoginServer()</a>.</p>
+<p>Definition at line <a class="el" href="_login_server_8h_source.html#l00015">15</a> of file <a class="el" href="_login_server_8h_source.html">LoginServer.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>NoLifeServer/<a class="el" href="_login_server_8h_source.html">LoginServer.h</a></li>
-<li>NoLifeServer/<a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a></li>
+<li>src/NoLifeServer/<a class="el" href="_login_server_8h_source.html">LoginServer.h</a></li>
+<li>src/NoLifeServer/<a class="el" href="_login_server_8cpp_source.html">LoginServer.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -275,7 +368,7 @@ Here is the caller graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -285,7 +378,7 @@ Here is the caller graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:16 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:31 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

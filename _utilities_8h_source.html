@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Utilities.h Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Utilities.h Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -107,15 +107,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00008"></a><a class="code" href="_utilities_8h.html#a3855863521e2d92ec990c39c96f81b78">00008</a> <span class="preprocessor"></span><span class="preprocessor">#define radtodeg 57.295779513082320876798154814105</span>
 <a name="l00009"></a>00009 <span class="preprocessor"></span>
 <a name="l00010"></a><a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">00010</a> <span class="keyword">inline</span> <span class="keywordtype">string</span> <a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>(<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; t) {
-<a name="l00011"></a>00011     stringstream ss;
-<a name="l00012"></a>00012     ss &lt;&lt; t;
-<a name="l00013"></a>00013     <span class="keywordflow">return</span> ss.str();
+<a name="l00011"></a>00011     <span class="keyword">static</span> <span class="keywordtype">char</span> str[32];
+<a name="l00012"></a>00012     sprintf(str, <span class="stringliteral">&quot;%f&quot;</span>, t);
+<a name="l00013"></a>00013     <span class="keywordflow">return</span> str;
 <a name="l00014"></a>00014 }
 <a name="l00015"></a>00015 
 <a name="l00016"></a><a class="code" href="_utilities_8h.html#abe114037c154bae8b49ced5bb3bf6ab0">00016</a> <span class="keyword">inline</span> <span class="keywordtype">string</span> <a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; t) {
-<a name="l00017"></a>00017     stringstream ss;
-<a name="l00018"></a>00018     ss &lt;&lt; t;
-<a name="l00019"></a>00019     <span class="keywordflow">return</span> ss.str();
+<a name="l00017"></a>00017     <span class="keyword">static</span> <span class="keywordtype">char</span> str[32];
+<a name="l00018"></a>00018     sprintf(str, <span class="stringliteral">&quot;%i&quot;</span>, t);
+<a name="l00019"></a>00019     <span class="keywordflow">return</span> str;
 <a name="l00020"></a>00020 }
 <a name="l00021"></a>00021 
 <a name="l00022"></a><a class="code" href="_utilities_8h.html#a5d5b153c5142dc59dcbebbabebac99c2">00022</a> <span class="keyword">inline</span> <span class="keywordtype">string</span> <a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; t, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; len) {
@@ -168,6 +168,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00069"></a><a class="code" href="_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1">00069</a> <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code" href="_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1">sign</a> (<span class="keyword">const</span> <span class="keywordtype">double</span>&amp; x) {
 <a name="l00070"></a>00070     <span class="keywordflow">return</span> x&gt;0?1:x&lt;0?-1:0;
 <a name="l00071"></a>00071 }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="_utilities_8h.html#a5f44ccf8a596e14c4fbb263f9ab922e4">00073</a> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="_utilities_8h.html#a5f44ccf8a596e14c4fbb263f9ab922e4">exists</a> (<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; name) {
+<a name="l00074"></a>00074     ifstream file(name);
+<a name="l00075"></a>00075     <span class="keywordtype">bool</span> check = file.is_open();
+<a name="l00076"></a>00076     file.close();
+<a name="l00077"></a>00077     <span class="keywordflow">return</span> check;
+<a name="l00078"></a>00078 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -178,7 +185,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -188,7 +195,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:14 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/NoLifeStory.cpp File Reference</title>
+<title>NoLifeStory: src/NoLifeStory/NoLifeStory.cpp File Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -104,8 +104,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for NoLifeStory.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_no_life_story_8cpp__incl.png" border="0" usemap="#_no_life_story_2_no_life_story_8cpp" alt=""/></div>
-<map name="_no_life_story_2_no_life_story_8cpp" id="_no_life_story_2_no_life_story_8cpp">
+<div class="center"><img src="_no_life_story_8cpp__incl.png" border="0" usemap="#src_2_no_life_story_2_no_life_story_8cpp" alt=""/></div>
+<map name="src_2_no_life_story_2_no_life_story_8cpp" id="src_2_no_life_story_2_no_life_story_8cpp">
 </map>
 </div>
 </div>
@@ -143,13 +143,13 @@ Functions</h2></td></tr>
 
 <p>Definition at line <a class="el" href="_no_life_story_8cpp_source.html#l00007">7</a> of file <a class="el" href="_no_life_story_8cpp_source.html">NoLifeStory.cpp</a>.</p>
 
-<p>References <a class="el" href="_console_8cpp_source.html#l00007">NLS::console</a>, <a class="el" href="_client_8cpp_source.html#l00007">NLS::Init()</a>, <a class="el" href="_client_8cpp_source.html#l00020">NLS::Loop()</a>, and <a class="el" href="_client_8cpp_source.html#l00047">NLS::Unload()</a>.</p>
+<p>References <a class="el" href="_console_8cpp_source.html#l00007">NLS::console</a>, <a class="el" href="_server_8cpp_source.html#l00009">NLS::Init()</a>, <a class="el" href="_server_8cpp_source.html#l00015">NLS::Loop()</a>, and <a class="el" href="_server_8cpp_source.html#l00055">NLS::Unload()</a>.</p>
 <div class="fragment"><pre class="fragment">                                {<span class="comment">//Not much to do here</span>
     <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">NLS::console</a> = <span class="keyword">new</span> <a class="code" href="class_n_l_s_1_1_console.html">NLS::Console</a>();
     vector&lt;string&gt; strs(argv, argv+argc);
     <span class="comment">//Actually run NLS here</span>
-    <a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">NLS::Init</a>(strs);
-    <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264">NLS::Loop</a>()) {}
+    <a class="code" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d">NLS::Init</a>(strs);
+    <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d">NLS::Loop</a>()) {}
     <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">NLS::Unload</a>();
     <span class="keyword">delete</span> <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">NLS::console</a>;
     <span class="keywordflow">return</span> 0;
@@ -159,7 +159,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="_no_life_story_8cpp_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#_no_life_story_8cpp_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" alt=""/></div>
 <map name="_no_life_story_8cpp_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" id="_no_life_story_8cpp_a3c04138a5bfe5d72780bb7e82a18e627_cgraph">
-<area shape="rect" id="node3" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1" title="NLS::Init" alt="" coords="116,85,188,112"/><area shape="rect" id="node13" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264" title="NLS::Loop" alt="" coords="111,187,193,213"/><area shape="rect" id="node27" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="105,237,199,264"/><area shape="rect" id="node5" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="476,111,540,137"/><area shape="rect" id="node7" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9" title="NLS::_Time::Reset" alt="" coords="257,35,389,61"/><area shape="rect" id="node9" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5" title="NLS::_Time::Step" alt="" coords="260,136,385,163"/><area shape="rect" id="node11" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="265,85,381,112"/><area shape="rect" id="node16" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="290,187,355,213"/><area shape="rect" id="node18" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc" title="NLS::Console::Toggle" alt="" coords="249,237,397,264"/><area shape="rect" id="node20" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033" title="NLS::Graphics::Draw" alt="" coords="251,288,395,315"/><area shape="rect" id="node22" href="class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735" title="NLS::View_::Step" alt="" coords="445,288,571,315"/><area shape="rect" id="node24" href="_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1" title="sign" alt="" coords="619,288,666,315"/></map>
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d" title="NLS::Init" alt="" coords="116,5,188,32"/><area shape="rect" id="node5" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d" title="NLS::Loop" alt="" coords="111,56,193,83"/><area shape="rect" id="node7" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="105,107,199,133"/></map>
 </div>
 </p>
 
@@ -175,7 +175,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -185,7 +185,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:15 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:30 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

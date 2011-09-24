@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -97,7 +97,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">NLS::Sprite Class Reference</div>  </div>
 </div>
@@ -109,23 +111,54 @@ Collaboration diagram for NLS::Sprite:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_n_l_s_1_1_sprite__coll__graph.png" border="0" usemap="#_n_l_s_1_1_sprite_coll__map" alt="Collaboration graph"/></div>
 <map name="_n_l_s_1_1_sprite_coll__map" id="_n_l_s_1_1_sprite_coll__map">
-<area shape="rect" id="node2" href="class_n_l_s_1_1_sprite_data.html" title="{NLS::SpriteData\n|+ texture\l+ width\l+ height\l+ twidth\l+ theight\l+ originx\l+ originy\l+ loaded\l+ png\l|}" alt="" coords="5,5,120,200"/></map>
+<area shape="rect" id="node2" href="class_n_l_s_1_1_sprite_data.html" title="NLS::SpriteData" alt="" coords="5,5,120,32"/></map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="class_n_l_s_1_1_sprite-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#a3cfd6edf03b2ca16050a9bb2422b1022">Sprite</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#a7eca85a86c81a09c006ad4df098cea37">Draw</a> (int x, int y, bool flipped=false, float alpha=1, float rotation=0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#a573443dbc850c0e37cbfa3186a313981">GetTexture</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#ad0ed86abd9f13dbcf44096a42f2cfaa8">Unload</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_sprite_data.html">SpriteData</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static deque&lt; <a class="el" href="class_n_l_s_1_1_sprite_data.html">SpriteData</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_sprite_8h_source.html#l00016">16</a> of file <a class="el" href="_sprite_8h_source.html">Sprite.h</a>.</p>
-</div><hr/><h2>Member Function Documentation</h2>
+<p>Definition at line <a class="el" href="_sprite_8h_source.html#l00015">15</a> of file <a class="el" href="_sprite_8h_source.html">Sprite.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a3cfd6edf03b2ca16050a9bb2422b1022"></a><!-- doxytag: member="NLS::Sprite::Sprite" ref="a3cfd6edf03b2ca16050a9bb2422b1022" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NLS::Sprite::Sprite </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00009">9</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
+
+<p>References <a class="el" href="_sprite_8h_source.html#l00021">data</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+    <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a> = 0;
+}
+</pre></div>
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a7eca85a86c81a09c006ad4df098cea37"></a><!-- doxytag: member="NLS::Sprite::Draw" ref="a7eca85a86c81a09c006ad4df098cea37" args="(int x, int y, bool flipped=false, float alpha=1, float rotation=0)" -->
 <div class="memitem">
 <div class="memproto">
@@ -169,21 +202,40 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00007">7</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00013">13</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
 
-<p>References <a class="el" href="_sprite_8h_source.html#l00020">data</a>, <a class="el" href="_sprite_8cpp_source.html#l00045">GetTexture()</a>, <a class="el" href="_sprite_8h_source.html#l00010">NLS::SpriteData::height</a>, <a class="el" href="_sprite_8h_source.html#l00012">NLS::SpriteData::originx</a>, <a class="el" href="_sprite_8h_source.html#l00012">NLS::SpriteData::originy</a>, and <a class="el" href="_sprite_8h_source.html#l00010">NLS::SpriteData::width</a>.</p>
+<p>References <a class="el" href="_view_8h_source.html#l00012">NLS::_View::relative</a>, <a class="el" href="_view_8cpp_source.html#l00007">NLS::View</a>, <a class="el" href="_view_8h_source.html#l00008">NLS::_View::x</a>, and <a class="el" href="_view_8h_source.html#l00008">NLS::_View::y</a>.</p>
+
+<p>Referenced by <a class="el" href="_portal_8cpp_source.html#l00055">NLS::Portal::Draw()</a>, and <a class="el" href="_ani_sprite_8cpp_source.html#l00021">NLS::AniSprite::Draw()</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                            {
     <span class="keywordflow">if</span> (!<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>) {
         <span class="keywordflow">return</span>;
     }
+    <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a5230ae7064cfbd02aa1d36113ea43d8d">relative</a> &amp;&amp; !rotation) {
+        <span class="keywordflow">if</span> (flipped) {
+            <span class="keywordflow">if</span> (x+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx &lt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a> ||
+                y+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;height-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy &lt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a03a0ae517ef49dde95c03d916fd0068a">y</a> ||
+                x-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;width+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx &gt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a>+800 ||
+                y-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy &gt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a03a0ae517ef49dde95c03d916fd0068a">y</a>+600) {
+                <span class="keywordflow">return</span>;
+            }
+        } <span class="keywordflow">else</span> {
+            <span class="keywordflow">if</span> (x+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;width-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx &lt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a> ||
+                y+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;height-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy &lt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a03a0ae517ef49dde95c03d916fd0068a">y</a> ||
+                x-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx &gt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a7d5dfeade93378da56d91b96e95f5feb">x</a>+800 ||
+                y-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy &gt; <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a03a0ae517ef49dde95c03d916fd0068a">y</a>+600) {
+                <span class="keywordflow">return</span>;
+            }
+        }
+    }
     glPushMatrix();
+    glTranslatef(x, y, 0);
+    glRotatef(rotation, 0, 0, 1);
     <span class="keywordflow">if</span> (flipped) {
-        glTranslatef(<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx, -<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy, 0);
+        glTranslatef(-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;width+<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx, -<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy, 0);
     } <span class="keywordflow">else</span> {
         glTranslatef(-<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originx, -<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;originy, 0);
     }
-    glRotatef(rotation, 0, 0, 1);
-    glTranslatef(x, y, 0);
     glColor4f(1, 1, 1, alpha);
     <a class="code" href="class_n_l_s_1_1_sprite.html#a573443dbc850c0e37cbfa3186a313981">GetTexture</a>();
     glBegin(GL_QUADS);
@@ -211,11 +263,11 @@ Public Attributes</h2></td></tr>
 }
 </pre></div>
 <p><div class="dynheader">
-Here is the call graph for this function:</div>
+Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_cgraph.png" border="0" usemap="#class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_cgraph" alt=""/></div>
-<map name="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_cgraph" id="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_cgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_sprite.html#a573443dbc850c0e37cbfa3186a313981" title="NLS::Sprite::GetTexture" alt="" coords="182,5,343,32"/></map>
+<div class="center"><img src="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_icgraph.png" border="0" usemap="#class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_icgraph" alt=""/></div>
+<map name="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_icgraph" id="class_n_l_s_1_1_sprite_a7eca85a86c81a09c006ad4df098cea37_icgraph">
+<area shape="rect" id="node3" href="class_n_l_s_1_1_portal.html#a9f3595e1279285f044c96c8e33b93075" title="NLS::Portal::Draw" alt="" coords="191,5,318,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_ani_sprite.html#ab0ed0b7d98e659c1927f6aeb5f36da7d" title="NLS::AniSprite::Draw" alt="" coords="182,56,327,83"/></map>
 </div>
 </p>
 
@@ -235,10 +287,15 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00045">45</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00068">68</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_sprite_8cpp_source.html#l00007">Draw()</a>.</p>
+<p>References <a class="el" href="_portal_8cpp_source.html#l00008">loaded</a>.</p>
 <div class="fragment"><pre class="fragment">                           {
+    <span class="keyword">static</span> SpriteData* lastData = 0;
+    <span class="keywordflow">if</span> (<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a> == lastData) {
+        <span class="keywordflow">return</span>;
+    }
+    lastData = <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>;
     <span class="keywordflow">if</span> (!<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>) {
         glBindTexture(GL_TEXTURE_2D, NULL);
         <span class="keywordflow">return</span>;
@@ -249,20 +306,38 @@ Here is the call graph for this function:</div>
             <span class="keywordflow">return</span>;
         }
         ((WZ::PNGProperty*)<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;png)-&gt;Parse();
-        <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;loaded = <span class="keyword">true</span>;
+        <a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>.push_back(<a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>);
     } <span class="keywordflow">else</span> {
         glBindTexture(GL_TEXTURE_2D, <a class="code" href="class_n_l_s_1_1_sprite.html#abdd46b4dc559e24da351c850198e6818">data</a>-&gt;texture);
     }
-}</pre></div>
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_n_l_s_1_1_sprite_a573443dbc850c0e37cbfa3186a313981_icgraph.png" border="0" usemap="#class_n_l_s_1_1_sprite_a573443dbc850c0e37cbfa3186a313981_icgraph" alt=""/></div>
-<map name="class_n_l_s_1_1_sprite_a573443dbc850c0e37cbfa3186a313981_icgraph" id="class_n_l_s_1_1_sprite_a573443dbc850c0e37cbfa3186a313981_icgraph">
-<area shape="rect" id="node3" href="class_n_l_s_1_1_sprite.html#a7eca85a86c81a09c006ad4df098cea37" title="NLS::Sprite::Draw" alt="" coords="217,5,343,32"/></map>
+}
+</pre></div>
 </div>
-</p>
+</div>
+<a class="anchor" id="ad0ed86abd9f13dbcf44096a42f2cfaa8"></a><!-- doxytag: member="NLS::Sprite::Unload" ref="ad0ed86abd9f13dbcf44096a42f2cfaa8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::Sprite::Unload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
+<p>Definition at line <a class="el" href="_sprite_8cpp_source.html#l00090">90</a> of file <a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a>.</p>
+
+<p>References <a class="el" href="_portal_8cpp_source.html#l00008">loaded</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">while</span> (<a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>.size() &gt; 500) {
+        glDeleteTextures(1, &amp;<a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>.front()-&gt;texture);
+        <a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>.front()-&gt;loaded = <span class="keyword">false</span>;
+        <a class="code" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">loaded</a>.pop_front();
+    }
+}</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -277,15 +352,30 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_sprite_8h_source.html#l00020">20</a> of file <a class="el" href="_sprite_8h_source.html">Sprite.h</a>.</p>
+<p>Definition at line <a class="el" href="_sprite_8h_source.html#l00021">21</a> of file <a class="el" href="_sprite_8h_source.html">Sprite.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_sprite_8cpp_source.html#l00007">Draw()</a>, <a class="el" href="_w_z_8cpp_source.html#l00446">NLS::WZ::ExtendedProperty::ExtendedProperty()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00507">NLS::WZ::PNGProperty::PNGProperty()</a>.</p>
+<p>Referenced by <a class="el" href="_back_8cpp_source.html#l00072">NLS::Back::Draw()</a>, <a class="el" href="_w_z_8cpp_source.html#l00462">NLS::WZ::ExtendedProperty()</a>, <a class="el" href="_back_8cpp_source.html#l00009">NLS::Back::Load()</a>, <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>, <a class="el" href="_w_z_8cpp_source.html#l00524">NLS::WZ::PNGProperty::PNGProperty()</a>, and <a class="el" href="_sprite_8cpp_source.html#l00009">Sprite()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8b45dc6fe3326e37b55b156a16f1ab4"></a><!-- doxytag: member="NLS::Sprite::loaded" ref="ab8b45dc6fe3326e37b55b156a16f1ab4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">deque&lt; <a class="el" href="class_n_l_s_1_1_sprite_data.html">NLS::SpriteData</a> * &gt; <a class="el" href="class_n_l_s_1_1_sprite.html#ab8b45dc6fe3326e37b55b156a16f1ab4">NLS::Sprite::loaded</a><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_sprite_8h_source.html#l00022">22</a> of file <a class="el" href="_sprite_8h_source.html">Sprite.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>NoLifeStory/<a class="el" href="_sprite_8h_source.html">Sprite.h</a></li>
-<li>NoLifeStory/<a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a></li>
+<li>src/NoLifeStory/<a class="el" href="_sprite_8h_source.html">Sprite.h</a></li>
+<li>src/NoLifeStory/<a class="el" href="_sprite_8cpp_source.html">Sprite.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -298,7 +388,7 @@ Here is the caller graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -308,7 +398,7 @@ Here is the caller graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:15 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:31 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Client.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Client.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -103,48 +103,58 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00003"></a>00003 <span class="comment">// Please see SuperGlobal.h for more information. //</span>
 <a name="l00005"></a>00005 <span class="comment"></span><span class="preprocessor">#include &quot;Global.h&quot;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">00007</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">NLS::Init</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; args) {
-<a name="l00008"></a>00008     <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Initializing NoLifeStory&quot;</span> &lt;&lt; endl;
-<a name="l00009"></a>00009     <a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">Network::Init</a>();
-<a name="l00010"></a>00010     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">Reset</a>();
-<a name="l00011"></a>00011     <a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">WZ::Init</a>(<span class="stringliteral">&quot;C:/Nexon/MapleStory/&quot;</span>);
-<a name="l00012"></a>00012     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">Step</a>();
-<a name="l00013"></a>00013     <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Directories initialized in &quot;</span> &lt;&lt; floor(<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#adc18bdd307fe3ce0e86e367ef95ccbc7">tdelta</a>) &lt;&lt; <span class="stringliteral">&quot; ms&quot;</span> &lt;&lt; endl;
-<a name="l00014"></a>00014     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">Reset</a>();
-<a name="l00015"></a>00015     <a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">Graphics::Init</a>();
-<a name="l00016"></a>00016     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>(<span class="stringliteral">&quot;10000&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);
-<a name="l00017"></a>00017     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>();
-<a name="l00018"></a>00018 }
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264">00020</a> <span class="keywordtype">bool</span> <a class="code" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264">NLS::Loop</a>() {
-<a name="l00021"></a>00021     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">Step</a>();
-<a name="l00022"></a>00022     <span class="keyword">static</span> <span class="keywordtype">double</span> fps(0);
-<a name="l00023"></a>00023     fps = fps*0.99 + (1/max(<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a9c00ebf7afd073c441236f9b2a1cad7f">delta</a>, 1))*1000*0.01;
-<a name="l00024"></a>00024     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;SetTitle(<span class="stringliteral">&quot;NoLifeStory::FrameRate = &quot;</span>+<a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>((<span class="keywordtype">int</span>)fps));
-<a name="l00025"></a>00025     sf::Sleep(max(20-1000/fps, 0));
-<a name="l00026"></a>00026     sf::Event e;
-<a name="l00027"></a>00027     <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;PollEvent(e)) {
-<a name="l00028"></a>00028         <span class="keywordflow">switch</span> (e.Type) {
-<a name="l00029"></a>00029         <span class="keywordflow">case</span> sf::Event::KeyPressed:
-<a name="l00030"></a>00030             <span class="keywordflow">switch</span> (e.Key.Code) {
-<a name="l00031"></a>00031             <span class="keywordflow">case</span> sf::Keyboard::Tilde:
-<a name="l00032"></a>00032                 <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">console</a>-&gt;<a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">Toggle</a>();
-<a name="l00033"></a>00033                 <span class="keywordflow">break</span>;
-<a name="l00034"></a>00034             <span class="keywordflow">case</span> sf::Keyboard::Escape:
-<a name="l00035"></a>00035                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00036"></a>00036             }
-<a name="l00037"></a>00037             <span class="keywordflow">break</span>;
-<a name="l00038"></a>00038         <span class="keywordflow">case</span> sf::Event::Closed:
-<a name="l00039"></a>00039             <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00040"></a>00040             <span class="keywordflow">break</span>;
-<a name="l00041"></a>00041         }
-<a name="l00042"></a>00042     }
-<a name="l00043"></a>00043     <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Graphics::Draw</a>();
-<a name="l00044"></a>00044     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00045"></a>00045 }
-<a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">00047</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">NLS::Unload</a>() {
-<a name="l00048"></a>00048 }
+<a name="l00007"></a>00007 <span class="comment">//#define PROFILING</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#ifdef PROFILING</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="keywordtype">string</span> maps[] = {<span class="stringliteral">&quot;100000000&quot;</span>, <span class="stringliteral">&quot;200000000&quot;</span>, <span class="stringliteral">&quot;300000000&quot;</span>, <span class="stringliteral">&quot;600000000&quot;</span>};
+<a name="l00010"></a>00010 <span class="preprocessor">#endif</span>
+<a name="l00011"></a>00011 <span class="preprocessor"></span>
+<a name="l00012"></a><a class="code" href="namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1">00012</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d">NLS::Init</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; args) {
+<a name="l00013"></a>00013     <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;INFO&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Initializing NoLifeStory&quot;</span> &lt;&lt; endl;
+<a name="l00014"></a>00014     <a class="code" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d">Network::Init</a>();
+<a name="l00015"></a>00015     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9">Reset</a>();
+<a name="l00016"></a>00016     <a class="code" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d">WZ::Init</a>(args.size()&gt;1?args[1]:<span class="stringliteral">&quot;&quot;</span>);
+<a name="l00017"></a>00017     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">Step</a>();
+<a name="l00018"></a>00018     <a class="code" href="namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d">Graphics::Init</a>();
+<a name="l00019"></a>00019     BASS_Init(-1, 44100, 0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetSystemHandle(), 0);
+<a name="l00020"></a>00020     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>(<span class="stringliteral">&quot;100000000&quot;</span>, <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00021"></a>00021     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>();
+<a name="l00022"></a>00022 }
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keywordtype">bool</span> <a class="code" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d">NLS::Loop</a>() {
+<a name="l00025"></a>00025     sf::Event e;
+<a name="l00026"></a>00026     <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;PollEvent(e)) {
+<a name="l00027"></a>00027         <span class="keywordflow">switch</span> (e.Type) {
+<a name="l00028"></a>00028         <span class="keywordflow">case</span> sf::Event::KeyPressed:
+<a name="l00029"></a>00029             <span class="keywordflow">switch</span> (e.Key.Code) {
+<a name="l00030"></a>00030             <span class="keywordflow">case</span> sf::Keyboard::Tilde:
+<a name="l00031"></a>00031                 <a class="code" href="namespace_n_l_s.html#a99aa2659083d176cef0ae017bd04743b">console</a>-&gt;Toggle();
+<a name="l00032"></a>00032                 <span class="keywordflow">break</span>;
+<a name="l00033"></a>00033             <span class="keywordflow">case</span> sf::Keyboard::Escape:
+<a name="l00034"></a>00034                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00035"></a>00035             }
+<a name="l00036"></a>00036             <span class="keywordflow">break</span>;
+<a name="l00037"></a>00037         <span class="keywordflow">case</span> sf::Event::Closed:
+<a name="l00038"></a>00038             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00039"></a>00039             <span class="keywordflow">break</span>;
+<a name="l00040"></a>00040         }
+<a name="l00041"></a>00041     }
+<a name="l00042"></a>00042     <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Graphics::Draw</a>();
+<a name="l00043"></a>00043 <span class="preprocessor">#ifdef PROFILING</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span>    <span class="keyword">static</span> <span class="keywordtype">int</span> i(0);
+<a name="l00045"></a>00045     <span class="keywordflow">if</span> (i&gt;4) {
+<a name="l00046"></a>00046         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00047"></a>00047     }
+<a name="l00048"></a>00048     <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>(maps[i++], <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00049"></a>00049 <span class="preprocessor">#endif</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span>    <span class="keywordflow">if</span> (!<a class="code" href="namespace_n_l_s_1_1_map.html#a81dd3a85562675c83041218b5bf6edb6">Map::nextmap</a>.empty()) {
+<a name="l00051"></a>00051         <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>();
+<a name="l00052"></a>00052     }
+<a name="l00053"></a>00053     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00054"></a>00054 }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd">NLS::Unload</a>() {
+<a name="l00057"></a>00057     BASS_Free();
+<a name="l00058"></a>00058 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -155,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -165,7 +175,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:13 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:29 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

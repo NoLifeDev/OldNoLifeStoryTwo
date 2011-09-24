@@ -1,14 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node3" href="$namespace_n_l_s.html#a0aaa88bfce128b57aa9d2804d4fd31e1" title="NLS::Init" alt="" coords="116,85,188,112"/>
-<area shape="rect" id="node13" href="$namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264" title="NLS::Loop" alt="" coords="111,187,193,213"/>
-<area shape="rect" id="node27" href="$namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="105,237,199,264"/>
-<area shape="rect" id="node5" href="$namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="476,111,540,137"/>
-<area shape="rect" id="node7" href="$class_n_l_s_1_1___time.html#a1acef050d4670745ace1979410cb15d9" title="NLS::_Time::Reset" alt="" coords="257,35,389,61"/>
-<area shape="rect" id="node9" href="$class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5" title="NLS::_Time::Step" alt="" coords="260,136,385,163"/>
-<area shape="rect" id="node11" href="$namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e" title="NLS::Map::Load" alt="" coords="265,85,381,112"/>
-<area shape="rect" id="node16" href="$_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="290,187,355,213"/>
-<area shape="rect" id="node18" href="$class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc" title="NLS::Console::Toggle" alt="" coords="249,237,397,264"/>
-<area shape="rect" id="node20" href="$namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033" title="NLS::Graphics::Draw" alt="" coords="251,288,395,315"/>
-<area shape="rect" id="node22" href="$class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735" title="NLS::View_::Step" alt="" coords="445,288,571,315"/>
-<area shape="rect" id="node24" href="$_utilities_8h.html#a928a196c5b583ec2adeb35dddde1d3e1" title="sign" alt="" coords="619,288,666,315"/>
+<area shape="rect" id="node3" href="$namespace_n_l_s.html#a02f0ed0e4e2b08f7d36c981e69e3db0d" title="NLS::Init" alt="" coords="116,5,188,32"/>
+<area shape="rect" id="node5" href="$namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d" title="NLS::Loop" alt="" coords="111,56,193,83"/>
+<area shape="rect" id="node7" href="$namespace_n_l_s.html#a00ecf9ecf5cd23310559fff5650fbcdd" title="NLS::Unload" alt="" coords="105,107,199,133"/>
 </map>

@@ -1,4 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_l_s_1_1_sprite.html" title="{NLS::Sprite\n|+ data\l|+ Draw()\l+ GetTexture()\l}" alt="" coords="9,265,116,357"/>
-<area shape="rect" id="node4" href="$class_n_l_s_1_1_sprite_data.html" title="{NLS::SpriteData\n|+ texture\l+ width\l+ height\l+ twidth\l+ theight\l+ originx\l+ originy\l+ loaded\l+ png\l|}" alt="" coords="5,5,120,200"/>
+<area shape="rect" id="node2" href="$class_n_l_s_1_1_sprite.html" title="NLS::Sprite" alt="" coords="18,96,107,123"/>
+<area shape="rect" id="node4" href="$class_n_l_s_1_1_sprite_data.html" title="NLS::SpriteData" alt="" coords="5,5,120,32"/>
 </map>

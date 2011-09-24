@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -105,28 +105,332 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_file.html">File</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_directory.html">Directory</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_image.html">Image</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sub_property.html">SubProperty</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_extended_property.html">ExtendedProperty</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_p_n_g_property.html">PNGProperty</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html">SoundProperty</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#a671528c9271df4bfc1db8cf17d23211c">Init</a> (const string &amp;path)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#afa6233d21a17e91be601cc621ac4c1c9">File</a> (<a class="el" href="class_n_l_s_1_1_node.html">Node</a> n)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#a365a93acf042da737c01e93dd35bf47b">SubProperty</a> (ifstream *file, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> n, uint32_t offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#ac7038b9e1df26dcca966779e42ae8246">ExtendedProperty</a> (ifstream *file, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> n, uint32_t offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#a53448422ab1c2418844aa095b364dd42">Init</a> (const string &amp;path)</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_l_s_1_1_w_z.html#aa1e7322898f47fa9633003efcdc14221">Empty</a></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
-<a class="anchor" id="a671528c9271df4bfc1db8cf17d23211c"></a><!-- doxytag: member="NLS::WZ::Init" ref="a671528c9271df4bfc1db8cf17d23211c" args="(const string &amp;path)" -->
+<a class="anchor" id="ac7038b9e1df26dcca966779e42ae8246"></a><!-- doxytag: member="NLS::WZ::ExtendedProperty" ref="ac7038b9e1df26dcca966779e42ae8246" args="(ifstream *file, Node n, uint32_t offset)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool NLS::WZ::Init </td>
+          <td class="memname">void NLS::WZ::ExtendedProperty </td>
+          <td>(</td>
+          <td class="paramtype">ifstream *&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Node&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00462">462</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+
+<p>References <a class="el" href="_console_8h_source.html#l00051">NLS::C()</a>, <a class="el" href="_sprite_8h_source.html#l00021">NLS::Sprite::data</a>, <a class="el" href="_w_z_8h_source.html#l00057">NLS::Node::data</a>, <a class="el" href="_w_z_8cpp_source.html#l00655">NLS::Node::g()</a>, <a class="el" href="_sprite_8h_source.html#l00011">NLS::SpriteData::originx</a>, <a class="el" href="_sprite_8h_source.html#l00011">NLS::SpriteData::originy</a>, <a class="el" href="_sprite_8h_source.html#l00013">NLS::SpriteData::png</a>, <a class="el" href="_w_z_8cpp_source.html#l00060">ReadCInt()</a>, <a class="el" href="_w_z_8cpp_source.html#l00070">ReadEncString()</a>, <a class="el" href="_w_z_8cpp_source.html#l00164">ReadStringOffset()</a>, <a class="el" href="_w_z_8h_source.html#l00099">NLS::NodeData::sprite</a>, <a class="el" href="_w_z_8cpp_source.html#l00420">SubProperty()</a>, and <a class="el" href="_utilities_8h_source.html#l00010">tostring()</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00420">SubProperty()</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+    <span class="keywordtype">string</span> name;
+    uint8_t a = Read&lt;uint8_t&gt;(file);
+    <span class="keywordflow">if</span> (a == 0x1B) {
+        int32_t inc = Read&lt;int32_t&gt;(file);
+        uint32_t pos = offset+inc;
+        uint32_t p = file-&gt;tellg();
+        file-&gt;seekg(pos);
+        name = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+        file-&gt;seekg(p);
+    } <span class="keywordflow">else</span> {
+        name = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+    }
+    <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Property&quot;</span>) {
+        file-&gt;seekg(2, ios::cur);
+        <a class="code" href="namespace_n_l_s_1_1_w_z.html#a365a93acf042da737c01e93dd35bf47b">SubProperty</a>(file, n, offset);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Canvas&quot;</span>) {
+        file-&gt;seekg(1, ios::cur);
+        uint8_t b = Read&lt;uint8_t&gt;(file);
+        <span class="keywordflow">if</span> (b == 1) {
+            file-&gt;seekg(2, ios::cur);
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#a365a93acf042da737c01e93dd35bf47b">SubProperty</a>(file, n, offset);
+        }
+        n.data-&gt;sprite.data = <span class="keyword">new</span> SpriteData;
+        n.data-&gt;sprite.data-&gt;png = <span class="keyword">new</span> PNGProperty(file, n.data-&gt;sprite);
+        n.data-&gt;sprite.data-&gt;originx = n[<span class="stringliteral">&quot;origin&quot;</span>][<span class="stringliteral">&quot;x&quot;</span>];
+        n.data-&gt;sprite.data-&gt;originy = n[<span class="stringliteral">&quot;origin&quot;</span>][<span class="stringliteral">&quot;y&quot;</span>];
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Shape2D#Vector2D&quot;</span>) {
+        n.g(<span class="stringliteral">&quot;x&quot;</span>) = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+        n.g(<span class="stringliteral">&quot;y&quot;</span>) = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Shape2D#Convex2D&quot;</span>) {
+        int32_t ec = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; ec; i++) {
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#ac7038b9e1df26dcca966779e42ae8246">ExtendedProperty</a>(file, n.g(<a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>(ec)), offset);
+        }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;Sound_DX8&quot;</span>) {
+        <span class="keyword">new</span> SoundProperty(file, n);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (name == <span class="stringliteral">&quot;UOL&quot;</span>) {
+        file-&gt;seekg(1, ios::cur);
+        uint8_t b = Read&lt;uint8_t&gt;(file);
+        <span class="keywordflow">switch</span> (b) {
+        <span class="keywordflow">case</span> 0:
+            n.g(name) = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 1:
+            {
+                uint32_t off = Read&lt;uint32_t&gt;(file);
+                n.g(name) = <a class="code" href="_w_z_8cpp.html#a3a3b87d7984d3c8eb2507d3eea81efd5">ReadStringOffset</a>(file, offset+off);
+                <span class="keywordflow">break</span>;
+            }
+        <span class="keywordflow">default</span>:
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown UOL type&quot;</span> &lt;&lt; endl;
+            <span class="keywordflow">throw</span>(273);
+        }
+    } <span class="keywordflow">else</span> {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown ExtendedProperty type&quot;</span> &lt;&lt; endl;
+        <span class="keywordflow">throw</span>(273);
+    };
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_cgraph" id="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_cgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="461,5,525,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="443,56,543,83"/><area shape="rect" id="node7" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7" title="ReadCInt" alt="" coords="456,157,531,184"/><area shape="rect" id="node9" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd" title="ReadEncString" alt="" coords="592,208,701,235"/><area shape="rect" id="node11" href="_w_z_8cpp.html#a3a3b87d7984d3c8eb2507d3eea81efd5" title="ReadStringOffset" alt="" coords="257,259,377,285"/><area shape="rect" id="node14" href="namespace_n_l_s_1_1_w_z.html#a365a93acf042da737c01e93dd35bf47b" title="NLS::WZ::SubProperty" alt="" coords="240,107,395,133"/><area shape="rect" id="node23" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="285,309,350,336"/><area shape="rect" id="node17" href="_w_z_8cpp.html#a28d271486a978ba3a847982f58c0ec17" title="ReadString" alt="" coords="450,107,537,133"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_icgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_icgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_icgraph" id="namespace_n_l_s_1_1_w_z_ac7038b9e1df26dcca966779e42ae8246_icgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s_1_1_w_z.html#a365a93acf042da737c01e93dd35bf47b" title="NLS::WZ::SubProperty" alt="" coords="240,5,395,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a" title="NLS::WZ::Image::Parse" alt="" coords="443,5,603,32"/><area shape="rect" id="node7" href="class_n_l_s_1_1_node.html#a74b97f164de8f27b9a5a378ad2b12924" title="NLS::Node::operator[]" alt="" coords="651,5,799,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="afa6233d21a17e91be601cc621ac4c1c9"></a><!-- doxytag: member="NLS::WZ::File" ref="afa6233d21a17e91be601cc621ac4c1c9" args="(Node n)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::WZ::File </td>
+          <td>(</td>
+          <td class="paramtype">Node&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00199">199</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+
+<p>References <a class="el" href="_console_8h_source.html#l00051">NLS::C()</a>, <a class="el" href="_w_z_8h_source.html#l00057">NLS::Node::data</a>, <a class="el" href="_w_z_8cpp_source.html#l00017">EncVersion</a>, <a class="el" href="_w_z_8cpp_source.html#l00655">NLS::Node::g()</a>, <a class="el" href="_w_z_8h_source.html#l00102">NLS::NodeData::name</a>, <a class="el" href="_w_z_8cpp_source.html#l00016">OffsetKey</a>, <a class="el" href="_w_z_8cpp_source.html#l00009">Path</a>, <a class="el" href="_w_z_8cpp_source.html#l00060">ReadCInt()</a>, <a class="el" href="_w_z_8cpp_source.html#l00118">ReadEncFast()</a>, <a class="el" href="_w_z_8cpp_source.html#l00070">ReadEncString()</a>, <a class="el" href="_utilities_8h_source.html#l00010">tostring()</a>, <a class="el" href="_w_z_8cpp_source.html#l00018">Version</a>, <a class="el" href="_w_z_8cpp_source.html#l00019">VersionHash</a>, <a class="el" href="_w_z_8cpp_source.html#l00012">WZKey</a>, and <a class="el" href="_w_z_8cpp_source.html#l00014">WZKeys</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00174">Init()</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordtype">string</span> filename = <a class="code" href="_w_z_8cpp.html#af331ba015acf9191899985a835008b9d">Path</a>+n.data-&gt;name+<span class="stringliteral">&quot;.wz&quot;</span>;
+    ifstream *file = <span class="keyword">new</span> ifstream(filename, ios::in|ios::binary);
+    <span class="keywordflow">if</span> (!file-&gt;is_open()) {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Failed to load &quot;</span> &lt;&lt; filename &lt;&lt; endl;
+        <span class="keywordflow">return</span>;<span class="comment">//Don&#39;t throw an error because of Nexon&#39;s stupid ExcelReport crap</span>
+    }
+    <span class="keywordtype">string</span> ident(4, <span class="charliteral">&#39;\0&#39;</span>);
+    file-&gt;read(const_cast&lt;char*&gt;(ident.c_str()), 4);
+    <span class="keywordflow">if</span> (ident != <span class="stringliteral">&quot;PKG1&quot;</span>) {
+        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Invalid ident header for &quot;</span> &lt;&lt; filename &lt;&lt; endl;
+        <span class="keywordflow">throw</span>(273);
+    }
+    uint64_t fileSize = Read&lt;uint64_t&gt;(file);
+    uint32_t fileStart = Read&lt;uint32_t&gt;(file);
+    <span class="keywordtype">string</span> copyright;
+    *file &gt;&gt; copyright;
+    file-&gt;seekg(fileStart);
+    <span class="keyword">auto</span> ReadOffset = [](ifstream* file, uint32_t fileStart) -&gt; uint32_t {
+        uint32_t p = file-&gt;tellg();
+        p = (p-fileStart)^0xFFFFFFFF;
+        p *= <a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a>;
+        p -= <a class="code" href="_w_z_8cpp.html#a0f002dcfec4603bb5bf9208e5eddc0cb">OffsetKey</a>;
+        p = (p&lt;&lt;(p&amp;0x1F))|(p&gt;&gt;(32-p&amp;0x1F));
+        uint32_t more = Read&lt;uint32_t&gt;(file);
+        p ^= more;
+        p += fileStart*2;
+        <span class="keywordflow">return</span> p;
+    };
+    <span class="keywordflow">if</span> (!<a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a>) {
+        <a class="code" href="_w_z_8cpp.html#a14a9320f84326200ec8ecf557a07f582">EncVersion</a> = Read&lt;int16_t&gt;(file);
+        int32_t count = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+        uint32_t c = 0;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; count; k++) {
+            uint8_t type = Read&lt;uint8_t&gt;(file);
+            <span class="keywordflow">if</span> (type == 3) {
+                <a class="code" href="_w_z_8cpp.html#a043aa9b8f3420985a28883be11c7224e">ReadEncFast</a>(file);
+                <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+                <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+                Read&lt;uint32_t&gt;(file);
+                <span class="keywordflow">continue</span>;
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == 4) {
+                <a class="code" href="_w_z_8cpp.html#a043aa9b8f3420985a28883be11c7224e">ReadEncFast</a>(file);
+                <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+                <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+                c = file-&gt;tellg();
+                <span class="keywordflow">break</span>;
+            } <span class="keywordflow">else</span> {
+                <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Malformed WZ structure&quot;</span> &lt;&lt; endl;
+                <span class="keywordflow">throw</span>(273);
+            }
+        }
+        <span class="keywordflow">if</span> (c == 0) {
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unable to find a top level .img for hash verification&quot;</span> &lt;&lt; endl;
+            <span class="keywordflow">throw</span>(273);
+        }
+        <span class="keywordtype">bool</span> success = <span class="keyword">false</span>;
+        <span class="keywordflow">for</span> (uint8_t j = 0; j &lt; 2 and !success; j++) {
+            <a class="code" href="_w_z_8cpp.html#a565aef2629ab7b3f1ef2beb1c359bf46">WZKey</a> = <a class="code" href="_w_z_8cpp.html#a7d45a09f45130edd58e2600d2bb03751">WZKeys</a>[j];
+            <span class="keywordflow">for</span> (<a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a> = 0; <a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a> &lt; 256; <a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a>++) {
+                <span class="keywordtype">string</span> s = <a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>(<a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a>);
+                <a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a> = 0;
+                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; s.size(); i++) {
+                    <a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a> = 32*<a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a>+s[i]+1;
+                }
+                uint32_t result = 0xFF^(<a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a>&gt;&gt;24)^(<a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a>&lt;&lt;8&gt;&gt;24)^(VersionHash&lt;&lt;16&gt;&gt;24)^(<a class="code" href="_w_z_8cpp.html#a723f787778d2e7de4b02a572ce95dbf1">VersionHash</a>&lt;&lt;24&gt;&gt;24);
+                <span class="keywordflow">if</span> (result == <a class="code" href="_w_z_8cpp.html#a14a9320f84326200ec8ecf557a07f582">EncVersion</a>) {
+                    file-&gt;clear();
+                    file-&gt;seekg(c);
+                    uint32_t offset = ReadOffset(file, fileStart);
+                    <span class="keywordflow">if</span> (offset &gt; fileSize) {
+                        <span class="keywordflow">continue</span>;
+                    }
+                    file-&gt;seekg(offset);
+                    uint8_t a = Read&lt;uint8_t&gt;(file);
+                    <span class="keywordflow">if</span>(a != 0x73) {
+                        <span class="keywordflow">continue</span>;
+                    }
+                    <span class="keywordtype">string</span> ss = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+                    <span class="keywordflow">if</span> (ss != <span class="stringliteral">&quot;Property&quot;</span>) {
+                        <span class="keywordflow">continue</span>;
+                    }
+                    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Detected WZ version: &quot;</span> &lt;&lt; <a class="code" href="_w_z_8cpp.html#a9ae6e36ee18c3c0f00813f3a0b691a50">Version</a> &lt;&lt; endl;
+                    success = <span class="keyword">true</span>;
+                    <span class="keywordflow">break</span>;
+                }
+            }
+        }
+        <span class="keywordflow">if</span> (!success) {
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unable to determine WZ version&quot;</span> &lt;&lt; endl;
+            <span class="keywordflow">throw</span>(273);
+        }
+        file-&gt;seekg(fileStart+2);
+    } <span class="keywordflow">else</span> {
+        int16_t eversion = Read&lt;int16_t&gt;(file);
+        <span class="keywordflow">if</span> (eversion != <a class="code" href="_w_z_8cpp.html#a14a9320f84326200ec8ecf557a07f582">EncVersion</a>) {
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Version of WZ file does not match existing files&quot;</span> &lt;&lt; endl;
+            <span class="keywordflow">throw</span>(273);
+        }
+    }
+    function &lt;void(Node n)&gt; Directory = [&amp;](Node n) {
+        int32_t count = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+        <span class="keywordflow">if</span> (count == 0) {
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#afa6233d21a17e91be601cc621ac4c1c9">File</a>(n);
+            <span class="keywordflow">return</span>;
+        }
+        set&lt;pair&lt;string, uint32_t&gt;&gt; dirs;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {
+            <span class="keywordtype">string</span> name;
+            uint8_t type = Read&lt;uint8_t&gt;(file);
+            <span class="keywordflow">if</span> (type == 1) {
+                file-&gt;seekg(10, ios::cur);
+                <span class="keywordflow">continue</span>;
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == 2) {
+                int32_t s = Read&lt;int32_t&gt;(file);
+                uint32_t p = file-&gt;tellg();
+                file-&gt;seekg(fileStart+s);
+                type = Read&lt;uint8_t&gt;(file);
+                name = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+                file-&gt;seekg(p);
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == 3) {
+                name = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == 4) {
+                name = <a class="code" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd">ReadEncString</a>(file);
+            } <span class="keywordflow">else</span> {
+                <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Wat?&quot;</span> &lt;&lt; endl;
+                <span class="keywordflow">throw</span>(273);
+            }
+            int32_t fsize = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+            int32_t checksum = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+            uint32_t offset = ReadOffset(file, fileStart);
+            <span class="keywordflow">if</span> (type == 3) {
+                dirs.insert(pair&lt;string, uint32_t&gt;(name, offset));
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == 4) {
+                name.erase(name.size()-4);
+                <span class="keyword">new</span> Image(file, n.g(name), offset);
+            } <span class="keywordflow">else</span> {
+                <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Wat?&quot;</span> &lt;&lt; endl;
+                <span class="keywordflow">throw</span>(273);
+            }
+        }
+        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = dirs.begin(); it != dirs.end(); it++) {
+            file-&gt;seekg(it-&gt;second);
+            Directory(n.g(it-&gt;first));
+        }
+    };
+    Directory(n);
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_cgraph" id="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_cgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="180,5,244,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="162,56,262,83"/><area shape="rect" id="node7" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7" title="ReadCInt" alt="" coords="175,107,249,133"/><area shape="rect" id="node9" href="_w_z_8cpp.html#a043aa9b8f3420985a28883be11c7224e" title="ReadEncFast" alt="" coords="161,157,263,184"/><area shape="rect" id="node11" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd" title="ReadEncString" alt="" coords="157,208,267,235"/><area shape="rect" id="node13" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="179,259,245,285"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_icgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_icgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_icgraph" id="namespace_n_l_s_1_1_w_z_afa6233d21a17e91be601cc621ac4c1c9_icgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s_1_1_w_z.html#a53448422ab1c2418844aa095b364dd42" title="NLS::WZ::Init" alt="" coords="158,5,258,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a53448422ab1c2418844aa095b364dd42"></a><!-- doxytag: member="NLS::WZ::Init" ref="a53448422ab1c2418844aa095b364dd42" args="(const string &amp;path)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::WZ::Init </td>
           <td>(</td>
           <td class="paramtype">const string &amp;&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
@@ -136,37 +440,136 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00192">192</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00174">174</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
 
-<p>References <a class="el" href="_w_z_8cpp_source.html#l00013">BMSKey</a>, <a class="el" href="_console_8h_source.html#l00045">NLS::C()</a>, <a class="el" href="_w_z_8h_source.html#l00027">NLS::Node::data</a>, <a class="el" href="_w_z_8cpp_source.html#l00650">NLS::Node::End()</a>, <a class="el" href="_w_z_8cpp_source.html#l00009">Path</a>, and <a class="el" href="_w_z_8cpp_source.html#l00010">Top</a>.</p>
+<p>References <a class="el" href="_w_z_8cpp_source.html#l00013">BMSKey</a>, <a class="el" href="_console_8h_source.html#l00051">NLS::C()</a>, <a class="el" href="_w_z_8h_source.html#l00057">NLS::Node::data</a>, <a class="el" href="_utilities_8h_source.html#l00073">exists()</a>, <a class="el" href="_w_z_8cpp_source.html#l00199">File()</a>, <a class="el" href="_w_z_8h_source.html#l00102">NLS::NodeData::name</a>, <a class="el" href="_w_z_8cpp_source.html#l00009">Path</a>, and <a class="el" href="_w_z_8cpp_source.html#l00010">Top</a>.</p>
 <div class="fragment"><pre class="fragment">                                   {
     memset(<a class="code" href="_w_z_8cpp.html#ac61e03ad7466869b740af8968e1cc047">BMSKey</a>, 0, 0xFFFF);
-    <a class="code" href="_w_z_8cpp.html#af331ba015acf9191899985a835008b9d">Path</a> = path;
     <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>.data = <span class="keyword">new</span> NodeData();
-    ifstream test(path+<span class="stringliteral">&quot;Data.wz&quot;</span>);
-    <span class="keywordtype">bool</span> beta = test.is_open();
-    test.close();
-    <span class="keywordflow">if</span> (beta) {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading beta WZ file structure&quot;</span> &lt;&lt; endl;
-        <span class="keyword">new</span> File(<span class="stringliteral">&quot;Data&quot;</span>, <span class="keyword">true</span>);
-    } <span class="keywordflow">else</span> {
-        <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading standard WZ file structure&quot;</span> &lt;&lt; endl;
-        <span class="keyword">new</span> File(<span class="stringliteral">&quot;Base&quot;</span>, <span class="keyword">false</span>);
-        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>[<span class="stringliteral">&quot;Base&quot;</span>].Begin(); it != <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>[<span class="stringliteral">&quot;Base&quot;</span>].End(); it++) {
-            <span class="keywordflow">if</span> (!it-&gt;second.data-&gt;image) {
-                <span class="keyword">new</span> File(it-&gt;first);
-            }
+    <span class="keywordtype">string</span> paths[5] = {path, <span class="stringliteral">&quot;&quot;</span>, <span class="stringliteral">&quot;C:/Nexon/MapleStory/&quot;</span>, <span class="stringliteral">&quot;/&quot;</span>, <span class="stringliteral">&quot;T:/&quot;</span>};
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 5; i++) {
+        <a class="code" href="_w_z_8cpp.html#af331ba015acf9191899985a835008b9d">Path</a> = paths[i];
+        <span class="keywordflow">if</span> (<a class="code" href="_utilities_8h.html#a5f44ccf8a596e14c4fbb263f9ab922e4">exists</a>(<a class="code" href="_w_z_8cpp.html#af331ba015acf9191899985a835008b9d">Path</a>+<span class="stringliteral">&quot;Data.wz&quot;</span>)) {
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading beta WZ file structure&quot;</span> &lt;&lt; endl;
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>.data-&gt;name = <span class="stringliteral">&quot;Data&quot;</span>;
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#afa6233d21a17e91be601cc621ac4c1c9">File</a>(<a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>);
+            <span class="keywordflow">return</span>;
+        }
+        <span class="keywordflow">if</span>(<a class="code" href="_utilities_8h.html#a5f44ccf8a596e14c4fbb263f9ab922e4">exists</a>(<a class="code" href="_w_z_8cpp.html#af331ba015acf9191899985a835008b9d">Path</a>+<span class="stringliteral">&quot;Base.wz&quot;</span>)) {
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;WZ&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Loading standard WZ file structure&quot;</span> &lt;&lt; endl;
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>.data-&gt;name = <span class="stringliteral">&quot;Base&quot;</span>;
+            <a class="code" href="namespace_n_l_s_1_1_w_z.html#afa6233d21a17e91be601cc621ac4c1c9">File</a>(<a class="code" href="namespace_n_l_s_1_1_w_z.html#abdda94b7e56cadfc46daf1e1c6b8aa83">Top</a>);
+            <span class="keywordflow">return</span>;
         }
     }
-    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;I CAN&#39;T FIND YOUR WZ FILES YOU NUB&quot;</span> &lt;&lt; endl;
+    <span class="keywordflow">throw</span>(273);
 }
 </pre></div>
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespace_n_l_s_1_1_w_z_a671528c9271df4bfc1db8cf17d23211c_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_a671528c9271df4bfc1db8cf17d23211c_cgraph" alt=""/></div>
-<map name="namespace_n_l_s_1_1_w_z_a671528c9271df4bfc1db8cf17d23211c_cgraph" id="namespace_n_l_s_1_1_w_z_a671528c9271df4bfc1db8cf17d23211c_cgraph">
-<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="181,5,245,32"/><area shape="rect" id="node5" href="class_n_l_s_1_1_node.html#a23107104c99d42e369ad5a94962fc451" title="NLS::Node::End" alt="" coords="155,56,271,83"/></map>
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_a53448422ab1c2418844aa095b364dd42_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_a53448422ab1c2418844aa095b364dd42_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_a53448422ab1c2418844aa095b364dd42_cgraph" id="namespace_n_l_s_1_1_w_z_a53448422ab1c2418844aa095b364dd42_cgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="329,5,393,32"/><area shape="rect" id="node5" href="_utilities_8h.html#a5f44ccf8a596e14c4fbb263f9ab922e4" title="exists" alt="" coords="178,56,235,83"/><area shape="rect" id="node7" href="namespace_n_l_s_1_1_w_z.html#afa6233d21a17e91be601cc621ac4c1c9" title="NLS::WZ::File" alt="" coords="155,107,259,133"/><area shape="rect" id="node10" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="311,56,411,83"/><area shape="rect" id="node12" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7" title="ReadCInt" alt="" coords="324,107,399,133"/><area shape="rect" id="node14" href="_w_z_8cpp.html#a043aa9b8f3420985a28883be11c7224e" title="ReadEncFast" alt="" coords="311,157,412,184"/><area shape="rect" id="node16" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd" title="ReadEncString" alt="" coords="307,208,416,235"/><area shape="rect" id="node18" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="329,259,394,285"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a365a93acf042da737c01e93dd35bf47b"></a><!-- doxytag: member="NLS::WZ::SubProperty" ref="a365a93acf042da737c01e93dd35bf47b" args="(ifstream *file, Node n, uint32_t offset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NLS::WZ::SubProperty </td>
+          <td>(</td>
+          <td class="paramtype">ifstream *&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Node&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00420">420</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+
+<p>References <a class="el" href="_console_8h_source.html#l00051">NLS::C()</a>, <a class="el" href="_w_z_8cpp_source.html#l00462">ExtendedProperty()</a>, <a class="el" href="_w_z_8cpp_source.html#l00655">NLS::Node::g()</a>, <a class="el" href="_w_z_8cpp_source.html#l00060">ReadCInt()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00142">ReadString()</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00462">ExtendedProperty()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    int32_t count = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++) {
+        <span class="keywordtype">string</span> name = <a class="code" href="_w_z_8cpp.html#a28d271486a978ba3a847982f58c0ec17">ReadString</a>(file, offset);
+        uint8_t a = Read&lt;uint8_t&gt;(file);
+        <span class="keywordflow">switch</span> (a) {
+        <span class="keywordflow">case</span> 0x00:
+            n.g(name);
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x0B:
+        <span class="keywordflow">case</span> 0x02:
+            n.g(name) = Read&lt;uint16_t&gt;(file);
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x03:
+            n.g(name) = <a class="code" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7">ReadCInt</a>(file);
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x04:
+            <span class="keywordflow">if</span> (Read&lt;uint8_t&gt;(file) == 0x80) {
+                n.g(name) = Read&lt;float&gt;(file);
+            }
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x05:
+                n.g(name) = Read&lt;double&gt;(file);;
+                <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x08:
+            n.g(name) = <a class="code" href="_w_z_8cpp.html#a28d271486a978ba3a847982f58c0ec17">ReadString</a>(file, offset);
+            <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> 0x09:
+            {
+                uint32_t temp = Read&lt;uint32_t&gt;(file);
+                temp += file-&gt;tellg();
+                <a class="code" href="namespace_n_l_s_1_1_w_z.html#ac7038b9e1df26dcca966779e42ae8246">ExtendedProperty</a>(file, n.g(name), offset);
+                file-&gt;seekg(temp);
+                <span class="keywordflow">break</span>;
+            }
+        <span class="keywordflow">default</span>:
+            <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;Unknown Property type&quot;</span> &lt;&lt; endl;
+            <span class="keywordflow">throw</span>(273);
+        }
+    }
+}
+</pre></div>
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_cgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_cgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_cgraph" id="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_cgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56" title="NLS::C" alt="" coords="471,56,535,83"/><area shape="rect" id="node5" href="namespace_n_l_s_1_1_w_z.html#ac7038b9e1df26dcca966779e42ae8246" title="NLS::WZ::ExtendedProperty" alt="" coords="208,157,395,184"/><area shape="rect" id="node8" href="class_n_l_s_1_1_node.html#a2f49958615e626cc36216563e3cf8f65" title="NLS::Node::g" alt="" coords="453,107,553,133"/><area shape="rect" id="node10" href="_w_z_8cpp.html#a1aabefcf6bb359fd266ffe2c0d5dc7b7" title="ReadCInt" alt="" coords="465,309,540,336"/><area shape="rect" id="node22" href="_w_z_8cpp.html#a28d271486a978ba3a847982f58c0ec17" title="ReadString" alt="" coords="258,5,345,32"/><area shape="rect" id="node12" href="_w_z_8cpp.html#ac36e773f605c54a9b1df3f260b7f2bdd" title="ReadEncString" alt="" coords="611,157,720,184"/><area shape="rect" id="node14" href="_w_z_8cpp.html#a3a3b87d7984d3c8eb2507d3eea81efd5" title="ReadStringOffset" alt="" coords="443,157,563,184"/><area shape="rect" id="node18" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e" title="tostring" alt="" coords="470,208,535,235"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_icgraph.png" border="0" usemap="#namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_icgraph" alt=""/></div>
+<map name="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_icgraph" id="namespace_n_l_s_1_1_w_z_a365a93acf042da737c01e93dd35bf47b_icgraph">
+<area shape="rect" id="node3" href="namespace_n_l_s_1_1_w_z.html#ac7038b9e1df26dcca966779e42ae8246" title="NLS::WZ::ExtendedProperty" alt="" coords="208,5,395,32"/><area shape="rect" id="node6" href="class_n_l_s_1_1_w_z_1_1_image.html#a52baf8c35c729849d78a270339cb702a" title="NLS::WZ::Image::Parse" alt="" coords="221,56,381,83"/><area shape="rect" id="node8" href="class_n_l_s_1_1_node.html#a74b97f164de8f27b9a5a378ad2b12924" title="NLS::Node::operator[]" alt="" coords="443,56,591,83"/></map>
 </div>
 </p>
 
@@ -186,7 +589,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00011">11</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00608">NLS::Node::operator[]()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00625">NLS::Node::operator[]()</a>.</p>
 
 </div>
 </div>
@@ -203,7 +606,7 @@ Here is the call graph for this function:</div>
 
 <p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00010">10</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00214">NLS::WZ::File::File()</a>, <a class="el" href="_w_z_8cpp_source.html#l00192">Init()</a>, <a class="el" href="_map_8cpp_source.html#l00017">NLS::Map::Load()</a>, and <a class="el" href="_tile_8cpp_source.html#l00009">NLS::Tile::Load()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00174">Init()</a>, <a class="el" href="_map_8cpp_source.html#l00021">NLS::Map::Load()</a>, <a class="el" href="_tile_8cpp_source.html#l00009">NLS::Tile::Load()</a>, <a class="el" href="_portal_8cpp_source.html#l00011">NLS::Portal::Load()</a>, <a class="el" href="_back_8cpp_source.html#l00009">NLS::Back::Load()</a>, and <a class="el" href="_obj_8cpp_source.html#l00009">NLS::Obj::Load()</a>.</p>
 
 </div>
 </div>
@@ -218,7 +621,7 @@ Here is the call graph for this function:</div>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -228,7 +631,7 @@ Here is the call graph for this function:</div>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:16 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:32 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

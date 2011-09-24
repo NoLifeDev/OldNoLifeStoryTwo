@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Console.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Console.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -108,130 +108,195 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00009"></a><a class="code" href="class_n_l_s_1_1_console.html#abfe66f9122b9bdca97717ff22b0026b6">00009</a> <a class="code" href="class_n_l_s_1_1_console.html#abfe66f9122b9bdca97717ff22b0026b6">NLS::Console::Console</a>() {
 <a name="l00010"></a>00010     <a class="code" href="class_n_l_s_1_1_console.html#abb4738a022c3f6ebcb91324e747edd4d">shutdown</a> = <span class="keyword">false</span>;
 <a name="l00011"></a>00011     <a class="code" href="class_n_l_s_1_1_console.html#a4bf4494b47323aa8c1de988bffc9ae3f">toggle</a> = <span class="keyword">false</span>;
-<a name="l00012"></a>00012     <a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a> = <span class="keyword">false</span>;
-<a name="l00013"></a>00013     <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a> = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">Loop</a>();});
-<a name="l00014"></a>00014     <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a>-&gt;Launch();
-<a name="l00015"></a>00015 }
-<a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">00017</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#ac79886d86b0459d6ab382ca2b5642264">NLS::Console::Loop</a>() {
-<a name="l00018"></a>00018     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a> = <span class="keyword">new</span> sf::RenderWindow(sf::VideoMode(400,400,32), <span class="stringliteral">&quot;NoLifeStory::FancyConsole&quot;</span>, sf::Style::Resize|sf::Style::Close, sf::ContextSettings(0, 0, 0, 2, 0));
-<a name="l00019"></a>00019     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Show(show);
-<a name="l00020"></a>00020 <span class="preprocessor">#ifdef NLS_WINDOWS</span>
-<a name="l00021"></a>00021 <span class="preprocessor"></span>    HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(<a class="code" href="_resource_8h.html#a7d8721a980767947232a4fe8692f9621">IDI_NOLIFESTORY_ICON</a>));
-<a name="l00022"></a>00022     HWND hWnd = <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetSystemHandle();
-<a name="l00023"></a>00023     <span class="keywordflow">if</span> (hWnd) {
-<a name="l00024"></a>00024         ::SendMessageW(hWnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
-<a name="l00025"></a>00025     }
-<a name="l00026"></a>00026 <span class="preprocessor">#endif</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span>    font = <span class="keyword">new</span> sf::Font();
-<a name="l00028"></a>00028     font-&gt;LoadFromFile(<span class="stringliteral">&quot;font.ttf&quot;</span>);
-<a name="l00029"></a>00029     pos = 0;
-<a name="l00030"></a>00030     <span class="keywordflow">while</span> (!shutdown) {
-<a name="l00031"></a>00031         <span class="keywordflow">if</span> (toggle) {
-<a name="l00032"></a>00032             <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Show(show);
-<a name="l00033"></a>00033             toggle = <span class="keyword">false</span>;
-<a name="l00034"></a>00034         }
-<a name="l00035"></a>00035         sf::Event e;
-<a name="l00036"></a>00036         <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;PollEvent(e)) {
-<a name="l00037"></a>00037             <span class="keywordflow">switch</span> (e.Type) {
-<a name="l00038"></a>00038             <span class="keywordflow">case</span> sf::Event::KeyPressed:
-<a name="l00039"></a>00039                 <span class="keywordflow">switch</span> (e.Key.Code) {
-<a name="l00040"></a>00040                 <span class="keywordflow">case</span> sf::Keyboard::Back:
-<a name="l00041"></a>00041                     <span class="keywordflow">if</span> (pos != 0) {
-<a name="l00042"></a>00042                         str.erase(--pos, 1);
-<a name="l00043"></a>00043                     }
-<a name="l00044"></a>00044                     <span class="keywordflow">break</span>;
-<a name="l00045"></a>00045                 <span class="keywordflow">case</span> sf::Keyboard::Delete:
-<a name="l00046"></a>00046                     <span class="keywordflow">if</span> (pos != str.size()) {
-<a name="l00047"></a>00047                         str.erase(pos, 1);
-<a name="l00048"></a>00048                     }
-<a name="l00049"></a>00049                     <span class="keywordflow">break</span>;
-<a name="l00050"></a>00050                 <span class="keywordflow">case</span> sf::Keyboard::Left:
-<a name="l00051"></a>00051                     pos = max&lt;int32_t&gt;(0, pos-1);
-<a name="l00052"></a>00052                     <span class="keywordflow">break</span>;
-<a name="l00053"></a>00053                 <span class="keywordflow">case</span> sf::Keyboard::Right:
-<a name="l00054"></a>00054                     pos = min&lt;int32_t&gt;(str.size(), pos+1);
+<a name="l00012"></a>00012     <a class="code" href="class_n_l_s_1_1_console.html#a02265d947d297e7f5a78dce788723a9d">show</a> = <span class="keyword">true</span>;
+<a name="l00013"></a>00013 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00014"></a>00014 <span class="preprocessor"></span>    <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a> = <span class="keyword">new</span> thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">Loop</a>();});
+<a name="l00015"></a>00015 <span class="preprocessor">#else</span>
+<a name="l00016"></a>00016 <span class="preprocessor"></span>    <a class="code" href="class_n_l_s_1_1_console.html#a8edd3bc3b5d0ce377f6e7c7510ad954c">t</a> = <span class="keyword">new</span> sf::Thread([&amp;](){this-&gt;<a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">Loop</a>();});
+<a name="l00017"></a>00017     t-&gt;Launch();
+<a name="l00018"></a>00018 <span class="preprocessor">#endif</span>
+<a name="l00019"></a>00019 <span class="preprocessor"></span>}
+<a name="l00020"></a>00020 
+<a name="l00021"></a><a class="code" href="class_n_l_s_1_1_console.html#a8f07e13a70aea8090c4b64049dcf6e98">00021</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s.html#af5dc321c222df43f2ff77d514fe1e98d">NLS::Console::Loop</a>() {
+<a name="l00022"></a>00022     file.open(<span class="stringliteral">&quot;console.log&quot;</span>);
+<a name="l00023"></a>00023     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a> = <span class="keyword">new</span> sf::RenderWindow(sf::VideoMode(400,400,32), <span class="stringliteral">&quot;NoLifeStory::FancyConsole&quot;</span>, sf::Style::Resize|sf::Style::Close, sf::ContextSettings(0, 0, 0, 2, 0));
+<a name="l00024"></a>00024     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Show(show);
+<a name="l00025"></a>00025 <span class="preprocessor">#ifdef NLS_WINDOWS</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span>    HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDI_NOLIFESTORY_ICON));
+<a name="l00027"></a>00027     HWND hWnd = <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetSystemHandle();
+<a name="l00028"></a>00028     <span class="keywordflow">if</span> (hWnd) {
+<a name="l00029"></a>00029         ::SendMessageW(hWnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
+<a name="l00030"></a>00030     }
+<a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span>    font = <span class="keyword">new</span> sf::Font();
+<a name="l00033"></a>00033 <span class="preprocessor">#ifdef NLS_WINDOWS</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span>    <span class="keyword">auto</span> bleh1 = FindResource(0, MAKEINTRESOURCE(IDI_NOLIFESTORY_FONT), MAKEINTRESOURCE(RT_RCDATA));
+<a name="l00035"></a>00035     <span class="keyword">auto</span> bleh2 = LoadResource(0, bleh1);
+<a name="l00036"></a>00036     font-&gt;LoadFromMemory(LockResource(bleh2), SizeofResource(0, bleh1));
+<a name="l00037"></a>00037 <span class="preprocessor">#else</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span>    font-&gt;LoadFromFile(<span class="stringliteral">&quot;font.ttf&quot;</span>);
+<a name="l00039"></a>00039 <span class="preprocessor">#endif</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>    pos = 0;
+<a name="l00041"></a>00041     <span class="keywordflow">while</span> (!shutdown) {
+<a name="l00042"></a>00042         <span class="keywordflow">if</span> (toggle) {
+<a name="l00043"></a>00043             <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Show(show);
+<a name="l00044"></a>00044             toggle = <span class="keyword">false</span>;
+<a name="l00045"></a>00045         }
+<a name="l00046"></a>00046         sf::Event e;
+<a name="l00047"></a>00047         <span class="keywordflow">while</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;PollEvent(e)) {
+<a name="l00048"></a>00048             <span class="keywordflow">switch</span> (e.Type) {
+<a name="l00049"></a>00049             <span class="keywordflow">case</span> sf::Event::KeyPressed:
+<a name="l00050"></a>00050                 <span class="keywordflow">switch</span> (e.Key.Code) {
+<a name="l00051"></a>00051                 <span class="keywordflow">case</span> sf::Keyboard::Back:
+<a name="l00052"></a>00052                     <span class="keywordflow">if</span> (pos != 0) {
+<a name="l00053"></a>00053                         str.erase(--pos, 1);
+<a name="l00054"></a>00054                     }
 <a name="l00055"></a>00055                     <span class="keywordflow">break</span>;
-<a name="l00056"></a>00056                 <span class="keywordflow">case</span> sf::Keyboard::Return:
-<a name="l00057"></a>00057                     HandleCommand(str);
-<a name="l00058"></a>00058                     m.Lock();
-<a name="l00059"></a>00059                     strs.push_back(str);
-<a name="l00060"></a>00060                     m.Unlock();
-<a name="l00061"></a>00061                     str.clear();
-<a name="l00062"></a>00062                     pos = 0;
+<a name="l00056"></a>00056                 <span class="keywordflow">case</span> sf::Keyboard::Delete:
+<a name="l00057"></a>00057                     <span class="keywordflow">if</span> (pos != str.size()) {
+<a name="l00058"></a>00058                         str.erase(pos, 1);
+<a name="l00059"></a>00059                     }
+<a name="l00060"></a>00060                     <span class="keywordflow">break</span>;
+<a name="l00061"></a>00061                 <span class="keywordflow">case</span> sf::Keyboard::Left:
+<a name="l00062"></a>00062                     pos = max&lt;int32_t&gt;(0, pos-1);
 <a name="l00063"></a>00063                     <span class="keywordflow">break</span>;
-<a name="l00064"></a>00064                 <span class="keywordflow">case</span> sf::Keyboard::Tilde:
-<a name="l00065"></a>00065                     Toggle();
+<a name="l00064"></a>00064                 <span class="keywordflow">case</span> sf::Keyboard::Right:
+<a name="l00065"></a>00065                     pos = min&lt;int32_t&gt;(str.size(), pos+1);
 <a name="l00066"></a>00066                     <span class="keywordflow">break</span>;
-<a name="l00067"></a>00067                 }
-<a name="l00068"></a>00068                 <span class="keywordflow">break</span>;
-<a name="l00069"></a>00069             <span class="keywordflow">case</span> sf::Event::TextEntered:
-<a name="l00070"></a>00070                 <span class="keywordflow">if</span> (e.Text.Unicode != 13 and e.Text.Unicode != 8 and e.Text.Unicode != 96 and e.Text.Unicode != 27) {
-<a name="l00071"></a>00071                     str.insert(pos++, 1, e.Text.Unicode);
-<a name="l00072"></a>00072                 }
-<a name="l00073"></a>00073                 <span class="keywordflow">break</span>;
-<a name="l00074"></a>00074             <span class="keywordflow">case</span> sf::Event::Closed:
-<a name="l00075"></a>00075                 show = <span class="keyword">false</span>;
-<a name="l00076"></a>00076                 toggle = <span class="keyword">true</span>;
+<a name="l00067"></a>00067                 <span class="keywordflow">case</span> sf::Keyboard::Return:
+<a name="l00068"></a>00068                     Push(str);
+<a name="l00069"></a>00069                     HandleCommand(str);
+<a name="l00070"></a>00070                     str.clear();
+<a name="l00071"></a>00071                     pos = 0;
+<a name="l00072"></a>00072                     <span class="keywordflow">break</span>;
+<a name="l00073"></a>00073                 <span class="keywordflow">case</span> sf::Keyboard::Tilde:
+<a name="l00074"></a>00074                     Toggle();
+<a name="l00075"></a>00075                     <span class="keywordflow">break</span>;
+<a name="l00076"></a>00076                 }
 <a name="l00077"></a>00077                 <span class="keywordflow">break</span>;
-<a name="l00078"></a>00078             <span class="keywordflow">case</span> sf::Event::Resized:
-<a name="l00079"></a>00079                 <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;SetView(<a class="code" href="namespace_n_l_s.html#ab8595bcd4dd056dab28e173270679f22">sf::View</a>(sf::FloatRect(0, 0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetWidth(), <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight())));
-<a name="l00080"></a>00080                 <span class="keywordflow">break</span>;
-<a name="l00081"></a>00081             }
-<a name="l00082"></a>00082         }
-<a name="l00083"></a>00083         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Clear();
-<a name="l00084"></a>00084         sf::Text t(str, *font, 8);
-<a name="l00085"></a>00085         t.SetPosition(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-10);
-<a name="l00086"></a>00086         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(t);
-<a name="l00087"></a>00087         m.Lock();
-<a name="l00088"></a>00088         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; strs.size(); i++) {
-<a name="l00089"></a>00089             sf::Text t(strs[strs.size()-i-1], *font, 8);
-<a name="l00090"></a>00090             t.SetPosition(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12*i-24);
-<a name="l00091"></a>00091             <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(t);
-<a name="l00092"></a>00092             <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12*i-24 &lt; 0) {
-<a name="l00093"></a>00093                 <span class="keywordflow">break</span>;
-<a name="l00094"></a>00094             }
-<a name="l00095"></a>00095         }
-<a name="l00096"></a>00096         m.Unlock();
-<a name="l00097"></a>00097         sf::Shape s = sf::Shape::Line(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetWidth(), <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12, 1, sf::Color::White);
-<a name="l00098"></a>00098         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(s);
-<a name="l00099"></a>00099         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Display();
-<a name="l00100"></a>00100         <span class="keywordflow">if</span> (show) {
-<a name="l00101"></a>00101             sf::Sleep(max(50-(<span class="keywordtype">int</span>)<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetFrameTime(), 0));
-<a name="l00102"></a>00102         } <span class="keywordflow">else</span> {
-<a name="l00103"></a>00103             sf::Sleep(max(1000-(<span class="keywordtype">int</span>)<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetFrameTime(), 0));
-<a name="l00104"></a>00104         }
-<a name="l00105"></a>00105     }
-<a name="l00106"></a>00106     <span class="keyword">delete</span> font;
-<a name="l00107"></a>00107     <span class="keyword">delete</span> <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>;
-<a name="l00108"></a>00108 }
-<a name="l00109"></a>00109 
-<a name="l00110"></a><a class="code" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3">00110</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3">NLS::Console::HandleCommand</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str) {
-<a name="l00111"></a>00111     istringstream iss(str);
-<a name="l00112"></a>00112     vector&lt;string&gt; command;
-<a name="l00113"></a>00113     copy(istream_iterator&lt;string&gt;(iss), istream_iterator&lt;string&gt;(), back_inserter&lt;vector&lt;string&gt;&gt;(command));
-<a name="l00114"></a>00114     <span class="keywordflow">if</span> (command.size() == 0) {
-<a name="l00115"></a>00115         <span class="keywordflow">return</span>;
-<a name="l00116"></a>00116     }
-<a name="l00117"></a>00117     <span class="comment">//Do stuff :D</span>
-<a name="l00118"></a>00118 }
-<a name="l00119"></a>00119 
-<a name="l00120"></a><a class="code" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10">00120</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10">NLS::Console::Push</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str) {
-<a name="l00121"></a>00121     m.Lock();
-<a name="l00122"></a>00122     strs.push_back(str);
-<a name="l00123"></a>00123     m.Unlock();
-<a name="l00124"></a>00124 }
-<a name="l00125"></a>00125 
-<a name="l00126"></a><a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">00126</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">NLS::Console::Toggle</a>() {
-<a name="l00127"></a>00127     show = !show;
-<a name="l00128"></a>00128     toggle = <span class="keyword">true</span>;
-<a name="l00129"></a>00129 }
-<a name="l00130"></a>00130 
-<a name="l00131"></a><a class="code" href="class_n_l_s_1_1_console.html#a6e7b8c6a410a6cc61111a472cd316f42">00131</a> <a class="code" href="class_n_l_s_1_1_console.html#a6e7b8c6a410a6cc61111a472cd316f42">NLS::Console::~Console</a>() {
-<a name="l00132"></a>00132     shutdown = <span class="keyword">true</span>;
-<a name="l00133"></a>00133     t-&gt;Wait();
-<a name="l00134"></a>00134     <span class="keyword">delete</span> t;
-<a name="l00135"></a>00135 }
+<a name="l00078"></a>00078             <span class="keywordflow">case</span> sf::Event::TextEntered:
+<a name="l00079"></a>00079                 <span class="keywordflow">if</span> (e.Text.Unicode != 13 and e.Text.Unicode != 8 and e.Text.Unicode != 96 and e.Text.Unicode != 27) {
+<a name="l00080"></a>00080                     str.insert(pos++, 1, e.Text.Unicode);
+<a name="l00081"></a>00081                 }
+<a name="l00082"></a>00082                 <span class="keywordflow">break</span>;
+<a name="l00083"></a>00083             <span class="keywordflow">case</span> sf::Event::Closed:
+<a name="l00084"></a>00084                 show = <span class="keyword">false</span>;
+<a name="l00085"></a>00085                 toggle = <span class="keyword">true</span>;
+<a name="l00086"></a>00086                 <span class="keywordflow">break</span>;
+<a name="l00087"></a>00087             <span class="keywordflow">case</span> sf::Event::Resized:
+<a name="l00088"></a>00088                 <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;SetView(<a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">sf::View</a>(sf::FloatRect(0, 0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetWidth(), <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight())));
+<a name="l00089"></a>00089                 <span class="keywordflow">break</span>;
+<a name="l00090"></a>00090             }
+<a name="l00091"></a>00091         }
+<a name="l00092"></a>00092         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Clear();
+<a name="l00093"></a>00093         sf::Text t(str, *font, 8);
+<a name="l00094"></a>00094         t.SetPosition(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-10);
+<a name="l00095"></a>00095         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(t);
+<a name="l00096"></a>00096 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00097"></a>00097 <span class="preprocessor"></span>        m.lock();
+<a name="l00098"></a>00098 <span class="preprocessor">#else</span>
+<a name="l00099"></a>00099 <span class="preprocessor"></span>        m.Lock();
+<a name="l00100"></a>00100 <span class="preprocessor">#endif</span>
+<a name="l00101"></a>00101 <span class="preprocessor"></span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; strs.size(); i++) {
+<a name="l00102"></a>00102             sf::Text t(strs[strs.size()-i-1], *font, 8);
+<a name="l00103"></a>00103             t.SetPosition(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12*i-24);
+<a name="l00104"></a>00104             <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(t);
+<a name="l00105"></a>00105             <span class="keywordflow">if</span> (<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12*i-24 &lt; 0) {
+<a name="l00106"></a>00106                 <span class="keywordflow">break</span>;
+<a name="l00107"></a>00107             }
+<a name="l00108"></a>00108         }
+<a name="l00109"></a>00109 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00110"></a>00110 <span class="preprocessor"></span>        m.unlock();
+<a name="l00111"></a>00111 <span class="preprocessor">#else</span>
+<a name="l00112"></a>00112 <span class="preprocessor"></span>        m.Unlock();
+<a name="l00113"></a>00113 <span class="preprocessor">#endif</span>
+<a name="l00114"></a>00114 <span class="preprocessor"></span>        sf::Shape s = sf::Shape::Line(0, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12, <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetWidth(), <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetHeight()-12, 1, sf::Color::White);
+<a name="l00115"></a>00115         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Draw(s);
+<a name="l00116"></a>00116         <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Display();
+<a name="l00117"></a>00117         <span class="keywordflow">if</span> (show) {
+<a name="l00118"></a>00118             sf::Sleep(max(50-(<span class="keywordtype">int</span>)<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetFrameTime(), 0));
+<a name="l00119"></a>00119         } <span class="keywordflow">else</span> {
+<a name="l00120"></a>00120             sf::Sleep(max(1000-(<span class="keywordtype">int</span>)<a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetFrameTime(), 0));
+<a name="l00121"></a>00121         }
+<a name="l00122"></a>00122     }
+<a name="l00123"></a>00123     <span class="keyword">delete</span> font;
+<a name="l00124"></a>00124     <span class="keyword">delete</span> <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>;
+<a name="l00125"></a>00125 }
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3">00127</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#ae4974197cb08181613f50bad2723f0d3">NLS::Console::HandleCommand</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str) {
+<a name="l00128"></a>00128     istringstream iss(str);
+<a name="l00129"></a>00129     vector&lt;string&gt; command;
+<a name="l00130"></a>00130     copy(istream_iterator&lt;string&gt;(iss), istream_iterator&lt;string&gt;(), back_inserter&lt;vector&lt;string&gt;&gt;(command));
+<a name="l00131"></a>00131     <span class="keywordflow">if</span> (command.size() == 0) {
+<a name="l00132"></a>00132         <span class="keywordflow">return</span>;
+<a name="l00133"></a>00133     }
+<a name="l00134"></a>00134     <span class="keywordflow">if</span> (command[0] == <span class="stringliteral">&quot;help&quot;</span> or command[0] == <span class="stringliteral">&quot;?&quot;</span>) {
+<a name="l00135"></a>00135         <span class="keywordflow">if</span> (command.size() == 1) {
+<a name="l00136"></a>00136             Push(<span class="stringliteral">&quot;Available commands:&quot;</span>);
+<a name="l00137"></a>00137             Push(<span class="stringliteral">&quot;help [Command Name]&quot;</span>);
+<a name="l00138"></a>00138             Push(<span class="stringliteral">&quot;? [Command Name]&quot;</span>);
+<a name="l00139"></a>00139             Push(<span class="stringliteral">&quot;exit&quot;</span>);
+<a name="l00140"></a>00140             Push(<span class="stringliteral">&quot;load &lt;Map ID&gt; [Portal ID]&quot;</span>);
+<a name="l00141"></a>00141         } <span class="keywordflow">else</span> {
+<a name="l00142"></a>00142             <span class="keywordflow">if</span> (command[1] == <span class="stringliteral">&quot;help&quot;</span> or command[1] == <span class="stringliteral">&quot;?&quot;</span>) {
+<a name="l00143"></a>00143                 Push(<span class="stringliteral">&quot;help [Command Name]&quot;</span>);
+<a name="l00144"></a>00144                 Push(<span class="stringliteral">&quot;Provides information on what commands are available and what they do&quot;</span>);
+<a name="l00145"></a>00145                 Push(<span class="stringliteral">&quot;? is a synonym for help&quot;</span>);
+<a name="l00146"></a>00146             } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (command[1] == <span class="stringliteral">&quot;exit&quot;</span>) {
+<a name="l00147"></a>00147                 Push(<span class="stringliteral">&quot;exit&quot;</span>);
+<a name="l00148"></a>00148                 Push(<span class="stringliteral">&quot;Aborts NoLifeStory&quot;</span>);
+<a name="l00149"></a>00149             } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (command[1] == <span class="stringliteral">&quot;load&quot;</span>) {
+<a name="l00150"></a>00150                 Push(<span class="stringliteral">&quot;load &lt;Map ID&gt; [Portal ID]&quot;</span>);
+<a name="l00151"></a>00151                 Push(<span class="stringliteral">&quot;Loads the specified map and also optionally navigates to the specified portal.&quot;</span>);
+<a name="l00152"></a>00152             } <span class="keywordflow">else</span> {
+<a name="l00153"></a>00153                 Push(<span class="stringliteral">&quot;Unknown command &quot;</span>+command[1]);
+<a name="l00154"></a>00154             }
+<a name="l00155"></a>00155         }
+<a name="l00156"></a>00156     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (command[0] == <span class="stringliteral">&quot;exit&quot;</span>) {
+<a name="l00157"></a>00157         exit(0);
+<a name="l00158"></a>00158     } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (command[0] == <span class="stringliteral">&quot;load&quot;</span>) {
+<a name="l00159"></a>00159         <span class="keywordflow">if</span> (command.size() == 1) {
+<a name="l00160"></a>00160             Push(<span class="stringliteral">&quot;Please specify a map id when using the load command&quot;</span>);
+<a name="l00161"></a>00161         } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (command.size() == 2) {
+<a name="l00162"></a>00162             <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>(command[1], <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00163"></a>00163         } <span class="keywordflow">else</span> {
+<a name="l00164"></a>00164             <a class="code" href="namespace_n_l_s_1_1_map.html#a0103b219e68f9dfcc89d68643b50277e">Map::Load</a>(command[1], command[2]);
+<a name="l00165"></a>00165         }
+<a name="l00166"></a>00166     } <span class="keywordflow">else</span> {
+<a name="l00167"></a>00167         Push(<span class="stringliteral">&quot;Unknown command!&quot;</span>);
+<a name="l00168"></a>00168     }
+<a name="l00169"></a>00169 }
+<a name="l00170"></a>00170 
+<a name="l00171"></a><a class="code" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10">00171</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#a8480851afff3b518b1a0472be56c5f10">NLS::Console::Push</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str) {
+<a name="l00172"></a>00172 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00173"></a>00173 <span class="preprocessor"></span>        m.lock();
+<a name="l00174"></a>00174 <span class="preprocessor">#else</span>
+<a name="l00175"></a>00175 <span class="preprocessor"></span>        m.Lock();
+<a name="l00176"></a>00176 <span class="preprocessor">#endif</span>
+<a name="l00177"></a>00177 <span class="preprocessor"></span>    file &lt;&lt; str &lt;&lt; endl;
+<a name="l00178"></a>00178     strs.push_back(str);
+<a name="l00179"></a>00179     file.flush();
+<a name="l00180"></a>00180 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00181"></a>00181 <span class="preprocessor"></span>        m.unlock();
+<a name="l00182"></a>00182 <span class="preprocessor">#else</span>
+<a name="l00183"></a>00183 <span class="preprocessor"></span>        m.Unlock();
+<a name="l00184"></a>00184 <span class="preprocessor">#endif</span>
+<a name="l00185"></a>00185 <span class="preprocessor"></span>}
+<a name="l00186"></a>00186 
+<a name="l00187"></a><a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">00187</a> <span class="keywordtype">void</span> <a class="code" href="class_n_l_s_1_1_console.html#a12c1d04e18a73f9da23c162ee72309dc">NLS::Console::Toggle</a>() {
+<a name="l00188"></a>00188     show = !show;
+<a name="l00189"></a>00189     toggle = <span class="keyword">true</span>;
+<a name="l00190"></a>00190 }
+<a name="l00191"></a>00191 
+<a name="l00192"></a><a class="code" href="class_n_l_s_1_1_console.html#a6e7b8c6a410a6cc61111a472cd316f42">00192</a> <a class="code" href="class_n_l_s_1_1_console.html#a6e7b8c6a410a6cc61111a472cd316f42">NLS::Console::~Console</a>() {
+<a name="l00193"></a>00193     shutdown = <span class="keyword">true</span>;
+<a name="l00194"></a>00194 <span class="preprocessor">#ifdef VS11</span>
+<a name="l00195"></a>00195 <span class="preprocessor"></span>    t-&gt;join();
+<a name="l00196"></a>00196 <span class="preprocessor">#else</span>
+<a name="l00197"></a>00197 <span class="preprocessor"></span>    t-&gt;Wait();
+<a name="l00198"></a>00198 <span class="preprocessor">#endif</span>
+<a name="l00199"></a>00199 <span class="preprocessor"></span>    <span class="keyword">delete</span> t;
+<a name="l00200"></a>00200 }
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -242,7 +307,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -252,7 +317,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:13 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:29 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

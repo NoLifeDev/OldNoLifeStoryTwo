@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>NoLifeStory: NoLifeStory/Graphics.cpp Source File</title>
+<title>NoLifeStory: src/NoLifeStory/Graphics.cpp Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -103,12 +103,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00003"></a>00003 <span class="comment">// Please see SuperGlobal.h for more information. //</span>
 <a name="l00005"></a>00005 <span class="comment"></span><span class="preprocessor">#include &quot;Global.h&quot;</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">00007</a> sf::Window* <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">NLS::window</a>;
+<a name="l00007"></a><a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">00007</a> sf::Window* <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">NLS::window</a> = 0;
 <a name="l00008"></a>00008 
 <a name="l00009"></a><a class="code" href="namespace_n_l_s_1_1_graphics.html#aed7010456dceff398b7c778a12aee202">00009</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s_1_1_graphics.html#aed7010456dceff398b7c778a12aee202">NLS::Graphics::Init</a>() {
 <a name="l00010"></a>00010     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a> = <span class="keyword">new</span> sf::Window(sf::VideoMode(800, 600), <span class="stringliteral">&quot;NoLifeStory::Loading&quot;</span>, sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 0));
 <a name="l00011"></a>00011 <span class="preprocessor">#ifdef NLS_WINDOWS</span>
-<a name="l00012"></a>00012 <span class="preprocessor"></span>    HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(<a class="code" href="_resource_8h.html#a7d8721a980767947232a4fe8692f9621">IDI_NOLIFESTORY_ICON</a>));
+<a name="l00012"></a>00012 <span class="preprocessor"></span>    HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDI_NOLIFESTORY_ICON));
 <a name="l00013"></a>00013     HWND hWnd = <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;GetSystemHandle();
 <a name="l00014"></a>00014     <span class="keywordflow">if</span> (hWnd) {
 <a name="l00015"></a>00015         ::SendMessageW(hWnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
@@ -132,17 +132,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00033"></a>00033 
 <a name="l00034"></a><a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">00034</a> <span class="keywordtype">void</span> <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">NLS::Graphics::Draw</a>() {
 <a name="l00035"></a>00035     glClear(GL_COLOR_BUFFER_BIT);
-<a name="l00036"></a>00036     <a class="code" href="namespace_n_l_s.html#ab8595bcd4dd056dab28e173270679f22">View</a>.<a class="code" href="class_n_l_s_1_1_view__.html#aeab579be0c33531b72a7c98001fe5735">Step</a>();
+<a name="l00036"></a>00036     <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#a565923f1baa6e113d02a3d663e329805">Step</a>();
 <a name="l00037"></a>00037     <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Map::Draw</a>();
 <a name="l00038"></a>00038     <a class="code" href="namespace_n_l_s_1_1_graphics.html#a775e67981512c721037b4eeb6f74e033">Foothold::Draw</a>();
-<a name="l00039"></a>00039     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Display();
-<a name="l00040"></a>00040     <span class="keywordflow">switch</span> (glGetError()) {
-<a name="l00041"></a>00041     <span class="keywordflow">case</span> GL_NO_ERROR:
-<a name="l00042"></a>00042         <span class="keywordflow">break</span>;
-<a name="l00043"></a>00043     <span class="keywordflow">default</span>:
-<a name="l00044"></a>00044         <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;OH GOD OPENGL FAILED&quot;</span> &lt;&lt; endl;
-<a name="l00045"></a>00045     }
-<a name="l00046"></a>00046 }
+<a name="l00039"></a>00039     <a class="code" href="namespace_n_l_s.html#a19878d15787b97f7dd97aaa4440228bf">View</a>.<a class="code" href="class_n_l_s_1_1___view.html#adaf2c3b472d0465833a65d2b95fa314e">Reset</a>();
+<a name="l00040"></a>00040     <a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a53e2ee07fbb0794ec00d22d85ef490e5">Step</a>();
+<a name="l00041"></a>00041     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;SetTitle(<span class="stringliteral">&quot;NoLifeStory::FrameRate = &quot;</span>+<a class="code" href="_utilities_8h.html#a5790596a91060b371d0f46d424dbcb9e">tostring</a>((<span class="keywordtype">int</span>)<a class="code" href="namespace_n_l_s.html#ae4ce369fdfa84af81e1625191e65087f">Time</a>.<a class="code" href="class_n_l_s_1_1___time.html#a650b9711e87c97cabf4566dabf07b8b0">fps</a>));
+<a name="l00042"></a>00042     <a class="code" href="namespace_n_l_s.html#abadbc0fc54c44956baec3e8c4edcbf96">window</a>-&gt;Display();
+<a name="l00043"></a>00043 <span class="preprocessor">#ifdef DEBUG</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span>    <span class="keywordflow">switch</span> (glGetError()) {
+<a name="l00045"></a>00045     <span class="keywordflow">case</span> GL_NO_ERROR:
+<a name="l00046"></a>00046         <span class="keywordflow">break</span>;
+<a name="l00047"></a>00047     <span class="keywordflow">default</span>:
+<a name="l00048"></a>00048         <a class="code" href="namespace_n_l_s.html#a54552d893b387469b51b85a921ba4f56">C</a>(<span class="stringliteral">&quot;ERROR&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;OH GOD OPENGL FAILED&quot;</span> &lt;&lt; endl;
+<a name="l00049"></a>00049     }
+<a name="l00050"></a>00050 <span class="preprocessor">#endif</span>
+<a name="l00051"></a>00051 <span class="preprocessor"></span>}
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -153,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -163,7 +168,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:13 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:29 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

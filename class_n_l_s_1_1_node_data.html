@@ -34,7 +34,7 @@
    <div id="projectname">NoLifeStory
    
    </div>
-   <div id="projectbrief">The Unofficial MapleStory Clone</div>
+   <div id="projectbrief">The Unofficial MapleStory Client</div>
   </td>
   
   
@@ -110,7 +110,7 @@ Collaboration diagram for NLS::NodeData:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_n_l_s_1_1_node_data__coll__graph.png" border="0" usemap="#_n_l_s_1_1_node_data_coll__map" alt="Collaboration graph"/></div>
 <map name="_n_l_s_1_1_node_data_coll__map" id="_n_l_s_1_1_node_data_coll__map">
-<area shape="rect" id="node2" href="class_n_l_s_1_1_node.html" title="{NLS::Node\n|+ data\l|+ Node()\l+ Node()\l+ operator=()\l+ operator[]()\l+ operator[]()\l+ operator[]()\l+ g()\l+ Begin()\l+ End()\l+ operator bool()\l+ operator string()\l+ operator double()\l+ operator int()\l+ operator Sprite()\l+ operator=()\l+ operator=()\l+ operator=()\l}" alt="" coords="133,696,264,1008"/><area shape="rect" id="node5" href="class_n_l_s_1_1_w_z_1_1_image.html" title="{NLS::WZ::Image\n|+ n\l+ name\l+ offset\l+ file\l|+ Image()\l+ Parse()\l}" alt="" coords="139,1072,257,1208"/><area shape="rect" id="node7" href="class_n_l_s_1_1_w_z_1_1_file.html" title="{NLS::WZ::File\n|+ file\l+ ident\l+ fileSize\l+ fileStart\l+ copyright\l|+ File()\l+ File()\l+ Hash()\l}" alt="" coords="5,769,109,935"/><area shape="rect" id="node10" href="class_n_l_s_1_1_sprite.html" title="{NLS::Sprite\n|+ data\l|+ Draw()\l+ GetTexture()\l}" alt="" coords="197,265,304,357"/><area shape="rect" id="node12" href="class_n_l_s_1_1_sprite_data.html" title="{NLS::SpriteData\n|+ texture\l+ width\l+ height\l+ twidth\l+ theight\l+ originx\l+ originy\l+ loaded\l+ png\l|}" alt="" coords="193,5,308,200"/></map>
+<area shape="rect" id="node2" href="class_n_l_s_1_1_node.html" title="NLS::Node" alt="" coords="73,277,159,304"/><area shape="rect" id="node5" href="class_n_l_s_1_1_w_z_1_1_image.html" title="NLS::WZ::Image" alt="" coords="117,368,235,395"/><area shape="rect" id="node8" href="class_n_l_s_1_1_w_z_1_1_sound_property.html" title="NLS::WZ::SoundProperty" alt="" coords="5,96,173,123"/><area shape="rect" id="node10" href="class_n_l_s_1_1_sprite.html" title="NLS::Sprite" alt="" coords="198,96,287,123"/><area shape="rect" id="node12" href="class_n_l_s_1_1_sprite_data.html" title="NLS::SpriteData" alt="" coords="185,5,300,32"/></map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="class_n_l_s_1_1_node_data-members.html">List of all members.</a></p>
@@ -124,6 +124,7 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a5a137fc9dccdd1508d997302bbeddffa">floatValue</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">intValue</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_sprite.html">Sprite</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a533a06efc9bf1c77a892ca68a31f7e30">sprite</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html">WZ::SoundProperty</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a11082c01386a521c237e266cda47b031">sound</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_l_s_1_1_node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a0f4dd4ffe68226317483413d9285186e">parent</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a1e4b29b4ccdc27376805a5b48b4f6327">name</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">map&lt; string, <a class="el" href="class_n_l_s_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_l_s_1_1_node_data.html#a17edf47b75fe7bef000d99cd9416ec33">children</a></td></tr>
@@ -135,7 +136,7 @@ Private Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00082">82</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00093">93</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6a28fdd4aa4c5d93bde9345117788ba8"></a><!-- doxytag: member="NLS::NodeData::NodeData" ref="a6a28fdd4aa4c5d93bde9345117788ba8" args="()" -->
 <div class="memitem">
@@ -151,7 +152,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00711">711</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8cpp_source.html#l00730">730</a> of file <a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                      {
     <a class="code" href="class_n_l_s_1_1_node_data.html#abaeecefcc2697b30c53d03e4bacae7d0">image</a> = 0;
     <a class="code" href="class_n_l_s_1_1_node_data.html#a9c7297ae9959deec9e668f0cd29ca294">intValue</a> = 0;
@@ -207,7 +208,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00091">91</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00103">103</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
@@ -222,7 +225,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00086">86</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00097">97</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
@@ -237,9 +242,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00092">92</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00104">104</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00370">NLS::WZ::Image::Image()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00350">NLS::WZ::Image::Image()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
@@ -254,7 +259,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00087">87</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00098">98</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
@@ -269,9 +276,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00090">90</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00102">102</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00636">NLS::Node::g()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00199">NLS::WZ::File()</a>, <a class="el" href="_w_z_8cpp_source.html#l00655">NLS::Node::g()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00174">NLS::WZ::Init()</a>.</p>
 
 </div>
 </div>
@@ -286,9 +293,26 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00089">89</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00101">101</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00636">NLS::Node::g()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00655">NLS::Node::g()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a11082c01386a521c237e266cda47b031"></a><!-- doxytag: member="NLS::NodeData::sound" ref="a11082c01386a521c237e266cda47b031" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_n_l_s_1_1_w_z_1_1_sound_property.html">WZ::SoundProperty</a>* <a class="el" href="class_n_l_s_1_1_node_data.html#a11082c01386a521c237e266cda47b031">NLS::NodeData::sound</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00100">100</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_sound_8cpp_source.html#l00026">NLS::Sound::operator=()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00600">NLS::WZ::SoundProperty::SoundProperty()</a>.</p>
 
 </div>
 </div>
@@ -303,9 +327,9 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00088">88</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00099">99</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
 
-<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00446">NLS::WZ::ExtendedProperty::ExtendedProperty()</a>.</p>
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00462">NLS::WZ::ExtendedProperty()</a>, and <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
@@ -320,13 +344,15 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00085">85</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+<p>Definition at line <a class="el" href="_w_z_8h_source.html#l00096">96</a> of file <a class="el" href="_w_z_8h_source.html">WZ.h</a>.</p>
+
+<p>Referenced by <a class="el" href="_w_z_8cpp_source.html#l00357">NLS::WZ::Image::Parse()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>NoLifeStory/<a class="el" href="_w_z_8h_source.html">WZ.h</a></li>
-<li>NoLifeStory/<a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a></li>
+<li>src/NoLifeStory/<a class="el" href="_w_z_8h_source.html">WZ.h</a></li>
+<li>src/NoLifeStory/<a class="el" href="_w_z_8cpp_source.html">WZ.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -339,7 +365,7 @@ Private Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Defines</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -349,7 +375,7 @@ Private Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Sat Sep 10 2011 17:01:16 for NoLifeStory by
+    <li class="footer">Generated on Fri Sep 23 2011 23:38:31 for NoLifeStory by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
