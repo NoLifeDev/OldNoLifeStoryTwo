@@ -110,6 +110,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Reactor.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
     <ClInclude Include="..\..\resources\Resource.h" />
     <ClInclude Include="..\..\src\NoLifeStory\AniSprite.h" />
@@ -152,6 +153,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\Obj.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Portal.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Reactor.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sound.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sprite.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Tile.cpp" />

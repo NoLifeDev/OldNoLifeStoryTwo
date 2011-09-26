@@ -107,6 +107,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\NoLifeServer\WorldServer.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
     <ClInclude Include="..\..\resources\Resource.h" />
     <ClInclude Include="..\..\src\NoLifeServer\Global.h" />
@@ -120,6 +121,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeServer\Server.cpp" />
+    <ClCompile Include="..\..\src\NoLifeServer\WorldServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\maplestory.ico" />

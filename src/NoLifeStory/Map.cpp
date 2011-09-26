@@ -89,6 +89,9 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Backgrounds.size(); i++) {
 		Backgrounds[i]->Draw();
 	}
+	for (uint32_t i = 0; i < Reactor::Reactors.size(); i++) {
+		Reactor::Reactors[i]->Draw();
+	}
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
 	}

@@ -93,6 +93,9 @@
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\NoLifeStory\Reactor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\NoLifeStory\WZ.cpp">
@@ -156,6 +159,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\Portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\NoLifeStory\Reactor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

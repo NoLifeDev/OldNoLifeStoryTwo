@@ -27,7 +27,10 @@
     <ClInclude Include="..\..\src\SuperGlobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-	<ClInclude Include="..\..\resources\Resource.h">
+    <ClInclude Include="..\..\resources\Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\NoLifeServer\WorldServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeServer\LoginServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\NoLifeServer\WorldServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
