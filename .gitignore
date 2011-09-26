@@ -10,3 +10,12 @@
 *.exe
 *.pdb
 *.lib
+*.obj
+*.tlog
+*.ilk
+*.manifest
+*.res
+*.lastbuildstate
+*.pch
+*.idb
+*.rc

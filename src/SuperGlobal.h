@@ -26,6 +26,7 @@
 // You should have received a copy of the GNU General Public License    //
 // along with NoLifeStory.  If not, see <http://www.gnu.org/licenses/>. //
 //////////////////////////////////////////////////////////////////////////
+//TODO - Implement some serious compiler detection.
 #ifdef _WIN32
 #define NLS_WINDOWS
 #include <Windows.h>

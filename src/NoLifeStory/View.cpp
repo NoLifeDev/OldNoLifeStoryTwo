@@ -22,18 +22,6 @@ NLS::_View::_View() {
 }
 
 void NLS::_View::Step() {
-	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::Up)) {
-		ty -= Time.delta;
-	}
-	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::Down)) {
-		ty += Time.delta;
-	}
-	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::Left)) {
-		tx -= Time.delta;
-	}
-	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::Right)) {
-		tx += Time.delta;
-	}
 	int mxmax = xmax;
 	int mxmin = xmin;
 	int mymax = ymax;

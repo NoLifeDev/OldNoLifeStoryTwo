@@ -26,7 +26,7 @@ void NLS::Map::Load() {
 	}
 	if (nextmap == "MapLogin") {
 		node = WZ::Top["UI"]["MapLogin"];
-		//throw(273);
+		throw(273);//We don't deal with this shit yet
 	} else {
 		if (nextmap.size() < 9) {
 			nextmap.insert(0, 9-nextmap.size(), '0');
