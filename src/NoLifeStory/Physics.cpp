@@ -51,7 +51,7 @@ void NLS::Physics::Update() {
 	} else {
 		freefall++;
 	}
-	Control();
+	Control();//This needs to be figured out
 	/*bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
 	bool right = sf::Keyboard::IsKeyPressed(sf::Keyboard::Right);
 	bool up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);

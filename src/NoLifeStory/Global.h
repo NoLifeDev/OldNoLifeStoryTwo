@@ -16,6 +16,8 @@
 #include "Time.h"
 #include "Foothold.h"
 #include "Physics.h"
+#include "Player.h"
+#include "ThisPlayer.h"
 #include "Client.h"
 #include "AniSprite.h"
 #include "Network.h"
