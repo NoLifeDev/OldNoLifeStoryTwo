@@ -168,14 +168,23 @@ inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 }
 #pragma endregion
 
-#pragma region WZ Files
-#pragma endregion
-
 #pragma region WZ Initialization
 void NLS::InitWZ(const string& path) {
-	memset(BMSKey, 0, 0xFFFF);
-	WZ.SetTop();
-	function <void(Node n)> File = [&](Node n) {
+	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
+	function <void(Node)> File;
+	function <void(Node, ifstream*, uint32_t)> Directory;
+	ReadOffset = [](ifstream* file, uint32_t fileStart)->uint32_t {
+		uint32_t p = file->tellg();
+		p = (p-fileStart)^0xFFFFFFFF;
+		p *= VersionHash;
+		p -= OffsetKey;
+		p = (p<<(p&0x1F))|(p>>(32-p&0x1F));
+		uint32_t more = Read<uint32_t>(file);
+		p ^= more;
+		p += fileStart*2;
+		return p;
+	};
+	File = [&ReadOffset, &Directory](Node n) {
 		string filename = Path+n.Name()+".wz";
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 		if (!file->is_open()) {
@@ -193,17 +202,6 @@ void NLS::InitWZ(const string& path) {
 		string copyright;
 		*file >> copyright;
 		file->seekg(fileStart);
-		auto ReadOffset = [](ifstream* file, uint32_t fileStart) -> uint32_t {
-			uint32_t p = file->tellg();
-			p = (p-fileStart)^0xFFFFFFFF;
-			p *= VersionHash;
-			p -= OffsetKey;
-			p = (p<<(p&0x1F))|(p>>(32-p&0x1F));
-			uint32_t more = Read<uint32_t>(file);
-			p ^= more;
-			p += fileStart*2;
-			return p;
-		};
 		if (!Version) {
 			EncVersion = Read<int16_t>(file);
 			int32_t count = ReadCInt(file);
@@ -275,54 +273,55 @@ void NLS::InitWZ(const string& path) {
 				throw(273);
 			}
 		}
-		function <void(Node n)> Directory = [&](Node n) {
-			int32_t count = ReadCInt(file);
-			if (count == 0) {
-				File(n);
-				return;
-			}
-			set<pair<string, uint32_t>> dirs;
-			for (int i = 0; i < count; i++) {
-				string name;
-				uint8_t type = Read<uint8_t>(file);
-				if (type == 1) {
-					file->seekg(10, ios::cur);
-					continue;
-				} else if (type == 2) {
-					int32_t s = Read<int32_t>(file);
-					uint32_t p = file->tellg();
-					file->seekg(fileStart+s);
-					type = Read<uint8_t>(file);
-					name = ReadEncString(file);
-					file->seekg(p);
-				} else if (type == 3) {
-					name = ReadEncString(file);
-				} else if (type == 4) {
-					name = ReadEncString(file);
-				} else {
-					C("ERROR") << "Wat?" << endl;
-					throw(273);
-				}
-				int32_t fsize = ReadCInt(file);
-				int32_t checksum = ReadCInt(file);
-				uint32_t offset = ReadOffset(file, fileStart);
-				if (type == 3) {
-					dirs.insert(pair<string, uint32_t>(name, offset));
-				} else if (type == 4) {
-					name.erase(name.size()-4);
-					new Img(file, n.g(name), offset);
-				} else {
-					C("ERROR") << "Wat?" << endl;
-					throw(273);
-				}
-			}
-			for (auto it = dirs.begin(); it != dirs.end(); it++) {
-				file->seekg(it->second);
-				Directory(n.g(it->first));
-			}
-		};
-		Directory(n);
+		Directory(n, file, fileStart);
 	};
+	Directory = [&File, &ReadOffset, &Directory](Node n, ifstream* file, uint32_t fileStart) {
+		int32_t count = ReadCInt(file);
+		if (count == 0) {
+			File(n);
+			return;
+		}
+		set<pair<string, uint32_t>> dirs;
+		for (int i = 0; i < count; i++) {
+			string name;
+			uint8_t type = Read<uint8_t>(file);
+			if (type == 1) {
+				file->seekg(10, ios::cur);
+				continue;
+			} else if (type == 2) {
+				int32_t s = Read<int32_t>(file);
+				uint32_t p = file->tellg();
+				file->seekg(fileStart+s);
+				type = Read<uint8_t>(file);
+				name = ReadEncString(file);
+				file->seekg(p);
+			} else if (type == 3) {
+				name = ReadEncString(file);
+			} else if (type == 4) {
+				name = ReadEncString(file);
+			} else {
+				C("ERROR") << "Wat?" << endl;
+				throw(273);
+			}
+			int32_t fsize = ReadCInt(file);
+			int32_t checksum = ReadCInt(file);
+			uint32_t offset = ReadOffset(file, fileStart);
+			if (type == 3) {
+				dirs.insert(pair<string, uint32_t>(name, offset));
+			} else if (type == 4) {
+				name.erase(name.size()-4);
+				new Img(file, n.g(name), offset);
+			} else {
+				C("ERROR") << "Wat?" << endl;
+				throw(273);
+			}
+		}
+		for (auto it = dirs.begin(); it != dirs.end(); it++) {
+			file->seekg(it->second);
+			Directory(n.g(it->first), file, fileStart);
+		}
+	};
+	memset(BMSKey, 0, 0xFFFF);
 	string paths[5] = {path, "", "C:/Nexon/MapleStory/", "/", "T:/"};
 	for (int i = 0; i < 5; i++) {
 		Path = paths[i];
@@ -345,32 +344,118 @@ void NLS::InitWZ(const string& path) {
 #pragma endregion
 
 #pragma region WZ Images
-Img::Img(ifstream* file, Node n, uint32_t offset) {
+NLS::Img::Img(ifstream* file, Node n, uint32_t offset) {
 	this->n = n;
-	n.data->image = this;
+	n.Set(this);
 	this->offset = offset;
 	this->file = file;
 }
 
-void Image::Parse() {
-	file->seekg(offset);
-	uint8_t a = Read<uint8_t>(file);
-	if (a != 0x73) {
-		C("WZ") << "Invalid WZ image!" << endl;
-		throw(273);
-	}
-	string s = ReadEncString(file);
-	if (s != "Property") {
-		C("WZ") << "Invalid WZ image!" << endl;
-		throw(273);
-	}
-	uint16_t b = Read<uint16_t>(file);
-	if (b != 0) {
-		C("WZ") << "Invalid WZ image!" << endl;
-		throw(273);
-	}
-	SubProperty(file, n, offset);
-	function <void(Node)> Resolve = [&Resolve](Node n) {
+void NLS::Img::Parse() {
+	function <void(ifstream*, Node, uint32_t)> SubProperty;
+	function <void(ifstream*, Node, uint32_t)> ExtendedProperty;
+	function <void(Node)> Resolve
+	SubProperty = [&ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
+		int32_t count = ReadCInt(file);
+		for (int i = 0; i < count; i++) {
+			string name = ReadString(file, offset);
+			uint8_t a = Read<uint8_t>(file);
+			switch (a) {
+			case 0x00:
+				n.g(name);
+				break;
+			case 0x0B:
+			case 0x02:
+				n.g(name).Set(Read<uint16_t>(file));
+				break;
+			case 0x03:
+				n.g(name).Set(ReadCInt(file));
+				break;
+			case 0x04:
+				if (Read<uint8_t>(file) == 0x80) {
+					n.g(name).Set(Read<float>(file));
+				}
+				break;
+			case 0x05:
+					n.g(name).Set(Read<double>(file));
+					break;
+			case 0x08:
+				n.g(name).Set(ReadString(file, offset));
+				break;
+			case 0x09:
+				{
+					uint32_t temp = Read<uint32_t>(file);
+					temp += file->tellg();
+					ExtendedProperty(file, n.g(name), offset);
+					file->seekg(temp);
+					break;
+				}
+			default:
+				C("ERROR") << "Unknown Property type" << endl;
+				throw(273);
+			}
+		}
+	};
+	ExtendedProperty = [&SubProperty, &ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
+		string name;
+		uint8_t a = Read<uint8_t>(file);
+		if (a == 0x1B) {
+			int32_t inc = Read<int32_t>(file);
+			uint32_t pos = offset+inc;
+			uint32_t p = file->tellg();
+			file->seekg(pos);
+			name = ReadEncString(file);
+			file->seekg(p);
+		} else {
+			name = ReadEncString(file);
+		}
+		if (name == "Property") {
+			file->seekg(2, ios::cur);
+			SubProperty(file, n, offset);
+		} else if (name == "Canvas") {
+			file->seekg(1, ios::cur);
+			uint8_t b = Read<uint8_t>(file);
+			if (b == 1) {
+				file->seekg(2, ios::cur);
+				SubProperty(file, n, offset);
+			}
+			n.data->sprite.data = new SpriteData;
+			n.data->sprite.data->png = new PNGProperty(file, n.data->sprite);
+			n.data->sprite.data->originx = n["origin"]["x"];
+			n.data->sprite.data->originy = n["origin"]["y"];
+		} else if (name == "Shape2D#Vector2D") {
+			n.g("x").Set(ReadCInt(file));
+			n.g("y").Set(ReadCInt(file));
+		} else if (name == "Shape2D#Convex2D") {
+			int32_t ec = ReadCInt(file);
+			for (int i = 0; i < ec; i++) {
+				ExtendedProperty(file, n.g(tostring(ec)), offset);
+			}
+		} else if (name == "Sound_DX8") {
+			new SoundProperty(file, n);
+		} else if (name == "UOL") {
+			file->seekg(1, ios::cur);
+			uint8_t b = Read<uint8_t>(file);
+			switch (b) {
+			case 0:
+				n.g(name).Set(ReadEncString(file));
+				break;
+			case 1:
+				{
+					uint32_t off = Read<uint32_t>(file);
+					n.g(name).Set(ReadStringOffset(file, offset+off));
+					break;
+				}
+			default:
+				C("ERROR") << "Unknown UOL type" << endl;
+				throw(273);
+			}
+		} else {
+			C("ERROR") << "Unknown ExtendedProperty type" << endl;
+			throw(273);
+		};
+	};
+	Resolve = [&Resolve](Node n) {
 		if (n.data->children.find("UOL") != n.data->children.end()) {
 			string s = n["UOL"];
 			string str;
@@ -411,110 +496,25 @@ void Image::Parse() {
 			}
 		}
 	};
+	file->seekg(offset);
+	uint8_t a = Read<uint8_t>(file);
+	if (a != 0x73) {
+		C("WZ") << "Invalid WZ image!" << endl;
+		throw(273);
+	}
+	string s = ReadEncString(file);
+	if (s != "Property") {
+		C("WZ") << "Invalid WZ image!" << endl;
+		throw(273);
+	}
+	uint16_t b = Read<uint16_t>(file);
+	if (b != 0) {
+		C("WZ") << "Invalid WZ image!" << endl;
+		throw(273);
+	}
+	SubProperty(file, n, offset);
 	Resolve(n);
 	delete this;
-}
-
-void SubProperty(ifstream* file, Node n, uint32_t offset) {
-	int32_t count = ReadCInt(file);
-	for (int i = 0; i < count; i++) {
-		string name = ReadString(file, offset);
-		uint8_t a = Read<uint8_t>(file);
-		switch (a) {
-		case 0x00:
-			n.g(name);
-			break;
-		case 0x0B:
-		case 0x02:
-			n.g(name).Set(Read<uint16_t>(file));
-			break;
-		case 0x03:
-			n.g(name).Set(ReadCInt(file));
-			break;
-		case 0x04:
-			if (Read<uint8_t>(file) == 0x80) {
-				n.g(name).Set(Read<float>(file));
-			}
-			break;
-		case 0x05:
-				n.g(name).Set(Read<double>(file));
-				break;
-		case 0x08:
-			n.g(name).Set(ReadString(file, offset));
-			break;
-		case 0x09:
-			{
-				uint32_t temp = Read<uint32_t>(file);
-				temp += file->tellg();
-				ExtendedProperty(file, n.g(name), offset);
-				file->seekg(temp);
-				break;
-			}
-		default:
-			C("ERROR") << "Unknown Property type" << endl;
-			throw(273);
-		}
-	}
-}
-
-void ExtendedProperty(ifstream* file, Node n, uint32_t offset) {
-	string name;
-	uint8_t a = Read<uint8_t>(file);
-	if (a == 0x1B) {
-		int32_t inc = Read<int32_t>(file);
-		uint32_t pos = offset+inc;
-		uint32_t p = file->tellg();
-		file->seekg(pos);
-		name = ReadEncString(file);
-		file->seekg(p);
-	} else {
-		name = ReadEncString(file);
-	}
-	if (name == "Property") {
-		file->seekg(2, ios::cur);
-		SubProperty(file, n, offset);
-	} else if (name == "Canvas") {
-		file->seekg(1, ios::cur);
-		uint8_t b = Read<uint8_t>(file);
-		if (b == 1) {
-			file->seekg(2, ios::cur);
-			SubProperty(file, n, offset);
-		}
-		n.data->sprite.data = new SpriteData;
-		n.data->sprite.data->png = new PNGProperty(file, n.data->sprite);
-		n.data->sprite.data->originx = n["origin"]["x"];
-		n.data->sprite.data->originy = n["origin"]["y"];
-	} else if (name == "Shape2D#Vector2D") {
-		n.g("x").Set(ReadCInt(file));
-		n.g("y").Set(ReadCInt(file));
-	} else if (name == "Shape2D#Convex2D") {
-		int32_t ec = ReadCInt(file);
-		for (int i = 0; i < ec; i++) {
-			ExtendedProperty(file, n.g(tostring(ec)), offset);
-		}
-	} else if (name == "Sound_DX8") {
-		new SoundProperty(file, n);
-	} else if (name == "UOL") {
-		file->seekg(1, ios::cur);
-		uint8_t b = Read<uint8_t>(file);
-		switch (b) {
-		case 0:
-			n.g(name).Set(ReadEncString(file));
-			break;
-		case 1:
-			{
-				uint32_t off = Read<uint32_t>(file);
-				n.g(name).Set(ReadStringOffset(file, offset+off));
-				break;
-			}
-		default:
-			C("ERROR") << "Unknown UOL type" << endl;
-			throw(273);
-		}
-	} else {
-		C("ERROR") << "Unknown ExtendedProperty type" << endl;
-		throw(273);
-	};
 }
 #pragma endregion
 
@@ -621,7 +621,11 @@ uint32_t SoundProperty::GetStream(bool loop) {
 #pragma region Node Stuff
 class NLS::NodeData {
 public:
-	NodeData();
+	NodeData() {
+		image = 0;
+		intValue = 0;
+		floatValue = 0;
+	}
 	string stringValue;
 	double floatValue;
 	int intValue;
@@ -649,37 +653,30 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 	return *this;
 }
 
-NLS::Node& NLS::Node::operator[] (const string& key) {
-	if (data) {
-		if (data->image) {
-			Image *img = data->image;
-			data->image = 0;
-			img->Parse();
-		}
-		return data->children[key];
-	} else {
+NLS::Node NLS::Node::operator[] (const string& key) {
+	if (!data) {
 		return Node();
 	}
-}
-
-NLS::Node& NLS::Node::operator[] (const char key[]) {
-	if (data) {
-		if (data->image) {
-			Image *img = data->image;
-			data->image = 0;
-			img->Parse();
-		}
-		return data->children[key];
-	} else {
+	if (data->image) {
+		data->image->Parse();
+		data->image = 0;
+	}
+	auto& n = data->children.find(key);
+	if (n == data->children.end()) {
 		return Node();
 	}
+	return n->second;
 }
 
-NLS::Node& NLS::Node::operator[] (const int& key) {
+NLS::Node NLS::Node::operator[] (const char key[]) {
+	return (*this)[string(key)];
+}
+
+NLS::Node NLS::Node::operator[] (const int& key) {
 	return (*this)[tostring(key)];
 }
 
-NLS::Node& NLS::Node::g(const string& key) {
+NLS::Node NLS::Node::g(const string& key) {
 	assert(data);
 	Node& n = data->children[key];
 	n.data = new NodeData();
@@ -689,71 +686,99 @@ NLS::Node& NLS::Node::g(const string& key) {
 }
 
 map<string, NLS::Node>::iterator NLS::Node::begin() {
-	assert(data);
+	if (!data) {
+		return map<string, NLS::Node>::iterator();
+	}
 	return data->children.begin();
 }
 
 map<string, NLS::Node>::iterator NLS::Node::end() {
-	assert(data);
+	if (!data) {
+		return map<string, NLS::Node>::iterator();
+	}
 	return data->children.end();
+}
+
+string NLS::Node::Name() {
+	if (!data) {
+		return String();
+	}
+	return data->name;
+}
+
+void NLS::Node::Name(const string& s) {
+	if (!data) {
+		data = new NodeData();
+	}
+	data->name = s;
 }
 
 NLS::Node::operator bool() {
 	return (bool)data;
 }
 
-Node::operator string() {
+NLS::Node::operator string() {
 	if (!data) {
 		return string();
 	}
 	return data->stringValue;
 }
 
-Node::operator double() {
+NLS::Node::operator double() {
 	if (!data) {
 		return 0;
 	}
 	return data->floatValue;
 }
 
-Node::operator int() {
+NLS::Node::operator int() {
 	if (!data) {
 		return 0;
 	}
 	return data->intValue;
 }
 
-Node::operator Sprite() {
+NLS::Node::operator Sprite() {
 	if (!data) {
 		return Sprite();
 	}
 	return data->sprite;
 }
 
-void Node::Set(const string& v) {
-	assert(data);
+NLS::Node::operator Sound() {
+	if (!data) {
+		return Sound();
+	}
+	return data->sound;
+}
+
+void NLS::Node::Set(const string& v) {
 	data->intValue = toint(v);
 	data->floatValue = todouble(v);
 	data->stringValue = v;
 }
 
-void Node::Set(const double& v) {
-	assert(data);
+void NLS::Node::Set(const double& v) {
 	data->intValue = v;
 	data->floatValue = v;
 	data->stringValue = tostring(v);
 }
 
-void Node::Set(const int& v) {
-	assert(data);
+void NLS::Node::Set(const int& v) {
 	data->intValue = v;
 	data->floatValue = v;
 	data->stringValue = tostring(v);
 }
 
-NodeData::NodeData() {
-	image = 0;
-	intValue = 0;
-	floatValue = 0;
+void NLS::Node::Set(const Sprite& v) {
+	data->sprite = v;
+}
+
+void NLS::Node::Set(const Sound& v) {
+	data->sound = v;
+}
+
+void NLS::Node::Set(Img* v) {
+	data->image = v;
 }
 #pragma endregion

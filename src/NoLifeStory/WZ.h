@@ -9,9 +9,9 @@ namespace NLS {
 	\brief Node is used to access the WZ data.
 	Node is an extremely useful class which you will be using extensively.
 	In order to access the WZ data you start with the top level node:
-	NLS::WZ::Top
+	NLS::WZ
 	From there you use the [] operator to access child nodes
-	Node lol = NLS::WZ::Top["somenode"]["SomeOtherNode"]["What fun!"];
+	Node lol = NLS::WZ["somenode"]["SomeOtherNode"]["What fun!"];
 	Remember, you can only go one node level per []
 	To obtain the value of a node just cast it
 	(string)somenode
@@ -40,15 +40,14 @@ namespace NLS {
 		Node();
 		Node(const Node&);
 		Node& operator= (const Node&);
-		Node& operator[] (const string&);
-		Node& operator[] (const char[]);
-		Node& operator[] (const int&);
-		Node& g(const string&);
+		Node operator[] (const string&);
+		Node operator[] (const char[]);
+		Node operator[] (const int&);
+		Node g(const string&);
 		map<string, Node>::iterator begin();
 		map<string, Node>::iterator end();
 		string Name();
 		void Name(const string&);
-		void SetTop();
 		operator bool();
 		operator string();
 		operator double();

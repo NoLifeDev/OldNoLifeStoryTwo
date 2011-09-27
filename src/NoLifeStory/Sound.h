@@ -7,7 +7,7 @@ namespace NLS {
 	public:
 		Sound();
 		Sound(const Sound&);
-		Sound(SoundProperty* data);
+		Sound(class SoundProperty* data);
 		Sound& operator= (const Sound&);
 		~Sound();
 		void Play(bool loop = false);
