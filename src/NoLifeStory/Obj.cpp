@@ -22,7 +22,7 @@ void NLS::Obj::Load(Node n) {
 			string t2 = on["l0"];
 			string t3 = on["l1"];
 			string t4 = on["l2"];
-			Node od = WZ::Top["Map"]["Obj"][t1][t2][t3][t4];
+			Node od = WZ["Map"]["Obj"][t1][t2][t3][t4];
 			Obj* o = new Obj;
 			o->x = on["x"];
 			o->y = on["y"];

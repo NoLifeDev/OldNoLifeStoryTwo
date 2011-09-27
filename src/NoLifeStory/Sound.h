@@ -6,10 +6,14 @@ namespace NLS {
 	class Sound {
 	public:
 		Sound();
+		Sound(const Sound&);
+		Sound(SoundProperty* data);
+		Sound& operator= (const Sound&);
+		~Sound();
 		void Play(bool loop = false);
 		void Stop();
-		void operator = (Node);
+	private:
 		uint32_t stream;
-		WZ::SoundProperty* data;
+		SoundProperty* data;
 	};
 };

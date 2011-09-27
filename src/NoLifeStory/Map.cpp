@@ -25,14 +25,14 @@ void NLS::Map::Load() {
 		return;
 	}
 	if (nextmap == "MapLogin") {
-		node = WZ::Top["UI"]["MapLogin"];
+		node = WZ["UI"]["MapLogin"];
 		throw(273);//We don't deal with this shit yet
 	} else {
 		if (nextmap.size() < 9) {
 			nextmap.insert(0, 9-nextmap.size(), '0');
 		}
 		char zone = nextmap[0];
-		node = WZ::Top["Map"]["Map"][string("Map")+zone][nextmap];
+		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
 	}
 	if (!node) {
 		C("ERROR") << "Unable to locate map " << nextmap << endl;
@@ -45,7 +45,7 @@ void NLS::Map::Load() {
 	C("INFO") << "Loading map " << nextmap << endl;
 	string bgm = node["info"]["bgm"];
 	auto p = bgm.find('/');
-	bgmusic = WZ::Top["Sound"][bgm.substr(0, p)][bgm.substr(p+1)];
+	bgmusic = WZ["Sound"][bgm.substr(0, p)][bgm.substr(p+1)];
 	bgmusic.Play(true);
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Tiles.clear();

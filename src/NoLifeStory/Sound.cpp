@@ -6,30 +6,40 @@
 
 NLS::Sound::Sound() {
 	stream = 0;
+	data = 0;
+}
+
+NLS::Sound::Sound(const Sound& other) {
+	data = other.data;
+	stream = 0;
+}
+
+NLS::Sound::Sound(SoundProperty* data) {
+	this->data = data;
+	stream = 0;
+}
+
+NLS::Sound& NLS::Sound::operator= (const Sound& other) {
+	if (stream) {
+		BASS_StreamFree(stream);
+	}
+	data = other.data;
+	stream = 0;
+}
+
+NLS::Sound::~Sound() {
+	if (stream) {
+		BASS_StreamFree(stream);
+	}
 }
 
 void NLS::Sound::Play(bool loop) {
 	if (!stream) {
-		if (loop) {
-			stream = BASS_StreamCreateFile(true, data->data, 0, data->len, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
-		} else {
-			stream = BASS_StreamCreateFile(true, data->data, 0, data->len, BASS_SAMPLE_FLOAT);
-		}
+		stream = data->GetStream(loop);
 	}
 	BASS_ChannelPlay(stream, !loop);
 }
 
 void NLS::Sound::Stop() {
 	BASS_ChannelStop(stream);
-}
-
-void NLS::Sound::operator = (Node n) {
-	if (data == n.data->sound) {
-		return;
-	}
-	if (stream) {
-		BASS_StreamFree(stream);
-		stream = 0;
-	}
-	data = n.data->sound;
 }

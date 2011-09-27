@@ -10,7 +10,7 @@ namespace NLS {
 		GLint width, height;
 		GLint originx, originy;
 		bool loaded;
-		void* png;
+		class PNGProperty* png;
 	};
 	class Sprite {
 	public:

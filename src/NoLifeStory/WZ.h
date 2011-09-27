@@ -44,66 +44,56 @@ namespace NLS {
 		Node& operator[] (const char[]);
 		Node& operator[] (const int&);
 		Node& g(const string&);
-		map<string, Node>::iterator Begin();
-		map<string, Node>::iterator End();
+		map<string, Node>::iterator begin();
+		map<string, Node>::iterator end();
+		string Name();
+		void Name(const string&);
+		void SetTop();
 		operator bool();
 		operator string();
 		operator double();
 		operator int();
 		operator Sprite();
-		Node& operator= (const string&);
-		Node& operator= (const double&);
-		Node& operator= (const int&);
+		operator Sound();
+		void Set(const string&);
+		void Set(const double&);
+		void Set(const int&);
+		void Set(class Img*);
+		void Set(const class Sound&);
+		void Set(const class Sprite&);
+	private:
 		class NodeData* data;
 	};
-	namespace WZ {
-		extern Node Top;
-		extern Node Empty;
-		void File(Node n);
-		class Image {
-		public:
-			Image(ifstream* file, Node n, uint32_t offset);
-			void Parse();
-			Node n;
-			uint32_t offset;
-			ifstream* file;
-		};
-		class PNGProperty {
-		public:
-			PNGProperty(ifstream* file, Sprite spr);
-			void Parse();
-			ifstream* file;
-			Sprite sprite;
-			int32_t format;
-			uint8_t format2;
-			int32_t length;
-			uint32_t offset;
-		};
-		class SoundProperty {
-		public:
-			SoundProperty(ifstream* file, Node n);
-			void Parse();
-			int32_t len;
-			uint8_t* data;
-		};
-		void SubProperty(ifstream* file, Node n, uint32_t offset);
-		void ExtendedProperty(ifstream* file, Node n, uint32_t offset);
-		void Init(const string& path);
-	}
-	class NodeData {
+	class PNGProperty {
 	public:
-		NodeData();
-		string stringValue;
-		double floatValue;
-		int intValue;
-		Sprite sprite;
-		WZ::SoundProperty *sound;
-		Node parent;
-		string name;
-		map <string, Node> children;
-		WZ::Image* image;
+		PNGProperty(ifstream* file, Node n);
+		void Parse();
 	private:
-		NodeData(const NodeData&);
-		NodeData& operator= (const NodeData&);
+		ifstream* file;
+		Sprite sprite;
+		int32_t format;
+		uint8_t format2;
+		int32_t length;
+		uint32_t offset;
 	};
+	class SoundProperty {
+	public:
+		SoundProperty(ifstream* file, Node n);
+		uint32_t GetStream(bool loop);
+	private:
+		int32_t len;
+		uint8_t* data;
+		uint32_t offset;
+	};
+	class Img {
+	public:
+		Img(ifstream* file, Node n, uint32_t offset);
+		void Parse();
+	private:
+		Node n;
+		uint32_t offset;
+		ifstream* file;
+	};
+	extern Node WZ;
+	void InitWZ(const string& path);
 };
