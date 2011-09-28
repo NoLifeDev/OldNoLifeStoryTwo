@@ -13,7 +13,7 @@ void NLS::Init(const vector<string>& args) {
 	C("INFO") << "Initializing NoLifeStory" << endl;
 	Network::Init();
 	Time.Reset();
-	WZ::Init(args.size()>1?args[1]:"");
+	InitWZ(args.size()>1?args[1]:"");
 	Time.Step();
 	Graphics::Init();
 	Physics::Init();

@@ -10,7 +10,7 @@ NLS::Sprite sprites[15];
 
 void NLS::Portal::Load(Node n) {
 	if (!loaded) {
-		Node sn =  WZ::Top["Map"]["MapHelper"]["portal"]["editor"];
+		Node sn =  WZ["Map"]["MapHelper"]["portal"]["editor"];
 		sprites[0] = sn["sp"];
 		sprites[1] = sn["pi"];
 		sprites[2] = sn["pv"];

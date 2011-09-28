@@ -25,7 +25,7 @@ const double swimSpeedDec = 0.9;
 const double flyJumpDec = 0.35;
 
 void NLS::Physics::Init() {
-	Node n = WZ::Top["Map"]["Physics"];
+	Node n = WZ["Map"]["Physics"];
 	if (n) {
 		C("WZ") << "Oh boy, there's physics info!" << endl;
 	} else {
