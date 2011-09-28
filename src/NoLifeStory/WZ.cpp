@@ -420,7 +420,7 @@ void NLS::Img::Parse() {
 		};
 	};
 	Resolve = [&Resolve](Node n) {
-		if (n.data->children.find("UOL") != n.data->children.end()) {
+		if (n["UOL"]) {
 			string s = n["UOL"];
 			string str;
 			vector <string> parts;
