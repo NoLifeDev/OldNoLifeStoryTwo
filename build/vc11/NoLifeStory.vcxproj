@@ -109,6 +109,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Reactor.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
@@ -152,6 +153,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\Obj.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Physics.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Portal.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Reactor.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sound.cpp" />

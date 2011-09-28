@@ -26,11 +26,6 @@ void NLS::Reactor::Load(Node n) {
 		r->id = rn["id"];
 		r->data = WZ::Top["Reactor"][r->id];
 		Reactors.push_back(r);
-		C("INFO") << "Reactor " << r->id << endl;
-		C("") << "frontTile " << (int)r->data["frontTile"] << endl;
-		C("") << "level " << (int)r->data["level"] << endl;
-		C("") << "resetTime " << (int)r->data["resetTime"] << endl;
-		C("") << "viewName " << (string)r->data["viewName"] << endl;
 	}
 }
 
