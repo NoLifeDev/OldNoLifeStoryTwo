@@ -5,7 +5,6 @@
 #include "Global.h"
 #include "Keys.h"
 
-#pragma region Variables
 string Path;
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
@@ -16,38 +15,8 @@ uint32_t OffsetKey = 0x581C3F6D;
 int16_t EncVersion;
 uint16_t Version = 0;
 uint32_t VersionHash;
-uint8_t Buf1[0x1000000];
-uint8_t Buf2[0x1000000];
-#pragma endregion
 
-#pragma region Zlib
-void Decompress(uint32_t inLen, uint32_t outLen){
-	z_stream strm;
-	strm.next_in = Buf2;
-	strm.avail_in = inLen;
-	strm.opaque = nullptr;
-	strm.zfree = nullptr;
-	strm.zalloc = nullptr;
-	inflateInit(&strm);
-	strm.next_out = Buf1;
-	strm.avail_out = outLen;
-	int err = inflate(&strm, Z_FINISH);
-	switch(err){
-	case Z_BUF_ERROR:
-		break;
-	default:
-		NLS::C("ERROR") << "I hate zlib!" << endl;
-		throw(273);
-	}
-	if (strm.total_out != outLen) {
-		NLS::C("ERROR") << "I hate zlib!" << endl;
-		throw(273);
-	}
-	inflateEnd(&strm);
-}
-#pragma endregion
-
-#pragma region File Reading Stuff
+#pragma region File reading stuff
 template <class T>
 inline T Read(ifstream* file) {
 	T v;
@@ -168,7 +137,7 @@ inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 }
 #pragma endregion
 
-#pragma region WZ Initialization
+#pragma region WZ Parsing
 void NLS::InitWZ(const string& path) {
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
@@ -341,9 +310,7 @@ void NLS::InitWZ(const string& path) {
 	C("ERROR") << "I CAN'T FIND YOUR WZ FILES YOU NUB" << endl;
 	throw(273);
 }
-#pragma endregion
 
-#pragma region WZ Images
 NLS::Img::Img(ifstream* file, Node n, uint32_t offset) {
 	this->n = n;
 	n.Set(this);
@@ -354,7 +321,7 @@ NLS::Img::Img(ifstream* file, Node n, uint32_t offset) {
 void NLS::Img::Parse() {
 	function <void(ifstream*, Node, uint32_t)> SubProperty;
 	function <void(ifstream*, Node, uint32_t)> ExtendedProperty;
-	function <void(Node)> Resolve
+	function <void(Node)> Resolve;
 	SubProperty = [&ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
 		int32_t count = ReadCInt(file);
 		for (int i = 0; i < count; i++) {
@@ -377,8 +344,8 @@ void NLS::Img::Parse() {
 				}
 				break;
 			case 0x05:
-					n.g(name).Set(Read<double>(file));
-					break;
+				n.g(name).Set(Read<double>(file));
+				break;
 			case 0x08:
 				n.g(name).Set(ReadString(file, offset));
 				break;
@@ -419,10 +386,7 @@ void NLS::Img::Parse() {
 				file->seekg(2, ios::cur);
 				SubProperty(file, n, offset);
 			}
-			n.data->sprite.data = new SpriteData;
-			n.data->sprite.data->png = new PNGProperty(file, n.data->sprite);
-			n.data->sprite.data->originx = n["origin"]["x"];
-			n.data->sprite.data->originy = n["origin"]["y"];
+			new PNGProperty(file, n);
 		} else if (name == "Shape2D#Vector2D") {
 			n.g("x").Set(ReadCInt(file));
 			n.g("y").Set(ReadCInt(file));
@@ -516,15 +480,17 @@ void NLS::Img::Parse() {
 	Resolve(n);
 	delete this;
 }
-#pragma endregion
 
-#pragma region PNG Properties
-PNGProperty::PNGProperty(ifstream* file, Sprite spr) {
+NLS::PNGProperty::PNGProperty(ifstream* file, Node n) {
 	this->file = file;
-	sprite = spr;
+	sprite.data = new SpriteData;
 	sprite.data->loaded = false;
 	sprite.data->width = ReadCInt(file);
 	sprite.data->height = ReadCInt(file);
+	sprite.data->png = this;
+	sprite.data->originx = n["origin"]["x"];
+	sprite.data->originy = n["origin"]["y"];
+	n.Set(sprite);
 	format = ReadCInt(file);
 	format2 = Read<uint8_t>(file);
 	file->seekg(4, ios::cur);
@@ -537,7 +503,33 @@ PNGProperty::PNGProperty(ifstream* file, Sprite spr) {
 	offset++;
 }
 
-void PNGProperty::Parse() {
+void NLS::PNGProperty::Parse() {
+	static uint8_t Buf1[0x1000000];
+	static uint8_t Buf2[0x1000000];
+	auto Decompress = [&](uint32_t inLen, uint32_t outLen) {
+		z_stream strm;
+		strm.next_in = Buf2;
+		strm.avail_in = inLen;
+		strm.opaque = nullptr;
+		strm.zfree = nullptr;
+		strm.zalloc = nullptr;
+		inflateInit(&strm);
+		strm.next_out = Buf1;
+		strm.avail_out = outLen;
+		int err = inflate(&strm, Z_FINISH);
+		switch(err){
+		case Z_BUF_ERROR:
+			break;
+		default:
+			NLS::C("ERROR") << "I hate zlib!" << endl;
+			throw(273);
+		}
+		if (strm.total_out != outLen) {
+			NLS::C("ERROR") << "I hate zlib!" << endl;
+			throw(273);
+		}
+		inflateEnd(&strm);
+	};
 	file->seekg(offset);
 	file->read((char*)Buf2, length);
 	int32_t f = format+format2;
@@ -592,10 +584,9 @@ void PNGProperty::Parse() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	sprite.data->loaded = true;
 }
-#pragma endregion
 
-#pragma region Sound Properties
-SoundProperty::SoundProperty(ifstream* file, Node n) {
+NLS::SoundProperty::SoundProperty(ifstream* file, Node n) {
+	this->file = file;
 	file->seekg(1, ios::cur);
 	len = ReadCInt(file);
 	ReadCInt(file);
@@ -604,16 +595,16 @@ SoundProperty::SoundProperty(ifstream* file, Node n) {
 	n.Set(Sound(this));
 }
 
-uint32_t SoundProperty::GetStream(bool loop) {
+uint32_t NLS::SoundProperty::GetStream(bool loop) {
 	if (!data) {
 		file->seekg(offset);
 		data = new uint8_t[len];
 		file->read((char*)data, len);
 	}
 	if (loop) {
-		return BASS_StreamCreateFile(true, data->data, 0, data->len, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
+		return BASS_StreamCreateFile(true, data, 0, len, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
 	} else {
-		return BASS_StreamCreateFile(true, data->data, 0, data->len, BASS_SAMPLE_FLOAT);
+		return BASS_StreamCreateFile(true, data, 0, len, BASS_SAMPLE_FLOAT);
 	}
 }
 #pragma endregion
@@ -701,7 +692,7 @@ map<string, NLS::Node>::iterator NLS::Node::end() {
 
 string NLS::Node::Name() {
 	if (!data) {
-		return String();
+		return string();
 	}
 	return data->name;
 }

@@ -83,6 +83,7 @@ namespace NLS {
 		int32_t len;
 		uint8_t* data;
 		uint32_t offset;
+		ifstream* file;
 	};
 	class Img {
 	public:
