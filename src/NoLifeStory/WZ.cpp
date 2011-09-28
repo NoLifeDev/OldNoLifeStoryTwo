@@ -433,28 +433,23 @@ void NLS::Img::Parse() {
 				}
 			}
 			parts.push_back(str);
-			Node nn = n.data->parent;
+			Node nn = n.Parent();
 			for (auto it = parts.begin(); it != parts.end(); it++) {
 				if (!nn) {
 					break;
 				}
 				if (*it == "..") {
-					nn = nn.data->parent;
+					nn = nn.Parent();
 				} else {
 					nn = nn[*it];
 				}
 			}
 			if (nn) {
-				n.data->children = nn.data->children;
-				n.data->floatValue = nn.data->floatValue;
-				n.data->intValue = nn.data->intValue;
-				n.data->stringValue = nn.data->stringValue;
-				n.data->sprite = nn.data->sprite;
-				n.data->image = nn.data->image;
+				n.Assign(nn);
 			}
 		} else {
-			for (auto it = n.Begin(); it != n.End(); it++) {
-				if (it->second.data) {
+			for (auto it = n.begin(); it != n.end(); it++) {
+				if (it->second) {
 					Resolve(it->second);
 				}
 			}
@@ -590,7 +585,7 @@ NLS::SoundProperty::SoundProperty(ifstream* file, Node n) {
 	file->seekg(1, ios::cur);
 	len = ReadCInt(file);
 	ReadCInt(file);
-	offset = file->tellg()+82;
+	offset = (uint32_t)file->tellg()+82;
 	file->seekg(82, ios::cur);
 	n.Set(Sound(this));
 }
@@ -704,6 +699,22 @@ void NLS::Node::Name(const string& s) {
 	data->name = s;
 }
 
+NLS::Node NLS::Node::Parent() {
+	if (!data) {
+		return Node();
+	}
+	return data->parent;
+}
+
+void NLS::Node::Assign(const Node& other) {
+	data->children = other.data->children;
+	data->floatValue = other.data->floatValue;
+	data->intValue = other.data->intValue;
+	data->stringValue = other.data->stringValue;
+	data->sprite = other.data->sprite;
+	data->image = other.data->image;
+}
+
 NLS::Node::operator bool() {
 	return (bool)data;
 }
@@ -729,14 +740,14 @@ NLS::Node::operator int() {
 	return data->intValue;
 }
 
-NLS::Node::operator Sprite() {
+NLS::Node::operator NLS::Sprite() {
 	if (!data) {
 		return Sprite();
 	}
 	return data->sprite;
 }
 
-NLS::Node::operator Sound() {
+NLS::Node::operator NLS::Sound() {
 	if (!data) {
 		return Sound();
 	}

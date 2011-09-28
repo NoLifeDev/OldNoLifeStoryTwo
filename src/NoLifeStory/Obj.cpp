@@ -16,7 +16,7 @@ void NLS::Obj::Load(Node n) {
 		if (!ln["obj"]) {
 			continue;
 		}
-		for (auto it = ln["obj"].Begin(); it != ln["obj"].End(); it++) {
+		for (auto it = ln["obj"].begin(); it != ln["obj"].end(); it++) {
 			Node on = it->second;
 			string t1 = on["oS"];
 			string t2 = on["l0"];

@@ -25,6 +25,7 @@ NLS::Sound& NLS::Sound::operator= (const Sound& other) {
 	}
 	data = other.data;
 	stream = 0;
+	return *this;
 }
 
 NLS::Sound::~Sound() {

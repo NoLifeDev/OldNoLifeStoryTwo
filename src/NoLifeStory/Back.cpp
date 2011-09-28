@@ -12,7 +12,7 @@ void NLS::Back::Load(Node n) {
 	}
 	Backs.clear();
 	n = n["back"];
-	for (auto it = n.Begin(); it != n.End(); it++) {
+	for (auto it = n.begin(); it != n.end(); it++) {
 		Node bn = it->second;
 		string type1 = bn["bS"];
 		string type2 = bn["no"];

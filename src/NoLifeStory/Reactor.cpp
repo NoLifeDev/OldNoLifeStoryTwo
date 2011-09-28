@@ -15,7 +15,7 @@ void NLS::Reactor::Load(Node n) {
 	if (!n) {
 		return;
 	}
-	for (auto it = n.Begin(); it != n.End(); it++) {
+	for (auto it = n.begin(); it != n.end(); it++) {
 		Node rn = it->second;
 		Reactor* r = new Reactor;
 		r->x = rn["x"];

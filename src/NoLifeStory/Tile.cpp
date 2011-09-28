@@ -17,11 +17,11 @@ void NLS::Tile::Load(Node n) {
 		if (!ln["tile"]) {
 			continue;
 		}
-		for (auto it = ln["tile"].Begin(); it != ln["tile"].End(); it++) {
+		for (auto it = ln["tile"].begin(); it != ln["tile"].end(); it++) {
 			Node tn = it->second;
 			string u = tn["u"];
 			string no = tn["no"];
-			Node td = WZ::Top["Map"]["Tile"][type][u][no];
+			Node td = WZ["Map"]["Tile"][type][u][no];
 			Tile *t = new Tile;
 			t->spr = td;
 			t->x = tn["x"];

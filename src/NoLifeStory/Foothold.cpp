@@ -16,11 +16,11 @@ void NLS::Foothold::Load(Node n) {
 		C("ERROR") << "No foothold node" << endl;
 		throw(273);
 	}
-	for (auto i = n.Begin(); i != n.End(); i++) {
+	for (auto i = n.begin(); i != n.end(); i++) {
 		int fhdepth = toint(i->first);
-		for (auto j = i->second.Begin(); j != i->second.End(); j++) {
+		for (auto j = i->second.begin(); j != i->second.end(); j++) {
 			int fhgroup = toint(j->first);
-			for (auto k = j->second.Begin(); k != j->second.End(); k++) {
+			for (auto k = j->second.begin(); k != j->second.end(); k++) {
 				Node fn = k->second;
 				Foothold* fh = new Foothold();
 				fh->x1 = fn["x1"];

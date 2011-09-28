@@ -48,6 +48,8 @@ namespace NLS {
 		map<string, Node>::iterator end();
 		string Name();
 		void Name(const string&);
+		Node Parent();
+		void Assign(const Node&);
 		operator bool();
 		operator string();
 		operator double();

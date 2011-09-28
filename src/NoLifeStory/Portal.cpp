@@ -33,7 +33,7 @@ void NLS::Portal::Load(Node n) {
 	}
 	Portals.clear();
 	n = n["portal"];
-	for (auto it = n.Begin(); it != n.End(); it++) {
+	for (auto it = n.begin(); it != n.end(); it++) {
 		Node pn = it->second;
 		Portal* p = new Portal;
 		p->x = pn["x"];
