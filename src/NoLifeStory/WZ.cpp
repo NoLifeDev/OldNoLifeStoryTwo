@@ -585,8 +585,9 @@ NLS::SoundProperty::SoundProperty(ifstream* file, Node n) {
 	file->seekg(1, ios::cur);
 	len = ReadCInt(file);
 	ReadCInt(file);
-	offset = (uint32_t)file->tellg()+82;
-	file->seekg(82, ios::cur);
+	offset = file->tellg();
+	offset += 82;
+	data = 0;
 	n.Set(Sound(this));
 }
 
@@ -644,8 +645,9 @@ NLS::Node NLS::Node::operator[] (const string& key) {
 		return Node();
 	}
 	if (data->image) {
-		data->image->Parse();
+		Img* img = data->image;;
 		data->image = 0;
+		img->Parse();
 	}
 	auto& n = data->children.find(key);
 	if (n == data->children.end()) {
