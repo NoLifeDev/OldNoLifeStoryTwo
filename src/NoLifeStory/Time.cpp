@@ -18,8 +18,8 @@ void NLS::_Time::Step() {
 	uint32_t temp = clock.GetElapsedTime();
 	delta = temp-tdelta;
 	tdelta = temp;
-	fps = fps*0.99 + (1000/(double)max(delta, 1))*0.01;
-	sf::Sleep(min(max(fps-100, 0), 10));
+	fps = fps*0.99 + (1000/(double)max(delta, (uint32_t) 1))*0.01;
+	sf::Sleep(min(max(fps-100, 0.), 10.));
 	if (output) {
 		C("INFO") << "Time taken: " << delta << " ms" << endl;
 		output = false;

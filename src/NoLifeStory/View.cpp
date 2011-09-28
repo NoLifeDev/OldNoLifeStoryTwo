@@ -22,10 +22,10 @@ NLS::_View::_View() {
 }
 
 void NLS::_View::Step() {
-	int mxmax = xmax;
-	int mxmin = xmin;
-	int mymax = ymax;
-	int mymin = ymin;
+	double mxmax = xmax;
+	double mxmin = xmin;
+	double mymax = ymax;
+	double mymin = ymin;
 	if (mymax-mymin < height) {
 		int dif = height-(mymax-mymin);
 		mymax += dif/2;

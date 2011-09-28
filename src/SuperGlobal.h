@@ -32,6 +32,8 @@
 #include <Windows.h>
 #elif defined(UNIX)
 #define NLS_UNIX
+#elif defined(__linux)
+#define NLS_LINUX
 #elif defined(MAC)
 #define NLS_MAC
 #else
@@ -46,7 +48,11 @@
 #include <SFML/Window.hpp>
 
 //GLEW
+#ifdef NLS_LINUX
+#include <GL/glew.h>
+#else
 #include <glew.h>
+#endif
 
 //Zlib
 #include <zlib.h>
@@ -56,7 +62,9 @@
 
 //The entire STL
 #include <algorithm>
+#ifdef NLS_WINDOWS
 #include <allocators>
+#endif
 #include <array>
 #ifdef VS11
 #include <atomic>
@@ -74,7 +82,9 @@
 #include <climits>
 #include <clocale>
 #include <cmath>
+#ifdef NLS_WINDOWS
 #include <codecvt>
+#endif
 #include <complex>
 #ifdef VS11
 #include <condition_variable>
@@ -155,4 +165,6 @@
 using namespace std;
 
 //And resources
+#ifdef NLS_WINDOWS
 #include "../resources/Resource.h"
+#endif

@@ -73,10 +73,10 @@ void NLS::Map::Load() {
 		View.ymin = 1000000;
 		View.ymax = -1000000;
 		for (auto it = footholds.begin(); it != footholds.end(); it++) {
-			View.xmin = min(min(View.xmin, (*it)->x1), (*it)->x2);
-			View.ymin = min(min(View.ymin, (*it)->y1), (*it)->y2);
-			View.xmax = max(max(View.xmax, (*it)->x1), (*it)->x2);
-			View.ymax = max(max(View.ymax, (*it)->y1), (*it)->y2);
+			View.xmin = min(min((int)View.xmin, (*it)->x1), (*it)->x2);
+			View.ymin = min(min((int)View.ymin, (*it)->y1), (*it)->y2);
+			View.xmax = max(max((int)View.xmax, (*it)->x1), (*it)->x2);
+			View.ymax = max(max((int)View.ymax, (*it)->y1), (*it)->y2);
 		}
 		View.ymax += 128;
 		View.ymin -= View.height;

@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////
 #pragma once
 
-#include "..\SuperGlobal.h"
+#include "../SuperGlobal.h"
 #include "Functions.h"
 #include "CommandFunctions.h"
 #include "Console.h"
