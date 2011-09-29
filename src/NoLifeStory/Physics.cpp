@@ -79,10 +79,14 @@ void NLS::Physics::Update() {
 		y += Time.delta/2;
 	}
 	//TODO - Handle jumping here
-	if (fh) {
+	if (fh) {//Walking on the ground
 
-	} else {
+	} else {//Just air
+		if (true) {//No water/flying
 
+		} else {//fly!
+
+		}
 	}
 	//TODO - Grab on to ladders
 }
