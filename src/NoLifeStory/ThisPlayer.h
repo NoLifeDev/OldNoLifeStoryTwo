@@ -3,7 +3,8 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 namespace NLS {
-	class ThisPlayer : public Player {//The player that you control
-
-	};
+	class _ThisPlayer : public Player {//The player that you control
+	public:
+		_ThisPlayer();
+	} extern ThisPlayer;
 };

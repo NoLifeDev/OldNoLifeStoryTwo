@@ -4,6 +4,7 @@
 ////////////////////////////////////////////////////
 namespace NLS {
 	class Player : public Physics {//Base for all players
+	public:
 		void Draw();
 	};
 };

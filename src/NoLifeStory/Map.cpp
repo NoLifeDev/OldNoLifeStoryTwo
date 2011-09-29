@@ -81,6 +81,7 @@ void NLS::Map::Load() {
 		View.ymax += 128;
 		View.ymin -= View.height;
 	}
+	ThisPlayer.Reset(0, 0);
 	nextmap = "";
 	nextportal = "";
 }
@@ -95,6 +96,7 @@ void NLS::Map::Draw() {
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
 	}
+	ThisPlayer.Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); i++) {
 		Portal::Portals[i]->Draw();
 	}

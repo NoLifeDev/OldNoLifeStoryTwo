@@ -11,9 +11,10 @@ namespace NLS {
 		class LadderRope* lr;
 		int layer, group;
 		int freefall;
+		Physics();
 		Physics(double x, double y);
 		void Update();
-		virtual void Control() = 0;
+		void Reset(double x, double y);
 		static void Init();
 	};
 };

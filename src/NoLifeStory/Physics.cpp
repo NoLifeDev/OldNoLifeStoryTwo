@@ -33,7 +33,15 @@ void NLS::Physics::Init() {
 	}
 }
 
+NLS::Physics::Physics() {
+	Reset(0, 0);
+}
+
 NLS::Physics::Physics(double x, double y) {
+	Reset(x, y);
+}
+
+void NLS::Physics::Reset(double x, double y) {
 	this->x = x;
 	this->y = y;
 	vx = 0;
@@ -49,12 +57,32 @@ void NLS::Physics::Update() {
 	if (vy < fallSpeed) {
 		freefall = 0;
 	} else {
-		freefall++;
+		freefall += Time.delta;
 	}
-	Control();//This needs to be figured out
-	/*bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
+	//TODO - Move this control stuff elsewhere
+	bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
 	bool right = sf::Keyboard::IsKeyPressed(sf::Keyboard::Right);
 	bool up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);
 	bool down = sf::Keyboard::IsKeyPressed(sf::Keyboard::Down);
-	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);*/
+	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);
+	//Temporary flying code
+	if (left) {
+		x -= Time.delta/2;
+	}
+	if (right) {
+		x += Time.delta/2;
+	}
+	if (up) {
+		y -= Time.delta/2;
+	}
+	if (down) {
+		y += Time.delta/2;
+	}
+	//TODO - Handle jumping here
+	if (fh) {
+
+	} else {
+
+	}
+	//TODO - Grab on to ladders
 }
