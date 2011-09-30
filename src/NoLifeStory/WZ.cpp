@@ -291,7 +291,7 @@ void NLS::InitWZ(const string& path) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
-	string paths[6] = {path, "", "C:/Nexon/MapleStory/", "/home/snake/.wine/drive_c/msbeta/", "/", "T:/"};
+	string paths[6] = {path, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
 	for (int i = 0; i < 5; i++) {
 		Path = paths[i];
 		if (exists(Path+"Data.wz")) {
