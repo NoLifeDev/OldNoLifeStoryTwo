@@ -5,9 +5,15 @@
 #include "Global.h"
 
 void NLS::Player::Draw() {
+	Update();
+	View.tx = x;
+	View.ty = y;
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glColor4f(1, 1, 1, 1);
+	glColor4f(1, 0, 1, 1);
 	glBegin(GL_QUADS);
-
+	glVertex2i(x-10,y-30);
+	glVertex2i(x+10,y-30);
+	glVertex2i(x+10,y);
+	glVertex2i(x-10,y);
 	glEnd();
 }
