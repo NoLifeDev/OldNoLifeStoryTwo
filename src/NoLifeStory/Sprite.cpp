@@ -72,12 +72,12 @@ void NLS::Sprite::GetTexture() {
 	}
 	lastData = data;
 	if (!data) {
-		glBindTexture(GL_TEXTURE_2D, NULL);
+		glBindTexture(GL_TEXTURE_2D, 0);
 		return;
 	}
 	if (!data->loaded) {
 		if (!data->png) {
-			glBindTexture(GL_TEXTURE_2D, NULL);
+			glBindTexture(GL_TEXTURE_2D, 0);
 			return;
 		}
 		data->png->Parse();
