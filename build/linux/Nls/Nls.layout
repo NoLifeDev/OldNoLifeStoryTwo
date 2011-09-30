@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="../../../src/NoLifeStory/Client.cpp" open="1" top="0" tabpos="3">
+	<File name="../../../src/NoLifeStory/Client.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1282" topLine="0" />
 	</File>
-	<File name="../../../src/NoLifeStory/Client.h" open="1" top="0" tabpos="2">
+	<File name="../../../src/NoLifeStory/Client.h" open="0" top="0" tabpos="2">
 		<Cursor position="237" topLine="0" />
 	</File>
 	<File name="../../../src/NoLifeStory/Console.cpp" open="0" top="0" tabpos="0">
@@ -22,7 +22,7 @@
 	<File name="../../../src/NoLifeStory/Network.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="298" topLine="0" />
 	</File>
-	<File name="../../../src/NoLifeStory/NoLifeStory.cpp" open="1" top="1" tabpos="1">
+	<File name="../../../src/NoLifeStory/NoLifeStory.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="481" topLine="0" />
 	</File>
 	<File name="../../../src/NoLifeStory/Portal.cpp" open="0" top="0" tabpos="0">
@@ -40,13 +40,13 @@
 	<File name="../../../src/NoLifeStory/View.h" open="0" top="0" tabpos="0">
 		<Cursor position="298" topLine="0" />
 	</File>
-	<File name="../../../src/NoLifeStory/WZ.cpp" open="1" top="0" tabpos="5">
+	<File name="../../../src/NoLifeStory/WZ.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="7190" topLine="278" />
 	</File>
-	<File name="../../../src/NoLifeStory/WZ.h" open="1" top="0" tabpos="4">
+	<File name="../../../src/NoLifeStory/WZ.h" open="0" top="0" tabpos="4">
 		<Cursor position="2664" topLine="56" />
 	</File>
-	<File name="../../../src/SuperGlobal.h" open="0" top="0" tabpos="0">
-		<Cursor position="2651" topLine="45" />
+	<File name="../../../src/SuperGlobal.h" open="1" top="1" tabpos="0">
+		<Cursor position="2403" topLine="18" />
 	</File>
 </CodeBlocks_layout_file>

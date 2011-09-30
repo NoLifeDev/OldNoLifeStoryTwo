@@ -37,7 +37,7 @@
 #elif defined(MAC)
 #define NLS_MAC
 #else
-#error "Unknown platform. Define either _WIN32, UNIX or MAC"
+#error "Unknown platform. Define either _WIN32, __linux, UNIX or MAC"
 #endif
 
 //SFML

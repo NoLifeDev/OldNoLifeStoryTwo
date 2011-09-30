@@ -273,7 +273,7 @@
 	"View.h"
 	"Config.h"
 
-1317348808 /home/snake/Projects/NoLifeStory/src/SuperGlobal.h
+1317387776 /home/snake/Projects/NoLifeStory/src/SuperGlobal.h
 	<Windows.h>
 	<SFML/Config.hpp>
 	<SFML/Graphics.hpp>
@@ -840,7 +840,7 @@
 1317348808 source:/home/snake/Projects/NoLifeStory/src/NoLifeStory/View.cpp
 	"Global.h"
 
-1317349692 source:/home/snake/Projects/NoLifeStory/src/NoLifeStory/WZ.cpp
+1317351742 source:/home/snake/Projects/NoLifeStory/src/NoLifeStory/WZ.cpp
 	"Global.h"
 	"Keys.h"
 
