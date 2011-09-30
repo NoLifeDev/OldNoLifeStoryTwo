@@ -110,8 +110,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Reactor.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\ThisPlayer.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
     <ClInclude Include="..\..\resources\Resource.h" />
     <ClInclude Include="..\..\src\NoLifeStory\AniSprite.h" />
@@ -154,10 +156,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\Obj.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Physics.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Player.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Portal.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Reactor.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sound.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sprite.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\ThisPlayer.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Tile.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Time.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Utilities.cpp" />
