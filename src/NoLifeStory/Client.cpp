@@ -17,7 +17,11 @@ void NLS::Init(const vector<string>& args) {
 	Time.Step();
 	Graphics::Init();
 	Physics::Init();
+#ifdef NLS_WINDOWS
+	BASS_Init(-1, 44100, 0, window->GetSystemHandle(), 0);
+#elif
 	BASS_Init(-1, 44100, 0, (void*)window->GetSystemHandle(), 0);
+#endif
 	Map::Load("0", "");
 	Map::Load();
 }
