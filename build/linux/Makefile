@@ -3,7 +3,7 @@ CC = g++
 #source dir path prefix
 PP = ../../src/NoLifeStory
 #additional compiler flags
-CF = --std=gnu++0x
+CF = --std=gnu++0x -Wno-deprecated
 #search paths for includes
 SI = -I../../include
 #search paths for libs
@@ -24,6 +24,9 @@ Sprite.o ThisPlayer.o Tile.o Time.o Utilities.o View.o WZ.o
 #targets
 
 NoLifeStory: $(OBJS)
+	$(CC) lib/libbass.so $(OBJS) -o NoLifeStory $(LL)
+	
+NLS64: $(OBJS)
 	$(CC) lib/libbass64.so $(OBJS) -o NoLifeStory $(LL)
 
 AniSprite.o:
@@ -102,4 +105,4 @@ NoLifeStory.o:
 	$(C) $(PP)/NoLifeStory.cpp
 
 clean:
-	rm *.o
+	rm *.o NoLifeStory

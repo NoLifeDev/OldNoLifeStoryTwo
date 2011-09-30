@@ -1,0 +1,20 @@
+--How to build NoLifeStory on linux--
+
+You will need:
+
+- g++ > 4.6 (for C++0x support)
+- A recent version of SFML 2 and all its dependencies
+- zlib
+
+go to the ./build/linux directory
+and run make
+
+For cleaning up, run make clean
+
+For rebuilding, run make clean && make (DURR)
+
+If you want to build the 64 bit version (with 64 bit libbass), 
+run make NLS64
+
+
+kthxbye
