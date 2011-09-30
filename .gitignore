@@ -20,3 +20,5 @@
 *.idb
 *.rc
 *.ipch
+*.o
+*.unsuccessfullbuild
