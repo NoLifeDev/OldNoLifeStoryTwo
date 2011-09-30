@@ -22,8 +22,8 @@ void NLS::Reactor::Load(Node n) {
 		r->y = rn["y"];
 		r->f = (int)rn["f"];
 		r->time = rn["reactorTime"];
-		r->name = rn["name"];
-		r->id = rn["id"];
+		r->name = (string)rn["name"];
+		r->id = (string)rn["id"];
 		r->data = WZ["Reactor"][r->id];
 		Reactors.push_back(r);
 	}

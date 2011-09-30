@@ -32,13 +32,14 @@
 			<Add option="-Wall" />
 			<Add option="--std=c++0x" />
 			<Add directory="/home/snake/Projects/nls/NoLifeStory/build/linux/Nls/custominclude" />
+			<Add directory="/home/snake/Projects/NoLifeStory/include" />
 		</Compiler>
 		<Linker>
 			<Add option="-lsfml-graphics" />
 			<Add option="-lsfml-window" />
 			<Add option="-lsfml-network" />
 			<Add option="-lsfml-system" />
-			<Add library="/home/snake/Projects/nls/NoLifeStory/build/linux/Nls/customlib/libbass.so" />
+			<Add library="/home/snake/Projects/NoLifeStory/build/linux/Nls/customlib/libbass.so" />
 			<Add directory="/home/snake/Projects/nls/NoLifeStory/build/linux/Nls/customlib" />
 		</Linker>
 		<Unit filename="../../../src/NoLifeStory/AniSprite.cpp" />

@@ -291,7 +291,7 @@ void NLS::InitWZ(const string& path) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
-	string paths[5] = {path, "", "C:/Nexon/MapleStory/", "/", "T:/"};
+	string paths[6] = {path, "", "C:/Nexon/MapleStory/", "/home/snake/.wine/drive_c/msbeta/", "/", "T:/"};
 	for (int i = 0; i < 5; i++) {
 		Path = paths[i];
 		if (exists(Path+"Data.wz")) {
@@ -649,7 +649,7 @@ NLS::Node NLS::Node::operator[] (const string& key) {
 		data->image = 0;
 		img->Parse();
 	}
-	auto& n = data->children.find(key);
+	auto n = data->children.find(key);
 	if (n == data->children.end()) {
 		return Node();
 	}
