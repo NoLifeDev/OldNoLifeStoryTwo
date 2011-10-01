@@ -105,4 +105,4 @@ obj/NoLifeStory.o:
 	$(C) $(PP)/NoLifeStory.cpp
 
 clean:
-	rm obj/*
+	rm obj/*.o
