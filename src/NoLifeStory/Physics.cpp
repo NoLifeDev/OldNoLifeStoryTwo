@@ -85,6 +85,9 @@ void NLS::Physics::Update() {
 		if (true) {//No water/flying
 
 		} else {//fly!
+			if (vy > 0 and vy > fallSpeed) {
+				vy -= floatDrag2/100*Time.delta/1000;
+			}
 
 		}
 	}
