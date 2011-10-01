@@ -12,14 +12,14 @@ SL =
 LL = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
 
 #compile command macro to save time
-C = $(CC) -c $(SI) $(CF)
+C = $(CC) -c $(SI) $(CF) -o $@
 
 #objects
 
-OBJS = AniSprite.o Back.o Client.o CommandFunctions.o Config.o\
-Console.o Foothold.o Functions.o Graphics.o Map.o Network.o\
-NoLifeStory.o Obj.o Physics.o Player.o Portal.o Reactor.o Sound.o\
-Sprite.o ThisPlayer.o Tile.o Time.o Utilities.o View.o WZ.o
+OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/CommandFunctions.o obj/Config.o\
+obj/Console.o obj/Foothold.o obj/Functions.o obj/Graphics.o obj/Map.o obj/Network.o\
+obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o\
+obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/Utilities.o obj/View.o obj/WZ.o
 
 #targets
 
@@ -29,80 +29,80 @@ NoLifeStory: $(OBJS)
 NLS64: $(OBJS)
 	$(CC) lib/libbass64.so $(OBJS) -o NoLifeStory $(LL)
 
-AniSprite.o:
+obj/AniSprite.o:
 	$(C) $(PP)/AniSprite.cpp
 
-Back.o:
+obj/Back.o:
 	$(C) $(PP)/Back.cpp
 	
-Client.o:
+obj/Client.o:
 	$(C) $(PP)/Client.cpp
 	
-CommandFunctions.o:
+obj/CommandFunctions.o:
 	$(C) $(PP)/CommandFunctions.cpp
 	
-Config.o:
+obj/Config.o:
 	$(C) $(PP)/Config.cpp
 	
-Console.o:
+obj/Console.o:
 	$(C) $(PP)/Console.cpp
 	
-Graphics.o:
+obj/Graphics.o:
 	$(C) $(PP)/Graphics.cpp
 	
-Map.o:
+obj/Map.o:
 	$(C) $(PP)/Map.cpp
 	
-Network.o:
+obj/Network.o:
 	$(C) $(PP)/Network.cpp
 	
-Obj.o:
+obj/Obj.o:
 	$(C) $(PP)/Obj.cpp
 	
-Physics.o:
+obj/Physics.o:
 	$(C) $(PP)/Physics.cpp
 	
-Player.o:
+obj/Player.o:
 	$(C) $(PP)/Player.cpp
 	
-Portal.o:
+obj/Portal.o:
 	$(C) $(PP)/Portal.cpp
 
-Reactor.o:
+obj/Reactor.o:
 	$(C) $(PP)/Reactor.cpp
 	
-Sound.o:
+obj/Sound.o:
 	$(C) $(PP)/Sound.cpp
 	
-Sprite.o:
+obj/Sprite.o:
 	$(C) $(PP)/Sprite.cpp
 	
-ThisPlayer.o:
+obj/ThisPlayer.o:
 	$(C) $(PP)/ThisPlayer.cpp
 	
-Tile.o:
+obj/Tile.o:
 	$(C) $(PP)/Tile.cpp
 	
-Time.o:
+obj/Time.o:
 	$(C) $(PP)/Time.cpp
 	
-Utilities.o:
+obj/Utilities.o:
 	$(C) $(PP)/Utilities.cpp
 
-View.o:
+obj/View.o:
 	$(C) $(PP)/View.cpp
 	
-WZ.o:
+obj/WZ.o:
 	$(C) $(PP)/WZ.cpp
 	
-Foothold.o:
+obj/Foothold.o:
 	$(C) $(PP)/Foothold.cpp
 
-Functions.o:
+obj/Functions.o:
 	$(C) $(PP)/Functions.cpp
 
-NoLifeStory.o:
+obj/NoLifeStory.o:
 	$(C) $(PP)/NoLifeStory.cpp
 
 clean:
-	rm *.o NoLifeStory
+	rm obj/*
