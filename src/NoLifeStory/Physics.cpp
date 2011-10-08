@@ -23,6 +23,7 @@ const double maxFriction = 2;
 const double minFriction = 0.05;
 const double swimSpeedDec = 0.9;
 const double flyJumpDec = 0.35;
+const double wat1 = 0.0008928571428571428;
 
 void NLS::Physics::Init() {
 	Node n = WZ["Map"]["Physics"];
@@ -67,16 +68,16 @@ void NLS::Physics::Update() {
 	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);
 	//Temporary flying code
 	if (left) {
-		x -= Time.delta/2;
+		vx -= Time.delta/10;
 	}
 	if (right) {
-		x += Time.delta/2;
+		vx += Time.delta/10;
 	}
 	if (up) {
-		y -= Time.delta/2;
+		vy -= Time.delta/10;
 	}
 	if (down) {
-		y += Time.delta/2;
+		vy += Time.delta/10;
 	}
 	//TODO - Handle jumping here
 	if (fh) {//Walking on the ground
@@ -85,11 +86,24 @@ void NLS::Physics::Update() {
 		if (true) {//No water/flying
 
 		} else {//fly!
-			if (vy > 0 and vy > fallSpeed) {
-				vy -= floatDrag2/100*Time.delta/1000;
+			vy -= sign(vy)*floatDrag2/100*Time.delta/1000;
+			vy += gravityAcc*Time.delta/1000;
+			vy = max(min(vy, fallSpeed), -fallSpeed);
+			if (left^right) {
+				double l = floatDrag2*wat1;
+				double a = floatDrag2*2/100*Time.delta/1000;
+				if (left) {
+					if (vx > -l) {
+						vx = max(-l, vx-a);
+					}
+				} else {
+					if (vx < l) {
+						vx = min(l, vx+a);
+					}
+				}
 			}
-
 		}
+		//Detect collisions
 	}
 	//TODO - Grab on to ladders
 }
