@@ -536,11 +536,15 @@ void NLS::PNGProperty::Parse() {
 		{
 			uint32_t len = 2*sprite.data->width*sprite.data->height;
 			Decompress(length, len);
-			for (uint32_t i = 0; i < len; i++) {//TODO - Figure out if I can avoid this step somehow
-				Buf2[i*2] = (Buf1[i]&0x0F)*0x11;
-				Buf2[i*2+1] = ((Buf1[i]&0xF0)>>4)*0x11;
+			if (sprite.data->width%2) {
+				for (uint32_t i = 0; i < len; i++) {
+					Buf2[i*2] = (Buf1[i]&0x0F)*0x11;
+					Buf2[i*2+1] = ((Buf1[i]&0xF0)>>4)*0x11;
+				}
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+			} else {
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf1);
 			}
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
 			break;
 		}
 	case 2:
@@ -561,13 +565,7 @@ void NLS::PNGProperty::Parse() {
 		{
 			uint32_t len = sprite.data->width*sprite.data->height/128;
 			Decompress(length, len);
-			for (uint32_t i = 0; i*2 < len; i++) {
-				for (uint32_t j = 0; j < 512; j++) {//TODO - Check for built in methods to do this in a single function call
-					Buf2[i*512+j*2] = Buf1[2*i];
-					Buf2[i*512+j*2+1] = Buf1[2*i+1];
-				}
-			}
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf2);
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width/16, sprite.data->height/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
 			break;
 		}
 	default:
