@@ -24,4 +24,5 @@ void NLS::_Time::Step() {
 		C("INFO") << "Time taken: " << delta << " ms" << endl;
 		output = false;
 	}
+	delta = min(100, delta);
 }
