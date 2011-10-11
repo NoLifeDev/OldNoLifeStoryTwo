@@ -19,9 +19,32 @@ void NLS::Map::Load(const string& id, const string& portal) {
 }
 
 void NLS::Map::Load() {
+	auto teleport = [&](string portal, bool change) {
+		if (portal.empty()) {
+			if (change) {
+				portal = "sp";
+			} else {
+				return;
+			}
+		}
+		vector <Portal*> possible;
+		for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
+			Portal* p = *it;
+			if (portal == p->pn) {
+				possible.push_back(p);
+			}
+		}
+		if (possible.empty()) {
+			return;
+		}
+		int r = rand()%possible.size();
+		ThisPlayer.Reset(possible[r]->x, possible[r]->y);
+	};
 	if (curmap == nextmap) {
 		C("ERROR") << "The specified map is already loaded" << endl;
+		teleport(nextportal, false);
 		nextmap = "";
+		nextportal = "";
 		return;
 	}
 	if (nextmap == "MapLogin") {
@@ -36,6 +59,7 @@ void NLS::Map::Load() {
 	}
 	if (!node) {
 		C("ERROR") << "Unable to locate map " << nextmap << endl;
+		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
 		return;
@@ -81,7 +105,7 @@ void NLS::Map::Load() {
 		View.ymax += 128;
 		View.ymin -= View.height;
 	}
-	ThisPlayer.Reset(0, 0);
+	teleport(nextportal, true);
 	nextmap = "";
 	nextportal = "";
 }

@@ -516,12 +516,13 @@ void NLS::PNGProperty::Parse() {
 		case Z_BUF_ERROR:
 			break;
 		default:
-			NLS::C("ERROR") << "I hate zlib!" << endl;
+			NLS::C("ERROR") << "Why isn't zlib giving a buffer error?" << endl;
 			throw(273);
 		}
 		if (strm.total_out != outLen) {
-			NLS::C("ERROR") << "I hate zlib!" << endl;
-			throw(273);
+			NLS::C("ERROR") << "Zlib inflated to " << strm.total_out << " bytes." <<endl;
+			NLS::C("ERROR") << "I expected " << outLen << " bytes." <<endl;
+			//throw(273);//Occuring on the fourth background for map 0 in GMS v40b. Might just be a corrupted wz file.
 		}
 		inflateEnd(&strm);
 	};

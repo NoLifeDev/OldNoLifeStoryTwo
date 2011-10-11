@@ -11,6 +11,7 @@ string maps[] = {"1000000", "2000000", "100000000", "101000000", "102000000", "1
 
 void NLS::Init(const vector<string>& args) {
 	C("INFO") << "Initializing NoLifeStory" << endl;
+	srand(time(0));
 	Network::Init();
 	Time.Reset();
 	InitWZ(args.size()>1?args[1]:"");
