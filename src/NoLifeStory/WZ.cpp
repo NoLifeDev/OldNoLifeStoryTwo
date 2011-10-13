@@ -5,7 +5,7 @@
 #include "Global.h"
 #include "Keys.h"
 
-string Path;
+path WZPath;
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
 uint8_t BMSKey[0xFFFF];
@@ -138,7 +138,7 @@ inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 #pragma endregion
 
 #pragma region WZ Parsing
-void NLS::InitWZ(const string& path) {
+void NLS::InitWZ(const path& wzpath) {
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
 	function <void(Node, ifstream*, uint32_t)> Directory;
@@ -154,7 +154,7 @@ void NLS::InitWZ(const string& path) {
 		return p;
 	};
 	File = [&ReadOffset, &Directory](Node n) {
-		string filename = Path+n.Name()+".wz";
+		path filename = WZPath/path(n.Name()+".wz");
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 		if (!file->is_open()) {
 			C("ERROR") << "Failed to load " << filename << endl;
@@ -291,16 +291,16 @@ void NLS::InitWZ(const string& path) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
-	string paths[6] = {path, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
+	path paths[6] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
 	for (int i = 0; i < 5; i++) {
-		Path = paths[i];
-		if (exists(Path+"Data.wz")) {
+		WZPath = paths[i];
+		if (exists(WZPath/path("Data.wz"))) {
 			C("WZ") << "Loading beta WZ file structure" << endl;
 			WZ.Name("Data");
 			File(WZ);
 			return;
 		}
-		if(exists(Path+"Base.wz")) {
+		if(exists(WZPath/path("Base.wz"))) {
 			C("WZ") << "Loading standard WZ file structure" << endl;
 			WZ.Name("Base");
 			File(WZ);

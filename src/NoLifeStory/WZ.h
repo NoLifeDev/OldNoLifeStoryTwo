@@ -50,7 +50,11 @@ namespace NLS {
 		void Name(const string&);
 		Node Parent();
 		void Assign(const Node&);
+#ifdef NLS_GCC
+		explicit operator bool();
+#else
 		operator bool();
+#endif
 		operator string();
 		operator double();
 		operator int();
@@ -97,5 +101,5 @@ namespace NLS {
 		ifstream* file;
 	};
 	extern Node WZ;
-	void InitWZ(const string& path);
+	void InitWZ(const path& wzpath);
 };
