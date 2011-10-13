@@ -5,7 +5,11 @@
 #include "Global.h"
 #include "Keys.h"
 
+#ifdef NLS_GCC
+string WZPath;
+#else
 path WZPath;
+#endif
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
 uint8_t BMSKey[0xFFFF];
@@ -138,7 +142,11 @@ inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 #pragma endregion
 
 #pragma region WZ Parsing
+#ifdef NLS_GCC
+void NLS::InitWZ(const string& wzpath) {
+#else
 void NLS::InitWZ(const path& wzpath) {
+#endif
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
 	function <void(Node, ifstream*, uint32_t)> Directory;
@@ -154,7 +162,11 @@ void NLS::InitWZ(const path& wzpath) {
 		return p;
 	};
 	File = [&ReadOffset, &Directory](Node n) {
+#ifdef NLS_GCC
+		string filename = WZPath+n.Name()+".wz";
+#else
 		path filename = WZPath/path(n.Name()+".wz");
+#endif
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 		if (!file->is_open()) {
 			C("ERROR") << "Failed to load " << filename << endl;
@@ -291,16 +303,28 @@ void NLS::InitWZ(const path& wzpath) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
+#ifdef NLS_GCC
+	string paths[6] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
+#else
 	path paths[6] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
+#endif
 	for (int i = 0; i < 5; i++) {
 		WZPath = paths[i];
+#ifdef NLS_GCC
+		if (exists(WZPath+"Data.wz")) {
+#else
 		if (exists(WZPath/path("Data.wz"))) {
+#endif
 			C("WZ") << "Loading beta WZ file structure" << endl;
 			WZ.Name("Data");
 			File(WZ);
 			return;
 		}
-		if(exists(WZPath/path("Base.wz"))) {
+#ifdef NLS_GCC
+		if (exists(WZPath+"Base.wz")) {
+#else
+		if (exists(WZPath/path("Base.wz"))) {
+#endif
 			C("WZ") << "Loading standard WZ file structure" << endl;
 			WZ.Name("Base");
 			File(WZ);

@@ -101,5 +101,9 @@ namespace NLS {
 		ifstream* file;
 	};
 	extern Node WZ;
+#ifdef NLS_GCC
+	void InitWZ(const string& wzpath);
+#else
 	void InitWZ(const path& wzpath);
+#endif
 };

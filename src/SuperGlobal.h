@@ -79,7 +79,9 @@
 #include <chrono>
 #include <condition_variable>
 #include <csetjmp>
+#ifndef NLS_GCC
 #include <filesystem>
+#endif
 #include <future>
 #include <mutex>
 #include <ratio>
