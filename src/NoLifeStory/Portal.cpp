@@ -40,9 +40,9 @@ void NLS::Portal::Load(Node n) {
 		p->y = pn["y"];
 		p->pt = pn["pt"];
 		p->tm = pn["tm"];
-		p->pn = pn["pn"];
-		p->tn = pn["tn"];
-		p->script = pn["script"];
+		p->pn = (string)pn["pn"];
+		p->tn = (string)pn["tn"];
+		p->script = (string)pn["script"];
 		p->hi = pn["horizontalImpact"];
 		p->vi = pn["verticalImpact"];
 		p->onlyonce = pn["onlyOnce"];

@@ -152,9 +152,11 @@
 #include <valarray>
 #include <vector>
 using namespace std;
+#ifndef NLS_GCC
 using namespace std::tr1;
 using namespace std::tr2;
 using namespace std::tr2::sys;
+#endif
 
 //And resources
 #ifdef NLS_WINDOWS

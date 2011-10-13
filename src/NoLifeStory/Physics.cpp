@@ -82,10 +82,10 @@ void NLS::Physics::Update() {
 		if (false) {//Underwater
 
 		} else {//Just mid-air
-			if (vy > 0) {//First vertical air friction
-				vy = max(0, vy-floatDrag2/mass*t);
+			if (vy > 0.d) {//First vertical air friction
+				vy = max(0.d, vy-floatDrag2/mass*t);
 			} else {
-				vy = min(0, vy+floatDrag2/mass*t);
+				vy = min(0.d, vy+floatDrag2/mass*t);
 			}
 			vy += gravityAcc*t;//Then gravity
 			vy = max(min(vy, fallSpeed), -fallSpeed);//Then keep speed within the limit
@@ -104,15 +104,15 @@ void NLS::Physics::Update() {
 			} else {//Just falling
 				if (vy < fallSpeed) {
 					if (vx > 0) {
-						vx = max(0, vx-floatDrag2*floatCoefficient*t);
+						vx = max(0.d, vx-floatDrag2*floatCoefficient*t);
 					} else {
-						vx = min(0, vx+floatDrag2*floatCoefficient*t);
+						vx = min(0.d, vx+floatDrag2*floatCoefficient*t);
 					}
 				} else {
 					if (vx > 0) {
-						vx = max(0, vx-floatDrag2*t);
+						vx = max(0.d, vx-floatDrag2*t);
 					} else {
-						vx = min(0, vx+floatDrag2*t);
+						vx = min(0.d, vx+floatDrag2*t);
 					}
 				}
 			}
