@@ -30,27 +30,28 @@
 #ifdef _WIN32
 #define NLS_WINDOWS
 #include <Windows.h>
-#ifdef _MSC_VER
-#if _MSC_VER == 1700
-#define NLS_CPP11
-#endif
-#endif
 #elif defined(UNIX)
 #define NLS_UNIX
-//Similar to linux?
 #elif defined(__linux)
 #define NLS_LINUX
-//Check for versions of gcc
-#define NLS_GCC
-#define NLS_CPP11
 #elif defined(MAC)
 #define NLS_MAC
-//Idk really what to do
 #else
 #error "Unknown platform. Define either _WIN32, __linux, UNIX or MAC"
 #endif
-#ifndef NLS_CPP11
-#error What is wrong with you? Upgrade your compiler!
+
+#ifdef _MSC_VER
+#if _MSC_VER >= 1700
+#define NLS_CPP11
+#define NLS_TR2
+#elif _MSC_VER >= 1600
+#else
+#error "Upgrade your visual studio to VS10 or VS11"
+#endif
+#elif defined(__GNUC__)
+#define NLS_CPP11
+#else
+#error "Unknown compiler"
 #endif
 
 //SFML
@@ -61,10 +62,10 @@
 #include <SFML/Window.hpp>
 
 //GLEW
-#ifdef NLS_LINUX
-#include <GL/glew.h>
-#else
+#ifdef NLS_WINDOWS
 #include <glew.h>
+#else
+#include <GL/glew.h>
 #endif
 
 //Zlib
@@ -79,13 +80,13 @@
 #include <chrono>
 #include <condition_variable>
 #include <csetjmp>
-#ifndef NLS_GCC
-#include <filesystem>
-#endif
 #include <future>
 #include <mutex>
 #include <ratio>
 #include <thread>
+#endif
+#ifdef NLS_TR2
+#include <filesystem>
 #endif
 #include <algorithm>
 #include <array>
@@ -152,10 +153,12 @@
 #include <valarray>
 #include <vector>
 using namespace std;
-#ifndef NLS_GCC
 using namespace std::tr1;
+#ifdef NLS_TR2
 using namespace std::tr2;
 using namespace std::tr2::sys;
+#else
+#define path string
 #endif
 
 //And resources
