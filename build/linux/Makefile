@@ -1,108 +1,85 @@
-#compiler executable
-CC = g++
-#source dir path prefix
-PP = ../../src/NoLifeStory
-#additional compiler flags
-CF = --std=gnu++0x -Wno-deprecated
-#search paths for includes
-SI = -I../../include
-#search paths for libs
-SL = 
-#libs to link against
-LL = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
+CE = g++
+SBP = ../../src/NoLifeStory
+CF = -O3
+LF = lib/libbass64.so -lsfml-graphics -lsfml-window -lsfml-network
+EO = NLS
+OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/CommandFunctions.o obj/Config.o obj/Console.o obj/Foothold.o obj/Functions.o obj/Graphics.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/Utilities.o obj/View.o obj/WZ.o 
 
-#compile command macro to save time
-C = $(CC) -c $(SI) $(CF) -o $@
+target: $(OBJS)
+	$(CE) $(OBJS) -o $(EO) $(LF)
 
-#objects
+obj/AniSprite.o: $(SBP)/AniSprite.cpp
+	$(CE) -c $(CF) $(SBP)/AniSprite.cpp -o obj/AniSprite.o
 
-OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/CommandFunctions.o obj/Config.o\
-obj/Console.o obj/Foothold.o obj/Functions.o obj/Graphics.o obj/Map.o obj/Network.o\
-obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o\
-obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/Utilities.o obj/View.o obj/WZ.o
+obj/Back.o: $(SBP)/Back.cpp
+	$(CE) -c $(CF) $(SBP)/Back.cpp -o obj/Back.o
 
-#targets
+obj/Client.o: $(SBP)/Client.cpp
+	$(CE) -c $(CF) $(SBP)/Client.cpp -o obj/Client.o
 
-NoLifeStory: $(OBJS)
-	$(CC) lib/libbass.so $(OBJS) -o NoLifeStory $(LL)
-	
-NLS64: $(OBJS)
-	$(CC) lib/libbass64.so $(OBJS) -o NoLifeStory $(LL)
+obj/CommandFunctions.o: $(SBP)/CommandFunctions.cpp
+	$(CE) -c $(CF) $(SBP)/CommandFunctions.cpp -o obj/CommandFunctions.o
 
-obj/AniSprite.o:
-	$(C) $(PP)/AniSprite.cpp
+obj/Config.o: $(SBP)/Config.cpp
+	$(CE) -c $(CF) $(SBP)/Config.cpp -o obj/Config.o
 
-obj/Back.o:
-	$(C) $(PP)/Back.cpp
-	
-obj/Client.o:
-	$(C) $(PP)/Client.cpp
-	
-obj/CommandFunctions.o:
-	$(C) $(PP)/CommandFunctions.cpp
-	
-obj/Config.o:
-	$(C) $(PP)/Config.cpp
-	
-obj/Console.o:
-	$(C) $(PP)/Console.cpp
-	
-obj/Graphics.o:
-	$(C) $(PP)/Graphics.cpp
-	
-obj/Map.o:
-	$(C) $(PP)/Map.cpp
-	
-obj/Network.o:
-	$(C) $(PP)/Network.cpp
-	
-obj/Obj.o:
-	$(C) $(PP)/Obj.cpp
-	
-obj/Physics.o:
-	$(C) $(PP)/Physics.cpp
-	
-obj/Player.o:
-	$(C) $(PP)/Player.cpp
-	
-obj/Portal.o:
-	$(C) $(PP)/Portal.cpp
+obj/Console.o: $(SBP)/Console.cpp
+	$(CE) -c $(CF) $(SBP)/Console.cpp -o obj/Console.o
 
-obj/Reactor.o:
-	$(C) $(PP)/Reactor.cpp
-	
-obj/Sound.o:
-	$(C) $(PP)/Sound.cpp
-	
-obj/Sprite.o:
-	$(C) $(PP)/Sprite.cpp
-	
-obj/ThisPlayer.o:
-	$(C) $(PP)/ThisPlayer.cpp
-	
-obj/Tile.o:
-	$(C) $(PP)/Tile.cpp
-	
-obj/Time.o:
-	$(C) $(PP)/Time.cpp
-	
-obj/Utilities.o:
-	$(C) $(PP)/Utilities.cpp
+obj/Foothold.o: $(SBP)/Foothold.cpp
+	$(CE) -c $(CF) $(SBP)/Foothold.cpp -o obj/Foothold.o
 
-obj/View.o:
-	$(C) $(PP)/View.cpp
-	
-obj/WZ.o:
-	$(C) $(PP)/WZ.cpp
-	
-obj/Foothold.o:
-	$(C) $(PP)/Foothold.cpp
+obj/Functions.o: $(SBP)/Functions.cpp
+	$(CE) -c $(CF) $(SBP)/Functions.cpp -o obj/Functions.o
 
-obj/Functions.o:
-	$(C) $(PP)/Functions.cpp
+obj/Graphics.o: $(SBP)/Graphics.cpp
+	$(CE) -c $(CF) $(SBP)/Graphics.cpp -o obj/Graphics.o
 
-obj/NoLifeStory.o:
-	$(C) $(PP)/NoLifeStory.cpp
+obj/Map.o: $(SBP)/Map.cpp
+	$(CE) -c $(CF) $(SBP)/Map.cpp -o obj/Map.o
 
-clean:
-	rm obj/*.o
+obj/Network.o: $(SBP)/Network.cpp
+	$(CE) -c $(CF) $(SBP)/Network.cpp -o obj/Network.o
+
+obj/NoLifeStory.o: $(SBP)/NoLifeStory.cpp
+	$(CE) -c $(CF) $(SBP)/NoLifeStory.cpp -o obj/NoLifeStory.o
+
+obj/Obj.o: $(SBP)/Obj.cpp
+	$(CE) -c $(CF) $(SBP)/Obj.cpp -o obj/Obj.o
+
+obj/Physics.o: $(SBP)/Physics.cpp
+	$(CE) -c $(CF) $(SBP)/Physics.cpp -o obj/Physics.o
+
+obj/Player.o: $(SBP)/Player.cpp
+	$(CE) -c $(CF) $(SBP)/Player.cpp -o obj/Player.o
+
+obj/Portal.o: $(SBP)/Portal.cpp
+	$(CE) -c $(CF) $(SBP)/Portal.cpp -o obj/Portal.o
+
+obj/Reactor.o: $(SBP)/Reactor.cpp
+	$(CE) -c $(CF) $(SBP)/Reactor.cpp -o obj/Reactor.o
+
+obj/Sound.o: $(SBP)/Sound.cpp
+	$(CE) -c $(CF) $(SBP)/Sound.cpp -o obj/Sound.o
+
+obj/Sprite.o: $(SBP)/Sprite.cpp
+	$(CE) -c $(CF) $(SBP)/Sprite.cpp -o obj/Sprite.o
+
+obj/ThisPlayer.o: $(SBP)/ThisPlayer.cpp
+	$(CE) -c $(CF) $(SBP)/ThisPlayer.cpp -o obj/ThisPlayer.o
+
+obj/Tile.o: $(SBP)/Tile.cpp
+	$(CE) -c $(CF) $(SBP)/Tile.cpp -o obj/Tile.o
+
+obj/Time.o: $(SBP)/Time.cpp
+	$(CE) -c $(CF) $(SBP)/Time.cpp -o obj/Time.o
+
+obj/Utilities.o: $(SBP)/Utilities.cpp
+	$(CE) -c $(CF) $(SBP)/Utilities.cpp -o obj/Utilities.o
+
+obj/View.o: $(SBP)/View.cpp
+	$(CE) -c $(CF) $(SBP)/View.cpp -o obj/View.o
+
+obj/WZ.o: $(SBP)/WZ.cpp
+	$(CE) -c $(CF) $(SBP)/WZ.cpp -o obj/WZ.o
+
