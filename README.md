@@ -17,8 +17,8 @@ Just do it you nub
 
 ##Running NoLifeStory
 
-*Place NoLifeStory in your maplestory folder, or make sure you have maplestory installed in the default location, or pass the path to maplestory as a command line argument (make sure the path ends in a / if you didn't use VS11).
-*Run NoLifeStory
-*Arrow keys to move, alt to jump, f to fly, esc to quit, ~ to toggle console
-*???
-*Profit
+* Place NoLifeStory in your maplestory folder, or make sure you have maplestory installed in the default location, or pass the path to maplestory as a command line argument (make sure the path ends in a / if you didn't use VS11).
+* Run NoLifeStory
+* Arrow keys to move, alt to jump, f to fly, esc to quit, ~ to toggle console
+* ???
+* Profit
