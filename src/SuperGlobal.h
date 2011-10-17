@@ -44,7 +44,9 @@
 #if _MSC_VER >= 1700
 #define NLS_CPP11
 #define NLS_TR2
+#define NLS_TR1
 #elif _MSC_VER >= 1600
+#define NLS_TR1
 #else
 #error "Upgrade your visual studio to VS10 or VS11"
 #endif
@@ -153,7 +155,9 @@
 #include <valarray>
 #include <vector>
 using namespace std;
+#ifdef NLS_TR1
 using namespace std::tr1;
+#endif
 #ifdef NLS_TR2
 using namespace std::tr2;
 using namespace std::tr2::sys;
