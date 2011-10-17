@@ -55,6 +55,11 @@ void NLS::Physics::Reset(double x, double y) {
 }
 
 void NLS::Physics::Update() {
+	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::F)) {
+		auto p = sf::Mouse::GetPosition(*window);
+		Reset(p.x+View.x, p.y+View.y);
+		return;
+	}
 	double t = (double)Time.delta/1000;
 	double mass = 100;//TODO - Add proper shoe stuff
 	if (vy < fallSpeed) {
