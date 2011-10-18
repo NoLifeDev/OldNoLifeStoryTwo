@@ -32,16 +32,44 @@ bool NLS::Loop() {
 	while (window->PollEvent(e)) {
 		switch (e.Type) {
 		case sf::Event::KeyPressed:
+			if (UI::HandleKeyPress(e.Key.Code)) {
+				break;
+			}
 			switch (e.Key.Code) {
 			case sf::Keyboard::Tilde:
 				console->Toggle();
 				break;
 			case sf::Keyboard::Escape:
 				return false;
+				break;
+			default:
+				break;
 			}
 			break;
+		case sf::Event::KeyReleased:
+			if (UI::HandleKeyRelease(e.Key.Code)) {
+				break;
+			}
+			switch (e.Key.Code) {
+			default:
+				break;
+			}
+			break;
+		case sf::Event::MouseButtonPressed:
+			if (UI::HandleMousePress(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y)) {
+				break;
+			}
+			//TODO - Handle clicking on npcs and mobs and other players and stuff.
+			break;
+		case sf::Event::MouseButtonReleased:
+			UI::HandleMouseRelease(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y);
+			break;
+		case sf::Event::MouseWheelMoved:
+			UI::HandleMouseScroll(e.MouseWheel.Delta, e.MouseButton.X, e.MouseButton.Y);
 		case sf::Event::Closed:
 			return false;
+			break;
+		default:
 			break;
 		}
 	}

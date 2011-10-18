@@ -5,9 +5,13 @@
 
 namespace NLS {
 	class _Time {
+#ifdef NLS_CPP11
 		chrono::high_resolution_clock clock;
 		chrono::high_resolution_clock::time_point last;
 		chrono::high_resolution_clock::time_point start;
+#else
+		sf::Clock clock;
+#endif
 	public:
 		void Reset();
 		void Step();

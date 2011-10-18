@@ -102,6 +102,8 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\UI.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
@@ -141,6 +143,8 @@
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Functions.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Graphics.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\KeyMap.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\UI.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Network.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\NoLifeStory.cpp">

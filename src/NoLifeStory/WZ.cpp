@@ -5,11 +5,7 @@
 #include "Global.h"
 #include "Keys.h"
 
-#ifdef NLS_TR2
 path WZPath;
-#else
-string WZPath;
-#endif
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
 uint8_t BMSKey[0xFFFF];
