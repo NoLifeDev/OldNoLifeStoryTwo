@@ -5,12 +5,14 @@
 
 namespace NLS {
 	class _Time {
-		sf::Clock clock;
+		chrono::high_resolution_clock clock;
+		chrono::high_resolution_clock::time_point last;
+		chrono::high_resolution_clock::time_point start;
 	public:
 		void Reset();
 		void Step();
-		uint32_t delta;
-		uint32_t tdelta;
+		double delta;
+		double tdelta;
 		double fps;
 		bool output;
 	} extern Time;

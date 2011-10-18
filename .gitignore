@@ -22,3 +22,4 @@
 *.ipch
 *.o
 *.unsuccessfullbuild
+*.unsuccessfulbuild

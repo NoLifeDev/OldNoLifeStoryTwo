@@ -7,7 +7,8 @@
 NLS::_Time NLS::Time;
 
 void NLS::_Time::Reset() {
-	clock.Reset();
+	last = clock.now();
+	start = clock.now();
 	delta = 0;
 	tdelta = 0;
 	fps = 0;
@@ -15,14 +16,16 @@ void NLS::_Time::Reset() {
 }
 
 void NLS::_Time::Step() {
-	uint32_t temp = clock.GetElapsedTime();
-	delta = temp-tdelta;
-	tdelta = temp;
-	fps = fps*0.99 + (1000/(double)max(delta, (uint32_t) 1))*0.01;
-	sf::Sleep(min(max(fps-100, 0.), 10.));
+	chrono::high_resolution_clock::time_point now = clock.now();
+	chrono::duration<double> dif = now-last;
+	chrono::duration<double> tdif = now-start;
+	delta = dif.count();
+	tdelta = tdif.count();
+	fps = fps*0.99+1/min(delta, 0.01)*0.01;
+	this_thread::sleep_for(chrono::duration<double>(min(max(fps-100, 0.), 10.)/1000));
 	if (output) {
-		C("INFO") << "Time taken: " << delta << " ms" << endl;
+		C("INFO") << "Time taken: " << floor(delta/1000) << " ms" << endl;
 		output = false;
 	}
-	delta = min((uint32_t)100, delta);
+	delta = min(0.1, delta);
 }

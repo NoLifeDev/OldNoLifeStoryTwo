@@ -55,7 +55,6 @@ void NLS::Physics::Reset(double x, double y) {
 }
 
 void NLS::Physics::Update() {
-	double t = (double)Time.delta/1000;
 	double mass = 100;//TODO - Add proper shoe stuff
 	if (vy < fallSpeed) {
 		freefall = 0;
@@ -70,10 +69,10 @@ void NLS::Physics::Update() {
 	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);
 	//Temporary flying code
 	if (up) {
-		vy -= t*4000;
+		vy -= Time.delta*4000;
 	}
 	if (down) {
-		vy += t*2000;
+		vy += Time.delta*2000;
 	}
 	//TODO - Handle jumping here
 	if (fh) {//Walking on the ground
@@ -83,36 +82,35 @@ void NLS::Physics::Update() {
 
 		} else {//Just mid-air
 			if (vy > 0.) {//First vertical air friction
-				vy = max(0., vy-floatDrag2/mass*t);
+				vy = max(0., vy-floatDrag2/mass*Time.delta);
 			} else {
-				vy = min(0., vy+floatDrag2/mass*t);
+				vy = min(0., vy+floatDrag2/mass*Time.delta);
 			}
-			vy += gravityAcc*t;//Then gravity
+			vy += gravityAcc*Time.delta;//Then gravity
 			vy = max(min(vy, fallSpeed), -fallSpeed);//Then keep speed within the limit
 			if (left^right) {//Trying to move left or right
 				double l = floatDrag2*wat1;
-				double a = floatDrag2*2/mass*t;
 				if (left) {
 					if (vx > -l) {
-						vx = max(-l, vx-a);
+						vx = max(-l, vx-floatDrag2*2/mass*Time.delta);
 					}
 				} else {
 					if (vx < l) {
-						vx = min(l, vx+a);
+						vx = min(l, vx+floatDrag2*2/mass*Time.delta);
 					}
 				}
 			} else {//Just falling
 				if (vy < fallSpeed) {
 					if (vx > 0) {
-						vx = max(0., vx-floatDrag2*floatCoefficient*t);
+						vx = max(0., vx-floatDrag2*floatCoefficient*Time.delta);
 					} else {
-						vx = min(0., vx+floatDrag2*floatCoefficient*t);
+						vx = min(0., vx+floatDrag2*floatCoefficient*Time.delta);
 					}
 				} else {
 					if (vx > 0) {
-						vx = max(0., vx-floatDrag2*t);
+						vx = max(0., vx-floatDrag2*Time.delta);
 					} else {
-						vx = min(0., vx+floatDrag2*t);
+						vx = min(0., vx+floatDrag2*Time.delta);
 					}
 				}
 			}
@@ -121,8 +119,8 @@ void NLS::Physics::Update() {
 	}
 	//TODO - Grab on to ladders
 	//Temporary code for movement and bound checks
-	x += vx*t;
-	y += vy*t;
+	x += vx*Time.delta;
+	y += vy*Time.delta;
 	if (y >= View.ymax and vy > 0) {
 		vy = 0;
 		y = View.ymax;
