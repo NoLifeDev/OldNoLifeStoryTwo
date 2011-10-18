@@ -70,11 +70,14 @@ inline double sign (const double& x) {
 	return x>0?1:x<0?-1:0;
 }
 
-#ifdef NLS_GCC
+#ifndef NLS_TR2
 inline bool exists (const string& name) {
 	ifstream file(name);
 	bool check = file.is_open();
 	file.close();
 	return check;
+}
+inline string operator/ (string s1, string s2) {
+	return s1+s2;
 }
 #endif
