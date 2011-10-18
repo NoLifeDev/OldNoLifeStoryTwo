@@ -1,2 +1,4 @@
-Download and extract the contents of the following to this folder:
-libVS11.7z
+Download https://github.com/downloads/retep998/NoLifeStory/libVS11.7z
+Extract it into this folder
+Open NoLifeStory.sln
+Have fun
