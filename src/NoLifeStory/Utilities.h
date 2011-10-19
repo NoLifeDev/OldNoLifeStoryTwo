@@ -67,6 +67,7 @@ class path : public string {
 public:
 	path() : string() {}
 	path(const string& other) : string(other) {}
+	path(const char* other) : string(other) {}
 	inline path operator/ (path other) {
 		path result(*this);
 		result /= other;
