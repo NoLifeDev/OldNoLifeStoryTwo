@@ -88,5 +88,6 @@ bool NLS::Loop() {
 }
 
 void NLS::Unload() {
+	window->Close();
 	BASS_Free();
 }

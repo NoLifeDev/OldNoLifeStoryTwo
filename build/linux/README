@@ -11,9 +11,16 @@ You will need:
 
 To actually build the thing:
 
-go to build/linux and run make
+go to "build/linux" and run "make"
 
-Oh, and if you are building on a 32 bit system, replace lib/libbass64.so with lib/libbass.so
-in the Makefile
+!!If you are building on a 32 bit system, replace "lib/libbass64.so"
+with "lib/libbass.so" in the Makefile!!
+
+When you check out a new snapshot, run "make clean" before you build,
+because the Makefile doesn't track header file dependencies!
+
+Oh yeah, also, the project is in rapid development, so the Makefile might
+be outdated. In that case, you will need to add the 
+files that are missing from it yourself, until I update the Makefile.
 
 kthxbye
