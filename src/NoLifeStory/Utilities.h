@@ -27,19 +27,11 @@ inline string tostring(const int& t, const int& len) {
 }
 
 inline double todouble(const string& t) {
-	stringstream ss;
-	ss << t;
-	double d;
-	ss >> d;
-	return d;
+	return atof(t.c_str());
 }
 
 inline int toint(const string& t) {
-	stringstream ss;
-	ss << t;
-	int d;
-	ss >> d;
-	return d;
+	return atoi(t.c_str());
 }
 
 inline double sqr(const double& x) {
@@ -71,13 +63,31 @@ inline double sign (const double& x) {
 }
 
 #ifndef NLS_TR2
-inline bool exists (const string& name) {
+class path : public string {
+public:
+	path() : string() {}
+	path(const string& other) : string(other) {}
+	inline path operator/ (path other) {
+		path result(*this);
+		result /= other;
+		return result;
+	}
+	inline path& operator/= (path other) {
+		if (length() > 1 and (at(length()-1) == '/' or at(length()-1) == '\\')) {
+			erase(length()-1);
+		}
+		if (other.length() > 0 and (other.at(0) == '/' or other.at(0) == '\\')) {
+			other.erase(0,1);
+		}
+		*this += '/';
+		*this += other;
+		return *this;
+	}
+};
+inline bool exists (const path& name) {
 	ifstream file(name);
 	bool check = file.is_open();
 	file.close();
 	return check;
-}
-inline string operator/ (string s1, string s2) {
-	return s1+s2;
 }
 #endif

@@ -10,7 +10,9 @@ string maps[] = {"1000000", "2000000", "100000000", "101000000", "102000000", "1
 #endif
 
 void NLS::Init(const vector<string>& args) {
-	C("INFO") << "Initializing NoLifeStory" << endl;
+	freopen("nolifestory.log", "a", stdout);
+	freopen("nolifestory.log", "a", stderr);
+	cout << "Initializing NoLifeStory" << endl;
 	srand(time(0));
 	Network::Init();
 	Time.Reset();
@@ -23,6 +25,7 @@ void NLS::Init(const vector<string>& args) {
 #else
 	BASS_Init(-1, 44100, 0, (void*)window->GetSystemHandle(), 0);
 #endif
+	cout << "Initialization complete" << endl;
 	Map::Load("0", "");
 	Map::Load();
 }
@@ -36,9 +39,6 @@ bool NLS::Loop() {
 				break;
 			}
 			switch (e.Key.Code) {
-			case sf::Keyboard::Tilde:
-				console->Toggle();
-				break;
 			case sf::Keyboard::Escape:
 				return false;
 				break;

@@ -26,12 +26,7 @@ const double flyJumpDec = 0.35;
 const double wat1 = 0.0008928571428571428;
 
 void NLS::Physics::Init() {
-	Node n = WZ["Map"]["Physics"];
-	if (n) {
-		C("WZ") << "Oh boy, there's physics info!" << endl;
-	} else {
-
-	}
+	Node n = WZ["Map"]["Physics"];//TODO - Load this?
 }
 
 NLS::Physics::Physics() {

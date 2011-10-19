@@ -2,12 +2,12 @@
 // This file is part of NoLifeStory.              //
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
-#pragma once
+#ifdef NLS_GLOBAL
+#error "Global.h was included more than once"
+#endif
+#define NLS_GLOBAL
 
 #include "../SuperGlobal.h"
-#include "Functions.h"
-#include "CommandFunctions.h"
-#include "Console.h"
 #include "Utilities.h"
 #include "KeyMap.h"
 #include "Sprite.h"

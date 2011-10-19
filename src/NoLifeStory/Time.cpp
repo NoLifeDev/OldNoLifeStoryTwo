@@ -43,7 +43,7 @@ void NLS::_Time::Step() {
 	sf::Sleep(min(max(fps-100, 0.), 10.));
 #endif
 	if (output) {
-		C("INFO") << "Time taken: " << floor(delta*1000) << " ms" << endl;
+		cout << "Time taken: " << floor(delta*1000) << " ms" << endl;
 		output = false;
 	}
 	delta = min(0.1, delta);

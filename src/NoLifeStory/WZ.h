@@ -4,37 +4,6 @@
 ////////////////////////////////////////////////////
 
 namespace NLS {
-	/*
-	\class NLS::Node
-	\brief Node is used to access the WZ data.
-	Node is an extremely useful class which you will be using extensively.
-	In order to access the WZ data you start with the top level node:
-	NLS::WZ
-	From there you use the [] operator to access child nodes
-	Node lol = NLS::WZ["somenode"]["SomeOtherNode"]["What fun!"];
-	Remember, you can only go one node level per []
-	To obtain the value of a node just cast it
-	(string)somenode
-	(int)somenode
-	(Sprite)somenode
-	etc.
-	You can also assign the value automatically to a variable
-	string lol = somenode;
-	int foo = somenode;
-	Sprite wat = somenode;
-	To iterate through child nodes you can use Begin and End
-	for (auto it = somenode.Begin(); it != somenode.End(); it++) {
-		it->first;//Name of the node
-		it->second;//The node itself
-	}
-	Don't use the assignment operators.
-	Those are intended for the wz loading library only.
-	If you use them the wz data will no longer be what it used to be.
-	data is the only variable member of a Node.
-	Its a pointer to the actual data held by the node.
-	Unless you know what you're doing and there is no suitable function alternative,
-	don't touch data!
-	*/
 	class Node {
 	public:
 		Node();

@@ -41,7 +41,7 @@ void NLS::Map::Load() {
 		ThisPlayer.Reset(possible[r]->x, possible[r]->y);
 	};
 	if (curmap == nextmap) {
-		C("ERROR") << "The specified map is already loaded" << endl;
+		cerr << "The specified map is already loaded" << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -58,7 +58,7 @@ void NLS::Map::Load() {
 		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
 	}
 	if (!node) {
-		C("ERROR") << "Unable to locate map " << nextmap << endl;
+		cerr << "Unable to locate map " << nextmap << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -66,7 +66,7 @@ void NLS::Map::Load() {
 	}
 	Time.Reset();
 	curmap = nextmap;
-	C("INFO") << "Loading map " << nextmap << endl;
+	cout << "Loading map " << nextmap << endl;
 	string bgm = node["info"]["bgm"];
 	auto p = bgm.find('/');
 	bgmusic = WZ["Sound"][bgm.substr(0, p)][bgm.substr(p+1)];

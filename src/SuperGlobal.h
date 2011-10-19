@@ -161,8 +161,6 @@ using namespace std::tr1;
 #ifdef NLS_TR2
 using namespace std::tr2;
 using namespace std::tr2::sys;
-#else
-#define path string
 #endif
 
 //And resources

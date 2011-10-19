@@ -4,13 +4,9 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-int main(int argc, char **argv) {//Not much to do here
-	NLS::console = new NLS::Console();
-	vector<string> strs(argv, argv+argc);
-	//Actually run NLS here
-	NLS::Init(strs);
+int main(int argc, char **argv) {
+	NLS::Init(vector<string>(argv, argv+argc));
 	while (NLS::Loop()) {}
 	NLS::Unload();
-	delete NLS::console;
 	return 0;
 }
