@@ -12,4 +12,4 @@ namespace NLS {
 		}
 	};
 	extern map <sf::Keyboard::Key, KeyAction> KeyMap;
-};
+}

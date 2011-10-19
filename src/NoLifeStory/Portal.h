@@ -18,4 +18,4 @@ namespace NLS {
 		bool close;
 		static vector <Portal*> Portals;
 	};
-};
+}

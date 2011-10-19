@@ -18,4 +18,4 @@ namespace NLS {
 		static void Draw();
 	};
 	extern set <Foothold*> footholds;
-};
+}

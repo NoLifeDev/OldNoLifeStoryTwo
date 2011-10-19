@@ -7,5 +7,5 @@ namespace NLS {
 	namespace Network {
 		extern sf::TcpSocket Socket;
 		void Init();
-	};
-};
+	}
+}

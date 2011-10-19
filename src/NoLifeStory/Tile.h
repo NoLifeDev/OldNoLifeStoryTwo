@@ -12,4 +12,4 @@ namespace NLS {
 		Sprite spr;
 		static set <Tile*> Tiles;
 	};
-};
+}

@@ -5,4 +5,4 @@
 
 namespace NLS {
 	void LoadConfig();
-};
+}

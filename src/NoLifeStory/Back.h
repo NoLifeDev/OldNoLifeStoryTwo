@@ -20,4 +20,4 @@ namespace NLS {
 		bool ani;
 		static set <Back*> Backs;
 	};
-};
+}

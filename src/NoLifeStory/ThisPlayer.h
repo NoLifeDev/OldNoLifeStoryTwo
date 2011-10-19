@@ -7,4 +7,4 @@ namespace NLS {
 	public:
 		_ThisPlayer();
 	} extern ThisPlayer;
-};
+}

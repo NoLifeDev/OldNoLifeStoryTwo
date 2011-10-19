@@ -16,4 +16,4 @@ namespace NLS {
 		uint32_t stream;
 		SoundProperty* data;
 	};
-};
+}

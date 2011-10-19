@@ -16,4 +16,4 @@ namespace NLS {
 		bool repeat, f, flow;
 		static set <Obj*> Objs;
 	};
-};
+}

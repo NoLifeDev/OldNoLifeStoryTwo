@@ -15,4 +15,4 @@ namespace NLS {
 		void Reset();
 		_View();
 	} extern View;
-};
+}

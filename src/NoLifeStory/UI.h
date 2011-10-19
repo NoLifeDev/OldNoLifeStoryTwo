@@ -24,5 +24,5 @@ namespace NLS {
 		class ScrollBar : public Element {
 
 		};
-	};
-};
+	}
+}

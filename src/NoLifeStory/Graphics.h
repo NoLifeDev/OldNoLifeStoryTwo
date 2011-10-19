@@ -9,5 +9,5 @@ namespace NLS {
 		void Init();
 		void Draw();
 		void Unload();
-	};
-};
+	}
+}

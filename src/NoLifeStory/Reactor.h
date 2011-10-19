@@ -14,4 +14,4 @@ namespace NLS {
 		bool f;
 		static vector <Reactor*> Reactors;
 	};
-};
+}

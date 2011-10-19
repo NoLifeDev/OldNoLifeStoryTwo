@@ -20,4 +20,4 @@ namespace NLS {
 		double fps;
 		bool output;
 	} extern Time;
-};
+}

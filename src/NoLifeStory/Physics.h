@@ -17,4 +17,4 @@ namespace NLS {
 		void Reset(double x, double y);
 		static void Init();
 	};
-};
+}

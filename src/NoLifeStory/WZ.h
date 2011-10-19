@@ -67,4 +67,4 @@ namespace NLS {
 	};
 	extern Node WZ;
 	void InitWZ(const path& wzpath);
-};
+}

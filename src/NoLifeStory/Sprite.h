@@ -21,4 +21,4 @@ namespace NLS {
 		SpriteData* data;
 		static deque <SpriteData*> loaded;
 	};
-};
+}
