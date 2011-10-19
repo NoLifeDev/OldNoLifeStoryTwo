@@ -26,6 +26,7 @@ void NLS::_Time::Step() {
 	chrono::duration<double> tdif = now-start;
 	delta = dif.count();
 	tdelta = tdif.count();
+	last = now;
 #else
 	double temp = clock.GetElapsedTime();
 	temp /= 1000;
@@ -33,13 +34,16 @@ void NLS::_Time::Step() {
 	tdelta = temp;
 #endif
 	fps = fps*0.99+1/min(delta, 0.01)*0.01;
+	if (!(fps > 0 and fps < 1000)) {
+		fps = 0;//Weird shiz
+	}
 #ifdef NLS_CPP11
-	this_thread::sleep_for(chrono::duration<double>(min(max(fps-100, 0.), 10.)/1000));
+	this_thread::sleep_for(chrono::milliseconds(min(max((int)fps-100, 0), 10)));
 #else
 	sf::Sleep(min(max(fps-100, 0.), 10.));
 #endif
 	if (output) {
-		C("INFO") << "Time taken: " << floor(delta/1000) << " ms" << endl;
+		C("INFO") << "Time taken: " << floor(delta*1000) << " ms" << endl;
 		output = false;
 	}
 	delta = min(0.1, delta);

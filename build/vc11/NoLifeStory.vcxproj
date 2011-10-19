@@ -109,11 +109,13 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Reactor.h" />
     <ClInclude Include="..\..\src\NoLifeStory\ThisPlayer.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\UI.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
     <ClInclude Include="..\..\resources\Resource.h" />
     <ClInclude Include="..\..\src\NoLifeStory\AniSprite.h" />
@@ -148,6 +150,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Functions.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Graphics.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\KeyMap.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Network.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\NoLifeStory.cpp">
@@ -164,6 +167,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\ThisPlayer.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Tile.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Time.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\UI.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Utilities.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\View.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\WZ.cpp" />
