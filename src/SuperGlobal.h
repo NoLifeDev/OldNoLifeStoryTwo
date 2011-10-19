@@ -118,8 +118,6 @@
 #include <forward_list>
 #include <fstream>
 #include <functional>
-#include <hash_map>
-#include <hash_set>
 #include <iomanip>
 #include <ios>
 #include <iosfwd>
@@ -143,7 +141,6 @@
 #include <stdexcept>
 #include <streambuf>
 #include <string>
-#include <strstream>
 #include <system_error>
 #include <tuple>
 #include <type_traits>

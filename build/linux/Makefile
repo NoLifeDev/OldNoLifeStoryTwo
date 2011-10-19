@@ -1,9 +1,9 @@
 CE = g++
 SBP = ../../src/NoLifeStory
-CF = -O3 -std=gnu++0x -I../../include -Wno-deprecated -D_GLIBCXX_USE_NANOSLEEP
+CF = -O3 -std=gnu++0x -I../../include -Wall -D_GLIBCXX_USE_NANOSLEEP
 LF = lib/libbass64.so -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system
 EO = NLS
-OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/CommandFunctions.o obj/Config.o obj/Console.o obj/Foothold.o obj/Functions.o obj/Graphics.o obj/KeyMap.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
+OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
 
 target: $(OBJS)
 	$(CE) $(OBJS) -o $(EO) $(LF)
@@ -17,20 +17,11 @@ obj/Back.o: $(SBP)/Back.cpp
 obj/Client.o: $(SBP)/Client.cpp
 	$(CE) -c $(CF) $(SBP)/Client.cpp -o obj/Client.o
 
-obj/CommandFunctions.o: $(SBP)/CommandFunctions.cpp
-	$(CE) -c $(CF) $(SBP)/CommandFunctions.cpp -o obj/CommandFunctions.o
-
 obj/Config.o: $(SBP)/Config.cpp
 	$(CE) -c $(CF) $(SBP)/Config.cpp -o obj/Config.o
 
-obj/Console.o: $(SBP)/Console.cpp
-	$(CE) -c $(CF) $(SBP)/Console.cpp -o obj/Console.o
-
 obj/Foothold.o: $(SBP)/Foothold.cpp
 	$(CE) -c $(CF) $(SBP)/Foothold.cpp -o obj/Foothold.o
-
-obj/Functions.o: $(SBP)/Functions.cpp
-	$(CE) -c $(CF) $(SBP)/Functions.cpp -o obj/Functions.o
 
 obj/Graphics.o: $(SBP)/Graphics.cpp
 	$(CE) -c $(CF) $(SBP)/Graphics.cpp -o obj/Graphics.o
