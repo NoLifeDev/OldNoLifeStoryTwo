@@ -85,20 +85,20 @@ void NLS::Back::Draw() {
 	switch(movetype) {
 	case 1:
 		if (movep) {
-			ax = movew*sin((double)Time.tdelta*2*PI/movep);
+			ax = movew*sin((double)Time.tdelta*2*PI*1000/movep);
 		} else {
-			ax = movew*sin((double)Time.tdelta/1000);
+			ax = movew*sin((double)Time.tdelta);
 		}
 		break;
 	case 2:
 		if (movep) {
-			ay = moveh*sin((double)Time.tdelta*2*PI/movep);
+			ay = moveh*sin((double)Time.tdelta*2*PI*1000/movep);
 		} else {
-			ay = moveh*sin((double)Time.tdelta/1000);
+			ay = moveh*sin((double)Time.tdelta);
 		}
 		break;
 	case 3:
-		ang = (double)Time.tdelta/mover*radtodeg;
+		ang = (double)Time.tdelta*1000/mover*radtodeg;
 		break;
 	};
 	int ox = (100+rx)*(View.x+400)/100;
@@ -144,19 +144,19 @@ void NLS::Back::Draw() {
 		drawboth();
 		break;
 	case 4:
-		ax += Time.tdelta*rx/200;
+		ax += Time.tdelta*rx*5;
 		drawhorz();
 		break;
 	case 5:
-		ay += Time.tdelta*ry/200;
+		ay += Time.tdelta*ry*5;
 		drawvert();
 		break;
 	case 6:
-		ax += Time.tdelta*rx/200;
+		ax += Time.tdelta*rx*5;
 		drawboth();
 		break;
 	case 7:
-		ay += Time.tdelta*ry/200;
+		ay += Time.tdelta*ry*5;
 		drawboth();
 		break;
 	default:
