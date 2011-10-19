@@ -8,7 +8,6 @@ namespace NLS {
 		void Draw();
 		static void Load(Node n);
 		int x, y;
-		bool close;
 		int pt, tm;
 		string pn, tn;
 		int hi, vi;
@@ -16,6 +15,7 @@ namespace NLS {
 		int onlyonce;
 		int delay;
 		int hidetooltip;
+		bool close;
 		static vector <Portal*> Portals;
 	};
 };

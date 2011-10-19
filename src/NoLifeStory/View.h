@@ -9,8 +9,8 @@ namespace NLS {
 		double vx, vy;
 		double tx, ty;
 		int xmin, xmax, ymin, ymax;
-		bool relative;
 		int width, height;
+		bool relative;
 		void Step();
 		void Reset();
 		_View();

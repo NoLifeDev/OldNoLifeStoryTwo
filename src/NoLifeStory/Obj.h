@@ -9,13 +9,11 @@ namespace NLS {
 		void Draw();
 		static void Load(Node n);
 		int x, y, z;
-		bool repeat;
 		int movetype;
 		double movew, moveh, movep, mover;
-		bool flow;
 		double rx, ry;
-		bool f;
 		AniSprite spr;
+		bool repeat, f, flow;
 		static set <Obj*> Objs;
 	};
 };

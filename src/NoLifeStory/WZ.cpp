@@ -619,8 +619,8 @@ public:
 	Sound sound;
 	Node parent;
 	string name;
-	map <string, Node> children;
 	Img* image;
+	map <string, Node> children;
 private:
 	NodeData(const NodeData&);
 	NodeData& operator= (const NodeData&);

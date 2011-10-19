@@ -42,9 +42,9 @@ namespace NLS {
 		ifstream* file;
 		Sprite sprite;
 		int32_t format;
-		uint8_t format2;
 		int32_t length;
 		uint32_t offset;
+		uint8_t format2;
 	};
 	class SoundProperty {
 	public:

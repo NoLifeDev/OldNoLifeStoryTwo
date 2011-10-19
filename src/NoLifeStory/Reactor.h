@@ -7,11 +7,11 @@ namespace NLS {
 	public:
 		static void Load(Node n);
 		void Draw();
-		bool f;
 		int x, y;
 		int time;
 		string id, name;
 		Node data;
+		bool f;
 		static vector <Reactor*> Reactors;
 	};
 };
