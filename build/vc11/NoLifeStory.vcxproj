@@ -120,12 +120,9 @@
     <ClInclude Include="..\..\resources\Resource.h" />
     <ClInclude Include="..\..\src\NoLifeStory\AniSprite.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Back.h" />
-    <ClInclude Include="..\..\src\NoLifeStory\CommandFunctions.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Client.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Config.h" />
-    <ClInclude Include="..\..\src\NoLifeStory\Console.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Foothold.h" />
-    <ClInclude Include="..\..\src\NoLifeStory\Functions.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Global.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Graphics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Keys.h" />
@@ -143,12 +140,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\NoLifeStory\AniSprite.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Back.cpp" />
-    <ClCompile Include="..\..\src\NoLifeStory\CommandFunctions.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Client.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Config.cpp" />
-    <ClCompile Include="..\..\src\NoLifeStory\Console.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />
-    <ClCompile Include="..\..\src\NoLifeStory\Functions.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Graphics.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\KeyMap.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />
