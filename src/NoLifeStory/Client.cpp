@@ -66,6 +66,7 @@ bool NLS::Loop() {
 			break;
 		case sf::Event::MouseWheelMoved:
 			UI::HandleMouseScroll(e.MouseWheel.Delta, e.MouseButton.X, e.MouseButton.Y);
+			break;
 		case sf::Event::Closed:
 			return false;
 			break;
