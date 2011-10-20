@@ -7,31 +7,32 @@
 #define degtorad 0.01745329251994329576923690768489
 #define radtodeg 57.295779513082320876798154814105
 
-inline string tostring(const double& t) {
+inline sf::String tostring(const double& t) {
 	static char str[32];
 	sprintf(str, "%f", t);
 	return str;
 }
 
-inline string tostring(const int& t) {
+inline sf::String tostring(const int& t) {
 	static char str[32];
 	sprintf(str, "%i", t);
 	return str;
 }
 
-inline string tostring(const int& t, const int& len) {
-	stringstream ss;
-	ss << t;
-	string s = ss.str();
-	return s.insert(0, len-s.size(), '0');
+inline sf::String tostring(const int& t, const int& len) {
+	static char str[64];
+	int size = min(len, sprintf(str+32, "%i", t));
+	str[32+size] = '\0';
+	memset(str+size-len, '0', len-size);
+	return str+size-len;
 }
 
-inline double todouble(const string& t) {
-	return atof(t.c_str());
+inline double todouble(const sf::String& t) {
+	return atof(t.ToAnsiString().c_str());
 }
 
-inline int toint(const string& t) {
-	return atoi(t.c_str());
+inline int toint(const sf::String& t) {
+	return atoi(t.ToAnsiString().c_str());
 }
 
 inline double sqr(const double& x) {
@@ -60,6 +61,10 @@ inline double angdif (const double& angle1, const double& angle2) {
 
 inline double sign (const double& x) {
 	return x>0?1:x<0?-1:0;
+}
+
+inline ostream& operator<< (ostream& l, sf::String& r) {
+	return l << r.ToAnsiString();
 }
 
 #ifndef NLS_TR2

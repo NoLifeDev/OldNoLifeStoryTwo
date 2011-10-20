@@ -5,22 +5,22 @@
 #include "Global.h"
 
 NLS::Node NLS::Map::node;
-string NLS::Map::nextmap;
-string NLS::Map::curmap;
-string NLS::Map::nextportal;
+sf::String NLS::Map::nextmap;
+sf::String NLS::Map::curmap;
+sf::String NLS::Map::nextportal;
 vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
 NLS::Sound NLS::Map::bgmusic;
 
-void NLS::Map::Load(const string& id, const string& portal) {
+void NLS::Map::Load(const sf::String& id, const sf::String& portal) {
 	nextmap = id;
 	nextportal = portal;
 }
 
 void NLS::Map::Load() {
-	auto teleport = [&](string portal, bool change) {
-		if (portal.empty()) {
+	auto teleport = [&](sf::String portal, bool change) {
+		if (portal.IsEmpty()) {
 			if (change) {
 				portal = "sp";
 			} else {
@@ -51,8 +51,8 @@ void NLS::Map::Load() {
 		node = WZ["UI"]["MapLogin"];
 		throw(273);//We don't deal with this shit yet
 	} else {
-		if (nextmap.size() < 9) {
-			nextmap.insert(0, 9-nextmap.size(), '0');
+		if (nextmap.GetSize() < 9) {
+			nextmap.Insert(0, string(9-nextmap.GetSize(), '0'));
 		}
 		char zone = nextmap[0];
 		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
@@ -67,9 +67,9 @@ void NLS::Map::Load() {
 	Time.Reset();
 	curmap = nextmap;
 	cout << "Loading map " << nextmap << endl;
-	string bgm = node["info"]["bgm"];
-	auto p = bgm.find('/');
-	bgmusic = WZ["Sound"][bgm.substr(0, p)][bgm.substr(p+1)];
+	sf::String bgm = node["info"]["bgm"];
+	auto p = bgm.Find('/');
+	bgmusic = WZ["Sound"][bgm.ToAnsiString().substr(0, p)][bgm.ToAnsiString().substr(p+1)];
 	bgmusic.Play(true);
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Tiles.clear();

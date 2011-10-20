@@ -278,7 +278,7 @@ void NLS::InitWZ(const path& wzpath) {
 			if (type == 3) {
 				dirs.insert(pair<string, uint32_t>(name, offset));
 			} else if (type == 4) {
-				name.Erase(name.GetSize()-4);
+				name.Erase(name.GetSize()-4, 4);
 				new Img(file, n.g(name), offset);
 			} else {
 				cerr << "Unknown node type" << endl;
