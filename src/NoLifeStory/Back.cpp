@@ -7,15 +7,13 @@
 set <NLS::Back*> NLS::Back::Backs;
 
 void NLS::Back::Load(Node n) {
-	for (auto it = Backs.begin(); it != Backs.end(); it++) {
-		delete *it;
-	}
+	for_each(Backs.begin(), Backs.end(), [](Back* b){delete b;});
 	Backs.clear();
 	n = n["back"];
 	for (auto it = n.begin(); it != n.end(); it++) {
 		Node bn = it->second;
-		string type1 = bn["bS"];
-		string type2 = bn["no"];
+		sf::String type1 = bn["bS"];
+		sf::String type2 = bn["no"];
 		Back* b = new Back;
 		b->x = bn["x"];
 		b->y = bn["y"];

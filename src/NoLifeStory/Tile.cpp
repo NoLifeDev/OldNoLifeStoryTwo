@@ -13,14 +13,14 @@ void NLS::Tile::Load(Node n) {
 	Tiles.clear();
 	for (uint8_t i = 0; i < 8; i++) {
 		Node ln  = n[i];
-		string type = ln["info"]["tS"];
+		sf::String type = ln["info"]["tS"];
 		if (!ln["tile"]) {
 			continue;
 		}
 		for (auto it = ln["tile"].begin(); it != ln["tile"].end(); it++) {
 			Node tn = it->second;
-			string u = tn["u"];
-			string no = tn["no"];
+			sf::String u = tn["u"];
+			sf::String no = tn["no"];
 			Node td = WZ["Map"]["Tile"][type][u][no];
 			Tile *t = new Tile;
 			t->spr = td;

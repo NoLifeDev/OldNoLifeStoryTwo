@@ -9,9 +9,9 @@ namespace NLS {
 		static void Load(Node n);
 		int x, y;
 		int pt, tm;
-		string pn, tn;
+		sf::String pn, tn;
 		int hi, vi;
-		string script;
+		sf::String script;
 		int onlyonce;
 		int delay;
 		int hidetooltip;
