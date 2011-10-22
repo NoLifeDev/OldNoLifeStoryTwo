@@ -9,7 +9,7 @@ namespace NLS {
 		void Draw();
 		int x, y;
 		int time;
-		sf::String id, name;
+		ustring id, name;
 		Node data;
 		bool f;
 		static vector <Reactor*> Reactors;

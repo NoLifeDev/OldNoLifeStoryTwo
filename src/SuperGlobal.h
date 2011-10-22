@@ -159,6 +159,10 @@ using namespace std::tr2;
 using namespace std::tr2::sys;
 #endif
 
+//Do some type checks
+static_assert(sizeof(char) == 1, "Unsupported char size");
+static_assert(sizeof(wchar_t) == 2, "Unsupported char size");
+
 //And resources
 #ifdef NLS_WINDOWS
 #include "../resources/Resource.h"

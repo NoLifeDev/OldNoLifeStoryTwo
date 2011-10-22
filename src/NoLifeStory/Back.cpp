@@ -12,8 +12,8 @@ void NLS::Back::Load(Node n) {
 	n = n["back"];
 	for (auto it = n.begin(); it != n.end(); it++) {
 		Node bn = it->second;
-		sf::String type1 = bn["bS"];
-		sf::String type2 = bn["no"];
+		ustring type1 = bn["bS"];
+		ustring type2 = bn["no"];
 		Back* b = new Back;
 		b->x = bn["x"];
 		b->y = bn["y"];

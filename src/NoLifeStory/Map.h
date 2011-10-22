@@ -5,13 +5,13 @@
 
 namespace NLS {
 	namespace Map {
-		void Load(const sf::String& id, const sf::String& portal);
+		void Load(const ustring& id, const ustring& portal);
 		void Load();
 		void Draw();
 		extern Node node;
-		extern sf::String nextmap;
-		extern sf::String nextportal;
-		extern sf::String curmap;
+		extern ustring nextmap;
+		extern ustring nextportal;
+		extern ustring curmap;
 		class Layer {
 		public:
 			void Draw();

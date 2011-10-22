@@ -82,7 +82,7 @@ bool NLS::Loop() {
 	}
 	Map::Load(maps[i++], "");
 #endif
-	if (!Map::nextmap.IsEmpty()) {
+	if (!Map::nextmap.empty()) {
 		Map::Load();
 	}
 	return true;

@@ -34,10 +34,10 @@ inline int32_t ReadCInt(ifstream* file) {
 	}
 }
 
-inline sf::String ReadEncString(ifstream* file) {
+inline ustring ReadEncString(ifstream* file) {
 	int8_t slen = Read<int8_t>(file);
 	if (slen == 0) {
-		return sf::String();
+		return ustring();
 	} else if (slen > 0) {
 		int32_t len;
 		if (slen == 127) {
@@ -46,7 +46,7 @@ inline sf::String ReadEncString(ifstream* file) {
 			len = slen;
 		}
 		if (len <= 0) {
-			return sf::String();
+			return ustring();
 		}
 		static wchar_t s[1024];
 		uint16_t mask = 0xAAAA;
@@ -66,11 +66,11 @@ inline sf::String ReadEncString(ifstream* file) {
 			len = -slen;
 		}
 		if (len <= 0) {
-			return sf::String();
+			return ustring();
 		}
 		uint8_t mask = 0xAA;
 		static char s[1024];
-		file->read(s, len);
+		file->read((char*)s, len);
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
 			s[i] ^= WZKey[i];
@@ -105,7 +105,7 @@ inline void ReadEncFast(ifstream* file) {
 	}
 }
 
-inline sf::String ReadString(ifstream* file, uint32_t offset) {
+inline ustring ReadString(ifstream* file, uint32_t offset) {
 	uint8_t a = Read<uint8_t>(file);
 	switch (a) {
 	case 0x00:
@@ -118,19 +118,19 @@ inline sf::String ReadString(ifstream* file, uint32_t offset) {
 			offset += off;
 			uint32_t p = file->tellg();
 			file->seekg(offset);
-			sf::String s = ReadEncString(file);
+			ustring s = ReadEncString(file);
 			file->seekg(p);
 			return s;
 		}
 	default:
-		return sf::String();
+		return ustring();
 	}
 }
 
-inline sf::String ReadStringOffset(ifstream* file, uint32_t offset) {
+inline ustring ReadStringOffset(ifstream* file, uint32_t offset) {
 	uint32_t p = file->tellg();
 	file->seekg(offset);
-	sf::String s = ReadEncString(file);
+	ustring s = ReadEncString(file);
 	file->seekg(p);
 	return s;
 }
@@ -220,7 +220,7 @@ void NLS::InitWZ(const path& wzpath) {
 						if(a != 0x73) {
 							continue;
 						}
-						sf::String ss = ReadEncString(file);
+						ustring ss = ReadEncString(file);
 						if (ss != "Property") {
 							continue;
 						}
@@ -250,9 +250,9 @@ void NLS::InitWZ(const path& wzpath) {
 			File(n);
 			return;
 		}
-		set<pair<sf::String, uint32_t>> dirs;
+		set<pair<ustring, uint32_t>> dirs;
 		for (int i = 0; i < count; i++) {
-			sf::String name;
+			ustring name;
 			uint8_t type = Read<uint8_t>(file);
 			if (type == 1) {
 				file->seekg(10, ios::cur);
@@ -278,7 +278,7 @@ void NLS::InitWZ(const path& wzpath) {
 			if (type == 3) {
 				dirs.insert(pair<string, uint32_t>(name, offset));
 			} else if (type == 4) {
-				name.Erase(name.GetSize()-4, 4);
+				name.erase(name.size()-4, 4);
 				new Img(file, n.g(name), offset);
 			} else {
 				cerr << "Unknown node type" << endl;
@@ -325,7 +325,7 @@ void NLS::Img::Parse() {
 	SubProperty = [&ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
 		int32_t count = ReadCInt(file);
 		for (int i = 0; i < count; i++) {
-			sf::String name = ReadString(file, offset);
+			ustring name = ReadString(file, offset);
 			uint8_t a = Read<uint8_t>(file);
 			switch (a) {
 			case 0x00:
@@ -364,7 +364,7 @@ void NLS::Img::Parse() {
 		}
 	};
 	ExtendedProperty = [&SubProperty, &ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
-		sf::String name;
+		ustring name;
 		uint8_t a = Read<uint8_t>(file);
 		if (a == 0x1B) {
 			int32_t inc = Read<int32_t>(file);
@@ -421,13 +421,8 @@ void NLS::Img::Parse() {
 	};
 	Resolve = [&Resolve](Node n) {
 		if (n["UOL"]) {
-			sf::String s = n["UOL"];
-			basic_string<uint32_t> str;
-			vector <sf::String> parts;
-			basic_stringstream<uint32_t> ss(s.GetData());
-			while (getline<uint32_t>(ss, str, '/')) {
-				parts.push_back(str);
-			}
+			ustring s = n["UOL"];
+			vector <ustring> parts = s.split('/');
 			Node nn = n.Parent();
 			for (auto it = parts.begin(); it != parts.end(); it++) {
 				if (!nn) {
@@ -456,7 +451,7 @@ void NLS::Img::Parse() {
 		cout << "Invalid WZ image!" << endl;
 		throw(273);
 	}
-	sf::String s = ReadEncString(file);
+	ustring s = ReadEncString(file);
 	if (s != "Property") {
 		cout << "Invalid WZ image!" << endl;
 		throw(273);
@@ -607,15 +602,15 @@ public:
 		intValue = 0;
 		floatValue = 0;
 	}
-	sf::String stringValue;
+	ustring stringValue;
 	double floatValue;
 	int intValue;
 	Sprite sprite;
 	Sound sound;
 	Node parent;
-	sf::String name;
+	ustring name;
 	Img* image;
-	map <sf::String, Node> children;
+	map <ustring, Node> children;
 private:
 	NodeData(const NodeData&);
 	NodeData& operator= (const NodeData&);
@@ -634,7 +629,7 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 	return *this;
 }
 
-NLS::Node NLS::Node::operator[] (const sf::String& key) {
+NLS::Node NLS::Node::operator[] (const ustring& key) {
 	if (!data) {
 		return Node();
 	}
@@ -658,7 +653,7 @@ NLS::Node NLS::Node::operator[] (const int& key) {
 	return (*this)[tostring(key)];
 }
 
-NLS::Node NLS::Node::g(const sf::String& key) {
+NLS::Node NLS::Node::g(const ustring& key) {
 	assert(data);
 	Node& n = data->children[key];
 	n.data = new NodeData();
@@ -667,28 +662,28 @@ NLS::Node NLS::Node::g(const sf::String& key) {
 	return n;
 }
 
-map<sf::String, NLS::Node>::iterator NLS::Node::begin() {
+map<ustring, NLS::Node>::iterator NLS::Node::begin() {
 	if (!data) {
-		return map<sf::String, NLS::Node>::iterator();
+		return map<ustring, NLS::Node>::iterator();
 	}
 	return data->children.begin();
 }
 
-map<sf::String, NLS::Node>::iterator NLS::Node::end() {
+map<ustring, NLS::Node>::iterator NLS::Node::end() {
 	if (!data) {
-		return map<sf::String, NLS::Node>::iterator();
+		return map<ustring, NLS::Node>::iterator();
 	}
 	return data->children.end();
 }
 
-sf::String NLS::Node::Name() {
+ustring NLS::Node::Name() {
 	if (!data) {
-		return string();
+		return ustring();
 	}
 	return data->name;
 }
 
-void NLS::Node::Name(const sf::String& s) {
+void NLS::Node::Name(const ustring& s) {
 	if (!data) {
 		data = new NodeData();
 	}
@@ -715,9 +710,9 @@ NLS::Node::operator bool() {
 	return (bool)data;
 }
 
-NLS::Node::operator sf::String() {
+NLS::Node::operator ustring() {
 	if (!data) {
-		return sf::String();
+		return ustring();
 	}
 	return data->stringValue;
 }
@@ -750,7 +745,7 @@ NLS::Node::operator NLS::Sound() {
 	return data->sound;
 }
 
-void NLS::Node::Set(const sf::String& v) {
+void NLS::Node::Set(const ustring& v) {
 	data->intValue = toint(v);
 	data->floatValue = todouble(v);
 	data->stringValue = v;

@@ -7,19 +7,88 @@
 #define degtorad 0.01745329251994329576923690768489
 #define radtodeg 57.295779513082320876798154814105
 
-inline sf::String tostring(const double& t) {
+class ustring {
+private:
+	wstring str;
+public:
+	ustring() {}
+	ustring(const string& s) : str(s.begin(), s.end()) {}
+	ustring(const wstring& s) : str(s.begin(), s.end()) {}
+	ustring(const char* s) {
+		string ss(s);
+		*this = ss;
+	}
+	~ustring() {}
+	operator string () const {return string(str.begin(), str.end());}
+	operator wstring () const {return str;}
+	ustring& operator+= (const ustring& s) {
+		str += s.str;
+		return *this;
+	}
+	ustring& operator+= (const char* s) {
+		return *this += ustring(s);
+	}
+	ustring& operator= (const ustring& s) {
+		str = s.str;
+		return *this;
+	}
+	bool operator== (const ustring& s) const {return str == s.str;}
+	bool operator== (const char* s) const {return *this == ustring(s);}
+	bool operator!= (const ustring& s) const {return str != s.str;}
+	bool operator!= (const char* s) const {return *this != ustring(s);}
+	bool operator< (const ustring& s) const {return str < s.str;}
+	wchar_t operator[] (const size_t& i) const {return str[i];}
+	bool empty() const {return str.empty();}
+	size_t size() const {return str.size();}
+	ustring& insert(size_t p, size_t o, wchar_t c) {
+		str.insert(p, o, c);
+		return *this;
+	}
+	ustring& erase(size_t p = 0, size_t len = wstring::npos) {
+		str.erase(p, len);
+		return *this;
+	}
+	wstring::iterator begin() {return str.begin();}
+	wstring::iterator end() {return str.end();}
+	ustring& pad(wchar_t c, size_t l) {
+		insert(0, size()-l, c);
+		return *this;
+	}
+	vector<ustring> split (wchar_t c) const {
+		wstringstream ss(str);
+		wstring s;
+		vector<ustring> sp;
+		while (getline(ss, s, c)) {
+			sp.push_back(s);
+		}
+		return sp;
+	}
+};
+inline ostream& operator<< (const ostream& out, const ustring& s) {
+	return out << (string)s;
+}
+inline ustring operator+ (const ustring& s1, const ustring& s2) {
+	ustring s = s1;
+	return s += s2;
+}
+inline ustring operator+ (const ustring& s1, const char* s2) {
+	ustring s = s1;
+	return s += s2;
+}
+
+inline ustring tostring(const double& t) {
 	static char str[32];
 	sprintf(str, "%f", t);
 	return str;
 }
 
-inline sf::String tostring(const int& t) {
+inline ustring tostring(const int& t) {
 	static char str[32];
 	sprintf(str, "%i", t);
 	return str;
 }
 
-inline sf::String tostring(const int& t, const int& len) {
+inline ustring tostring(const int& t, const int& len) {
 	static char str[64];
 	int size = min(len, sprintf(str+32, "%i", t));
 	str[32+size] = '\0';
@@ -27,12 +96,12 @@ inline sf::String tostring(const int& t, const int& len) {
 	return str+size-len;
 }
 
-inline double todouble(const sf::String& t) {
-	return atof(t.ToAnsiString().c_str());
+inline double todouble(const ustring& t) {
+	return atof(((string)t).c_str());
 }
 
-inline int toint(const sf::String& t) {
-	return atoi(t.ToAnsiString().c_str());
+inline int toint(const ustring& t) {
+	return atoi(((string)t).c_str());
 }
 
 inline double sqr(const double& x) {
@@ -61,10 +130,6 @@ inline double angdif (const double& angle1, const double& angle2) {
 
 inline double sign (const double& x) {
 	return x>0?1:x<0?-1:0;
-}
-
-inline ostream& operator<< (ostream& l, sf::String& r) {
-	return l << r.ToAnsiString();
 }
 
 #ifndef NLS_TR2
