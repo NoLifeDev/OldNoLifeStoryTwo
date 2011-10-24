@@ -156,7 +156,8 @@ void NLS::InitWZ(const path& wzpath) {
 	};
 	File = [&ReadOffset, &Directory](Node n) {
 		path filename = WZPath/path(n.Name()+L".wz");
-		ifstream *file = new ifstream(filename, ios::in|ios::binary);
+		string sname(filename.begin(), filename.end());
+		ifstream *file = new ifstream(sname, ios::in|ios::binary);
 		if (!file->is_open()) {
 			wcerr << "Failed to load " << filename << endl;
 			return;//Don't throw an error because of Nexon's stupid ExcelReport crap

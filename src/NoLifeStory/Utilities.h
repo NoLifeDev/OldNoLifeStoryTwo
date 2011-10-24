@@ -61,13 +61,13 @@ public:
 
 inline ustring tostring(const double& t) {
 	static wchar_t str[32];
-	swprintf(str, L"%f", t);
+	swprintf(str, 2, L"%f", t);
 	return str;
 }
 
 inline ustring tostring(const int& t) {
 	static wchar_t str[32];
-	swprintf(str, L"%i", t);
+	swprintf(str, 2, L"%i", t);
 	return str;
 }
 
@@ -110,7 +110,7 @@ inline double sign (const double& x) {
 #ifndef NLS_TR2
 typedef ustring path;
 inline bool exists (const path& name) {
-	ifstream file(name);
+	wifstream file(name);
 	bool check = file.is_open();
 	file.close();
 	return check;
