@@ -61,13 +61,13 @@ public:
 
 inline ustring tostring(const double& t) {
 	static wchar_t str[32];
-	wsprintf(str, L"%f", t);
+	swprintf(str, L"%f", t);
 	return str;
 }
 
 inline ustring tostring(const int& t) {
 	static wchar_t str[32];
-	wsprintf(str, L"%i", t);
+	swprintf(str, L"%i", t);
 	return str;
 }
 
