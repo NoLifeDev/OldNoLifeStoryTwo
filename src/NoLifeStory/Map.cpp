@@ -41,7 +41,7 @@ void NLS::Map::Load() {
 		ThisPlayer.Reset(possible[r]->x, possible[r]->y);
 	};
 	if (curmap == nextmap) {
-		cerr << "The specified map is already loaded" << endl;
+		wcerr << "The specified map is already loaded" << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";

@@ -158,7 +158,7 @@ void NLS::Back::Draw() {
 		drawboth();
 		break;
 	default:
-		cerr << "Unknown background type " << type << endl;
+		wcerr << "Unknown background type " << type << endl;
 		throw(273);
 		break;
 	}
