@@ -40,8 +40,10 @@ public:
 	wchar_t operator[] (const size_t& i) const {return str[i];}
 	bool empty() const {return str.empty();}
 	size_t size() const {return str.size();}
-	ustring& insert(size_t p, size_t o, wchar_t c) {
-		str.insert(p, o, c);
+	const wchar_t* wstr() const {return str.c_str();}
+	const char* cstr() const {return string(str.begin(), str.end()).c_str();}
+	ustring& insert(size_t p, size_t l, wchar_t c) {
+		str.insert(p, l, c);
 		return *this;
 	}
 	ustring& erase(size_t p = 0, size_t len = wstring::npos) {
@@ -51,7 +53,7 @@ public:
 	wstring::iterator begin() {return str.begin();}
 	wstring::iterator end() {return str.end();}
 	ustring& pad(wchar_t c, size_t l) {
-		insert(0, size()-l, c);
+		insert(0, l-size(), c);
 		return *this;
 	}
 	vector<ustring> split (wchar_t c) const {
@@ -64,7 +66,7 @@ public:
 		return sp;
 	}
 };
-inline ostream& operator<< (const ostream& out, const ustring& s) {
+inline ostream& operator<< (ostream& out, const ustring& s) {
 	return out << (string)s;
 }
 inline ustring operator+ (const ustring& s1, const ustring& s2) {
