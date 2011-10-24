@@ -70,14 +70,16 @@ inline ustring ReadEncString(ifstream* file) {
 		}
 		uint8_t mask = 0xAA;
 		static char s[1024];
+		static wchar_t ws[1024];
 		file->read((char*)s, len);
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
 			s[i] ^= WZKey[i];
+			ws[i] = wcout.widen(s[i]);
 			mask++;
 		}
-		s[len] = '\0';
-		return s;
+		ws[len] = '\0';
+		return ws;
 	}
 }
 
@@ -153,16 +155,16 @@ void NLS::InitWZ(const path& wzpath) {
 		return p;
 	};
 	File = [&ReadOffset, &Directory](Node n) {
-		path filename = WZPath/path(n.Name()+".wz");
+		path filename = WZPath/path(n.Name()+L".wz");
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 		if (!file->is_open()) {
-			cerr << "Failed to load " << filename << endl;
+			wcerr << "Failed to load " << filename << endl;
 			return;//Don't throw an error because of Nexon's stupid ExcelReport crap
 		}
 		string ident(4, '\0');
 		file->read(const_cast<char*>(ident.c_str()), 4);
 		if (ident != "PKG1") {
-			cerr << "Invalid ident header for " << filename << endl;
+			wcerr << "Invalid ident header for " << filename << endl;
 			throw(273);
 		}
 		uint64_t fileSize = Read<uint64_t>(file);
@@ -202,9 +204,10 @@ void NLS::InitWZ(const path& wzpath) {
 			for (uint8_t j = 0; j < 2 and !success; j++) {
 				WZKey = WZKeys[j];
 				for (Version = 0; Version < 256; Version++) {
-					string s = tostring(Version);
+					char s[4];
+					int l = sprintf(s, "%i", Version);
 					VersionHash = 0;
-					for (int i = 0; i < s.size(); i++) {
+					for (int i = 0; i < l; i++) {
 						VersionHash = 32*VersionHash+s[i]+1;
 					}
 					uint32_t result = 0xFF^(VersionHash>>24)^(VersionHash<<8>>24)^(VersionHash<<16>>24)^(VersionHash<<24>>24);
@@ -221,7 +224,7 @@ void NLS::InitWZ(const path& wzpath) {
 							continue;
 						}
 						ustring ss = ReadEncString(file);
-						if (ss != "Property") {
+						if (ss != L"Property") {
 							continue;
 						}
 						cout << "Detected WZ version: " << Version << endl;
@@ -276,7 +279,7 @@ void NLS::InitWZ(const path& wzpath) {
 			int32_t checksum = ReadCInt(file);
 			uint32_t offset = ReadOffset(file, fileStart);
 			if (type == 3) {
-				dirs.insert(pair<string, uint32_t>(name, offset));
+				dirs.insert(pair<ustring, uint32_t>(name, offset));
 			} else if (type == 4) {
 				name.erase(name.size()-4, 4);
 				new Img(file, n.g(name), offset);
@@ -646,7 +649,7 @@ NLS::Node NLS::Node::operator[] (const ustring& key) {
 }
 
 NLS::Node NLS::Node::operator[] (const char key[]) {
-	return (*this)[string(key)];
+	return (*this)[ustring(key)];
 }
 
 NLS::Node NLS::Node::operator[] (const int& key) {

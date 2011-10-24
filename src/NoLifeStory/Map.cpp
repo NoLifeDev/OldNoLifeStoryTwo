@@ -52,11 +52,11 @@ void NLS::Map::Load() {
 		throw(273);//We don't deal with this shit yet
 	} else {
 		nextmap.pad('0', 9);
-		char zone = nextmap[0];
-		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
+		wchar_t zone = nextmap[0];
+		node = WZ["Map"]["Map"][ustring("Map")+zone][nextmap];
 	}
 	if (!node) {
-		cerr << "Unable to locate map " << nextmap << endl;
+		wcerr << "Unable to locate map " << nextmap << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -64,7 +64,7 @@ void NLS::Map::Load() {
 	}
 	Time.Reset();
 	curmap = nextmap;
-	cout << "Loading map " << nextmap << endl;
+	wcout << "Loading map " << nextmap << endl;
 	ustring bgm = node["info"]["bgm"];
 	vector<ustring> p = bgm.split('/');
 	bgmusic = WZ["Sound"][p[0]][p[1]];

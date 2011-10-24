@@ -38,7 +38,9 @@ void NLS::Graphics::Draw() {
 	Foothold::Draw();
 	View.Reset();
 	Time.Step();
-	window->SetTitle("NoLifeStory::FrameRate = "+tostring((int)Time.fps));
+	ustring title = L"NoLifeStory::FrameRate = "+tostring((int)Time.fps);//Fix this SFML!
+	string stitle(title.begin(), title.end());
+	window->SetTitle(stitle);
 	window->Display();
 #ifdef DEBUG
 	switch (glGetError()) {
