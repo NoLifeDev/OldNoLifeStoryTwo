@@ -47,7 +47,7 @@ void NLS::Graphics::Draw() {
 	case GL_NO_ERROR:
 		break;
 	default:
-		wcerr << "OH GOD OPENGL FAILED" << endl;
+		wcerr << L"OH GOD OPENGL FAILED" << endl;
 	}
 #endif
 }

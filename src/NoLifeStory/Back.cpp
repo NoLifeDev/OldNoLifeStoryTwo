@@ -27,7 +27,7 @@ void NLS::Back::Load(Node n) {
 		b->type = bn["type"];
 		Node bd = WZ["Map"]["Back"][type1];
 		if (!bd) {
-			wcerr << "Failed to find background type " << type1 << endl;
+			wcerr << L"Failed to find background type " << type1 << endl;
 			delete b;
 			continue;
 		}
@@ -158,7 +158,7 @@ void NLS::Back::Draw() {
 		drawboth();
 		break;
 	default:
-		wcerr << "Unknown background type " << type << endl;
+		wcerr << L"Unknown background type " << type << endl;
 		throw(273);
 		break;
 	}
