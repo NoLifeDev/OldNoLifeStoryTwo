@@ -66,5 +66,5 @@ namespace NLS {
 		ifstream* file;
 	};
 	extern Node WZ;
-	void InitWZ(const path& wzpath);
+	void InitWZ(const upath& wzpath);
 }

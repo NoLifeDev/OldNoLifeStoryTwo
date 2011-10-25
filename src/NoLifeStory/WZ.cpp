@@ -5,7 +5,7 @@
 #include "Global.h"
 #include "Keys.h"
 
-path WZPath;
+upath WZPath;
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
 uint8_t BMSKey[0xFFFF];
@@ -75,7 +75,7 @@ inline ustring ReadEncString(ifstream* file) {
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
 			s[i] ^= WZKey[i];
-			ws[i] = wcout.widen(s[i]);
+			ws[i] = ucout.widen(s[i]);
 			mask++;
 		}
 		ws[len] = '\0';
@@ -139,7 +139,7 @@ inline ustring ReadStringOffset(ifstream* file, uint32_t offset) {
 #pragma endregion
 
 #pragma region WZ Parsing
-void NLS::InitWZ(const path& wzpath) {
+void NLS::InitWZ(const upath& wzpath) {
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
 	function <void(Node, ifstream*, uint32_t)> Directory;
@@ -155,17 +155,21 @@ void NLS::InitWZ(const path& wzpath) {
 		return p;
 	};
 	File = [&ReadOffset, &Directory](Node n) {
-		path filename = WZPath/path(n.Name()+L".wz");
+		upath filename = WZPath/upath(n.Name()+U(".wz"));
+#if !defined(NLS_TR2) && !defined(NLS_WINDOWS)
 		string sname(filename.begin(), filename.end());
 		ifstream *file = new ifstream(sname, ios::in|ios::binary);
+#else
+		ifstream *file = new ifstream(filename, ios::in|ios::binary);
+#endif
 		if (!file->is_open()) {
-			wcerr << L"Failed to load " << filename << endl;
+			ucerr << U("Failed to load ") << filename << endl;
 			return;//Don't throw an error because of Nexon's stupid ExcelReport crap
 		}
-		string ident(4, '\0');
-		file->read(const_cast<char*>(ident.c_str()), 4);
-		if (ident != "PKG1") {
-			wcerr << L"Invalid ident header: " << ustring(ident) << endl;
+		char ident[4];
+		file->read(ident, 4);
+		if (string(ident, 4) != "PKG1") {
+			ucerr << U("Invalid ident header: ") << ustring(ident) << endl;
 			throw(273);
 		}
 		uint64_t fileSize = Read<uint64_t>(file);
@@ -192,12 +196,12 @@ void NLS::InitWZ(const path& wzpath) {
 					c = file->tellg();
 					break;
 				} else {
-					wcerr << L"Malformed WZ structure" << endl;
+					ucerr << U("Malformed WZ structure") << endl;
 					throw(273);
 				}
 			}
 			if (c == 0) {
-				wcerr << L"Unable to find a top level .img for hash verification" << endl;
+				ucerr << U("Unable to find a top level .img for hash verification") << endl;
 				throw(273);
 			}
 			bool success = false;
@@ -227,21 +231,21 @@ void NLS::InitWZ(const path& wzpath) {
 						if (ss != "Property") {
 							continue;
 						}
-						wcout << L"Detected WZ version: " << Version << endl;
+						ucout << U("Detected WZ version: ") << Version << endl;
 						success = true;
 						break;
 					}
 				}
 			}
 			if (!success) {
-				wcerr << L"Unable to determine WZ version" << endl;
+				ucerr << U("Unable to determine WZ version") << endl;
 				throw(273);
 			}
 			file->seekg(fileStart+2);
 		} else {
 			int16_t eversion = Read<int16_t>(file);
 			if (eversion != EncVersion) {
-				wcerr << L"Version of WZ file does not match existing files" << endl;
+				ucerr << U("Version of WZ file does not match existing files") << endl;
 				throw(273);
 			}
 		}
@@ -272,7 +276,7 @@ void NLS::InitWZ(const path& wzpath) {
 			} else if (type == 4) {
 				name = ReadEncString(file);
 			} else {
-				wcerr << L"Unknown node type" << endl;
+				ucerr << U("Unknown node type") << endl;
 				throw(273);
 			}
 			int32_t fsize = ReadCInt(file);
@@ -284,7 +288,7 @@ void NLS::InitWZ(const path& wzpath) {
 				name.erase(name.size()-4, 4);
 				new Img(file, n.g(name), offset);
 			} else {
-				wcerr << L"Unknown node type" << endl;
+				ucerr << U("Unknown node type") << endl;
 				throw(273);
 			}
 		}
@@ -294,23 +298,23 @@ void NLS::InitWZ(const path& wzpath) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
-	path paths[6] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/"};
+	upath paths[6] = {wzpath, U(""), U("C:/Nexon/MapleStory/"), U("/home/snake/"), U("/"), U("T:/")};
 	for (int i = 0; i < 5; i++) {
 		WZPath = paths[i];
-		if (exists(WZPath/path("Data.wz"))) {
-			wcout << L"Loading beta WZ file structure from " << WZPath << endl;
+		if (exists(WZPath/upath(U("Data.wz")))) {
+			ucout << U("Loading beta WZ file structure from ") << WZPath << endl;
 			WZ.Name("Data");
 			File(WZ);
 			return;
 		}
-		if (exists(WZPath/path("Base.wz"))) {
-			wcout << L"Loading standard WZ file structure from " << WZPath << endl;
+		if (exists(WZPath/upath(U("Base.wz")))) {
+			ucout << U("Loading standard WZ file structure from ") << WZPath << endl;
 			WZ.Name("Base");
 			File(WZ);
 			return;
 		}
 	}
-	wcerr << L"I CAN'T FIND YOUR WZ FILES YOU NUB" << endl;
+	ucerr << U("I CAN'T FIND YOUR WZ FILES YOU NUB") << endl;
 	throw(273);
 }
 
@@ -361,7 +365,7 @@ void NLS::Img::Parse() {
 					break;
 				}
 			default:
-				wcerr << L"Unknown Property type" << endl;
+				ucerr << U("Unknown Property type") << endl;
 				throw(273);
 			}
 		}
@@ -414,11 +418,11 @@ void NLS::Img::Parse() {
 					break;
 				}
 			default:
-				wcerr << L"Unknown UOL type" << endl;
+				ucerr << U("Unknown UOL type") << endl;
 				throw(273);
 			}
 		} else {
-			wcerr << L"Unknown ExtendedProperty type" << endl;
+			ucerr << U("Unknown ExtendedProperty type") << endl;
 			throw(273);
 		};
 	};
@@ -451,17 +455,17 @@ void NLS::Img::Parse() {
 	file->seekg(offset);
 	uint8_t a = Read<uint8_t>(file);
 	if (a != 0x73) {
-		wcout << L"Invalid WZ image!" << endl;
+		ucout << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	ustring s = ReadEncString(file);
 	if (s != "Property") {
-		wcout << L"Invalid WZ image!" << endl;
+		ucout << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	uint16_t b = Read<uint16_t>(file);
 	if (b != 0) {
-		wcout << L"Invalid WZ image!" << endl;
+		ucout << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	SubProperty(file, n, offset);
@@ -484,7 +488,7 @@ NLS::PNGProperty::PNGProperty(ifstream* file, Node n) {
 	file->seekg(4, ios::cur);
 	length = Read<int32_t>(file);
 	if (length <= 0) {
-		wcerr << L"What sort of shit is this?" << endl;
+		ucerr << U("What sort of shit is this?") << endl;
 		throw(273);
 	}
 	offset = file->tellg();
@@ -509,12 +513,12 @@ void NLS::PNGProperty::Parse() {
 		case Z_BUF_ERROR:
 			break;
 		default:
-			wcerr << L"Why isn't zlib giving a buffer error?" << endl;
+			ucerr << U("Why isn't zlib giving a buffer error?") << endl;
 			throw(273);
 		}
 		if (strm.total_out != outLen) {
-			wcerr << L"Zlib inflated to " << strm.total_out << L" bytes." <<endl;
-			wcerr << L"I expected " << outLen << L" bytes." <<endl;
+			ucerr << U("Zlib inflated to ") << strm.total_out << U(" bytes.") <<endl;
+			ucerr << U("I expected ") << outLen << U(" bytes.") <<endl;
 			//throw(273);//Occuring on the fourth background for map 0 in GMS v40b. Might just be a corrupted wz file.
 		}
 		inflateEnd(&strm);
@@ -562,7 +566,7 @@ void NLS::PNGProperty::Parse() {
 			break;
 		}
 	default:
-		wcerr << L"Unknown sprite format " << f << endl;
+		ucerr << U("Unknown sprite format ") << f << endl;
 		throw(273);
 	}
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

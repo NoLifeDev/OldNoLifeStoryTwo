@@ -13,7 +13,7 @@ void NLS::Foothold::Load(Node n) {
 	footholds.clear();
 	n = n["foothold"];
 	if (!n) {
-		wcerr << L"No foothold node" << endl;
+		ucerr << U("No foothold node") << endl;
 		throw(273);
 	}
 	for (auto i = n.begin(); i != n.end(); i++) {

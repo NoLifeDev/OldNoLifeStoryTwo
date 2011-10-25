@@ -38,12 +38,12 @@ void NLS::_Time::Step() {
 		fps = 0;//Weird shiz
 	}
 #ifdef NLS_CPP11
-	this_thread::sleep_for(chrono::milliseconds(min(max((int)fps-100, 0), 10)));
+	//this_thread::sleep_for(chrono::milliseconds(min(max((int)fps-100, 0), 10)));
 #else
 	sf::Sleep(min(max(fps-100, 0.), 10.));
 #endif
 	if (output) {
-		wcout << L"Time taken: " << floor(delta*1000) << L" ms" << endl;
+		ucout << U("Time taken: ") << floor(delta*1000) << U(" ms") << endl;
 		output = false;
 	}
 	delta = min(0.1, delta);

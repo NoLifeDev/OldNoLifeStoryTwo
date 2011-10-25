@@ -38,16 +38,19 @@ void NLS::Graphics::Draw() {
 	Foothold::Draw();
 	View.Reset();
 	Time.Step();
-	ustring title = L"NoLifeStory::FrameRate = "+tostring((int)Time.fps);//Fix this SFML!
-	string stitle(title.begin(), title.end());
-	window->SetTitle(stitle);
+	ustring title = U("NoLifeStory::FrameRate = ")+tostring((int)Time.fps);//Fix this SFML!
+#ifdef NLS_WINDOWS
+	window->SetTitle(string(title.begin(), title.end()));
+#else
+	window->SetTitle(title);
+#endif
 	window->Display();
 #ifdef DEBUG
 	switch (glGetError()) {
 	case GL_NO_ERROR:
 		break;
 	default:
-		wcerr << L"OH GOD OPENGL FAILED" << endl;
+		ucerr << U("OH GOD OPENGL FAILED") << endl;
 	}
 #endif
 }

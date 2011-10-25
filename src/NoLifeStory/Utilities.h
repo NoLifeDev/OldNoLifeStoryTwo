@@ -7,34 +7,57 @@
 #define degtorad 0.01745329251994329576923690768489
 #define radtodeg 57.295779513082320876798154814105
 
-class ustring : public wstring {
+#ifdef NLS_WINDOWS //Assuming *nix
+#define nstring wstring
+#define uchar wchar_t
+#define ustringstream wstringstream
+#define ucout wcout
+#define ucerr wcerr
+#define U(x) L##x
+#else
+#define nstring string
+#define uchar char
+#define ustringstream stringstream
+#define U(x) x
+#define ucout cout
+#define ucerr cerr
+#endif
+
+class ustring : public nstring {
 public:
-	ustring() : wstring() {}
-	ustring(const ustring& s) : wstring(s) {}
-	ustring(ustring&& s) : wstring(s) {}
-	ustring(const wstring& s) : wstring(s) {}
-	ustring(wstring&& s) : wstring(s) {}
-	ustring(const wchar_t* s) : wstring(s) {}
+	ustring() : nstring() {}
+	ustring(const ustring& s) : nstring(s) {}
+	ustring(ustring&& s) : nstring(s) {}
+	ustring(const wstring& s) : nstring(s) {}
+	ustring(wstring&& s) : nstring(s) {}
+	ustring(const uchar* s) : nstring(s) {}
+#ifdef NLS_WINDOWS
 	ustring(const char* s) {
 		string ss = s;
 		assign(ss.begin(), ss.end());
 	}
 	ustring(const string& s) : wstring(s.begin(), s.end()) {}
-	operator wstring&() {
-		return *(wstring*)this;
-	}
 	bool operator== (const char* s) {
 		return *this == ustring(s);
 	}
 	bool operator!= (const char* s) {
 		return *this != ustring(s);
 	}
-	ustring& pad(wchar_t c, size_t l) {
+#else
+	ustring(const wchar_t* s) {
+		wstring ss = s;
+		assign(ss.begin(), ss.end());
+	}
+#endif
+	operator nstring&() {
+		return *(nstring*)this;
+	}
+	ustring& pad(uchar c, size_t l) {
 		insert(0, l-size(), c);
 		return *this;
 	}
-	vector<ustring> split(wchar_t c) const {
-		wstringstream ss(*this);
+	vector<ustring> split(uchar c) const {
+		ustringstream ss(*this);
 		ustring s;
 		vector<ustring> sp;
 		while (getline(ss, s, c)) {
@@ -43,7 +66,7 @@ public:
 		return sp;
 	}
 	ustring operator/ (ustring& other) {
-		ustring result;
+		ustring result = *this;
 		return result /= other;
 	}
 	ustring& operator/= (ustring other) {
@@ -60,23 +83,39 @@ public:
 };
 
 inline ustring tostring(const double& t) {
-	static wchar_t str[32];
-	swprintf(str, 2, L"%f", t);
+	static uchar str[32];
+#ifdef NLS_WINDOWS
+	swprintf(str, 2, U("%f"), t);
+#else
+	sprintf(str, 2, "%f", t);
+#endif
 	return str;
 }
 
 inline ustring tostring(const int& t) {
-	static wchar_t str[32];
-	swprintf(str, 2, L"%i", t);
+	static uchar str[32];
+#ifdef NLS_WINDOWS
+	swprintf(str, 2, U("%f"), t);
+#else
+	sprintf(str, 2, "%f", t);
+#endif
 	return str;
 }
 
 inline double todouble(const ustring& t) {
+#ifdef NLS_WINDOWS
 	return wcstod(t.c_str(), 0);
+#else
+	return cstod(t.c_str(), 0);
+#endif
 }
 
 inline int toint(const ustring& t) {
+#ifdef NLS_WINDOWS
 	return wcstol(t.c_str(), 0, 10);
+#else
+	return cstol(t.c_str(), 0, 10);
+#endif
 }
 
 inline double sqr(const double& x) {
@@ -108,11 +147,13 @@ inline double sign (const double& x) {
 }
 
 #ifndef NLS_TR2
-typedef ustring path;
-inline bool exists (const path& name) {
-	wifstream file(name);
+typedef ustring upath;
+inline bool exists (const upath& name) {
+	ifstream file(name);
 	bool check = file.is_open();
 	file.close();
 	return check;
 }
+#else
+typedef wpath upath;
 #endif

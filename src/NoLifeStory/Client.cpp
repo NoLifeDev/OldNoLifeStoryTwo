@@ -12,7 +12,7 @@ string maps[] = {"1000000", "2000000", "100000000", "101000000", "102000000", "1
 void NLS::Init(const vector<ustring>& args) {
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
-	wcout << L"Initializing NoLifeStory" << endl;
+	ucout << U("Initializing NoLifeStory") << endl;
 	srand(time(0));
 	Network::Init();
 	Time.Reset();
@@ -25,8 +25,8 @@ void NLS::Init(const vector<ustring>& args) {
 #else
 	BASS_Init(-1, 44100, 0, (void*)window->GetSystemHandle(), 0);
 #endif
-	wcout << L"Initialization complete" << endl;
-	Map::Load("0", "");
+	ucout << U("Initialization complete") << endl;
+	Map::Load("100000000", "");
 	Map::Load();
 }
 
