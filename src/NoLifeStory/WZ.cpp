@@ -48,8 +48,8 @@ inline ustring ReadEncString(ifstream* file) {
 		if (len <= 0) {
 			return ustring();
 		}
-		static wchar_t s[1024];
 		uint16_t mask = 0xAAAA;
+		static wchar_t s[1024];
 		file->read((char*)s, 2*len);
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
@@ -70,16 +70,14 @@ inline ustring ReadEncString(ifstream* file) {
 		}
 		uint8_t mask = 0xAA;
 		static char s[1024];
-		static wchar_t ws[1024];
 		file->read((char*)s, len);
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
 			s[i] ^= WZKey[i];
-			ws[i] = ucout.widen(s[i]);
 			mask++;
 		}
-		ws[len] = '\0';
-		return ws;
+		s[len] = '\0';
+		return s;
 	}
 }
 

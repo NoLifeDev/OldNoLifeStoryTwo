@@ -35,10 +35,10 @@ void NLS::_Time::Step() {
 #endif
 	fps = fps*0.99+1/min(delta, 0.01)*0.01;
 	if (!(fps > 0 and fps < 1000)) {
-		fps = 0;//Weird shiz
+		fps = 0;
 	}
 #ifdef NLS_CPP11
-	//this_thread::sleep_for(chrono::milliseconds(min(max((int)fps-100, 0), 10)));
+	this_thread::sleep_for(chrono::milliseconds(min(max((int)fps-100, 0), 10)));
 #else
 	sf::Sleep(min(max(fps-100, 0.), 10.));
 #endif

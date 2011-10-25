@@ -85,9 +85,9 @@ public:
 inline ustring tostring(const double& t) {
 	static uchar str[32];
 #ifdef NLS_WINDOWS
-	swprintf(str, 2, U("%f"), t);
+	swprintf(str, 32, U("%f"), t);
 #else
-	sprintf(str, 2, "%f", t);
+	sprintf(str, 32, U("%f"), t);
 #endif
 	return str;
 }
@@ -95,9 +95,9 @@ inline ustring tostring(const double& t) {
 inline ustring tostring(const int& t) {
 	static uchar str[32];
 #ifdef NLS_WINDOWS
-	swprintf(str, 2, U("%f"), t);
+	swprintf(str, 32, U("%i"), t);
 #else
-	sprintf(str, 2, "%f", t);
+	sprintf(str, 32, U("%i"), t);
 #endif
 	return str;
 }
