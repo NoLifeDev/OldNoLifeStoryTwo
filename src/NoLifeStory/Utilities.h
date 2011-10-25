@@ -65,7 +65,7 @@ public:
 		}
 		return sp;
 	}
-	ustring operator/ (ustring& other) {
+	ustring operator/ (ustring other) {
 		ustring result = *this;
 		return result /= other;
 	}
@@ -87,7 +87,7 @@ inline ustring tostring(const double& t) {
 #ifdef NLS_WINDOWS
 	swprintf(str, 32, U("%f"), t);
 #else
-	sprintf(str, 32, U("%f"), t);
+	sprintf(str, U("%f"), t);
 #endif
 	return str;
 }
@@ -97,7 +97,7 @@ inline ustring tostring(const int& t) {
 #ifdef NLS_WINDOWS
 	swprintf(str, 32, U("%i"), t);
 #else
-	sprintf(str, 32, U("%i"), t);
+	sprintf(str, U("%i"), t);
 #endif
 	return str;
 }
@@ -106,7 +106,7 @@ inline double todouble(const ustring& t) {
 #ifdef NLS_WINDOWS
 	return wcstod(t.c_str(), 0);
 #else
-	return cstod(t.c_str(), 0);
+	return strtod(t.c_str(), 0);
 #endif
 }
 
@@ -114,7 +114,7 @@ inline int toint(const ustring& t) {
 #ifdef NLS_WINDOWS
 	return wcstol(t.c_str(), 0, 10);
 #else
-	return cstol(t.c_str(), 0, 10);
+	return strtol(t.c_str(), 0, 10);
 #endif
 }
 

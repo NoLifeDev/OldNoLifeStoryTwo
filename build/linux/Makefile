@@ -1,7 +1,7 @@
 CE = g++
 SBP = ../../src/NoLifeStory
-CF = -O3 -std=gnu++0x -I../../include -D_GLIBCXX_USE_NANOSLEEP
-LF = lib/libbass64.so -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system
+CF = -O3 -I../../include -std=gnu++0x -fshort-wchar -D_GLIBCXX_USE_NANOSLEEP
+LF = -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system lib/libbass64.so
 EO = NLS
 OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
 
