@@ -154,6 +154,14 @@ inline double sign (const double& x) {
 	return x>0?1:x<0?-1:0;
 }
 
+inline int pot(int x) {
+	x--;
+	for (int i = 1; i < 32; i <<= 1) {
+		x = x | x >> i;
+	}
+	return x+1;
+}
+
 #ifndef NLS_TR2
 typedef ustring upath;
 inline bool exists (const upath& name) {

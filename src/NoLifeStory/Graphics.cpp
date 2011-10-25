@@ -5,9 +5,11 @@
 #include "Global.h"
 
 sf::Window* NLS::window = 0;
+bool NLS::Graphics::NPOT = false;
 
 void NLS::Graphics::Init() {
 	window = new sf::Window(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 0));
+	glewInit();
 #ifdef NLS_WINDOWS
 	HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDI_NOLIFESTORY_ICON));
 	HWND hWnd = window->GetSystemHandle();
@@ -29,6 +31,10 @@ void NLS::Graphics::Init() {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT);
 	window->Display();
+	if (!glewIsSupported("GL_ARB_texture_non_power_of_two") and !GLEW_VERSION_2_0) {
+		ucerr << U("Missing support for NPOT textures. Using slower backward's compatible code. Please upgrade your gpu when you get a chance.") << endl;
+		NPOT = false;
+	}
 }
 
 void NLS::Graphics::Draw() {

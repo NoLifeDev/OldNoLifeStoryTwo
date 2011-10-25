@@ -9,6 +9,8 @@ namespace NLS {
 		GLuint texture;
 		GLint width, height;
 		GLint originx, originy;
+		GLfloat tx, ty;
+		GLint fw, fh;
 		class PNGProperty* png;
 		bool loaded;
 	};

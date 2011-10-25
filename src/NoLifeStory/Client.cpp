@@ -35,6 +35,8 @@ void NLS::Init(const vector<ustring>& args) {
 	ucout << U("Initialization complete") << endl;
 	Map::Load("100000000", "");
 	Map::Load();
+	#define magic(x) x* foo; x* bar;
+	magic(int)
 }
 
 bool NLS::Loop() {

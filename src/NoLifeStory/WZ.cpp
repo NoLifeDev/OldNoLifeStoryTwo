@@ -526,19 +526,38 @@ void NLS::PNGProperty::Parse() {
 	int32_t f = format+format2;
 	glGenTextures(1, &sprite.data->texture);
 	glBindTexture(GL_TEXTURE_2D, sprite.data->texture);
+	GLsizei w = sprite.data->width;
+	GLsizei h = sprite.data->height;
+	if (!Graphics::NPOT) {
+		w = pot(w);
+		h = pot(h);
+	}
+	sprite.data->fw = w;
+	sprite.data->fh = h;
+	sprite.data->tx = (double)w/sprite.data->width;
+	sprite.data->ty = (double)h/sprite.data->height;
+	auto Resize = [&](uint8_t* from, uint8_t* to, int f) {
+		if (!Graphics::NPOT) {
+			memset(to, 0, w*h*f);
+			for (int i = 0; i < sprite.data->height; i++) {
+				memcpy(&to[i*w*f], &from[i*sprite.data->width*f], sprite.data->width*f);
+			}
+		}
+	};
 	switch (f) {
 	case 1:
 		{
 			uint32_t len = 2*sprite.data->width*sprite.data->height;
 			Decompress(length, len);
-			if (sprite.data->width%2) {
+			if (sprite.data->width%2 or !Graphics::NPOT) {
 				for (uint32_t i = 0; i < len; i++) {
 					Buf2[i*2] = (Buf1[i]&0x0F)*0x11;
 					Buf2[i*2+1] = ((Buf1[i]&0xF0)>>4)*0x11;
 				}
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+				Resize(Buf2, Buf1, 4);
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf1);
 			} else {
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf1);
+				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf1);
 			}
 			break;
 		}
@@ -546,21 +565,28 @@ void NLS::PNGProperty::Parse() {
 		{
 			uint32_t len = 4*sprite.data->width*sprite.data->height;
 			Decompress(length, len);
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf1);
+			Resize(Buf1, Buf2, 4);
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
 			break;
 		}
 	case 513:
 		{
 			uint32_t len = 2*sprite.data->width*sprite.data->height;
 			Decompress(length, len);
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width, sprite.data->height, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
+			Resize(Buf1, Buf2, 2);
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf2);
 			break;
 		}
 	case 517:
 		{
-			uint32_t len = sprite.data->width*sprite.data->height/128;
+			sprite.data->width >>= 4;
+			sprite.data->height >>= 4;
+			w >>= 4;
+			h >>= 4;
+			uint32_t len = 2*sprite.data->width*sprite.data->height;
 			Decompress(length, len);
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, sprite.data->width/16, sprite.data->height/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
+			Resize(Buf1, Buf2, 2);
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, w/16, h/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf2);
 			break;
 		}
 	default:
