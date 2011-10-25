@@ -5,8 +5,8 @@
 namespace NLS {
 	class Physics {//Derive anything with physics from this
 	public:
-		double x, y;
-		double vx, vy;
+		double x, y, r;
+		double vx, vy, vr;
 		Foothold* fh;
 		class LadderRope* lr;
 		int layer, group;

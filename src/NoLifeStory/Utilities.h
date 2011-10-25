@@ -28,8 +28,8 @@ public:
 	ustring() : nstring() {}
 	ustring(const ustring& s) : nstring(s) {}
 	ustring(ustring&& s) : nstring(s) {}
-	ustring(const wstring& s) : nstring(s) {}
-	ustring(wstring&& s) : nstring(s) {}
+	ustring(const nstring& s) : nstring(s) {}
+	ustring(nstring&& s) : nstring(s) {}
 	ustring(const uchar* s) : nstring(s) {}
 #ifdef NLS_WINDOWS
 	ustring(const char* s) {
@@ -122,12 +122,20 @@ inline double sqr(const double& x) {
 	return x*x;
 }
 
+inline double pdis(const double& x, const double& y) {
+	return sqrt(sqr(x)+sqr(y));
+}
+
 inline double pdis(const double& x1, const double& y1, const double& x2, const double& y2) {
-	return sqrt(sqr(x1-x2)+sqr(y1-y2));
+	return pdis(x2-x1, y2-y1);
+}
+
+inline double pdir(const double& x, const double& y) {
+	return radtodeg*atan2(y, x);
 }
 
 inline double pdir(const double& x1, const double& y1, const double& x2, const double& y2) {
-	return radtodeg*atan2(y2-y1, x2-x1);
+	return pdir(x2-x1, y2-y1);
 }
 
 inline double ldx (const double& len, const double& dir) {

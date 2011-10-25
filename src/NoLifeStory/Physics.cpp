@@ -40,8 +40,10 @@ NLS::Physics::Physics(double x, double y) {
 void NLS::Physics::Reset(double x, double y) {
 	this->x = x;
 	this->y = y;
+	r = 0;
 	vx = 0;
 	vy = 0;
+	vr = 0;
 	fh = nullptr;
 	lr = nullptr;
 	layer = 0;
@@ -56,25 +58,14 @@ void NLS::Physics::Update() {
 		return;
 	}
 	double mass = 100;//TODO - Add proper shoe stuff
-	if (vy < fallSpeed) {
-		freefall = 0;
-	} else {
-		freefall += Time.delta;
-	}
 	//TODO - Move this control stuff elsewhere
 	bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
 	bool right = sf::Keyboard::IsKeyPressed(sf::Keyboard::Right);
 	bool up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);
 	bool down = sf::Keyboard::IsKeyPressed(sf::Keyboard::Down);
 	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);
-	//Temporary flying code
-	if (up) {
-		vy -= Time.delta*4000;
-	}
-	if (down) {
-		vy += Time.delta*2000;
-	}
 	//TODO - Handle jumping here
+	//Movement and friction
 	if (fh) {//Walking on the ground
 
 	} else {//Not on the ground
@@ -118,11 +109,51 @@ void NLS::Physics::Update() {
 		//Detect collisions
 	}
 	//TODO - Grab on to ladders
-	//Temporary code for movement and bound checks
-	x += vx*Time.delta;
-	y += vy*Time.delta;
-	if (y >= View.ymax and vy > 0) {
-		vy = 0;
-		y = View.ymax;
+	//Collision Detection
+	if (fh) {
+
+	} else if (!lr) {
+		double xp = x;
+		double yp = y;
+		x += vx*Time.delta;
+		y += vy*Time.delta;
+		double dis = pdis(vx, vy)*Time.delta;
+		double dir = pdir(vx, vy);
+		for (auto it = footholds.begin(); it != footholds.end(); it++) {
+			Foothold& o = **it;
+			if (!o.walk && group != o.group) continue;
+			if (angdif(dir, o.dir) < 0) continue;
+			if (angdif(dir, pdir(xp, yp, o.x1, o.y1)) > 0) continue;
+			if (angdif(dir, pdir(xp, yp, o.x2, o.y2)) < 0) continue;
+			double dt = ldy(pdis(xp, yp, o.x1, o.y1), angdif(o.dir, pdir(o.x1, o.y1, xp, yp)));
+			double d = dt/cos(degtorad*angdif(dir, o.dir+90));
+			if (d < 0 or d > dis) continue;
+			fh = &o;
+			dis = d;
+		}
+		if (fh) {
+			vr = ldx(pdis(vx, vy), dir);
+			x = xp+ldx(dis, dir);
+			y = yp+ldy(dis, dir);
+			r = pdis(fh->x1, fh->y1, x, y);
+			group = fh->group;
+			layer = fh->layer;
+		}
+	}
+	//Various bounds and coordinate transformations
+	if (fh) {
+		//Turn r into x, y
+	} else if (lr) {
+		//Turn r into x, y
+	} else {
+		if (vy < fallSpeed) {
+			freefall = 0;
+		} else {
+			freefall += Time.delta;
+		}
+		if (y >= View.ymax and vy > 0) {
+			vy = 0;
+			y = View.ymax;
+		}
 	}
 }
