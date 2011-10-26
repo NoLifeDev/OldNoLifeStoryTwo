@@ -5,10 +5,10 @@
 #include "Global.h"
 
 sf::Window* NLS::window = 0;
-bool NLS::Graphics::NPOT = false;
+bool NLS::Graphics::NPOT = true;
 
 void NLS::Graphics::Init() {
-	window = new sf::Window(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 0));
+	window = new sf::Window(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 1));
 	glewInit();
 #ifdef NLS_WINDOWS
 	HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDI_NOLIFESTORY_ICON));
@@ -31,8 +31,12 @@ void NLS::Graphics::Init() {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT);
 	window->Display();
+	if (!GLEW_VERSION_1_2) {
+		ucerr << U("Seriously. You don't have OpenGL 1.2? Maybe you forgot to install drivers for your gpu? Wait a second, do you even HAVE a gpu? Seriously, get a job and buy a graphics card.") << endl;
+		throw(273);
+	}
 	if (!glewIsSupported("GL_ARB_texture_non_power_of_two") and !GLEW_VERSION_2_0) {
-		ucerr << U("Missing support for NPOT textures. Using slower backward's compatible code. Please upgrade your gpu when you get a chance.") << endl;
+		ucerr << U("Missing support for NPOT textures. Using slower backward's compatible code. Please upgrade your graphics card and/or drivers when you get a chance.") << endl;
 		NPOT = false;
 	}
 }

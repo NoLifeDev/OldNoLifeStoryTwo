@@ -43,22 +43,22 @@ void NLS::Sprite::Draw(int x, int y, bool flipped, float alpha, float rotation) 
 	GetTexture();
 	glBegin(GL_QUADS);
 	if (flipped) {
-		glTexCoord2f(data->tx, 0);
+		glTexCoord2f(1, 0);
 		glVertex2i(0, 0);
 		glTexCoord2f(0, 0);
 		glVertex2i(data->fw, 0);
-		glTexCoord2f(0, data->ty);
+		glTexCoord2f(0, 1);
 		glVertex2i(data->fw, data->fh);
-		glTexCoord2f(data->tx, data->ty);
+		glTexCoord2f(1, 1);
 		glVertex2i(0, data->fh);
 	} else {
 		glTexCoord2f(0, 0);
 		glVertex2i(0, 0);
-		glTexCoord2f(data->tx, 0);
+		glTexCoord2f(1, 0);
 		glVertex2i(data->fw, 0);
-		glTexCoord2f(data->tx, data->ty);
+		glTexCoord2f(1, 1);
 		glVertex2i(data->fw, data->fh);
-		glTexCoord2f(0, data->ty);
+		glTexCoord2f(0, 1);
 		glVertex2i(0, data->fh);
 	}
     glEnd();
