@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-int main(int argc, wchar_t **argv) {
+int main(int argc, uchar **argv) {
 	NLS::Init(vector<ustring>(argv, argv+argc));
 	while (NLS::Loop()) {}
 	NLS::Unload();
