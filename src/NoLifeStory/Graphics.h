@@ -10,5 +10,6 @@ namespace NLS {
 		void Draw();
 		void Unload();
 		extern bool NPOT;
+		extern bool Shit;
 	}
 }
