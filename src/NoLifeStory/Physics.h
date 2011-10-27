@@ -15,6 +15,8 @@ namespace NLS {
 		Physics(double x, double y);
 		void Update();
 		void Reset(double x, double y);
+		void Jump();
+		void MouseFly();
 		static void Init();
 	};
 }

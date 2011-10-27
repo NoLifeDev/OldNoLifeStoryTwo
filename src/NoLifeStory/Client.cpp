@@ -32,11 +32,10 @@ void NLS::Init(const vector<ustring>& args) {
 #else
 	BASS_Init(-1, 44100, 0, (void*)window->GetSystemHandle(), 0);
 #endif
+	KeySet(sf::Keyboard::Escape, Func(window->Close));
 	ucout << U("Initialization complete") << endl;
 	Map::Load("100000000", "");
 	Map::Load();
-	#define magic(x) x* foo; x* bar;
-	magic(int)
 }
 
 bool NLS::Loop() {
@@ -44,31 +43,16 @@ bool NLS::Loop() {
 	while (window->PollEvent(e)) {
 		switch (e.Type) {
 		case sf::Event::KeyPressed:
-			if (UI::HandleKeyPress(e.Key.Code)) {
+			if (UI::HandleKey(e.Key.Code)) {
 				break;
 			}
-			switch (e.Key.Code) {
-			case sf::Keyboard::Escape:
-				return false;
-				break;
-			default:
-				break;
-			}
+			KeyMap[e.Key.Code]();
 			break;
-		case sf::Event::KeyReleased:
-			if (UI::HandleKeyRelease(e.Key.Code)) {
-				break;
-			}
-			switch (e.Key.Code) {
-			default:
-				break;
-			}
-			break;
+			//TODO - Pass all these events to the Cursor and let that handle stuff.
 		case sf::Event::MouseButtonPressed:
 			if (UI::HandleMousePress(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y)) {
 				break;
 			}
-			//TODO - Handle clicking on npcs and mobs and other players and stuff.
 			break;
 		case sf::Event::MouseButtonReleased:
 			UI::HandleMouseRelease(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y);
@@ -94,7 +78,7 @@ bool NLS::Loop() {
 	if (!Map::nextmap.empty()) {
 		Map::Load();
 	}
-	return true;
+	return window->IsOpened();
 }
 
 void NLS::Unload() {

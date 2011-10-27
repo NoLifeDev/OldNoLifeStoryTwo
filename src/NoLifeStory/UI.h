@@ -4,8 +4,7 @@
 ////////////////////////////////////////////////////
 namespace NLS {
 	namespace UI {
-		bool HandleKeyPress(sf::Keyboard::Key);
-		bool HandleKeyRelease(sf::Keyboard::Key);
+		bool HandleKey(sf::Keyboard::Key);
 		bool HandleMousePress(sf::Mouse::Button, int, int);
 		bool HandleMouseRelease(sf::Mouse::Button, int, int);
 		bool HandleMouseScroll(int, int, int);

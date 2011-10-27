@@ -4,10 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-bool NLS::UI::HandleKeyPress(sf::Keyboard::Key) {
-	return false;
-}
-bool NLS::UI::HandleKeyRelease(sf::Keyboard::Key) {
+bool NLS::UI::HandleKey(sf::Keyboard::Key) {
 	return false;
 }
 bool NLS::UI::HandleMousePress(sf::Mouse::Button, int, int) {

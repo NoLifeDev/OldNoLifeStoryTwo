@@ -6,10 +6,16 @@
 namespace NLS {
 	class KeyAction {
 	public:
-		void (*action)();
+		KeyAction();
+		KeyAction(function<void(void)>);
+		function<void(void)> action;
 		void operator() () {
-			return action();
+			if (action) {
+				return action();
+			}
 		}
 	};
+	void KeySet(sf::Keyboard::Key, function<void(void)>);
 	extern map <sf::Keyboard::Key, KeyAction> KeyMap;
 }
+#define Func(x) [&](){x();}

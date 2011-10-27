@@ -52,18 +52,12 @@ void NLS::Physics::Reset(double x, double y) {
 }
 
 void NLS::Physics::Update() {
-	if (sf::Keyboard::IsKeyPressed(sf::Keyboard::F)) {
-		auto p = sf::Mouse::GetPosition(*window);
-		Reset(p.x+View.x, p.y+View.y);
-		return;
-	}
 	double mass = 100;//TODO - Add proper shoe stuff
 	//TODO - Move this control stuff elsewhere
 	bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
 	bool right = sf::Keyboard::IsKeyPressed(sf::Keyboard::Right);
 	bool up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);
 	bool down = sf::Keyboard::IsKeyPressed(sf::Keyboard::Down);
-	bool jump = sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt);
 	//TODO - Handle jumping here
 	//Movement and friction
 	if (fh) {//Walking on the ground
@@ -156,4 +150,9 @@ void NLS::Physics::Update() {
 			y = View.ymax;
 		}
 	}
+}
+
+void NLS::Physics::MouseFly() {
+	auto p = sf::Mouse::GetPosition(*window);
+	Reset(p.x+View.x, p.y+View.y);
 }

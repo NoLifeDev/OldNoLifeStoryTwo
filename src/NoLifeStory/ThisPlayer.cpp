@@ -7,5 +7,5 @@
 NLS::_ThisPlayer NLS::ThisPlayer;
 
 NLS::_ThisPlayer::_ThisPlayer() {
-	//Physics(0, 0);
+	KeySet(sf::Keyboard::F, Func(MouseFly));
 }
