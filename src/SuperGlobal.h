@@ -31,15 +31,19 @@
 #include <Windows.h>
 #elif defined(UNIX)
 #define NLS_UNIX
+#define NLS_NIX
 #elif defined(__linux)
 #define NLS_LINUX
+#define NLS_NIX
 #elif defined(MAC)
 #define NLS_MAC
+#define NLS_NIX
 #else
-#error "Unknown platform. Define either _WIN32, __linux, UNIX or MAC"
+#error "Unknown platform. Please specify your platform using preprocessor definitions."
 #endif
 
 #ifdef _MSC_VER
+#define NLS_MSVC
 #if _MSC_VER >= 1700
 #define NLS_CPP11
 #define NLS_TR2
@@ -50,6 +54,7 @@
 #error "Upgrade your visual studio to VS10 or VS11"
 #endif
 #elif defined(__GNUC__)
+#define NLS_GCC
 #define NLS_CPP11
 #else
 #error "Unknown compiler"
@@ -157,6 +162,11 @@ using namespace std::tr1;
 #ifdef NLS_TR2
 using namespace std::tr2;
 using namespace std::tr2::sys;
+#endif
+
+//Some other headers
+#ifndef NLS_TR2
+#include <sys/stat.h>
 #endif
 
 //Do some type checks

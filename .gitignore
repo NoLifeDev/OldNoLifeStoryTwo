@@ -24,3 +24,5 @@
 *.unsuccessfullbuild
 *.unsuccessfulbuild
 *.dll
+*.wz
+*.zip

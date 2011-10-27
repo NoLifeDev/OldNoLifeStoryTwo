@@ -76,7 +76,9 @@ public:
 		if (other.length() > 0 and (other.at(0) == '/' or other.at(0) == '\\')) {
 			other.erase(0,1);
 		}
-		*this += '/';
+		if (!empty()) {
+			*this += '/';
+		}
 		*this += other;
 		return *this;
 	}
@@ -165,11 +167,18 @@ inline int pot(int x) {
 #ifndef NLS_TR2
 typedef ustring upath;
 inline bool exists (const upath& name) {
-	ifstream file(name);
-	bool check = file.is_open();
-	file.close();
-	return check;
+#ifdef NLS_WINDOWS
+	struct _stat info;
+	return _wstat(name.c_str(), &info) == 0;
+#else
+	struct stat info;
+	return stat(name.c_str(),&info) == 0;
+#endif
 }
 #else
+#ifdef NLS_WINDOWS
 typedef wpath upath;
+#else
+typedef path upath;
+#endif
 #endif

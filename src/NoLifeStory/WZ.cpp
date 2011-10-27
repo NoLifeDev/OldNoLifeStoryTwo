@@ -296,8 +296,8 @@ void NLS::InitWZ(const upath& wzpath) {
 		}
 	};
 	memset(BMSKey, 0, 0xFFFF);
-	upath paths[6] = {wzpath, U(""), U("C:/Nexon/MapleStory/"), U("/home/snake/"), U("/"), U("T:/")};
-	for (int i = 0; i < 5; i++) {
+	upath paths[7] = {wzpath, U(""), U("C:/Nexon/MapleStory/"), U("/home/snake/"), U("/"), U("T:/"), U("D:/Games/MapleStory/Current/MapleStory/")};
+	for (int i = 0; i < sizeof(paths)/sizeof(upath); i++) {
 		WZPath = paths[i];
 		if (exists(WZPath/upath(U("Data.wz")))) {
 			ucout << U("Loading beta WZ file structure from ") << WZPath << endl;
@@ -334,7 +334,7 @@ void NLS::Img::Parse() {
 			uint8_t a = Read<uint8_t>(file);
 			switch (a) {
 			case 0x00:
-				n.g(name);
+				n.g(name).Set(i);
 				break;
 			case 0x0B:
 			case 0x02:
@@ -450,20 +450,21 @@ void NLS::Img::Parse() {
 			}
 		}
 	};
+	ucout << U("Parsing ") << n.Name() << U(".img") << endl;
 	file->seekg(offset);
 	uint8_t a = Read<uint8_t>(file);
 	if (a != 0x73) {
-		ucout << U("Invalid WZ image!") << endl;
+		ucerr << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	ustring s = ReadEncString(file);
 	if (s != "Property") {
-		ucout << U("Invalid WZ image!") << endl;
+		ucerr << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	uint16_t b = Read<uint16_t>(file);
 	if (b != 0) {
-		ucout << U("Invalid WZ image!") << endl;
+		ucerr << U("Invalid WZ image!") << endl;
 		throw(273);
 	}
 	SubProperty(file, n, offset);
@@ -517,7 +518,7 @@ void NLS::PNGProperty::Parse() {
 		if (strm.total_out != outLen) {
 			ucerr << U("Zlib inflated to ") << strm.total_out << U(" bytes.") <<endl;
 			ucerr << U("I expected ") << outLen << U(" bytes.") <<endl;
-			//throw(273);//Occuring on the fourth background for map 0 in GMS v40b. Might just be a corrupted wz file.
+			//throw(273);
 		}
 		inflateEnd(&strm);
 	};
@@ -547,12 +548,17 @@ void NLS::PNGProperty::Parse() {
 		{
 			uint32_t len = 2*ww*hh;
 			Decompress(length, len);
-			if (ww%2 and Graphics::NPOT) {
+			if (ww%2 and Graphics::NPOT or Graphics::Shit) {
 				for (uint32_t i = 0; i < len; i++) {
 					Buf2[i*2] = (Buf1[i]&0x0F)*0x11;
 					Buf2[i*2+1] = ((Buf1[i]&0xF0)>>4)*0x11;
 				}
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+				if (Graphics::NPOT) {
+					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+				} else {
+					Resize(Buf2, Buf1, 4);
+					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+				}
 			} else {
 				if (Graphics::NPOT) {
 					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf1);
@@ -589,6 +595,10 @@ void NLS::PNGProperty::Parse() {
 		}
 	case 517:
 		{
+			if (pot(ww) != ww or pot(hh) != hh) {
+				ucerr << U("Non-square type 517 sprite found") << endl;
+				throw(273);
+			}
 			ww >>= 4;
 			hh >>= 4;
 			w >>= 4;
