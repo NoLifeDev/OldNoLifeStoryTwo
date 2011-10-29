@@ -5,9 +5,7 @@
 #include "Global.h"
 
 void NLS::Player::Draw() {
-	Update();
-	View.tx = x;
-	View.ty = y;
+	Physics::Update();
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glColor4f(1, 0, 1, 1);
 	glBegin(GL_QUADS);

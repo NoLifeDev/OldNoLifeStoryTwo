@@ -26,3 +26,7 @@
 *.dll
 *.wz
 *.zip
+*.7z
+*.xml
+*.codeanalysis
+*.codeanalysisast

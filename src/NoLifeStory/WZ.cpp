@@ -173,9 +173,10 @@ void NLS::InitWZ(const upath& wzpath) {
 		uint64_t fileSize = Read<uint64_t>(file);
 		uint32_t fileStart = Read<uint32_t>(file);
 		string copyright;
-		*file >> copyright;
+		getline(*file, copyright, '\0');
 		file->seekg(fileStart);
 		if (!Version) {
+			ucout << ustring(copyright) << endl;
 			EncVersion = Read<int16_t>(file);
 			int32_t count = ReadCInt(file);
 			uint32_t c = 0;

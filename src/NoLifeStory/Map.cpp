@@ -38,7 +38,11 @@ void NLS::Map::Load() {
 			return;
 		}
 		int r = rand()%possible.size();
-		ThisPlayer.Reset(possible[r]->x, possible[r]->y);
+		ThisPlayer.Reset(possible[r]->x, possible[r]->y-16);
+		if (change) {
+			View.vx = ThisPlayer.x-View.width/2;
+			View.vy = ThisPlayer.y-View.height/2;
+		}
 	};
 	if (curmap == nextmap) {
 		ucerr << U("The specified map is already loaded") << endl;

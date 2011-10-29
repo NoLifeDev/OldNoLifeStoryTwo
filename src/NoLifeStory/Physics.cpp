@@ -53,11 +53,7 @@ void NLS::Physics::Reset(double x, double y) {
 
 void NLS::Physics::Update() {
 	double mass = 100;//TODO - Add proper shoe stuff
-	//TODO - Move this control stuff elsewhere
-	bool left = sf::Keyboard::IsKeyPressed(sf::Keyboard::Left);
-	bool right = sf::Keyboard::IsKeyPressed(sf::Keyboard::Right);
-	bool up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);
-	bool down = sf::Keyboard::IsKeyPressed(sf::Keyboard::Down);
+	f = left&&!right?false:right&&!left?true:f;
 	//TODO - Handle jumping here
 	//Movement and friction
 	if (fh) {//Walking on the ground

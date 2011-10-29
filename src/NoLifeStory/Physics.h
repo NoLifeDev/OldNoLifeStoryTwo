@@ -3,7 +3,7 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 namespace NLS {
-	class Physics {//Derive anything with physics from this
+	class Physics {
 	public:
 		double x, y, r;
 		double vx, vy, vr;
@@ -11,6 +11,8 @@ namespace NLS {
 		class LadderRope* lr;
 		int layer, group;
 		int freefall;
+		bool left, right, up, down;
+		bool f;
 		Physics();
 		Physics(double x, double y);
 		void Update();

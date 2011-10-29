@@ -53,6 +53,9 @@ void NLS::Portal::Load(Node n) {
 }
 
 void NLS::Portal::Draw() {
-	//TODO: Animated portal types from game, rather than editor
-	sprites[pt].Draw(x, y);
+	switch (pt) {
+		//TODO: Animated portal types from game, rather than editor
+	default:
+		sprites[pt].Draw(x, y);
+	}
 }

@@ -20,6 +20,9 @@ NLS::Sound::Sound(SoundProperty* data) {
 }
 
 NLS::Sound& NLS::Sound::operator= (const Sound& other) {
+	if (data == other.data) {
+		return *this;
+	}
 	if (stream) {
 		BASS_StreamFree(stream);
 	}

@@ -8,8 +8,8 @@ namespace NLS {
 		void Draw();
 		static void Load(Node n);
 		int x, y;
-		int pt, tm;
-		ustring pn, tn;
+		int pt;
+		ustring tm, pn, tn;
 		int hi, vi;
 		ustring script;
 		int onlyonce;
