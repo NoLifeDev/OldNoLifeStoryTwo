@@ -54,8 +54,21 @@
 #error "Upgrade your visual studio to VS10 or VS11"
 #endif
 #elif defined(__GNUC__)
+#if __GNUC__ < 4
+#error "Please upgrade your gcc"
+#elif __GNUC__ == 4
+#if __GNUC_MINOR__ < 6
+#error "Please upgrade your gcc"
+#endif
+#endif
+#ifndef _GLIBCXX_HAS_GTHREADS
+#error "_GLIBCXX_HAS_GTHREADS not defined"
+#endif
 #define NLS_GCC
 #define NLS_CPP11
+#ifdef __MINGW32__
+#define NLS_MINGW
+#endif
 #else
 #error "Unknown compiler"
 #endif

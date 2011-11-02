@@ -15,7 +15,7 @@ string maps[] = {"1000000", "2000000", "100000000", "101000000", "102000000", "1
 void NLS::Init(const vector<ustring>& args) {
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
-#ifdef NLS_WINDOWS
+#ifdef NLS_MSVC
 	_setmode(_fileno(stdout), _O_U8TEXT);
 	_setmode(_fileno(stderr), _O_U8TEXT);
 #endif
