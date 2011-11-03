@@ -7,6 +7,7 @@ namespace NLS {
 	public:
 		_ThisPlayer();
 		void Draw();
+		void UsePortal();
 		double pdelay;
 	} extern ThisPlayer;
 }

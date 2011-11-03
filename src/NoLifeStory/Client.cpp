@@ -34,6 +34,7 @@ void NLS::Init(const vector<ustring>& args) {
 #endif
 	KeySet(sf::Keyboard::Escape, Func(window->Close));
 	KeySet(sf::Keyboard::F, Func(ThisPlayer.MouseFly));
+	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
 	ucout << U("Initialization complete") << endl;
 	Map::Load("100000000", "");
 	Map::Load();
