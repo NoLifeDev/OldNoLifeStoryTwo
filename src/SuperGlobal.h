@@ -61,11 +61,10 @@
 #error "Please upgrade your gcc"
 #endif
 #endif
-#ifndef _GLIBCXX_HAS_GTHREADS
-#error "_GLIBCXX_HAS_GTHREADS not defined"
-#endif
 #define NLS_GCC
+#ifdef _GLIBCXX_HAS_GTHREADS
 #define NLS_CPP11
+#endif
 #ifdef __MINGW32__
 #define NLS_MINGW
 #endif
