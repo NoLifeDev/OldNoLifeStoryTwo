@@ -5,13 +5,13 @@
 
 namespace NLS {
 	namespace Map {
-		void Load(const ustring& id, const ustring& portal);
+		void Load(const string& id, const string& portal);
 		void Load();
 		void Draw();
 		extern Node node;
-		extern ustring nextmap;
-		extern ustring nextportal;
-		extern ustring curmap;
+		extern string nextmap;
+		extern string nextportal;
+		extern string curmap;
 		class Layer {
 		public:
 			void Draw();

@@ -7,125 +7,37 @@
 #define degtorad 0.01745329251994329576923690768489
 #define radtodeg 57.295779513082320876798154814105
 
-#ifdef NLS_WINDOWS //Assuming *nix
-#define nstring wstring
-#define uchar wchar_t
-#define ustringstream wstringstream
-#define ucout wcout
-#define ucerr wcerr
-#define U(x) L##x
-#else
-#define nstring string
-#define uchar char
-#define ustringstream stringstream
-#define U(x) x
-#define ucout cout
-#define ucerr cerr
-#endif
+inline void pad(string& str, char c, size_t l) {
+	str.insert(0, l-str.size(), c);
+}
+inline vector<string> split(const string& str, char c) {
+	stringstream ss(str);
+	string s;
+	vector<string> sp;
+	while (getline(ss, s, c)) {
+		sp.push_back(s);
+	}
+	return sp;
+}
 
-class ustring : public nstring {
-public:
-	ustring() : nstring() {}
-	ustring(const ustring& s) : nstring(s) {}
-	ustring(ustring&& s) : nstring(s) {}
-	ustring(const nstring& s) : nstring(s) {}
-	ustring(nstring&& s) : nstring(s) {}
-	ustring(const uchar* s) : nstring(s) {}
-#ifdef NLS_WINDOWS
-	ustring(const char* s) {
-		string ss = s;
-		assign(ss.begin(), ss.end());
-	}
-	ustring(const string& s) : wstring(s.begin(), s.end()) {}
-	bool operator== (const char* s) {
-		return *this == ustring(s);
-	}
-	bool operator!= (const char* s) {
-		return *this != ustring(s);
-	}
-#else
-	ustring(const wchar_t* s) {
-		wstring ss = s;
-		assign(ss.begin(), ss.end());
-	}
-#endif
-	operator nstring&() {
-		return *(nstring*)this;
-	}
-	ustring& pad(uchar c, size_t l) {
-		insert(0, l-size(), c);
-		return *this;
-	}
-	vector<ustring> split(uchar c) const {
-		ustringstream ss(*this);
-		ustring s;
-		vector<ustring> sp;
-		while (getline(ss, s, c)) {
-			sp.push_back(s);
-		}
-		return sp;
-	}
-	ustring operator/ (ustring other) {
-		ustring result = *this;
-		return result /= other;
-	}
-	ustring& operator/= (ustring other) {
-		if (length() > 1 and (at(length()-1) == '/' or at(length()-1) == '\\')) {
-			erase(length()-1);
-		}
-		if (other.length() > 0 and (other.at(0) == '/' or other.at(0) == '\\')) {
-			other.erase(0,1);
-		}
-		if (!empty()) {
-			*this += '/';
-		}
-		*this += other;
-		return *this;
-	}
-};
-
-inline ustring tostring(const double& t) {
-	static uchar str[32];
-#ifdef NLS_WINDOWS
-#ifdef NLS_MINGW
-	swprintf(str, U("%f"), t);
-#else
-	swprintf(str, 32, U("%f"), t);
-#endif
-#else
-	sprintf(str, U("%f"), t);
-#endif
+inline string tostring(const double& t) {
+	static char str[32];
+	sprintf(str, "%f", t);
 	return str;
 }
 
-inline ustring tostring(const int& t) {
-	static uchar str[32];
-#ifdef NLS_WINDOWS
-#ifdef NLS_MINGW
-	swprintf(str, U("%i"), t);
-#else
-	swprintf(str, 32, U("%i"), t);
-#endif
-#else
-	sprintf(str, U("%i"), t);
-#endif
+inline string tostring(const int& t) {
+	static char str[32];
+	sprintf(str, "%i", t);
 	return str;
 }
 
-inline double todouble(const ustring& t) {
-#ifdef NLS_WINDOWS
-	return wcstod(t.c_str(), 0);
-#else
+inline double todouble(const string& t) {
 	return strtod(t.c_str(), 0);
-#endif
 }
 
-inline int toint(const ustring& t) {
-#ifdef NLS_WINDOWS
-	return wcstol(t.c_str(), 0, 10);
-#else
+inline int toint(const string& t) {
 	return strtol(t.c_str(), 0, 10);
-#endif
 }
 
 inline double sqr(const double& x) {
@@ -167,26 +79,38 @@ inline double sign (const double& x) {
 inline int pot(int x) {
 	x--;
 	for (int i = 1; i < 32; i <<= 1) {
-		x = x | x >> i;
+		x = x|x>>i;
 	}
 	return x+1;
 }
 
 #ifndef NLS_TR2
-typedef ustring upath;
-inline bool exists (const upath& name) {
-#ifdef NLS_WINDOWS
-	struct _stat info;
-	return _wstat(name.c_str(), &info) == 0;
-#else
+class path : public string {
+public:
+	path() : string() {}
+	path(const string& s) : string(s) {}
+	path(const string&& s) : string(s) {}
+	path(const path& s) : string(s) {}
+	path& operator/= (path other) {
+		if (length() > 1 and (at(length()-1) == '/' or at(length()-1) == '\\')) {
+			erase(length()-1);
+		}
+		if (other.length() > 0 and (other.at(0) == '/' or other.at(0) == '\\')) {
+			other.erase(0,1);
+		}
+		if (!empty()) {
+			*this += '/';
+		}
+		*this += other;
+		return *this;
+	}
+	path operator/ (path other) {
+		path result = *this;
+		return result /= other;
+	}
+};
+inline bool exists (const path& name) {
 	struct stat info;
 	return stat(name.c_str(),&info) == 0;
-#endif
 }
-#else
-#ifdef NLS_WINDOWS
-typedef wpath upath;
-#else
-typedef path upath;
-#endif
 #endif

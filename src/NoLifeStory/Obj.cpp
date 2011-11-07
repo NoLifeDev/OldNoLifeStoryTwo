@@ -18,10 +18,10 @@ void NLS::Obj::Load(Node n) {
 		}
 		for (auto it = ln["obj"].begin(); it != ln["obj"].end(); it++) {
 			Node on = it->second;
-			ustring t1 = on["oS"];
-			ustring t2 = on["l0"];
-			ustring t3 = on["l1"];
-			ustring t4 = on["l2"];
+			string t1 = on["oS"];
+			string t2 = on["l0"];
+			string t3 = on["l1"];
+			string t4 = on["l2"];
 			Node od = WZ["Map"]["Obj"][t1][t2][t3][t4];
 			Obj* o = new Obj;
 			o->x = on["x"];

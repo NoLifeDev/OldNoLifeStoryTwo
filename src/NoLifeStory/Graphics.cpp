@@ -14,22 +14,22 @@ void NLS::Graphics::Init() {
 	GLenum error = glewInit();
 	switch (error) {
 	case GLEW_OK:
-		ucout << U("GLEW initialized") << endl;;
+		cout << "GLEW initialized" << endl;;
 		break;
 	case GLEW_ERROR_NO_GL_VERSION:
-		ucerr << U("Unable to detect OpenGL version.");
+		cerr << "Unable to detect OpenGL version.";
 		throw(273);
 		break;
 	case GLEW_ERROR_GL_VERSION_10_ONLY:
-		ucerr << U("You only have OpenGL 1.0. What a fail.");
+		cerr << "You only have OpenGL 1.0. What a fail.";
 		throw(273);
 		break;
 	case GLEW_ERROR_GLX_VERSION_11_ONLY:
-		ucerr << U("You only have GLX 1.1. What a fail.");
+		cerr << "You only have GLX 1.1. What a fail.";
 		throw(273);
 		break;
 	default:
-		ucerr << U("GLEW has given me an unknown error code so I'll just abort.");
+		cerr << "GLEW has given me an unknown error code so I'll just abort.";
 		throw(273);
 		break;
 	}
@@ -55,11 +55,11 @@ void NLS::Graphics::Init() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	window->Display();
 	if (!GLEW_VERSION_1_2) {
-		ucerr << U("Seriously. You don't have OpenGL 1.2? Maybe you forgot to install drivers for your gpu? Wait a second, do you even HAVE a gpu? Seriously, get a job and buy a graphics card.") << endl;
+		cerr << "Seriously. You don't have OpenGL 1.2? Maybe you forgot to install drivers for your gpu? Wait a second, do you even HAVE a gpu? Seriously, get a job and buy a graphics card." << endl;
 		Shit = true;
 	}
 	if (!GLEW_ARB_texture_non_power_of_two and !GLEW_VERSION_2_0) {
-		ucerr << U("Missing support for NPOT textures. Using slower backward's compatible code. Please upgrade your graphics card and/or drivers when you get a chance.") << endl;
+		cerr << "Missing support for NPOT textures. Using slower backward's compatible code. Please upgrade your graphics card and/or drivers when you get a chance." << endl;
 		NPOT = false;
 	}
 }
@@ -71,7 +71,7 @@ void NLS::Graphics::Draw() {
 	Foothold::Draw();
 	View.Reset();
 	Time.Step();
-	ustring title = U("NoLifeStory::FrameRate = ")+tostring((int)Time.fps);//Fix this SFML!
+	string title = "NoLifeStory::FrameRate = "+tostring((int)Time.fps);//Fix this SFML!
 #ifdef NLS_WINDOWS
 	window->SetTitle(string(title.begin(), title.end()));
 #else
@@ -83,7 +83,7 @@ void NLS::Graphics::Draw() {
 	case GL_NO_ERROR:
 		break;
 	default:
-		ucerr << U("OH GOD OPENGL FAILED") << endl;
+		cerr << "OH GOD OPENGL FAILED" << endl;
 	}
 #endif
 }

@@ -9,23 +9,23 @@ namespace NLS {
 		Node();
 		Node(const Node&);
 		Node& operator= (const Node&);
-		Node operator[] (const ustring&);
+		Node operator[] (const string&);
 		Node operator[] (const char[]);
 		Node operator[] (const int&);
-		Node g(const ustring&);
-		map<ustring, Node>::iterator begin();
-		map<ustring, Node>::iterator end();
-		ustring Name();
-		void Name(const ustring&);
+		Node g(const string&);
+		map<string, Node>::iterator begin();
+		map<string, Node>::iterator end();
+		string Name();
+		void Name(const string&);
 		Node Parent();
 		void Assign(const Node&);
 		operator bool();
-		operator ustring();
+		operator string();
 		operator double();
 		operator int();
 		operator Sprite();
 		operator Sound();
-		void Set(const ustring&);
+		void Set(const string&);
 		void Set(const double&);
 		void Set(const int&);
 		void Set(class Img*);
@@ -67,5 +67,5 @@ namespace NLS {
 	};
 	extern Node WZ;
 	extern uint16_t Version;
-	void InitWZ(const upath& wzpath);
+	void InitWZ(const path& wzpath);
 }

@@ -12,14 +12,12 @@ string maps[] = {"1000000", "2000000", "100000000", "101000000", "102000000", "1
 #include <io.h>
 #include <fcntl.h>
 #endif
-void NLS::Init(const vector<ustring>& args) {
+void NLS::Init(const vector<string>& args) {
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
-#ifdef NLS_MSVC
-	_setmode(_fileno(stdout), _O_U8TEXT);
-	_setmode(_fileno(stderr), _O_U8TEXT);
-#endif
-	ucout << U("Initializing NoLifeStory") << endl;
+	cout << endl << "Initializing NoLifeStory" << endl;
+	cout << "아무 라이프 스토리 없음" << endl;
+	cout << "유니 코드는 사용" << endl;
 	srand(time(0));
 	Network::Init();
 	Time.Reset();
@@ -35,7 +33,7 @@ void NLS::Init(const vector<ustring>& args) {
 	KeySet(sf::Keyboard::Escape, Func(window->Close));
 	KeySet(sf::Keyboard::F, Func(ThisPlayer.MouseFly));
 	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
-	ucout << U("Initialization complete") << endl;
+	cout << "Initialization complete" << endl;
 	Map::Load("100000000", "");
 	Map::Load();
 }

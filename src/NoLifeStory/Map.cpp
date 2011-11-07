@@ -5,21 +5,21 @@
 #include "Global.h"
 
 NLS::Node NLS::Map::node;
-ustring NLS::Map::nextmap;
-ustring NLS::Map::curmap;
-ustring NLS::Map::nextportal;
+string NLS::Map::nextmap;
+string NLS::Map::curmap;
+string NLS::Map::nextportal;
 vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
 NLS::Sound NLS::Map::bgmusic;
 
-void NLS::Map::Load(const ustring& id, const ustring& portal) {
+void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
 	nextportal = portal;
 }
 
 void NLS::Map::Load() {
-	auto teleport = [&](ustring portal, bool change) {
+	auto teleport = [&](string portal, bool change) {
 		if (portal.empty()) {
 			if (change) {
 				portal = "sp";
@@ -45,7 +45,7 @@ void NLS::Map::Load() {
 		}
 	};
 	if (curmap == nextmap) {
-		ucerr << U("The specified map is already loaded") << endl;
+		cerr << "The specified map is already loaded" << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -55,12 +55,12 @@ void NLS::Map::Load() {
 		node = WZ["UI"]["MapLogin"];
 		throw(273);//We don't deal with this shit yet
 	} else {
-		nextmap.pad('0', 9);
-		uchar zone = nextmap[0];
-		node = WZ["Map"]["Map"][ustring("Map")+zone][nextmap];
+		pad(nextmap, '0', 9);
+		char zone = nextmap[0];
+		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
 	}
 	if (!node) {
-		ucerr << U("Unable to locate map ") << nextmap << endl;
+		cerr << "Unable to locate map " << nextmap << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -68,9 +68,9 @@ void NLS::Map::Load() {
 	}
 	Time.Reset();
 	curmap = nextmap;
-	ucout << U("Loading map ") << nextmap << endl;
-	ustring bgm = node["info"]["bgm"];
-	vector<ustring> p = bgm.split('/');
+	cout << "Loading map " << nextmap << endl;
+	string bgm = node["info"]["bgm"];
+	vector<string> p = split(bgm, '/');
 	bgmusic = WZ["Sound"][p[0]][p[1]];
 	bgmusic.Play(true);
 	for (uint8_t i = 0; i < 8; i++) {

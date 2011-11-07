@@ -5,7 +5,7 @@
 #include "Global.h"
 #include "Keys.h"
 
-upath WZPath;
+path WZPath;
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
 int16_t EncVersion;
@@ -31,10 +31,10 @@ inline int32_t ReadCInt(ifstream* file) {
 	}
 }
 
-inline ustring ReadEncString(ifstream* file) {
+inline string ReadEncString(ifstream* file) {
 	int8_t slen = Read<int8_t>(file);
 	if (slen == 0) {
-		return ustring();
+		return string();
 	} else if (slen > 0) {
 		int32_t len;
 		if (slen == 127) {
@@ -43,17 +43,23 @@ inline ustring ReadEncString(ifstream* file) {
 			len = slen;
 		}
 		if (len <= 0) {
-			return ustring();
+			return string();
 		}
 		uint16_t mask = 0xAAAA;
-		static wchar_t s[1024];
-		file->read((char*)s, 2*len);
+		static wchar_t ws[0x10000];
+		static char s[0x10000];
+		file->read((char*)ws, 2*len);
 		for (int i = 0; i < len; i++) {
-			s[i] ^= mask;
-			s[i] ^= (WZKey[i*2+1]<<8)+WZKey[i*2];
+			ws[i] ^= mask;
+			ws[i] ^= (WZKey[i*2+1]<<8)+WZKey[i*2];
 			mask++;
 		}
-		s[len] = '\0';
+		ws[len] = '\0';
+#ifdef NLS_MSVC
+		WideCharToMultiByte(CP_UTF8, 0, ws, -1, s, 0x10000, 0, 0);
+#else
+		wcstombcs(s, ws, 0x10000);
+#endif
 		return s;
 	} else {
 		int32_t len;
@@ -63,10 +69,10 @@ inline ustring ReadEncString(ifstream* file) {
 			len = -slen;
 		}
 		if (len <= 0) {
-			return ustring();
+			return string();
 		}
 		uint8_t mask = 0xAA;
-		static char s[1024];
+		static char s[0x10000];
 		file->read((char*)s, len);
 		for (int i = 0; i < len; i++) {
 			s[i] ^= mask;
@@ -102,7 +108,7 @@ inline void ReadEncFast(ifstream* file) {
 	}
 }
 
-inline ustring ReadString(ifstream* file, uint32_t offset) {
+inline string ReadString(ifstream* file, uint32_t offset) {
 	uint8_t a = Read<uint8_t>(file);
 	switch (a) {
 	case 0x00:
@@ -115,26 +121,26 @@ inline ustring ReadString(ifstream* file, uint32_t offset) {
 			offset += off;
 			uint32_t p = file->tellg();
 			file->seekg(offset);
-			ustring s = ReadEncString(file);
+			string s = ReadEncString(file);
 			file->seekg(p);
 			return s;
 		}
 	default:
-		return ustring();
+		return string();
 	}
 }
 
-inline ustring ReadStringOffset(ifstream* file, uint32_t offset) {
+inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 	uint32_t p = file->tellg();
 	file->seekg(offset);
-	ustring s = ReadEncString(file);
+	string s = ReadEncString(file);
 	file->seekg(p);
 	return s;
 }
 #pragma endregion
 
 #pragma region WZ Parsing
-void NLS::InitWZ(const upath& wzpath) {
+void NLS::InitWZ(const path& wzpath) {
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
 	function <void(Node, ifstream*, uint32_t)> Directory;
@@ -150,7 +156,7 @@ void NLS::InitWZ(const upath& wzpath) {
 		return p;
 	};
 	File = [&ReadOffset, &Directory](Node n) {
-		upath filename = WZPath/upath(n.Name()+U(".wz"));
+		path filename = WZPath/path(n.Name()+".wz");
 #if !defined(NLS_TR2) && !defined(NLS_WINDOWS)
 		string sname(filename.begin(), filename.end());
 		ifstream *file = new ifstream(sname, ios::in|ios::binary);
@@ -158,13 +164,13 @@ void NLS::InitWZ(const upath& wzpath) {
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 #endif
 		if (!file->is_open()) {
-			ucerr << U("Failed to load ") << filename << endl;
+			cerr << "Failed to load " << filename << endl;
 			return;//Don't throw an error because of Nexon's stupid ExcelReport crap
 		}
 		char ident[4];
 		file->read(ident, 4);
 		if (string(ident, 4) != "PKG1") {
-			ucerr << U("Invalid ident header: ") << ustring(ident) << endl;
+			cerr << "Invalid ident header: " << string(ident) << endl;
 			throw(273);
 		}
 		uint64_t fileSize = Read<uint64_t>(file);
@@ -173,7 +179,7 @@ void NLS::InitWZ(const upath& wzpath) {
 		getline(*file, copyright, '\0');
 		file->seekg(fileStart);
 		if (!Version) {
-			ucout << ustring(copyright) << endl;
+			cout << string(copyright) << endl;
 			EncVersion = Read<int16_t>(file);
 			int32_t count = ReadCInt(file);
 			uint32_t c = 0;
@@ -192,12 +198,12 @@ void NLS::InitWZ(const upath& wzpath) {
 					c = file->tellg();
 					break;
 				} else {
-					ucerr << U("Malformed WZ structure") << endl;
+					cerr << "Malformed WZ structure" << endl;
 					throw(273);
 				}
 			}
 			if (c == 0) {
-				ucerr << U("Unable to find a top level .img for hash verification") << endl;
+				cerr << "Unable to find a top level .img for hash verification" << endl;
 				throw(273);
 			}
 			bool success = false;
@@ -223,25 +229,25 @@ void NLS::InitWZ(const upath& wzpath) {
 						if(a != 0x73) {
 							continue;
 						}
-						ustring ss = ReadEncString(file);
+						string ss = ReadEncString(file);
 						if (ss != "Property") {
 							continue;
 						}
-						ucout << U("Detected WZ version: ") << Version << endl;
+						cout << "Detected WZ version: " << Version << endl;
 						success = true;
 						break;
 					}
 				}
 			}
 			if (!success) {
-				ucerr << U("Unable to determine WZ version") << endl;
+				cerr << "Unable to determine WZ version" << endl;
 				throw(273);
 			}
 			file->seekg(fileStart+2);
 		} else {
 			int16_t eversion = Read<int16_t>(file);
 			if (eversion != EncVersion) {
-				ucerr << U("Version of WZ file does not match existing files") << endl;
+				cerr << "Version of WZ file does not match existing files" << endl;
 				throw(273);
 			}
 		}
@@ -253,9 +259,9 @@ void NLS::InitWZ(const upath& wzpath) {
 			File(n);
 			return;
 		}
-		set<pair<ustring, uint32_t>> dirs;
+		set<pair<string, uint32_t>> dirs;
 		for (int i = 0; i < count; i++) {
-			ustring name;
+			string name;
 			uint8_t type = Read<uint8_t>(file);
 			if (type == 1) {
 				file->seekg(10, ios::cur);
@@ -272,19 +278,19 @@ void NLS::InitWZ(const upath& wzpath) {
 			} else if (type == 4) {
 				name = ReadEncString(file);
 			} else {
-				ucerr << U("Unknown node type") << endl;
+				cerr << "Unknown node type" << endl;
 				throw(273);
 			}
 			int32_t fsize = ReadCInt(file);
 			int32_t checksum = ReadCInt(file);
 			uint32_t offset = ReadOffset(file, fileStart);
 			if (type == 3) {
-				dirs.insert(pair<ustring, uint32_t>(name, offset));
+				dirs.insert(pair<string, uint32_t>(name, offset));
 			} else if (type == 4) {
 				name.erase(name.size()-4, 4);
 				new Img(file, n.g(name), offset);
 			} else {
-				ucerr << U("Unknown node type") << endl;
+				cerr << "Unknown node type" << endl;
 				throw(273);
 			}
 		}
@@ -294,23 +300,24 @@ void NLS::InitWZ(const upath& wzpath) {
 		}
 	};
 	memset(WZKeys[0], 0, 0x10000);
-	upath paths[7] = {wzpath, U(""), U("C:/Nexon/MapleStory/"), U("/home/snake/"), U("/"), U("T:/"), U("D:/Games/MapleStory/Current/MapleStory/")};
-	for (int i = 0; i < sizeof(paths)/sizeof(upath); i++) {
+	memcpy(WZKeys[1], GMSKey, 0xFFFF);
+	path paths[7] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/", "D:/Games/MapleStory/Current/MapleStory/"};
+	for (int i = 0; i < 7; i++) {
 		WZPath = paths[i];
-		if (exists(WZPath/upath(U("Data.wz")))) {
-			ucout << U("Loading beta WZ file structure from ") << WZPath << endl;
+		if (exists(WZPath/path("Data.wz"))) {
+			cout << "Loading beta WZ file structure from " << WZPath << endl;
 			WZ.Name("Data");
 			File(WZ);
 			return;
 		}
-		if (exists(WZPath/upath(U("Base.wz")))) {
-			ucout << U("Loading standard WZ file structure from ") << WZPath << endl;
+		if (exists(WZPath/path("Base.wz"))) {
+			cout << "Loading standard WZ file structure from " << WZPath << endl;
 			WZ.Name("Base");
 			File(WZ);
 			return;
 		}
 	}
-	ucerr << U("I CAN'T FIND YOUR WZ FILES YOU NUB") << endl;
+	cerr << "I CAN'T FIND YOUR WZ FILES YOU NUB" << endl;
 	throw(273);
 }
 
@@ -328,7 +335,7 @@ void NLS::Img::Parse() {
 	SubProperty = [&ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
 		int32_t count = ReadCInt(file);
 		for (int i = 0; i < count; i++) {
-			ustring name = ReadString(file, offset);
+			string name = ReadString(file, offset);
 			uint8_t a = Read<uint8_t>(file);
 			switch (a) {
 			case 0x00:
@@ -361,13 +368,13 @@ void NLS::Img::Parse() {
 					break;
 				}
 			default:
-				ucerr << U("Unknown Property type") << endl;
+				cerr << "Unknown Property type" << endl;
 				throw(273);
 			}
 		}
 	};
 	ExtendedProperty = [&SubProperty, &ExtendedProperty](ifstream* file, Node n, uint32_t offset) {
-		ustring name;
+		string name;
 		uint8_t a = Read<uint8_t>(file);
 		if (a == 0x1B) {
 			int32_t inc = Read<int32_t>(file);
@@ -414,18 +421,18 @@ void NLS::Img::Parse() {
 					break;
 				}
 			default:
-				ucerr << U("Unknown UOL type") << endl;
+				cerr << "Unknown UOL type" << endl;
 				throw(273);
 			}
 		} else {
-			ucerr << U("Unknown ExtendedProperty type") << endl;
+			cerr << "Unknown ExtendedProperty type" << endl;
 			throw(273);
 		};
 	};
 	Resolve = [&Resolve](Node n) {
 		if (n["UOL"]) {
-			ustring s = n["UOL"];
-			vector <ustring> parts = s.split('/');
+			string s = n["UOL"];
+			vector <string> parts = split(s, '/');
 			Node nn = n.Parent();
 			for (auto it = parts.begin(); it != parts.end(); it++) {
 				if (!nn) {
@@ -448,21 +455,21 @@ void NLS::Img::Parse() {
 			}
 		}
 	};
-	ucout << U("Parsing ") << n.Name() << U(".img") << endl;
+	cout << "Parsing " << n.Name() << ".img" << endl;
 	file->seekg(offset);
 	uint8_t a = Read<uint8_t>(file);
 	if (a != 0x73) {
-		ucerr << U("Invalid WZ image!") << endl;
+		cerr << "Invalid WZ image!" << endl;
 		throw(273);
 	}
-	ustring s = ReadEncString(file);
+	string s = ReadEncString(file);
 	if (s != "Property") {
-		ucerr << U("Invalid WZ image!") << endl;
+		cerr << "Invalid WZ image!" << endl;
 		throw(273);
 	}
 	uint16_t b = Read<uint16_t>(file);
 	if (b != 0) {
-		ucerr << U("Invalid WZ image!") << endl;
+		cerr << "Invalid WZ image!" << endl;
 		throw(273);
 	}
 	SubProperty(file, n, offset);
@@ -485,7 +492,7 @@ NLS::PNGProperty::PNGProperty(ifstream* file, Node n) {
 	file->seekg(4, ios::cur);
 	length = Read<int32_t>(file);
 	if (length <= 0) {
-		ucerr << U("What sort of shit is this?") << endl;
+		cerr << "What sort of shit is this?" << endl;
 		throw(273);
 	}
 	offset = file->tellg();
@@ -510,12 +517,12 @@ void NLS::PNGProperty::Parse() {
 		case Z_BUF_ERROR:
 			break;
 		default:
-			ucerr << U("Why isn't zlib giving a buffer error?") << endl;
+			cerr << "Why isn't zlib giving a buffer error?" << endl;
 			throw(273);
 		}
 		if (strm.total_out != outLen) {
-			ucerr << U("Zlib inflated to ") << strm.total_out << U(" bytes.") <<endl;
-			ucerr << U("I expected ") << outLen << U(" bytes.") <<endl;
+			cerr << "Zlib inflated to " << strm.total_out << " bytes." <<endl;
+			cerr << "I expected " << outLen << " bytes." <<endl;
 			//throw(273);
 		}
 		inflateEnd(&strm);
@@ -594,7 +601,7 @@ void NLS::PNGProperty::Parse() {
 	case 517:
 		{
 			if (pot(ww) != ww or pot(hh) != hh) {
-				ucerr << U("Non-square type 517 sprite found") << endl;
+				cerr << "Non-square type 517 sprite found" << endl;
 				throw(273);
 			}
 			ww >>= 4;
@@ -612,7 +619,7 @@ void NLS::PNGProperty::Parse() {
 			break;
 		}
 	default:
-		ucerr << U("Unknown sprite format ") << f << endl;
+		cerr << "Unknown sprite format " << f << endl;
 		throw(273);
 	}
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -655,15 +662,15 @@ public:
 		intValue = 0;
 		floatValue = 0;
 	}
-	ustring stringValue;
+	string stringValue;
 	double floatValue;
 	int intValue;
 	Sprite sprite;
 	Sound sound;
 	Node parent;
-	ustring name;
+	string name;
 	Img* image;
-	map <ustring, Node> children;
+	map <string, Node> children;
 private:
 	NodeData(const NodeData&);
 	NodeData& operator= (const NodeData&);
@@ -682,7 +689,7 @@ NLS::Node& NLS::Node::operator= (const Node& other) {
 	return *this;
 }
 
-NLS::Node NLS::Node::operator[] (const ustring& key) {
+NLS::Node NLS::Node::operator[] (const string& key) {
 	if (!data) {
 		return Node();
 	}
@@ -699,14 +706,14 @@ NLS::Node NLS::Node::operator[] (const ustring& key) {
 }
 
 NLS::Node NLS::Node::operator[] (const char key[]) {
-	return (*this)[ustring(key)];
+	return (*this)[string(key)];
 }
 
 NLS::Node NLS::Node::operator[] (const int& key) {
 	return (*this)[tostring(key)];
 }
 
-NLS::Node NLS::Node::g(const ustring& key) {
+NLS::Node NLS::Node::g(const string& key) {
 	assert(data);
 	Node& n = data->children[key];
 	n.data = new NodeData();
@@ -715,28 +722,28 @@ NLS::Node NLS::Node::g(const ustring& key) {
 	return n;
 }
 
-map<ustring, NLS::Node>::iterator NLS::Node::begin() {
+map<string, NLS::Node>::iterator NLS::Node::begin() {
 	if (!data) {
-		return map<ustring, NLS::Node>::iterator();
+		return map<string, NLS::Node>::iterator();
 	}
 	return data->children.begin();
 }
 
-map<ustring, NLS::Node>::iterator NLS::Node::end() {
+map<string, NLS::Node>::iterator NLS::Node::end() {
 	if (!data) {
-		return map<ustring, NLS::Node>::iterator();
+		return map<string, NLS::Node>::iterator();
 	}
 	return data->children.end();
 }
 
-ustring NLS::Node::Name() {
+string NLS::Node::Name() {
 	if (!data) {
-		return ustring();
+		return string();
 	}
 	return data->name;
 }
 
-void NLS::Node::Name(const ustring& s) {
+void NLS::Node::Name(const string& s) {
 	if (!data) {
 		data = new NodeData();
 	}
@@ -763,9 +770,9 @@ NLS::Node::operator bool() {
 	return (bool)data;
 }
 
-NLS::Node::operator ustring() {
+NLS::Node::operator string() {
 	if (!data) {
-		return ustring();
+		return string();
 	}
 	return data->stringValue;
 }
@@ -798,7 +805,7 @@ NLS::Node::operator NLS::Sound() {
 	return data->sound;
 }
 
-void NLS::Node::Set(const ustring& v) {
+void NLS::Node::Set(const string& v) {
 	data->intValue = toint(v);
 	data->floatValue = todouble(v);
 	data->stringValue = v;
