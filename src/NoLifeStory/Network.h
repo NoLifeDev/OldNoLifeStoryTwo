@@ -8,4 +8,7 @@ namespace NLS {
 		extern sf::TcpSocket Socket;
 		void Init();
 	}
+	class Packet {
+	public:
+	};
 }

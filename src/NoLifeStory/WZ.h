@@ -66,5 +66,6 @@ namespace NLS {
 		ifstream* file;
 	};
 	extern Node WZ;
+	extern uint16_t Version;
 	void InitWZ(const upath& wzpath);
 }

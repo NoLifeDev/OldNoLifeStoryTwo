@@ -8,13 +8,10 @@
 upath WZPath;
 NLS::Node NLS::WZ;
 uint8_t *WZKey = 0;
-uint8_t BMSKey[0xFFFF];
-uint8_t *WZKeys[] = {GMSKey, BMSKey};
-uint8_t GMSKeyIV[4] = {0x4D, 0x23, 0xC7, 0x2B};
-uint32_t OffsetKey = 0x581C3F6D;
 int16_t EncVersion;
-uint16_t Version = 0;
+uint16_t NLS::Version = 0;
 uint32_t VersionHash;
+uint8_t WZKeys[3][0x10000];
 
 #pragma region File reading stuff
 template <class T>
@@ -296,7 +293,7 @@ void NLS::InitWZ(const upath& wzpath) {
 			Directory(n.g(it->first), file, fileStart);
 		}
 	};
-	memset(BMSKey, 0, 0xFFFF);
+	memset(WZKeys[0], 0, 0x10000);
 	upath paths[7] = {wzpath, U(""), U("C:/Nexon/MapleStory/"), U("/home/snake/"), U("/"), U("T:/"), U("D:/Games/MapleStory/Current/MapleStory/")};
 	for (int i = 0; i < sizeof(paths)/sizeof(upath); i++) {
 		WZPath = paths[i];
