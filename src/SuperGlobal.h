@@ -1,15 +1,24 @@
 //////////////////////////////////////////////////////////////////////////
 // Copyright 2011 Peter Atechian (Retep998)                             //
-// All code in this version of NLS (aside from the libraries),          //
+// Almost all code in this version of NLS (aside from the libraries),   //
 // was written by Retep998.                                             //
-// Contributers to previous versions include (in no particular order):  //
-// Calc0000                                                             //
-// Erwin Oeg1ma (Diamondo25)                                            //
+// Contributers to this and previous versions (in no particular order): //
+// Joe Witterschlenbagen (Calc0000)                                     //
+// Erwin Oegema (Diamondo25)                                            //
 // David (Jvlaple)                                                      //
 // Andy Turner (Inumedia)                                               //
 // Cedric Van Goethem (Csharp)                                          //
 // Anthony Wolfe Vaughn                                                 //
 // Nate Bender                                                          //
+// SolvedSnake                                                          //
+// Thanks goes to the creators of maplelib and maplelib2:               //
+// Snow          														//
+// jonyleeson   														//
+// haha01haha01	  														//
+// HaHa                                                                 //
+// Other thanks goes to:												//
+// Koolk																//
+// Spudgy                                                               //
 //////////////////////////////////////////////////////////////////////////
 // This file is part of NoLifeStory.                                    //
 //                                                                      //
