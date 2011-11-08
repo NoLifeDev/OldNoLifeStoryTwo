@@ -10,7 +10,7 @@
 // Cedric Van Goethem (Csharp)                                          //
 // Anthony Wolfe Vaughn                                                 //
 // Nate Bender                                                          //
-// SolvedSnake                                                          //
+// Mika Attila (SolvedSnake)                                            //
 // Thanks goes to the creators of maplelib and maplelib2:               //
 // Snow          														//
 // jonyleeson   														//

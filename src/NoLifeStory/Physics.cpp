@@ -71,12 +71,12 @@ void NLS::Physics::Update() {
 	//TODO - Handle jumping here
 	//Movement and friction
 	if (fh) {//Walking on the ground
-		int dir = f?-1:1;
+		int dir = left&&!right?-1:right&&!left?1:0;
 		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
 		double maxh = fh->walk?(fh->force==0?shoe::walkAcc:1)*walkForce:0;
-		bool hd = fh->y1>fh->y2;
-		double force = left&&!right?-maxh:right&&!left?maxh:0;
+		int hd = fh->y1>fh->y2?1:-1;
+		double force = dir*maxh;
 		double max = fh->walk?shoe::walkSpeed*walkSpeed:0;
 		//Something with fly and swimSpeedDec and max
 		if (fh->force) {
@@ -120,7 +120,47 @@ void NLS::Physics::Update() {
 				}
 			}
 		} else {
+			maxh = max;
+			maxl = (maxl+1)*max;
+			if (hd*vr > 0) {
+				maxl = maxh;
+			}
+			if (vr > maxl) {
+				vr = max(maxl, vr-drag2/shoe::mass*Time.delta);
+			} else if (vr < -maxl) {
+				vr = min(maxl, vr+drag2/shoe::mass*Time.delta);
+			}
+			if (shoe::walkSlant < slip) {
+				fslip = slip*slipForce*-hd;
+				slip = slip*slipSpeed;
+				if (dir*hd <= 0) {
+					if (moving or fh->force != 0) {
+						fslip += force;
+						slip += maxl;
+					}
+				} else {
+					fslip *= 0.5;
+					slip *= 0.5;
+				}
+				if (hd*vr > 0) {
+					if (vr < 0) {
+						vr = min(0, vr-drag2/shoe::mass*Time.delta);
+					} else {
+						vr = max(0, vr+drag2/shoe::mass*Time.delta);
+					}
+				}
+				if (fslip < 0) {
+					if (vr > -slip) {
+						vr = max(-slip, vr-fslip/shoe::mass*Time.delta);
+					}
+				} else {
+					if (vr < slip) {
+						vr = min(slip, vr+fslip/shoe::mass*Time.delta);
+					}
+				}
+			} else {
 
+			}
 		}
 		r += vr*Time.delta;
 	} else {//Not on the ground
