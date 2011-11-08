@@ -90,6 +90,7 @@ public:
 	path() : string() {}
 	path(const string& s) : string(s) {}
 	path(const string&& s) : string(s) {}
+	path(const char* s) : string(s) {}
 	path(const path& s) : string(s) {}
 	path& operator/= (path other) {
 		if (length() > 1 and (at(length()-1) == '/' or at(length()-1) == '\\')) {

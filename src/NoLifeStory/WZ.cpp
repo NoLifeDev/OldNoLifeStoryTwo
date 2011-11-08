@@ -58,7 +58,7 @@ inline string ReadEncString(ifstream* file) {
 #ifdef NLS_MSVC
 		WideCharToMultiByte(CP_UTF8, 0, ws, -1, s, 0x10000, 0, 0);
 #else
-		wcstombcs(s, ws, 0x10000);
+		wcstombs(s, ws, 0x10000);
 #endif
 		return s;
 	} else {
