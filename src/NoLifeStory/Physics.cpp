@@ -72,7 +72,7 @@ void NLS::Physics::Update() {
 	//Movement and friction
 	if (fh) {//Walking on the ground
 		int dir = f?-1:1;
-		double slip = abs(fh->x1-fh->x2)/fh->len;
+		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
 		double maxh = fh->walk?(fh->force==0?shoe::walkAcc:1)*walkForce:0;
 		bool hd = fh->y1>fh->y2;
@@ -98,19 +98,31 @@ void NLS::Physics::Update() {
 		double drag2 = walkDrag/5;
 		if (slip == 0) {
 			if (vr < -max) {
-
-			} else {
-
+				vr = min(-max, vr+drag2/shoe::mass*Time.delta);
+			} else if (vr > max) {
+				vr = max(max, vr-drag2/shoe::mass*Time.delta);
 			}
 			if (!moving and fh->force == 0) {
-
+				if (vr < 0) {
+					vr = min(0, vr+fslip/shoe::mass*Time.delta);
+				} else {
+					vr = max(0, vr-fslip/shoe::mass*Time.delta);
+				}
 			} else {
-				//Accelerate
+				if (force < 0) {
+					if (vr > -max) {
+						vr = max(-max, vr+force/shoe::mass*Time.delta);
+					}
+				} else {
+					if (vr < max) {
+						vr = min(max, vr+force/shoe::mass*Time.delta);
+					}
+				}
 			}
 		} else {
 
 		}
-		r += vr;
+		r += vr*Time.delta;
 	} else {//Not on the ground
 		if (false) {//Underwater
 
@@ -120,8 +132,8 @@ void NLS::Physics::Update() {
 			} else {
 				vy = min(0., vy+floatDrag2/shoe::mass*Time.delta);
 			}
-			vy += gravityAcc*Time.delta;//Then gravity
-			vy = max(min(vy, fallSpeed), -fallSpeed);//Then keep speed within the limit
+			vy += gravityAcc*Time.delta;
+			vy = max(min(vy, fallSpeed), -fallSpeed);
 			if (moving) {
 				double l = floatDrag2*wat1;
 				if (left) {
@@ -133,7 +145,7 @@ void NLS::Physics::Update() {
 						vx = min(l, vx+floatDrag2*2/shoe::mass*Time.delta);
 					}
 				}
-			} else {//Just falling
+			} else {
 				if (vy < fallSpeed) {
 					if (vx > 0) {
 						vx = max(0., vx-floatDrag2*floatCoefficient*Time.delta);
