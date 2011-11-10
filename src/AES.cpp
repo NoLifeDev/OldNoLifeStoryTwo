@@ -31,12 +31,12 @@
 
 // code to implement Advanced Encryption Standard - Rijndael
 // speed optimized version
+#include <cstdint>
 #include "AES.h"
 #include <cassert>
 #include <cstdio>
 #include <fstream>
 #include <iostream>
-#include <cstdint>
 
 // todo - make faster 128 blocksize version with 128 blocksize hardcoded as necessary
 

@@ -36,7 +36,7 @@ void NLS::Foothold::Load(Node n) {
 				fh->group = fhgroup;
 				fh->dir = pdir(fh->x1, fh->y1, fh->x2, fh->y2);
 				fh->len = pdis(fh->x1, fh->y1, fh->x2, fh->y2);
-				fh->walk = fh->dir < 90 and fh->dir > -90;
+				fh->walk = fh->x2>fh->x1;
 				fh->next = 0;
 				fh->prev = 0;
 				footholds.insert(fh);

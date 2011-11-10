@@ -159,10 +159,26 @@ void NLS::Physics::Update() {
 					}
 				}
 			} else {
-
+				if (moving or fh->force != 0) {
+					double fmax = hd*force>0?maxh:maxl;
+					if (force < 0) {
+						if (vr > -max) {
+							vr = max(-fmax, vr+force/shoe::mass*Time.delta);
+						}
+					} else {
+						if (vr < max) {
+							vr = min(fmax, vr+force/shoe::mass*Time.delta);
+						}
+					}
+				} else {
+					if (vr < 0) {
+						vr = min(0, vr+fslip/shoe::mass*Time.delta);
+					} else {
+						vr = max(0, vr-fslip/shoe::mass*Time.delta);
+					}
+				}
 			}
 		}
-		r += vr*Time.delta;
 	} else {//Not on the ground
 		if (false) {//Underwater
 
@@ -201,15 +217,56 @@ void NLS::Physics::Update() {
 				}
 			}
 		}
-		//Detect collisions
 	}
 	//TODO - Grab on to ladders
 	//Collision Detection
 	if (fh) {
-		if (pdis(x, y, fh->x1, fh->y1) > fh->len) {
-
-		} else if (pdis(x, y, fh->x2, fh->y2) > fh->len) {
-
+		double rp = r;
+		r += vr*Time.delta;
+		if (r > fh->len) {
+			if (fh->next) {
+				if (fh->next->walk) {
+					r = r-fh->len;
+					fh = fh->next;
+				} else if (fh->next->y2 > fh->next->y1) {
+					x = fh->x2+0.1;
+					y = fh->y2+0.1;
+					vx = ldx(vr, fh->dir);
+					vy = ldy(vr, fh->dir);
+					fh = nullptr;
+				} else {
+					r = fh->len-0.1;
+					vr = 0;
+				}
+			} else {
+				x = fh->x2+0.1;
+				y = fh->y2+0.1;
+				vx = ldx(vr, fh->dir);
+				vy = ldy(vr, fh->dir);
+				fh = nullptr;
+			}
+		} else if (r < 0) {
+			if (fh->prev) {
+				if (fh->prev->walk) {
+					fh = fh->prev;
+					r = r+fh->len;
+				} else if (fh->prev->y2 < fh->prev->y1) {
+					x = fh->x1-0.1;
+					y = fh->y1-0.1;
+					vx = ldx(vr, fh->dir);
+					vy = ldy(vr, fh->dir);
+					fh = nullptr;
+				} else {
+					r = 0.1;
+					vr = 0;
+				}
+			} else {
+				x = fh->x1-0.1;
+				y = fh->y1-0.1;
+				vx = ldx(vr, fh->dir);
+				vy = ldy(vr, fh->dir);
+				fh = nullptr;
+			}
 		}
 	} else if (!lr) {
 		double xp = x;
@@ -235,8 +292,12 @@ void NLS::Physics::Update() {
 			x = xp+ldx(dis, dir);
 			y = yp+ldy(dis, dir);
 			r = pdis(fh->x1, fh->y1, x, y);
-			group = fh->group;
-			layer = fh->layer;
+			if (fh->x1 > fh->x2) {
+				fh = nullptr;
+			} else {
+				group = fh->group;
+				layer = fh->layer;
+			}
 		}
 	}
 	//Various bounds and coordinate transformations

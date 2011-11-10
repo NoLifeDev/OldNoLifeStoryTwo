@@ -55,11 +55,7 @@ inline string ReadEncString(ifstream* file) {
 			mask++;
 		}
 		ws[len] = '\0';
-#ifdef NLS_MSVC
-		WideCharToMultiByte(CP_UTF8, 0, ws, -1, s, 0x10000, 0, 0);
-#else
-		wcstombs(s, ws, 0x10000);
-#endif
+		sf::Utf8::FromWide(ws, ws+len+1, s);
 		return s;
 	} else {
 		int32_t len;
