@@ -104,9 +104,9 @@ void NLS::Physics::Update() {
 			}
 			if (!moving and fh->force == 0) {
 				if (vr < 0) {
-					vr = min(0, vr+fslip/shoe::mass*Time.delta);
+					vr = min(0., vr+fslip/shoe::mass*Time.delta);
 				} else {
-					vr = max(0, vr-fslip/shoe::mass*Time.delta);
+					vr = max(0., vr-fslip/shoe::mass*Time.delta);
 				}
 			} else {
 				if (force < 0) {
@@ -144,9 +144,9 @@ void NLS::Physics::Update() {
 				}
 				if (hd*vr > 0) {
 					if (vr < 0) {
-						vr = min(0, vr-drag2/shoe::mass*Time.delta);
+						vr = min(0., vr-drag2/shoe::mass*Time.delta);
 					} else {
-						vr = max(0, vr+drag2/shoe::mass*Time.delta);
+						vr = max(0., vr+drag2/shoe::mass*Time.delta);
 					}
 				}
 				if (fslip < 0) {
@@ -172,9 +172,9 @@ void NLS::Physics::Update() {
 					}
 				} else {
 					if (vr < 0) {
-						vr = min(0, vr+fslip/shoe::mass*Time.delta);
+						vr = min(0., vr+fslip/shoe::mass*Time.delta);
 					} else {
-						vr = max(0, vr-fslip/shoe::mass*Time.delta);
+						vr = max(0., vr-fslip/shoe::mass*Time.delta);
 					}
 				}
 			}
