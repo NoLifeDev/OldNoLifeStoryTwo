@@ -47,7 +47,6 @@ inline string ReadEncString(ifstream* file) {
 		}
 		uint16_t mask = 0xAAAA;
 		static wchar_t ws[0x10000];
-		static char s[0x10000];
 		file->read((char*)ws, 2*len);
 		for (int i = 0; i < len; i++) {
 			ws[i] ^= mask;
@@ -55,7 +54,9 @@ inline string ReadEncString(ifstream* file) {
 			mask++;
 		}
 		ws[len] = '\0';
+		static char s[0x10000];
 		sf::Utf8::FromWide(ws, ws+len+1, s);
+		cout << "Wide: " << s << endl;
 		return s;
 	} else {
 		int32_t len;
@@ -68,14 +69,16 @@ inline string ReadEncString(ifstream* file) {
 			return string();
 		}
 		uint8_t mask = 0xAA;
-		static char s[0x10000];
-		file->read((char*)s, len);
+		static char as[0x10000];
+		file->read((char*)as, len);
 		for (int i = 0; i < len; i++) {
-			s[i] ^= mask;
-			s[i] ^= WZKey[i];
+			as[i] ^= mask;
+			as[i] ^= WZKey[i];
 			mask++;
 		}
-		s[len] = '\0';
+		as[len] = '\0';
+		static char s[0x10000];
+		sf::Utf8::FromAnsi(as, as+len+1, s, locale::classic());
 		return s;
 	}
 }

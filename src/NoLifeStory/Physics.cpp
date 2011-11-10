@@ -40,7 +40,7 @@ namespace shoe {
 };
 
 void NLS::Physics::Init() {
-	Node n = WZ["Map"]["Physics"];//TODO - Load this?
+	Node n = WZ["Map"]["Physics"];
 }
 
 NLS::Physics::Physics() {
@@ -68,22 +68,22 @@ void NLS::Physics::Reset(double x, double y) {
 void NLS::Physics::Update() {
 	f = left&&!right?false:right&&!left?true:f;
 	bool moving = left^right;
-	//TODO - Handle jumping here
-	//Movement and friction
-	if (fh) {//Walking on the ground
+	if (fh) {
 		int dir = left&&!right?-1:right&&!left?1:0;
 		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
 		double maxh = fh->walk?(fh->force==0?shoe::walkAcc:1)*walkForce:0;
 		int hd = fh->y1>fh->y2?1:-1;
 		double force = dir*maxh;
-		double max = fh->walk?shoe::walkSpeed*walkSpeed:0;
-		//Something with fly and swimSpeedDec and max
+		double maxf = fh->walk?shoe::walkSpeed*walkSpeed:0;
+		if ((double)Map::node["info"]["fly"] < 0) {
+			maxf *= swimSpeedDec;
+		}
 		if (fh->force) {
 			if (moving) {
 				double m = dir==sign(fh->force)?2*abs(fh->force):0.2/abs(fh->force);
 				force *= m;
-				max *= m;
+				maxf *= m;
 			} else {
 				force = fh->force*maxh;
 			}
@@ -97,10 +97,10 @@ void NLS::Physics::Update() {
 		double fslip = drag*walkDrag;
 		double drag2 = walkDrag/5;
 		if (slip == 0) {
-			if (vr < -max) {
-				vr = min(-max, vr+drag2/shoe::mass*Time.delta);
-			} else if (vr > max) {
-				vr = max(max, vr-drag2/shoe::mass*Time.delta);
+			if (vr < -maxf) {
+				vr = min(-maxf, vr+drag2/shoe::mass*Time.delta);
+			} else if (vr > maxf) {
+				vr = max(maxf, vr-drag2/shoe::mass*Time.delta);
 			}
 			if (!moving and fh->force == 0) {
 				if (vr < 0) {
@@ -110,18 +110,18 @@ void NLS::Physics::Update() {
 				}
 			} else {
 				if (force < 0) {
-					if (vr > -max) {
-						vr = max(-max, vr+force/shoe::mass*Time.delta);
+					if (vr > -maxf) {
+						vr = max(-maxf, vr+force/shoe::mass*Time.delta);
 					}
 				} else {
-					if (vr < max) {
-						vr = min(max, vr+force/shoe::mass*Time.delta);
+					if (vr < maxf) {
+						vr = min(maxf, vr+force/shoe::mass*Time.delta);
 					}
 				}
 			}
 		} else {
-			maxh = max;
-			maxl = (maxl+1)*max;
+			maxh = maxf;
+			maxl = (maxl+1)*maxf;
 			if (hd*vr > 0) {
 				maxl = maxh;
 			}
@@ -162,11 +162,11 @@ void NLS::Physics::Update() {
 				if (moving or fh->force != 0) {
 					double fmax = hd*force>0?maxh:maxl;
 					if (force < 0) {
-						if (vr > -max) {
+						if (vr > -maxf) {
 							vr = max(-fmax, vr+force/shoe::mass*Time.delta);
 						}
 					} else {
-						if (vr < max) {
+						if (vr < maxf) {
 							vr = min(fmax, vr+force/shoe::mass*Time.delta);
 						}
 					}
@@ -179,11 +179,11 @@ void NLS::Physics::Update() {
 				}
 			}
 		}
-	} else {//Not on the ground
-		if (false) {//Underwater
-
-		} else {//Just mid-air
-			if (vy > 0.) {//First vertical air friction
+	} else {
+		if (false) {
+			//Underwater or flying...
+		} else {
+			if (vy > 0.) {
 				vy = max(0., vy-floatDrag2/shoe::mass*Time.delta);
 			} else {
 				vy = min(0., vy+floatDrag2/shoe::mass*Time.delta);
@@ -218,8 +218,6 @@ void NLS::Physics::Update() {
 			}
 		}
 	}
-	//TODO - Grab on to ladders
-	//Collision Detection
 	if (fh) {
 		double rp = r;
 		r += vr*Time.delta;
@@ -300,7 +298,6 @@ void NLS::Physics::Update() {
 			}
 		}
 	}
-	//Various bounds and coordinate transformations
 	if (fh) {
 		x = fh->x1+ldx(r, fh->dir);
 		y = fh->y1+ldy(r, fh->dir);
@@ -323,4 +320,18 @@ void NLS::Physics::Update() {
 void NLS::Physics::MouseFly() {
 	auto p = sf::Mouse::GetPosition(*window);
 	Reset(p.x+View.x, p.y+View.y);
+}
+
+void NLS::Physics::Jump() {
+	if (fh) {//If we're on the ground
+		if (down && false) {//If we can downjump
+
+		} else {//Normal jump
+
+		}
+	} else if (false) {//Swimming or flying
+
+	} else {
+		//Nope, can't jump
+	}
 }
