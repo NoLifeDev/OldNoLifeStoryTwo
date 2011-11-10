@@ -13,6 +13,7 @@ namespace NLS {
 		int freefall;
 		bool left, right, up, down;
 		bool f;
+		Foothold* djump;
 		Physics();
 		Physics(double x, double y);
 		void Update();

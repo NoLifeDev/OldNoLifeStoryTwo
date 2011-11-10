@@ -55,7 +55,7 @@ void NLS::Network::Init() {
 	Type = Get<uint8_t>(header);
 	cout << "LoginServer version: " << Version << endl;
 	cout << "Patch location: " << Patch << endl;
-	cout << "Type: " << Type << endl;
+	cout << "Type: " << (uint16_t)Type << endl;
 	cout << "SendIV: " << SendIV << endl;
 	cout << "RecvIV: " << RecvIV << endl;
 	Socket.SetBlocking(false);
