@@ -27,10 +27,17 @@ inline void Receive(char* data, size_t size) {
 	}
 }
 template <class T>
-inline T& Get (char*& data) {
+inline T Get (char*& data) {
 	T& ret = *(T*)data;
 	data += sizeof(T);
 	return ret;
+}
+template <>
+inline string Get<string> (char*& data) {
+	size_t size = Get<uint16_t>(data);
+	string s(data, size);
+	data += size;
+	return s;
 }
 void NLS::Network::Init() {
 	Socket.SetBlocking(true);
@@ -48,17 +55,15 @@ void NLS::Network::Init() {
 	char* header = new char[length];
 	Receive(header, length);
 	Version = Get<uint16_t>(header);
-	Patch = string(header);
-	header += Patch.length()+1;
+	Patch = Get<string>(header);
 	SendIV = Get<uint32_t>(header);
 	RecvIV = Get<uint32_t>(header);
 	Type = Get<uint8_t>(header);
 	cout << "LoginServer version: " << Version << endl;
 	cout << "Patch location: " << Patch << endl;
-	cout << "Type: " << (uint16_t)Type << endl;
+	cout << "Locale: " << (uint16_t)Type << endl;
 	cout << "SendIV: " << SendIV << endl;
 	cout << "RecvIV: " << RecvIV << endl;
-	Socket.SetBlocking(false);
 #ifdef NLS_CPP11
 		Thread = new thread(Loop);
 #else
@@ -69,5 +74,12 @@ void NLS::Network::Init() {
 void NLS::Network::Loop() {
 	while (true) {
 		sf::Sleep(100);
+		char* header = new char[4];
+		Receive(header, 4);
+		uint32_t length = Get<uint32_t>(header);
+		length = (length>>16)^(length&0xFFFF);
+		cout << "Received packet of length " << length << endl;
+		char* data = new char[length];
+		Receive(data, length);
 	}
 }

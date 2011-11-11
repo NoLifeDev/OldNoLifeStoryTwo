@@ -279,7 +279,7 @@ void NLS::Physics::Update() {
 		for (auto it = footholds.begin(); it != footholds.end(); it++) {
 			Foothold& o = **it;
 			if (djump == &o) continue;
-			if (!o.walk && group != o.group) continue;
+			if (!o.walk and group != o.group and o.layer != 0) continue;
 			if (angdif(dir, o.dir) < 0) continue;
 			if (angdif(dir, pdir(xp, yp, o.x1, o.y1)) > 0) continue;
 			if (angdif(dir, pdir(xp, yp, o.x2, o.y2)) < 0) continue;
@@ -304,7 +304,9 @@ void NLS::Physics::Update() {
 				} else {
 					x = fh->x1-0.1;
 				}
-				y = yp+vy*Time.delta;
+				if (vy < 0) {
+					y = yp+vy*Time.delta;
+				}
 				fh = nullptr;
 			} else {
 				group = fh->group;
