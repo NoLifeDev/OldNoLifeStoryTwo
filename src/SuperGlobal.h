@@ -8,16 +8,17 @@
 // David (Jvlaple)                                                      //
 // Andy Turner (Inumedia)                                               //
 // Cedric Van Goethem (Csharp)                                          //
+// Martyn Cleroux (IWannaWin)                                           //
 // Anthony Wolfe Vaughn                                                 //
 // Nate Bender                                                          //
 // Mika Attila (SolvedSnake)                                            //
 // Thanks goes to the creators of maplelib and maplelib2:               //
-// Snow          														//
-// jonyleeson   														//
-// haha01haha01	  														//
+// Snow                                                                 //
+// jonyleeson                                                           //
+// haha01haha01                                                         //
 // HaHa                                                                 //
-// Other thanks goes to:												//
-// Koolk																//
+// Other thanks goes to:                                                //
+// Koolk                                                                //
 // Spudgy                                                               //
 //////////////////////////////////////////////////////////////////////////
 // This file is part of NoLifeStory.                                    //

@@ -73,7 +73,7 @@ void NLS::Map::Load() {
 	vector<string> p = split(bgm, '/');
 	bgmusic = WZ["Sound"][p[0]][p[1]];
 	bgmusic.Play(true);
-	for (uint8_t i = 0; i < 8; i++) {
+	for (uint8_t i = 0; i < 8; ++i) {
 		Layers[i].Tiles.clear();
 		Layers[i].Objs.clear();
 	}
@@ -98,7 +98,7 @@ void NLS::Map::Load() {
 		View.xmax = -1000000;
 		View.ymin = 1000000;
 		View.ymax = -1000000;
-		for (auto it = footholds.begin(); it != footholds.end(); it++) {
+		for (auto it = footholds.begin(); it != footholds.end(); ++it) {
 			View.xmin = min(min((double)View.xmin, (*it)->x1), (*it)->x2);
 			View.ymin = min(min((double)View.ymin, (*it)->y1), (*it)->y2);
 			View.xmax = max(max((double)View.xmax, (*it)->x1), (*it)->x2);
@@ -113,29 +113,29 @@ void NLS::Map::Load() {
 }
 
 void NLS::Map::Draw() {
-	for (uint32_t i = 0; i < Backgrounds.size(); i++) {
+	for (uint32_t i = 0; i < Backgrounds.size(); ++i) {
 		Backgrounds[i]->Draw();
 	}
-	for (uint32_t i = 0; i < Reactor::Reactors.size(); i++) {
+	for (uint32_t i = 0; i < Reactor::Reactors.size(); ++i) {
 		Reactor::Reactors[i]->Draw();
 	}
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
 	}
 	ThisPlayer.Draw();
-	for (uint32_t i = 0; i < Portal::Portals.size(); i++) {
+	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
 		Portal::Portals[i]->Draw();
 	}
-	for (uint32_t i = 0; i < Foregrounds.size(); i++) {
+	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();
 	}
 }
 
 void NLS::Map::Layer::Draw() {
-	for (auto it = Objs.begin(); it != Objs.end(); it++) {
+	for (auto it = Objs.begin(); it != Objs.end(); ++it) {
 		(*it)->Draw();
 	}
-	for (auto it = Tiles.begin(); it != Tiles.end(); it++) {
+	for (auto it = Tiles.begin(); it != Tiles.end(); ++it) {
 		(*it)->Draw();
 	}
 }

@@ -151,6 +151,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Graphics.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\KeyMap.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Keys.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Network.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\NoLifeStory.cpp">

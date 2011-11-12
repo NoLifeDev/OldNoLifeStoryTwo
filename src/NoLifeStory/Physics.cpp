@@ -276,7 +276,7 @@ void NLS::Physics::Update() {
 		y += vy*Time.delta;
 		double dis = pdis(vx, vy)*Time.delta;
 		double dir = pdir(vx, vy);
-		for (auto it = footholds.begin(); it != footholds.end(); it++) {
+		for (auto it = footholds.begin(); it != footholds.end(); ++it) {
 			Foothold& o = **it;
 			if (djump == &o) continue;
 			if (!o.walk and group != o.group and o.layer != 0) continue;
@@ -317,6 +317,17 @@ void NLS::Physics::Update() {
 	if (fh) {
 		x = fh->x1+ldx(r, fh->dir);
 		y = fh->y1+ldy(r, fh->dir);
+		if (x < View.xmin+16) {
+			r += ldx(View.xmin+16.1-x, fh->dir);
+			x = fh->x1+ldx(r, fh->dir);
+			y = fh->y1+ldy(r, fh->dir);
+			vr = 0;
+		} else if (x > View.xmax-16) {
+			r += ldx(View.xmax-16.1-x, fh->dir);
+			x = fh->x1+ldx(r, fh->dir);
+			y = fh->y1+ldy(r, fh->dir);
+			vr = 0;
+		}
 	} else if (lr) {
 		//x = lr->x;
 		//Something with y
@@ -329,6 +340,13 @@ void NLS::Physics::Update() {
 		if (y >= View.ymax and vy > 0) {
 			vy = 0;
 			y = View.ymax;
+		}
+		if (x < View.xmin+16) {
+			x = View.xmin+16.1;
+			vx = 0;
+		} else if (x > View.xmax-16) {
+			x = View.xmax-16.1;
+			vx = 0;
 		}
 	}
 }

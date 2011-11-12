@@ -645,11 +645,7 @@ uint32_t NLS::SoundProperty::GetStream(bool loop) {
 		data = new uint8_t[len];
 		file->read((char*)data, len);
 	}
-	if (loop) {
-		return BASS_StreamCreateFile(true, data, 0, len, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
-	} else {
-		return BASS_StreamCreateFile(true, data, 0, len, BASS_SAMPLE_FLOAT);
-	}
+	return BASS_StreamCreateFile(true, data, 0, len, BASS_SAMPLE_FLOAT|(loop?BASS_SAMPLE_LOOP:0));
 }
 #pragma endregion
 

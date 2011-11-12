@@ -176,6 +176,9 @@
     <ClCompile Include="..\..\src\AES.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\NoLifeStory\Keys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\maplestory.ico">
