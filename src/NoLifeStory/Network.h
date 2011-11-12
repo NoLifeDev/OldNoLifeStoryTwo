@@ -7,7 +7,6 @@ namespace NLS {
 	namespace Network {
 		void Init();
 		void Loop();
-		void Check();
 		void Unload();
 		extern bool Online;
 		extern uint16_t Version;
@@ -17,17 +16,14 @@ namespace NLS {
 		extern uint8_t Locale;
 	}
 	class Packet {
+	private:
+		Packet(const Packet& p) {}
 	public:
 		uint16_t opcode;
 		vector<char> data;
 		size_t pos;
-		Packet() : pos(0), data(), opcode(0) {pos = 0;}
-		Packet(const Packet& p) : pos(0), opcode(p.opcode), data(p.data) {}
-		Packet(Packet&& p) : pos(0), opcode(p.opcode), data(p.data) {}
-		void Push();//Pushes the packet to the list of stuff to send
-		void Send();//Encrypts and sends it off
-		void Handle();//Call the appropriate function
-		void Receive();//Get and decrypt a packet of data
+		Packet() : pos(0), data(), opcode(0) {}
+		void Send();
 		template <class T>
 		T Read() {
 			T& ret = *(T*)&data[pos];
@@ -40,6 +36,15 @@ namespace NLS {
 			string s(&data[pos], size);
 			pos += size;
 			return s;
+		}
+		template <class T>
+		T Write(T v) {
+			data.insert(data.end(), (char*)&v, (char*)&v+sizeof(T));
+		}
+		template <>
+		string Write<string>(string s) {
+			Write<uint16_t>(s.size());
+			data.insert(data.end(), s.begin(), s.end());
 		}
 	};
 }

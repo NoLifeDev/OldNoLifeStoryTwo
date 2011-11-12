@@ -36,7 +36,9 @@ void NLS::Init(const vector<string>& args) {
 }
 
 bool NLS::Loop() {
-	Network::Check();
+	if (NLS::Network::Online) {
+		Network::Loop();
+	}
 	sf::Event e;
 	while (window->PollEvent(e)) {
 		switch (e.Type) {

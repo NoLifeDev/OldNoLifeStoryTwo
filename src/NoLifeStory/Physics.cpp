@@ -290,12 +290,15 @@ void NLS::Physics::Update() {
 			dis = d;
 		}
 		if (fh) {
-			vr = pdis(vx, vy)*sqr((fh->y2-fh->y1)/fh->len)*sign(fh->y2-fh->y1);
+			double ratio = ldx(1, angdif(dir, fh->dir));
+			vr = pdis(vx, vy)*ratio*ratio*sign(ratio);
 			x = xp+ldx(dis, dir);
 			y = yp+ldy(dis, dir);
 			r = pdis(fh->x1, fh->y1, x, y);
 			djump = nullptr;
 			if (fh->x1 > fh->x2) {
+				vx = ldx(vr, fh->dir);
+				vy = ldy(vr, fh->dir);
 				fh = nullptr;
 			} else if (fh->x1 == fh->x2) {
 				vx = 0;

@@ -11,32 +11,10 @@ uint32_t NLS::Network::SendIV;
 uint32_t NLS::Network::RecvIV;
 uint8_t NLS::Network::Locale;
 vector<NLS::Packet> ToSend;
-vector<NLS::Packet> ToRecv;
 sf::TcpSocket Socket;
-#ifdef NLS_CPP11
-thread* Thread;
-mutex SendMutex;
-mutex RecvMutex;
-atomic<bool> Done;
-#else
-sf::Thread* Thread;
-sf::Mutex SendMutex;
-sf::Mutex RecvMutex;
-bool Done;
-#endif
 
 inline void Receive(char* data, size_t size) {
 	while (size > 0) {
-		if (Done) {
-			return;
-		}
-		if (SendMutex.try_lock()) {
-			while (!ToSend.empty()) {
-				ToSend.back().Send();
-				ToSend.pop_back();
-			}
-			SendMutex.unlock();
-		}
 		size_t received;
 		Socket.Receive(data, size, received);
 		size -= received;
@@ -82,59 +60,67 @@ void NLS::Network::Init() {
 	cout << "SendIV: " << SendIV << endl;
 	cout << "RecvIV: " << RecvIV << endl;
 	Socket.SetBlocking(false);
-	Done = false;
-#ifdef NLS_CPP11
-	Thread = new thread(Loop);
-#else
-	Thread = new sf::Thread(Loop);
-#endif
 }
 void NLS::Network::Loop() {
-	while (!Done) {
-		Packet p;
-		p.Receive();
+	static Packet p;
+	static bool ghead = true;
+	static size_t pos = 0;
+	static uint32_t len = 0;
+	static char header[4];
+	static char data[0x10000];
+	auto Receive = [&](char* data, size_t len) -> bool{
+		size_t received = 0;
+		sf::Socket::Status err = Socket.Receive(data+pos, len-pos, received);
+		pos += received;
+		switch (err) {
+		case sf::Socket::Status::Disconnected:
+			cerr << "Disconnected from the server" << endl;
+			Online = false;
+			Socket.Disconnect();
+			return false;
+		case sf::Socket::Status::Error:
+			cerr << "Network error occured" << endl;
+			Online = false;
+			Socket.Disconnect();
+			return false;
+		case sf::Socket::Status::NotReady:
+			return false;
+		}
+		if (received == 0) {
+			return false;
+		}
+		return pos == len;
+	};
+	while (true) {
+		if (ghead) {
+			if (!Receive(header, 4)) {
+				return;
+			}
+			len = *(uint32_t*)header;
+			len = (len>>16)^(len&0xFFFF);
+			ghead = false;
+			pos = 0;
+
+		} else {
+			if (!Receive(data, len)) {
+				return;
+			}
+			cout << "Packet: ";
+			std::stringstream out;
+			for (int i = 0; i < len; ++i) {
+				out << ios::hex << ios::uppercase << setw(2) << setfill('0') << (uint16_t)*(uint8_t*)&data[i];
+				out << ' ';
+			}
+			cout << out << endl;
+			ghead = true;
+			pos = 0;
+		}
 	}
-}
-void NLS::Network::Check() {
-	RecvMutex.lock();
-	while (!ToRecv.empty()) {
-		ToRecv.back().Handle();
-		ToRecv.pop_back();
-	}
-	RecvMutex.unlock();
 }
 void NLS::Network::Unload() {
-	Done = true;
-	Thread->join();
-}
 
+}
 void NLS::Packet::Send() {
-	Socket.Send(data.data(), data.size());
-}
-void NLS::Packet::Receive() {
-	char header[4];
-	::Receive(header, 4);
-	uint32_t& length = *(uint32_t*)header;
-	length = (length>>16)^(length&0xFFFF);
-	char* raw = new char[length];
-	::Receive(raw, length);
-	cout << "Packet: ";
-	for (int i = 0; i < length; ++i) {
-		cout << ios::hex << setw(2) << (int)(uint8_t)raw[i] << " ";
-	}
-	cout << ios::dec;
-	//Decrypt the packet
-	delete[] raw;
-	RecvMutex.lock();
-	ToRecv.push_back(*this);
-	RecvMutex.unlock();
-}
-void NLS::Packet::Push() {
 	//Encrypt the packet
-	SendMutex.lock();
-	ToSend.push_back(*this);
-	SendMutex.unlock();
-}
-void NLS::Packet::Handle() {
-
+	Socket.Send(data.data(), data.size());
 }
