@@ -12,6 +12,7 @@ vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
 NLS::Sound NLS::Map::bgmusic;
+float NLS::Map::fade;
 
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
@@ -66,6 +67,25 @@ void NLS::Map::Load() {
 		nextportal = "";
 		return;
 	}
+	if (!curmap.empty()) {
+		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glColor4ub(4, 4, 4, 0);
+		glLoadIdentity();
+		for (int i = 0; i < 128; ++i) {
+			glBegin(GL_QUADS);
+			glVertex2i(0, 0);
+			glVertex2i(View.width, 0);
+			glVertex2i(View.width, View.height);
+			glVertex2i(0, View.height);
+			glEnd();
+			window->Display();
+		}
+		glColor4f(1, 1, 1, 1);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendEquation(GL_FUNC_ADD);
+	}
+	fade = 1;
 	Time.Reset();
 	curmap = nextmap;
 	cout << "Loading map " << nextmap << endl;

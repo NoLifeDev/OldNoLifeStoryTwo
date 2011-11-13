@@ -72,6 +72,10 @@ void NLS::Physics::Update() {
 	f = left&&!right?false:right&&!left?true:f;
 	bool moving = left^right;
 	if (fh) {
+		double fs = 1/shoe::mass;
+		if (Map::node["info"]["fs"]) {
+			fs *= (double)Map::node["info"]["fs"];
+		}
 		int dir = left&&!right?-1:right&&!left?1:0;
 		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
@@ -101,24 +105,24 @@ void NLS::Physics::Update() {
 		double drag2 = walkDrag/5;
 		if (slip == 0) {
 			if (vr < -maxf) {
-				vr = min(-maxf, vr+drag2/shoe::mass*Time.delta);
+				vr = min(-maxf, vr+drag2*fs*Time.delta);
 			} else if (vr > maxf) {
-				vr = max(maxf, vr-drag2/shoe::mass*Time.delta);
+				vr = max(maxf, vr-drag2*fs*Time.delta);
 			}
 			if (!moving and fh->force == 0) {
 				if (vr < 0) {
-					vr = min(0., vr+fslip/shoe::mass*Time.delta);
+					vr = min(0., vr+fslip*fs*Time.delta);
 				} else {
-					vr = max(0., vr-fslip/shoe::mass*Time.delta);
+					vr = max(0., vr-fslip*fs*Time.delta);
 				}
 			} else {
 				if (force < 0) {
 					if (vr > -maxf) {
-						vr = max(-maxf, vr+force/shoe::mass*Time.delta);
+						vr = max(-maxf, vr+force*fs*Time.delta);
 					}
 				} else {
 					if (vr < maxf) {
-						vr = min(maxf, vr+force/shoe::mass*Time.delta);
+						vr = min(maxf, vr+force*fs*Time.delta);
 					}
 				}
 			}
@@ -129,9 +133,9 @@ void NLS::Physics::Update() {
 				maxl = maxh;
 			}
 			if (vr > maxl) {
-				vr = max(maxl, vr-drag2/shoe::mass*Time.delta);
+				vr = max(maxl, vr-drag2*fs*Time.delta);
 			} else if (vr < -maxl) {
-				vr = min(maxl, vr+drag2/shoe::mass*Time.delta);
+				vr = min(maxl, vr+drag2*fs*Time.delta);
 			}
 			if (shoe::walkSlant < slip) {
 				fslip = slip*slipForce*-hd;
@@ -147,18 +151,18 @@ void NLS::Physics::Update() {
 				}
 				if (hd*vr > 0) {
 					if (vr < 0) {
-						vr = min(0., vr-drag2/shoe::mass*Time.delta);
+						vr = min(0., vr-drag2*fs*Time.delta);
 					} else {
-						vr = max(0., vr+drag2/shoe::mass*Time.delta);
+						vr = max(0., vr+drag2*fs*Time.delta);
 					}
 				}
 				if (fslip < 0) {
 					if (vr > -slip) {
-						vr = max(-slip, vr-fslip/shoe::mass*Time.delta);
+						vr = max(-slip, vr-fslip*fs*Time.delta);
 					}
 				} else {
 					if (vr < slip) {
-						vr = min(slip, vr+fslip/shoe::mass*Time.delta);
+						vr = min(slip, vr+fslip*fs*Time.delta);
 					}
 				}
 			} else {
@@ -166,18 +170,18 @@ void NLS::Physics::Update() {
 					double fmax = hd*force>0?maxh:maxl;
 					if (force < 0) {
 						if (vr > -maxf) {
-							vr = max(-fmax, vr+force/shoe::mass*Time.delta);
+							vr = max(-fmax, vr+force*fs*Time.delta);
 						}
 					} else {
 						if (vr < maxf) {
-							vr = min(fmax, vr+force/shoe::mass*Time.delta);
+							vr = min(fmax, vr+force*fs*Time.delta);
 						}
 					}
 				} else {
 					if (vr < 0) {
-						vr = min(0., vr+fslip/shoe::mass*Time.delta);
+						vr = min(0., vr+fslip*fs*Time.delta);
 					} else {
-						vr = max(0., vr-fslip/shoe::mass*Time.delta);
+						vr = max(0., vr-fslip*fs*Time.delta);
 					}
 				}
 			}
@@ -279,7 +283,7 @@ void NLS::Physics::Update() {
 		for (auto it = footholds.begin(); it != footholds.end(); ++it) {
 			Foothold& o = **it;
 			if (djump == &o) continue;
-			if (!o.walk and group != o.group and o.layer != 0) continue;
+			if (!o.walk and group != o.group and o.group != 0) continue;
 			if (angdif(dir, o.dir) < 0) continue;
 			if (angdif(dir, pdir(xp, yp, o.x1, o.y1)) > 0) continue;
 			if (angdif(dir, pdir(xp, yp, o.x2, o.y2)) < 0) continue;
@@ -290,8 +294,7 @@ void NLS::Physics::Update() {
 			dis = d;
 		}
 		if (fh) {
-			double ratio = ldx(1, angdif(dir, fh->dir));
-			vr = pdis(vx, vy)*ratio*ratio*sign(ratio);
+			vr = ldx(pdis(vx, vy), angdif(dir, fh->dir));
 			x = xp+ldx(dis, dir);
 			y = yp+ldy(dis, dir);
 			r = pdis(fh->x1, fh->y1, x, y);

@@ -31,7 +31,7 @@ void NLS::Init(const vector<string>& args) {
 	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
 	cout << "Initialization complete" << endl;
-	Map::Load("100000000", "");
+	Map::Load("211000000", "");
 	Map::Load();
 }
 

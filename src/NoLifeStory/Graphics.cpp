@@ -67,10 +67,25 @@ void NLS::Graphics::Init() {
 void NLS::Graphics::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	View.Step();
+	Portal::Update();
 	Map::Draw();
 	Foothold::Draw();
 	View.Reset();
 	Time.Step();
+	if (Map::fade > 0) {
+		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
+		glBlendFunc(GL_ONE, GL_ONE);
+		glColor4f(Map::fade, Map::fade, Map::fade, 0);
+		glBegin(GL_QUADS);
+		glVertex2i(0, 0);
+		glVertex2i(View.width, 0);
+		glVertex2i(View.width, View.height);
+		glVertex2i(0, View.height);
+		glEnd();
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendEquation(GL_FUNC_ADD);
+		Map::fade -= 2*Time.delta;
+	}
 	window->SetTitle("NoLifeStory::FrameRate = "+tostring((int)Time.fps));
 	window->Display();
 #ifdef DEBUG

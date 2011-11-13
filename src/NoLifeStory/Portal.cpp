@@ -7,6 +7,7 @@
 vector <NLS::Portal*> NLS::Portal::Portals;
 bool loaded = false;
 NLS::Sprite sprites[15];
+NLS::AniSprite pvsprite;
 
 void NLS::Portal::Load(Node n) {
 	if (!loaded) {
@@ -26,6 +27,7 @@ void NLS::Portal::Load(Node n) {
 		sprites[12] = sn["pcj"];
 		sprites[13] = sn["pci"];
 		sprites[14] = sn["pcig"];
+		pvsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["pv"]);
 		loaded = true;
 	}
 	for (auto it = Portals.begin(); it != Portals.end(); it++) {
@@ -52,9 +54,15 @@ void NLS::Portal::Load(Node n) {
 	}
 }
 
+void NLS::Portal::Update() {
+	pvsprite.Step();
+}
+
 void NLS::Portal::Draw() {
 	switch (pt) {
-		//TODO: Animated portal types from game, rather than editor
+	case 2:
+		pvsprite.Draw(x, y);
+		break;
 	default:
 		sprites[pt].Draw(x, y);
 	}

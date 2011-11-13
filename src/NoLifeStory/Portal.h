@@ -7,6 +7,7 @@ namespace NLS {
 	public:
 		void Draw();
 		static void Load(Node n);
+		static void Update();
 		int x, y;
 		int pt;
 		string tm, pn, tn;
