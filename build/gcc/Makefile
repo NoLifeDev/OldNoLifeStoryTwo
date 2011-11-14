@@ -3,7 +3,7 @@ SBP = ../../src/NoLifeStory
 CF = -I../../include -std=gnu++0x -fshort-wchar
 LF = lib/libbass64.so -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system -lz
 EO = NLS
-OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
+OBJS = obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Keys.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
 
 target: $(OBJS)
 	$(CE) $(OBJS) -o $(EO) $(LF)
@@ -28,6 +28,9 @@ obj/Graphics.o: $(SBP)/Graphics.cpp $(SBP)/Global.h
 
 obj/KeyMap.o: $(SBP)/KeyMap.cpp $(SBP)/Global.h 
 	$(CE) -c $(CF) $(SBP)/KeyMap.cpp -o obj/KeyMap.o
+
+obj/Keys.o: $(SBP)/Keys.cpp $(SBP)/Global.h 
+	$(CE) -c $(CF) $(SBP)/Keys.cpp -o obj/Keys.o
 
 obj/Map.o: $(SBP)/Map.cpp $(SBP)/Global.h 
 	$(CE) -c $(CF) $(SBP)/Map.cpp -o obj/Map.o

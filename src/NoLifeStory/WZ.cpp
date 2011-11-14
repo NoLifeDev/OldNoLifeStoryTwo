@@ -433,16 +433,12 @@ void NLS::Img::Parse() {
 		if (n["UOL"]) {
 			string s = n["UOL"];
 			vector <string> parts = split(s, '/');
-			Node nn = n.Parent();
+			Node nn = n[".."];
 			for (auto it = parts.begin(); it != parts.end(); it++) {
 				if (!nn) {
 					break;
 				}
-				if (*it == "..") {
-					nn = nn.Parent();
-				} else {
-					nn = nn[*it];
-				}
+				nn = nn[*it];
 			}
 			if (nn) {
 				n.Assign(nn);
@@ -694,6 +690,12 @@ NLS::Node NLS::Node::operator[] (const string& key) {
 		data->image = 0;
 		img->Parse();
 	}
+	if (key == "..") {
+		return data->parent;
+	}
+	if (key == ".") {
+		return *this;
+	}
 	auto n = data->children.find(key);
 	if (n == data->children.end()) {
 		return Node();
@@ -707,6 +709,9 @@ NLS::Node NLS::Node::operator[] (const char key[]) {
 
 NLS::Node NLS::Node::operator[] (const int& key) {
 	return (*this)[tostring(key)];
+}
+NLS::Node NLS::Node::operator[] (const Node& key) {
+	return (*this)[(string)key];
 }
 
 NLS::Node NLS::Node::g(const string& key) {
@@ -732,6 +737,20 @@ map<string, NLS::Node>::iterator NLS::Node::end() {
 	return data->children.end();
 }
 
+map<string, NLS::Node>::reverse_iterator NLS::Node::rbegin() {
+	if (!data) {
+		return map<string, NLS::Node>::reverse_iterator();
+	}
+	return data->children.rbegin();
+}
+
+map<string, NLS::Node>::reverse_iterator NLS::Node::rend() {
+	if (!data) {
+		return map<string, NLS::Node>::reverse_iterator();
+	}
+	return data->children.rend();
+}
+
 string NLS::Node::Name() {
 	if (!data) {
 		return string();
@@ -746,13 +765,6 @@ void NLS::Node::Name(const string& s) {
 	data->name = s;
 }
 
-NLS::Node NLS::Node::Parent() {
-	if (!data) {
-		return Node();
-	}
-	return data->parent;
-}
-
 void NLS::Node::Assign(const Node& other) {
 	data->children = other.data->children;
 	data->floatValue = other.data->floatValue;
@@ -762,39 +774,39 @@ void NLS::Node::Assign(const Node& other) {
 	data->image = other.data->image;
 }
 
-NLS::Node::operator bool() {
+NLS::Node::operator bool() const {
 	return (bool)data;
 }
 
-NLS::Node::operator string() {
+NLS::Node::operator string() const {
 	if (!data) {
 		return string();
 	}
 	return data->stringValue;
 }
 
-NLS::Node::operator double() {
+NLS::Node::operator double() const {
 	if (!data) {
 		return 0;
 	}
 	return data->floatValue;
 }
 
-NLS::Node::operator int() {
+NLS::Node::operator int() const {
 	if (!data) {
 		return 0;
 	}
 	return data->intValue;
 }
 
-NLS::Node::operator NLS::Sprite() {
+NLS::Node::operator NLS::Sprite() const {
 	if (!data) {
 		return Sprite();
 	}
 	return data->sprite;
 }
 
-NLS::Node::operator NLS::Sound() {
+NLS::Node::operator NLS::Sound() const {
 	if (!data) {
 		return Sound();
 	}

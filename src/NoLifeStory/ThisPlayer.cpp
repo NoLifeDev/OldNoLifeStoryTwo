@@ -6,7 +6,7 @@
 
 NLS::_ThisPlayer NLS::ThisPlayer;
 
-NLS::_ThisPlayer::_ThisPlayer() {
+NLS::_ThisPlayer::_ThisPlayer() : Player() {
 	pdelay = 0;
 }
 

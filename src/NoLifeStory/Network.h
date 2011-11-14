@@ -27,21 +27,21 @@ namespace NLS {
 			pos += sizeof(T);
 			return ret;
 		}
-		template <>
-		string Read<string>() {
-			size_t size = Read<uint16_t>();
-			string s(&data[pos], size);
-			pos += size;
-			return s;
-		}
 		template <class T>
 		T Write(T v) {
 			data.insert(data.end(), (char*)&v, (char*)&v+sizeof(T));
 		}
-		template <>
-		string Write<string>(string s) {
-			Write<uint16_t>(s.size());
-			data.insert(data.end(), s.begin(), s.end());
-		}
 	};
+	template <>
+	inline string Packet::Read<string>() {
+		size_t size = Read<uint16_t>();
+		string s(&data[pos], size);
+		pos += size;
+		return s;
+	}
+	template <>
+	inline string Packet::Write<string>(string s) {
+		Write<uint16_t>(s.size());
+		data.insert(data.end(), s.begin(), s.end());
+	}
 }
