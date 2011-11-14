@@ -32,6 +32,12 @@ inline string tostring(const int& t) {
 	return str;
 }
 
+inline string tostring(const int& t, const int& n) {
+	string s = tostring(t);
+	pad(s, '0', n);
+	return s;
+}
+
 inline double todouble(const string& t) {
 	return strtod(t.c_str(), 0);
 }
