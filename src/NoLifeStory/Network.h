@@ -16,13 +16,10 @@ namespace NLS {
 		extern uint8_t Locale;
 	}
 	class Packet {
-	private:
-		Packet(const Packet& p) {}
 	public:
-		uint16_t opcode;
 		vector<char> data;
 		size_t pos;
-		Packet() : pos(0), data(), opcode(0) {}
+		Packet() : pos(0), data() {}
 		void Send();
 		template <class T>
 		T Read() {

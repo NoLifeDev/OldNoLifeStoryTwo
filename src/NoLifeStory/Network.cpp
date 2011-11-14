@@ -54,7 +54,7 @@ void NLS::Network::Init() {
 	SendIV = Get<uint32_t>(header);
 	RecvIV = Get<uint32_t>(header);
 	Locale = Get<uint8_t>(header);
-	cout << "LoginServer version: " << Version << endl;
+	cout << "Server version: " << Version << endl;
 	cout << "Patch location: " << Patch << endl;
 	cout << "Locale: " << (uint16_t)Locale << endl;
 	cout << "SendIV: " << SendIV << endl;

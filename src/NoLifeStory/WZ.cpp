@@ -3,7 +3,6 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 #include "Global.h"
-#include "Keys.h"
 
 path WZPath;
 NLS::Node NLS::WZ;
@@ -299,6 +298,8 @@ void NLS::InitWZ(const path& wzpath) {
 		}
 	};
 	memset(WZKeys[0], 0, 0x10000);
+	const uint8_t* orig = GMSKey;
+	const uint8_t* newkey = WZKeys[1];
 	memcpy(WZKeys[1], GMSKey, 0xFFFF);
 	path paths[7] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/", "D:/Games/MapleStory/Current/MapleStory/"};
 	for (int i = 0; i < 7; i++) {

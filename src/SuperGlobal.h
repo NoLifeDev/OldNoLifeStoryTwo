@@ -199,3 +199,6 @@ static_assert(sizeof(wchar_t) == 2, "Unsupported wchar_t size");
 #ifdef NLS_WINDOWS
 #include "../resources/Resource.h"
 #endif
+
+//And AES
+#include "AES.h"

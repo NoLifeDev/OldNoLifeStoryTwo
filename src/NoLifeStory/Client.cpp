@@ -14,6 +14,7 @@ void NLS::Init(const vector<string>& args) {
 	cout << "유니 코드는 사용" << endl;
 	cout << "Using locale: " << locale().name() << endl;
 	srand(time(0));
+	Crypto::Init();
 	Network::Init();
 	Time.Reset();
 	InitWZ(args.size()>1?args[1]:"");

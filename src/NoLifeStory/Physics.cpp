@@ -4,25 +4,25 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-const double walkForce = 140000;
-const double walkSpeed = 125;
-const double walkDrag = 80000;
-const double slipForce = 60000;
-const double slipSpeed = 120;
+const double fallSpeed = 670;
+const double floatCoefficient = 0.01;
 const double floatDrag1 = 100000;
 const double floatDrag2 = 10000;
-const double floatCoefficient = 0.01;
-const double swimForce = 120000;
-const double swimSpeed = 140;
 const double flyForce = 120000;
+const double flyJumpDec = 0.35;
 const double flySpeed = 200;
 const double gravityAcc = 2000;
-const double fallSpeed = 670;
 const double jumpSpeed = 555;
 const double maxFriction = 2;
 const double minFriction = 0.05;
+const double slipForce = 60000;
+const double slipSpeed = 120;
+const double swimForce = 120000;
+const double swimSpeed = 140;
 const double swimSpeedDec = 0.9;
-const double flyJumpDec = 0.35;
+const double walkDrag = 80000;
+const double walkForce = 140000;
+const double walkSpeed = 125;
 const double wat1 = 0.0008928571428571428;
 const double wat2 = 0.35355339;
 const double wat3 = 700;
