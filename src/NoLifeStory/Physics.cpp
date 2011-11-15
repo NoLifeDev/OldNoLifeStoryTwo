@@ -71,6 +71,24 @@ void NLS::Physics::Reset(double x, double y) {
 void NLS::Physics::Update() {
 	f = left&&!right?false:right&&!left?true:f;
 	bool moving = left^right;
+	if (!lr) {
+		auto Check = [](double y)->void{
+			for (auto it = LadderRope::begin(); it != LadderRope::end(); ++it) {
+				LadderRope& lr = **it;
+				//Do your if check here
+			}
+		};
+		if (fh) {
+			if (up) {
+				Check(y-20);
+			}
+			if (down and !lr) {
+				Check(y+10);
+			}
+		} else {
+			Check(y);
+		}
+	}
 	if (fh) {
 		double fs = 1/shoe::mass;
 		if (Map::node["info"]["fs"]) {
@@ -185,6 +203,25 @@ void NLS::Physics::Update() {
 					}
 				}
 			}
+		}
+	} else if (lr) {
+		vx = 0;
+		vy = 0;
+		if (up&&!down) {
+			y += Time.delta*shoe::mass;
+		} else if (down&&!up) {
+			y -= Time.delta*shoe::mass;
+		}
+		if (y < lr->y1) {
+			if (lr->uf) {
+				y = lr->y1-5;
+				lr = nullptr;
+			} else {
+				y = lr->y1;
+			}
+		} else if (y > lr->y2) {
+			y = lr->y2+1;
+			lr = nullptr;
 		}
 	} else {
 		if (false) {
@@ -335,8 +372,7 @@ void NLS::Physics::Update() {
 			vr = 0;
 		}
 	} else if (lr) {
-		//x = lr->x;
-		//Something with y
+
 	} else {
 		if (vy < fallSpeed) {
 			freefall = 0;
