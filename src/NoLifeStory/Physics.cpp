@@ -280,7 +280,7 @@ void NLS::Physics::Update() {
 		y += vy*Time.delta;
 		double dis = pdis(vx, vy)*Time.delta;
 		double dir = pdir(vx, vy);
-		for (auto it = footholds.begin(); it != footholds.end(); ++it) {
+		for (auto it = Foothold::begin(); it != Foothold::end(); ++it) {
 			Foothold& o = **it;
 			if (djump == &o) continue;
 			if (!o.walk and group != o.group and o.group != 0) continue;

@@ -18,6 +18,7 @@
 #include "Time.h"
 #include "UI.h"
 #include "Foothold.h"
+#include "LadderRope.h"
 #include "Physics.h"
 #include "Player.h"
 #include "ThisPlayer.h"

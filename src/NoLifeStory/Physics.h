@@ -8,7 +8,7 @@ namespace NLS {
 		double x, y, r;
 		double vx, vy, vr;
 		Foothold* fh;
-		class LadderRope* lr;
+		LadderRope* lr;
 		int layer, group;
 		int freefall;
 		bool left, right, up, down;

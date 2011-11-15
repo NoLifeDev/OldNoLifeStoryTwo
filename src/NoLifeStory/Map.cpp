@@ -106,6 +106,7 @@ void NLS::Map::Load() {
 	Back::Load(node);
 	Portal::Load(node);
 	Reactor::Load(node);
+	LadderRope::Load(node);
 	View.tx = 0;
 	View.ty = 0;
 	if (node["info"]["VRLeft"]) {
@@ -118,12 +119,12 @@ void NLS::Map::Load() {
 		View.xmax = -1000000;
 		View.ymin = 1000000;
 		View.ymax = -1000000;
-		for (auto it = footholds.begin(); it != footholds.end(); ++it) {
-			View.xmin = min(min((double)View.xmin, (*it)->x1), (*it)->x2);
-			View.ymin = min(min((double)View.ymin, (*it)->y1), (*it)->y2);
-			View.xmax = max(max((double)View.xmax, (*it)->x1), (*it)->x2);
-			View.ymax = max(max((double)View.ymax, (*it)->y1), (*it)->y2);
-		}
+		for_each(Foothold::begin(), Foothold::end(), [&](Foothold* fh){
+			View.xmin = min(min((double)View.xmin, fh->x1), fh->x2);
+			View.ymin = min(min((double)View.ymin, fh->y1), fh->y2);
+			View.xmax = max(max((double)View.xmax, fh->x1), fh->x2);
+			View.ymax = max(max((double)View.ymax, fh->y1), fh->y2);
+		});
 		View.ymax += 128;
 		View.ymin -= View.height;
 	}

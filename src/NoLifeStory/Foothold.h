@@ -16,6 +16,8 @@ namespace NLS {
 		bool walk;
 		static void Load(Node n);
 		static void Draw();
+		static set<Foothold*> All;
+		static set<Foothold*>::iterator begin() {return All.begin();}
+		static set<Foothold*>::iterator end() {return All.end();}
 	};
-	extern set <Foothold*> footholds;
 }

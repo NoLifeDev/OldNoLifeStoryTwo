@@ -70,6 +70,7 @@ void NLS::Graphics::Draw() {
 	Portal::Update();
 	Map::Draw();
 	Foothold::Draw();
+	LadderRope::Draw();
 	View.Reset();
 	Time.Step();
 	if (Map::fade > 0) {

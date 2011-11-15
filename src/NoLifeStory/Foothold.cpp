@@ -4,18 +4,13 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-set <NLS::Foothold*> NLS::footholds;
+set <NLS::Foothold*> NLS::Foothold::All;
 
 void NLS::Foothold::Load(Node n) {
-	for (auto i = footholds.begin(); i != footholds.end(); i++) {
-		delete *i;
-	}
-	footholds.clear();
+	for_each(begin(), end(), [](Foothold* fh){delete fh;});
+	All.clear();
 	n = n["foothold"];
-	if (!n) {
-		cerr << "No foothold node" << endl;
-		throw(273);
-	}
+	if (!n) return;
 	for (auto i = n.begin(); i != n.end(); i++) {
 		int fhdepth = toint(i->first);
 		for (auto j = i->second.begin(); j != i->second.end(); j++) {
@@ -39,33 +34,29 @@ void NLS::Foothold::Load(Node n) {
 				fh->walk = fh->x2>fh->x1;
 				fh->next = 0;
 				fh->prev = 0;
-				footholds.insert(fh);
+				All.insert(fh);
 			}
 		}
 	}
-	for (auto i = footholds.begin(); i != footholds.end(); i++) {
-		for (auto j = footholds.begin(); j != footholds.end(); j++) {
-			auto fi = *i;
-			auto fj = *j;
-			if (fi->nextid == fj->id) {
-				fi->next = fj;
+	for_each(begin(), end(), [](Foothold* fh1){
+		for_each(begin(), end(), [&](Foothold* fh2){
+			if (fh1->nextid == fh2->id) {
+				fh1->next = fh2;
 			}
-			if (fi->previd == fj->id) {
-				fi->prev = fj;
+			if (fh1->previd == fh2->id) {
+				fh1->prev = fh2;
 			}
-		}
-	}
+		});
+	});
 }
 
 void NLS::Foothold::Draw() {
-	glPushMatrix();
 	glColor4f(1, 1, 1, 1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBegin(GL_LINES);
-	for (auto i = footholds.begin(); i != footholds.end(); i++) {
-		glVertex2f((*i)->x1, (*i)->y1);
-		glVertex2f((*i)->x2, (*i)->y2);
-	}
+	for_each(begin(), end(), [](Foothold* lr){
+		glVertex2f(lr->x1, lr->y1);
+		glVertex2f(lr->x2, lr->y2);
+	});
 	glEnd();
-	glPopMatrix();
 }
