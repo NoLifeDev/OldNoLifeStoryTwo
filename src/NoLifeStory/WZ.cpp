@@ -10,7 +10,6 @@ uint8_t *WZKey = 0;
 int16_t EncVersion;
 uint16_t NLS::Version = 0;
 uint32_t VersionHash;
-uint8_t WZKeys[3][0x10000];
 
 #pragma region File reading stuff
 template <class T>
@@ -155,12 +154,7 @@ void NLS::InitWZ(const path& wzpath) {
 	};
 	File = [&ReadOffset, &Directory](Node n) {
 		path filename = WZPath/path(n.Name()+".wz");
-#if !defined(NLS_TR2) && !defined(NLS_WINDOWS)
-		string sname(filename.begin(), filename.end());
-		ifstream *file = new ifstream(sname, ios::in|ios::binary);
-#else
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
-#endif
 		if (!file->is_open()) {
 			cerr << "Failed to load " << filename << endl;
 			return;//Don't throw an error because of Nexon's stupid ExcelReport crap
@@ -205,9 +199,9 @@ void NLS::InitWZ(const path& wzpath) {
 				throw(273);
 			}
 			bool success = false;
-			for (uint8_t j = 0; j < 2 and !success; j++) {
+			for (uint8_t j = 0; j < 3 and !success; j++) {
 				WZKey = WZKeys[j];
-				for (Version = 0; Version < 256; Version++) {
+				for (Version = 0; Version < 512; Version++) {
 					char s[4];
 					int l = sprintf(s, "%i", Version);
 					VersionHash = 0;
@@ -298,9 +292,6 @@ void NLS::InitWZ(const path& wzpath) {
 		}
 	};
 	memset(WZKeys[0], 0, 0x10000);
-	const uint8_t* orig = GMSKey;
-	const uint8_t* newkey = WZKeys[1];
-	memcpy(WZKeys[1], GMSKey, 0xFFFF);
 	path paths[7] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/", "D:/Games/MapleStory/Current/MapleStory/"};
 	for (int i = 0; i < 7; i++) {
 		WZPath = paths[i];
@@ -606,12 +597,7 @@ void NLS::PNGProperty::Parse() {
 			h >>= 4;
 			uint32_t len = 2*ww*hh;
 			Decompress(length, len);
-			if (Graphics::NPOT) {
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w/16, h/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
-			} else {
-				Resize(Buf1, Buf2, 2);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w/16, h/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf2);
-			}
+			glTexImage2D(GL_TEXTURE_2D, 0, 4, w/16, h/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
 			break;
 		}
 	default:
