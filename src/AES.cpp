@@ -35,8 +35,20 @@
 #include "AES.h"
 #include <cassert>
 #include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <iostream>
+
+//NoLifeStory - _rotl and _rotr definitions for non-VC compilers
+unsigned int _rotl(unsigned int value, int shift)
+{
+	return (value<<shift)|(value>>(32-shift));
+}
+
+unsigned int _rotr(unsigned int value, int shift)
+{
+	return (value>>shift)|(value<<(32-shift));
+}
 
 // todo - make faster 128 blocksize version with 128 blocksize hardcoded as necessary
 
