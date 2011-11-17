@@ -489,33 +489,49 @@ NLS::PNGProperty::PNGProperty(ifstream* file, Node n) {
 void NLS::PNGProperty::Parse() {
 	static uint8_t Buf1[0x1000000];
 	static uint8_t Buf2[0x1000000];
-	auto Decompress = [&](uint32_t inLen, uint32_t outLen) {
-		z_stream strm;
-		strm.next_in = Buf2;
-		strm.avail_in = inLen;
+	uint8_t* Src = Buf1;
+	uint8_t* Dest = Buf2;
+	auto Swap = [&]() {
+		swap(Src, Dest);
+	};
+	auto DecompressBlock = [&](uint32_t len) {
+		static z_stream strm;
+		strm.next_in = Src;
+		strm.avail_in = len;
 		strm.opaque = nullptr;
 		strm.zfree = nullptr;
 		strm.zalloc = nullptr;
 		inflateInit(&strm);
-		strm.next_out = Buf1;
-		strm.avail_out = outLen;
+		strm.next_out = Dest;
+		strm.avail_out = 0x1000000;
 		int err = inflate(&strm, Z_FINISH);
-		switch(err){
-		case Z_BUF_ERROR:
-			break;
-		default:
-			cerr << "Why isn't zlib giving a buffer error?" << endl;
-			throw(273);
-		}
-		if (strm.total_out != outLen) {
-			cerr << "Zlib inflated to " << strm.total_out << " bytes." <<endl;
-			cerr << "I expected " << outLen << " bytes." <<endl;
-			//throw(273);
+		if (err != Z_BUF_ERROR) {
+			cerr << "Unexpected error from zlib: " << err << endl;
 		}
 		inflateEnd(&strm);
+		Swap();
+	};
+	auto Decompress = [&](uint32_t len) {
+		if (Src[0] == 0x78 and Src[1] == 0x9C) {
+			DecompressBlock(len);
+		} else {
+			int i, p;
+			for (p = 0, i = 0; i < len-1;) {
+				uint32_t blen = *(uint32_t*)&Src[i];
+				i += 4;
+				for (int j = 0; j < blen; j++) {
+					Dest[p+j] = Src[i+j]^WZKey[j];
+				}
+				i += blen;
+				p += blen;
+			}
+			Swap();
+			DecompressBlock(p);
+		}
 	};
 	file->seekg(offset);
-	file->read((char*)Buf2, length);
+	file->read((char*)Dest, length);
+	Swap();
 	int32_t f = format+format2;
 	glGenTextures(1, &sprite.data->texture);
 	glBindTexture(GL_TEXTURE_2D, sprite.data->texture);
@@ -529,60 +545,53 @@ void NLS::PNGProperty::Parse() {
 	}
 	sprite.data->fw = w;
 	sprite.data->fh = h;
-	auto Resize = [&](uint8_t* from, uint8_t* to, int f) {
-		memset(to, 0, w*h*f);
+	auto Resize = [&](int f) {
+		memset(Dest, 0, w*h*f);
 		for (int i = 0; i < hh; i++) {
-			memcpy(&to[i*w*f], &from[i*ww*f], ww*f);
+			memcpy(&Dest[i*w*f], &Src[i*ww*f], ww*f);
 		}
+		Swap();
 	};
+	auto SetTex = [&](GLenum type){glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, type, Src);};
 	switch (f) {
 	case 1:
 		{
 			uint32_t len = 2*ww*hh;
-			Decompress(length, len);
+			Decompress(length);
 			if (ww%2 and Graphics::NPOT or Graphics::Shit) {
 				for (uint32_t i = 0; i < len; i++) {
-					Buf2[i*2] = (Buf1[i]&0x0F)*0x11;
-					Buf2[i*2+1] = ((Buf1[i]&0xF0)>>4)*0x11;
+					Dest[i*2] = (Src[i]&0x0F)*0x11;
+					Dest[i*2+1] = ((Src[i]&0xF0)>>4)*0x11;
 				}
-				if (Graphics::NPOT) {
-					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
-				} else {
-					Resize(Buf2, Buf1, 4);
-					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+				Swap();
+				if (!Graphics::NPOT) {
+					Resize(4);
 				}
+				SetTex(GL_UNSIGNED_BYTE);
 			} else {
-				if (Graphics::NPOT) {
-					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf1);
-				} else {
-					Resize(Buf1, Buf2, 2);
-					glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Buf2);
+				if (!Graphics::NPOT) {
+					Resize(2);
 				}
+				SetTex(GL_UNSIGNED_SHORT_4_4_4_4_REV);
 			}
 			break;
 		}
 	case 2:
 		{
-			uint32_t len = 4*ww*hh;
-			Decompress(length, len);
-			if (Graphics::NPOT) {
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf1);
-			} else {
-				Resize(Buf1, Buf2, 4);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, GL_UNSIGNED_BYTE, Buf2);
+			Decompress(length);
+			if (!Graphics::NPOT) {
+				Resize(4);
 			}
+			SetTex(GL_UNSIGNED_BYTE);
 			break;
 		}
 	case 513:
 		{
-			uint32_t len = 2*ww*hh;
-			Decompress(length, len);
-			if (Graphics::NPOT) {
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
-			} else {
-				Resize(Buf1, Buf2, 2);
-				glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf2);
+			Decompress(length);
+			if (!Graphics::NPOT) {
+				Resize(2);
 			}
+			SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
 			break;
 		}
 	case 517:
@@ -591,13 +600,10 @@ void NLS::PNGProperty::Parse() {
 				cerr << "Non-square type 517 sprite found" << endl;
 				throw(273);
 			}
-			ww >>= 4;
-			hh >>= 4;
 			w >>= 4;
 			h >>= 4;
-			uint32_t len = 2*ww*hh;
-			Decompress(length, len);
-			glTexImage2D(GL_TEXTURE_2D, 0, 4, w/16, h/16, 0, GL_BGR, GL_UNSIGNED_SHORT_5_6_5_REV, Buf1);
+			Decompress(length);
+			SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
 			break;
 		}
 	default:

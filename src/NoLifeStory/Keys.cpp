@@ -15,7 +15,7 @@ void GenWzKey(const uint8_t* IV, uint8_t* key) {
 	AESGen.SetParameters(256, 128);
 	AESGen.StartEncryption(AESKey2);
 	AESGen.EncryptBlock(BigIV, key);
-	for (int i = 16; i < 0x1000; i += 16) {
+	for (int i = 16; i < 0x10000; i += 16) {
 		AESGen.EncryptBlock(key+i-16, key+i);
 	}
 }
