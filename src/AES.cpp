@@ -40,6 +40,7 @@
 #include <iostream>
 
 //NoLifeStory - _rotl and _rotr definitions for non-VC compilers
+#ifndef _WIN32
 unsigned int _rotl(unsigned int value, int shift)
 {
 	return (value<<shift)|(value>>(32-shift));
@@ -49,6 +50,7 @@ unsigned int _rotr(unsigned int value, int shift)
 {
 	return (value>>shift)|(value<<(32-shift));
 }
+#endif //_WIN32
 
 // todo - make faster 128 blocksize version with 128 blocksize hardcoded as necessary
 
