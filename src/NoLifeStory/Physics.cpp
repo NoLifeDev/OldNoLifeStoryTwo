@@ -259,9 +259,9 @@ void NLS::Physics::Update() {
 				}
 			} else {
 				if (vx > 0) {
-					vx = max(0, vx-floatDrag1/shoe::mass*Time.delta);
+					vx = max(0., vx-floatDrag1/shoe::mass*Time.delta);
 				} else {
-					vx = min(0, vx+floatDrag1/shoe::mass*Time.delta);
+					vx = min(0., vx+floatDrag1/shoe::mass*Time.delta);
 				}
 			}
 			if (vx < -vmax) {
