@@ -5,6 +5,7 @@
 
 namespace NLS {
 	extern sf::Window* window;
+	extern bool Fullscreen;
 	namespace Graphics {
 		void Init();
 		void Draw();

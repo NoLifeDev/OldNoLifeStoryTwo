@@ -69,5 +69,6 @@ namespace NLS {
 	};
 	extern Node WZ;
 	extern uint16_t Version;
-	void InitWZ(const path& wzpath);
+	extern vector<path> Paths;
+	void InitWZ();
 }

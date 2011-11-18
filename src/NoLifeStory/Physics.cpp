@@ -439,9 +439,13 @@ void NLS::Physics::Update() {
 		} else {
 			freefall += Time.delta;
 		}
-		if (y >= View.ymax and vy > 0) {
+		if (y > View.ymax) {
 			vy = 0;
 			y = View.ymax;
+		}
+		if (y < View.ymin) {
+			vy = 0;
+			y = View.ymin;
 		}
 		if (x < View.xmin+16) {
 			x = View.xmin+16.1;

@@ -5,11 +5,16 @@
 #include "Global.h"
 
 sf::Window* NLS::window = 0;
+bool NLS::Fullscreen = false;
 bool NLS::Graphics::NPOT = true;
 bool NLS::Graphics::Shit = false;
 
 void NLS::Graphics::Init() {
-	window = new sf::Window(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar, sf::ContextSettings(0, 0, 0, 2, 0));
+	if (window) {
+		window->Create(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar|(Fullscreen?sf::Style::Fullscreen:0));
+	} else {
+		window = new sf::Window(sf::VideoMode(800, 600), "NoLifeStory::Loading", sf::Style::Titlebar|(Fullscreen?sf::Style::Fullscreen:0));
+	}
 	glewExperimental = true;
 	GLenum error = glewInit();
 	switch (error) {
@@ -37,7 +42,7 @@ void NLS::Graphics::Init() {
 	HANDLE hIcon = LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDI_NOLIFESTORY_ICON));
 	HWND hWnd = window->GetSystemHandle();
 	if (hWnd) {
-		::SendMessageW(hWnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
+		::SendMessageW(hWnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
 	}
 #endif
 	window->ShowMouseCursor(false);
@@ -72,6 +77,34 @@ void NLS::Graphics::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	View.Step();
 	Portal::Update();
+	if (Mindfuck) {
+		srand(floor(Time.tdelta*3));
+		rand();
+		int so = rand();
+		srand(floor(Time.tdelta*3)+1);
+		rand();
+		int sn = rand();
+		srand(so);
+		rand();
+		float r = rand()*(1-fmod(Time.tdelta*3, 1));
+		float g = rand()*(1-fmod(Time.tdelta*3, 1));
+		float b = rand()*(1-fmod(Time.tdelta*3, 1));
+		srand(sn);
+		rand();
+		r += rand()*fmod(Time.tdelta*3, 1);
+		g += rand()*fmod(Time.tdelta*3, 1);
+		b += rand()*fmod(Time.tdelta*3, 1);
+		r /= RAND_MAX;
+		g /= RAND_MAX;
+		b /= RAND_MAX;
+		glColor4f(r, g, b, 1);
+		srand(Time.tdelta*10000);
+		if ((double)rand()/RAND_MAX < 0.2) {
+			glLogicOp(GL_XOR);
+		} else {
+			glLogicOp(GL_OR);
+		}
+	}
 	Map::Draw();
 	View.Reset();
 	Time.Step();

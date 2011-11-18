@@ -6,7 +6,6 @@
 *.psess
 *.vsp
 *.log
-*.mp3
 *.exe
 *.pdb
 *.lib

@@ -18,14 +18,6 @@ NLS::Player::Player() : Physics() {
 
 void NLS::Player::Draw() {
 	Physics::Update();
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glColor4f(1, 0, 0, 1);
-	glBegin(GL_LINE_LOOP);
-	glVertex2i(x-16,y-48);
-	glVertex2i(x+16,y-48);
-	glVertex2i(x+16,y);
-	glVertex2i(x-16,y);
-	glEnd();
 	delay += Time.delta*1000;
 	if (emote != "default") {
 		emoted += Time.delta*1000;
