@@ -7,4 +7,5 @@ namespace NLS {
 	void Init(const vector<string>& args);
 	bool Loop();
 	void Unload();
+	extern bool Mindfuck;
 }

@@ -4,7 +4,12 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+bool NLS::Mindfuck = false;
+
 void NLS::Init(const vector<string>& args) {
+	if (exists(path("bgm.mp3"))) {
+		Mindfuck = true;
+	}
 	locale::global(locale(""));
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
@@ -19,19 +24,23 @@ void NLS::Init(const vector<string>& args) {
 	InitWZ(args.size()>1?args[1]:"");
 	Time.Step();
 	Graphics::Init();
-	Physics::Init();
 #ifdef NLS_WINDOWS
 	BASS_Init(-1, 44100, 0, window->GetSystemHandle(), 0);
 #else
 	BASS_Init(-1, 44100, 0, (void*)window->GetSystemHandle(), 0);
 #endif
+	if (Mindfuck) {
+		HSTREAM s = BASS_StreamCreateFile(false, "bgm.mp3", 0, 0, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
+		BASS_ChannelPlay(s, true);
+	}
+	Physics::Init();
 	KeySet(sf::Keyboard::Escape, Func(window->Close));
 	KeySet(sf::Keyboard::F, Func(ThisPlayer.MouseFly));
 	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
 	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
 	cout << "Initialization complete" << endl;
-	Map::Load("230000000", "");
+	Map::Load("100000000", "");
 	Map::Load();
 }
 

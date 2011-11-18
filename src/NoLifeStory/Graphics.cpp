@@ -46,6 +46,10 @@ void NLS::Graphics::Init() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
+	if (Mindfuck) {
+		glEnable(GL_COLOR_LOGIC_OP);
+		glLogicOp(GL_OR);
+	}
 	glDisable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -69,8 +73,6 @@ void NLS::Graphics::Draw() {
 	View.Step();
 	Portal::Update();
 	Map::Draw();
-	Foothold::Draw();
-	LadderRope::Draw();
 	View.Reset();
 	Time.Step();
 	if (Map::fade > 0) {

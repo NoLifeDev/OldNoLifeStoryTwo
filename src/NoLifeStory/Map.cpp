@@ -89,10 +89,12 @@ void NLS::Map::Load() {
 	Time.Reset();
 	curmap = nextmap;
 	cout << "Loading map " << nextmap << endl;
-	string bgm = node["info"]["bgm"];
-	vector<string> p = split(bgm, '/');
-	bgmusic = WZ["Sound"][p[0]][p[1]];
-	bgmusic.Play(true);
+	if (!Mindfuck) {
+		string bgm = node["info"]["bgm"];
+		vector<string> p = split(bgm, '/');
+		bgmusic = WZ["Sound"][p[0]][p[1]];
+		bgmusic.Play(true);
+	}
 	for (uint8_t i = 0; i < 8; ++i) {
 		Layers[i].Tiles.clear();
 		Layers[i].Objs.clear();

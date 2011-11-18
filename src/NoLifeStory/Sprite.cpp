@@ -40,6 +40,26 @@ void NLS::Sprite::Draw(int x, int y, bool flipped, float alpha, float rotation) 
 		glTranslatef(-data->originx, -data->originy, 0);
 	}
 	glColor4f(1, 1, 1, alpha);
+	if (Mindfuck) {
+		srand(floor(Time.tdelta*3)+123456);
+		int so = rand();
+		srand(floor(Time.tdelta*3)+123457);
+		int sn = rand();
+		srand(so);
+		rand();
+		float r = rand()*(1-fmod(Time.tdelta*3, 1));
+		float g = rand()*(1-fmod(Time.tdelta*3, 1));
+		float b = rand()*(1-fmod(Time.tdelta*3, 1));
+		srand(sn);
+		rand();
+		r += rand()*fmod(Time.tdelta*3, 1);
+		g += rand()*fmod(Time.tdelta*3, 1);
+		b += rand()*fmod(Time.tdelta*3, 1);
+		r /= RAND_MAX;
+		g /= RAND_MAX;
+		b /= RAND_MAX;
+		glColor4f(r, g, b, alpha);
+	}
 	GetTexture();
 	glBegin(GL_QUADS);
 	if (flipped) {
