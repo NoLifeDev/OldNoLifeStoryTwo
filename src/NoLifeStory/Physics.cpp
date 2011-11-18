@@ -26,6 +26,7 @@ const double walkSpeed = 125;
 const double wat1 = 0.0008928571428571428;
 const double wat2 = 0.35355339;
 const double wat3 = 700;
+const double wat4 = 162.5;
 
 namespace shoe {
     const double mass = 100.0;
@@ -71,11 +72,19 @@ void NLS::Physics::Reset(double x, double y) {
 void NLS::Physics::Update() {
 	f = left&&!right?false:right&&!left?true:f;
 	bool moving = left^right;
+	bool flying = (int)Map::node["info"]["swim"] or shoe::flyAcc > 0;
 	if (!lr) {
-		auto Check = [](double y)->void{
+		auto Check = [&](double y)->void{
 			for (auto it = LadderRope::begin(); it != LadderRope::end(); ++it) {
 				LadderRope& lr = **it;
-				//Do your if check here
+				const double d = 5;
+				if (x+d > lr.x and x-d < lr.x and y > lr.y1 and y < lr.y2) {
+					this->fh = nullptr;
+					this->lr = &lr;
+					this->x = lr.x;
+					this->y = y;
+					return;
+				}
 			}
 		};
 		if (fh) {
@@ -85,7 +94,7 @@ void NLS::Physics::Update() {
 			if (down and !lr) {
 				Check(y+10);
 			}
-		} else {
+		} else if (up) {
 			Check(y);
 		}
 	}
@@ -98,10 +107,10 @@ void NLS::Physics::Update() {
 		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
 		double maxh = fh->walk?(fh->force==0?shoe::walkAcc:1)*walkForce:0;
-		int hd = fh->y1>fh->y2?1:-1;
+		int hd = fh->y1<fh->y2?1:-1;
 		double force = dir*maxh;
 		double maxf = fh->walk?shoe::walkSpeed*walkSpeed:0;
-		if ((double)Map::node["info"]["fly"] < 0) {
+		if (flying) {
 			maxf *= swimSpeedDec;
 		}
 		if (fh->force) {
@@ -156,8 +165,8 @@ void NLS::Physics::Update() {
 				vr = min(maxl, vr+drag2*fs*Time.delta);
 			}
 			if (shoe::walkSlant < slip) {
-				fslip = slip*slipForce*-hd;
-				slip = slip*slipSpeed;
+				fslip = slip*slipForce*hd;
+				slip = slip*slipSpeed*hd;
 				if (dir*hd <= 0) {
 					if (moving or fh->force != 0) {
 						fslip += force;
@@ -167,16 +176,16 @@ void NLS::Physics::Update() {
 					fslip *= 0.5;
 					slip *= 0.5;
 				}
-				if (hd*vr > 0) {
+				if (hd*dir < 0) {
 					if (vr < 0) {
 						vr = min(0., vr-drag2*fs*Time.delta);
 					} else {
 						vr = max(0., vr+drag2*fs*Time.delta);
 					}
 				}
-				if (fslip < 0) {
-					if (vr > -slip) {
-						vr = max(-slip, vr-fslip*fs*Time.delta);
+				if (hd < 0) {
+					if (vr > slip) {
+						vr = max(slip, vr+fslip*fs*Time.delta);
 					}
 				} else {
 					if (vr < slip) {
@@ -208,9 +217,9 @@ void NLS::Physics::Update() {
 		vx = 0;
 		vy = 0;
 		if (up&&!down) {
-			y += Time.delta*shoe::mass;
-		} else if (down&&!up) {
 			y -= Time.delta*shoe::mass;
+		} else if (down&&!up) {
+			y += Time.delta*shoe::mass;
 		}
 		if (y < lr->y1) {
 			if (lr->uf) {
@@ -224,8 +233,60 @@ void NLS::Physics::Update() {
 			lr = nullptr;
 		}
 	} else {
-		if (false) {
-			//Underwater or flying...
+		if (flying) {
+			double vmid, vmax;
+			if ((int)Map::node["info"]["swim"]) {
+				vmid = shoe::swimAcc;
+				vmax = shoe::swimSpeedH*swimSpeed;
+			} else {
+				vmid = shoe::flyAcc;
+				vmax = shoe::flySpeed*flySpeed;
+			}
+			if (vx < -vmax) {
+				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time.delta);
+			} else if (vx > vmax) {
+				vx = max(vmax, vx-floatDrag1/shoe::mass*Time.delta);
+			}
+			if (moving) {
+				if (left) {
+					if (vx > -vmax) {
+						vx = max(-vmax, vx-floatDrag1/shoe::mass*Time.delta);
+					}
+				} else {
+					if (vx < vmax) {
+						vx = min(vmax, vx+floatDrag1/shoe::mass*Time.delta);
+					}
+				}
+			} else {
+				if (vx > 0) {
+					vx = max(0, vx-floatDrag1/shoe::mass*Time.delta);
+				} else {
+					vx = min(0, vx+floatDrag1/shoe::mass*Time.delta);
+				}
+			}
+			if (vx < -vmax) {
+				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time.delta);
+			} else if (vx > vmax) {
+				vx = max(vmax, vx-floatDrag1/shoe::mass*Time.delta);
+			}
+			double stuff = flyForce/shoe::mass*vmid;
+			if (up^down) {
+				if (up) {
+					if (vy < vmax*0.3) {
+						vy = min(vmax*0.3, vy+stuff*Time.delta*0.5);
+					} else {
+						vy = max(vmax*0.3, vy-stuff*Time.delta);
+					}
+				} else {
+					if (vy < vmax*1.5) {
+						vy = min(vmax*1.5, vy+stuff*Time.delta);
+					} else {
+						vy = max(vmax*1.5, vy-stuff*Time.delta*0.5);
+					}
+				}
+			} else if (vy < vmax) {
+				vy = min(vmax, vy+stuff*Time.delta);
+			}
 		} else {
 			if (vy > 0.) {
 				vy = max(0., vy-floatDrag2/shoe::mass*Time.delta);
@@ -331,6 +392,7 @@ void NLS::Physics::Update() {
 			dis = d;
 		}
 		if (fh) {
+			lr = nullptr;
 			vr = ldx(pdis(vx, vy), angdif(dir, fh->dir));
 			x = xp+ldx(dis, dir);
 			y = yp+ldy(dis, dir);
@@ -371,9 +433,7 @@ void NLS::Physics::Update() {
 			y = fh->y1+ldy(r, fh->dir);
 			vr = 0;
 		}
-	} else if (lr) {
-
-	} else {
+	} else if (!lr) {
 		if (vy < fallSpeed) {
 			freefall = 0;
 		} else {
@@ -399,14 +459,14 @@ void NLS::Physics::MouseFly() {
 }
 
 void NLS::Physics::Jump() {
-	bool flying = (double)Map::node["info"]["fly"] < 0 or shoe::flyAcc > 0;
-	if (fh) {//If we're on the ground
-		if (down and !fh->forbid) {//If we can downjump
+	bool flying = (int)Map::node["info"]["swim"] or shoe::flyAcc > 0;
+	if (fh) {
+		if (down and !fh->forbid) {
 			vy = -jumpSpeed*wat2;
 			vx = 0;
 			djump = fh;
 			fh = nullptr;
-		} else {//Normal jump
+		} else {
 			vx = ldx(vr, fh->dir);
 			vy = -shoe::walkJump*jumpSpeed;
 			if (flying) {
@@ -425,15 +485,13 @@ void NLS::Physics::Jump() {
 			}
 			fh = nullptr;
 		}
-	} else if (lr) {//If we're on a ladder
-		if (left&&!right) {
-
-		} else if (right&&!left) {
-
+	} else if (lr) {
+		if (left^right) {
+			vy = shoe::walkJump*-jumpSpeed*(flying?0.3:0.5);
+			vx = (left?-1:1)*shoe::walkSpeed*wat4;
+			lr = nullptr;
 		}
-	} else if (flying) {//Swimming or flying
-
-	} else {
-		//Nope, can't jump
+	} else if (flying) {
+		vy = (int)Map::node["info"]["swim"]?-shoe::swimSpeedV*wat3:-shoe::flySpeed*flySpeed;
 	}
 }

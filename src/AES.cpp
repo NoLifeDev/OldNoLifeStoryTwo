@@ -39,14 +39,14 @@
 #include <fstream>
 #include <iostream>
 
-//NoLifeStory - _rotl and _rotr definitions for non-VC compilers
+//_rotl and _rotr definitions for non-windows compilers
 #ifndef _WIN32
-unsigned int _rotl(unsigned int value, int shift)
+unsigned int _rotl(uint32_t value, int shift)
 {
 	return (value<<shift)|(value>>(32-shift));
 }
 
-unsigned int _rotr(unsigned int value, int shift)
+unsigned int _rotr(uint32_t value, int shift)
 {
 	return (value>>shift)|(value<<(32-shift));
 }

@@ -679,7 +679,7 @@ NLS::Node NLS::Node::operator[] (const string& key) {
 	}
 	if (data->image) {
 		Img* img = data->image;;
-		data->image = 0;
+		data->image = nullptr;
 		img->Parse();
 	}
 	if (key == "..") {

@@ -4,7 +4,6 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-//#define PROFILING
 void NLS::Init(const vector<string>& args) {
 	locale::global(locale(""));
 	freopen("nolifestory.log", "a", stdout);
@@ -32,7 +31,7 @@ void NLS::Init(const vector<string>& args) {
 	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
 	cout << "Initialization complete" << endl;
-	Map::Load("211000000", "");
+	Map::Load("230000000", "");
 	Map::Load();
 }
 
@@ -69,13 +68,6 @@ bool NLS::Loop() {
 		}
 	}
 	Graphics::Draw();
-#ifdef PROFILING
-	static int i(0);
-	if (i>=54) {
-		return false;
-	}
-	Map::Load(maps[i++], "");
-#endif
 	if (!Map::nextmap.empty()) {
 		Map::Load();
 	}

@@ -11,7 +11,7 @@ NLS::Sprite::Sprite() {
 }
 
 void NLS::Sprite::Draw(int x, int y, bool flipped, float alpha, float rotation) {
-	if (!data or Graphics::Shit) {
+	if (!data) {
 		return;
 	}
 	if (View.relative && !rotation) {
