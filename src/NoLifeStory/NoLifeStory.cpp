@@ -5,7 +5,7 @@
 #include "Global.h"
 
 int main(int argc, char **argv) {
-	NLS::Init(vector<string>(argv, argv+argc));
+	NLS::Init();
 	while (NLS::Loop()) {}
 	NLS::Unload();
 	return 0;

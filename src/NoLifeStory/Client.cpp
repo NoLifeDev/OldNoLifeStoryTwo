@@ -6,10 +6,7 @@
 
 bool NLS::Mindfuck = false;
 
-void NLS::Init(const vector<string>& args) {
-	if (exists(path("bgm.mp3"))) {
-		Mindfuck = true;
-	}
+void NLS::Init() {
 	locale::global(locale(""));
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
@@ -18,10 +15,11 @@ void NLS::Init(const vector<string>& args) {
 	cout << "유니 코드는 사용" << endl;
 	cout << "Using locale: " << locale().name() << endl;
 	srand(time(0));
+	Config::Load();
 	Crypto::Init();
 	Network::Init();
 	Time.Reset();
-	InitWZ(args.size()>1?args[1]:"");
+	InitWZ();
 	Time.Step();
 	Graphics::Init();
 #ifdef NLS_WINDOWS
@@ -39,6 +37,13 @@ void NLS::Init(const vector<string>& args) {
 	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
 	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
+	KeySet(sf::Keyboard::Return, [](){
+		if (sf::Keyboard::IsKeyPressed(sf::Keyboard::LAlt) or sf::Keyboard::IsKeyPressed(sf::Keyboard::RAlt)) {
+			Fullscreen = !Fullscreen;
+			Config::Save();
+			Graphics::Init();
+		}
+	});
 	cout << "Initialization complete" << endl;
 	Map::Load("100000000", "");
 	Map::Load();

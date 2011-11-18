@@ -6,6 +6,7 @@
 
 path WZPath;
 NLS::Node NLS::WZ;
+vector<path> NLS::Paths;
 uint8_t *WZKey = 0;
 int16_t EncVersion;
 uint16_t NLS::Version = 0;
@@ -137,7 +138,7 @@ inline string ReadStringOffset(ifstream* file, uint32_t offset) {
 #pragma endregion
 
 #pragma region WZ Parsing
-void NLS::InitWZ(const path& wzpath) {
+void NLS::InitWZ() {
 	function <uint32_t(ifstream*, uint32_t)> ReadOffset;
 	function <void(Node)> File;
 	function <void(Node, ifstream*, uint32_t)> Directory;
@@ -154,6 +155,9 @@ void NLS::InitWZ(const path& wzpath) {
 	};
 	File = [&ReadOffset, &Directory](Node n) {
 		path filename = WZPath/path(n.Name()+".wz");
+		if (!exists(filename)) {
+			cerr << "WZ file does not exist: " << filename << endl;
+		}
 		ifstream *file = new ifstream(filename, ios::in|ios::binary);
 		if (!file->is_open()) {
 			cerr << "Failed to load " << filename << endl;
@@ -292,9 +296,8 @@ void NLS::InitWZ(const path& wzpath) {
 		}
 	};
 	memset(WZKeys[0], 0, 0x10000);
-	path paths[7] = {wzpath, "", "C:/Nexon/MapleStory/", "/home/snake/", "/", "T:/", "D:/Games/MapleStory/Current/MapleStory/"};
-	for (int i = 0; i < 7; i++) {
-		WZPath = paths[i];
+	for (int i = 0; i < Paths.size(); i++) {
+		WZPath = Paths[i];
 		if (exists(WZPath/path("Data.wz"))) {
 			cout << "Loading beta WZ file structure from " << WZPath << endl;
 			WZ.Name("Data");

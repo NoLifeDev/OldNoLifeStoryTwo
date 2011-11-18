@@ -4,5 +4,9 @@
 ////////////////////////////////////////////////////
 
 namespace NLS {
-	void LoadConfig();
+	namespace Config {
+		void Load();
+		void LoadDefault();
+		void Save();
+	}
 }

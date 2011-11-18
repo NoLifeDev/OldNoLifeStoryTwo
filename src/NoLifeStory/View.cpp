@@ -43,10 +43,18 @@ void NLS::_View::Step() {
 	double dy = tty-vy;
 	dx = max(abs(dx)-20, 0.0)*sign(dx);
 	dy = max(abs(dy)-20, 0.0)*sign(dy);
+	if (Mindfuck) {
+		dx += (double)rand()/RAND_MAX*200-100;
+		dy += (double)rand()/RAND_MAX*200-100;
+		dx *= (double)rand()/RAND_MAX;
+		dy *= (double)rand()/RAND_MAX;
+	}
 	vx += Time.delta*dx*5;
 	vy += Time.delta*dy*5;
-	vx = max(min(vx, mxmax-width), mxmin);
-	vy = max(min(vy, mymax-height), mymin);
+	if (!Mindfuck) {
+		vx = max(min(vx, mxmax-width), mxmin);
+		vy = max(min(vy, mymax-height), mymin);
+	}
 	x = vx;
 	y = vy;
 	glLoadIdentity();
