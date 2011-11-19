@@ -26,6 +26,7 @@ void NLS::Config::Load() {
 void NLS::Config::LoadDefault() {
 	Paths.push_back("");
 	Paths.push_back("C:/Nexon/MapleStory/");
+	Config::Save();
 }
 void NLS::Config::Save() {
 	ofstream file("client.config");

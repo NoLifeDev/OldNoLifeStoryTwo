@@ -49,7 +49,7 @@ inline string ReadEncString(ifstream* file) {
 		file->read((char*)ws, 2*len);
 		for (int i = 0; i < len; i++) {
 			ws[i] ^= mask;
-			ws[i] ^= (WZKey[i*2+1]<<8)+WZKey[i*2];
+			ws[i] ^= *(uint16_t*)(WZKey+2*i);
 			mask++;
 		}
 		ws[len] = '\0';

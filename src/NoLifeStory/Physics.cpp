@@ -101,6 +101,7 @@ void NLS::Physics::Update() {
 		}
 	}
 	if (fh) {
+		vr -= fh->force;
 		double fs = 1/shoe::mass;
 		if (Map::node["info"]["fs"]) {
 			fs *= (double)Map::node["info"]["fs"];
@@ -108,24 +109,15 @@ void NLS::Physics::Update() {
 		int dir = left&&!right?-1:right&&!left?1:0;
 		double slip = abs(fh->y1-fh->y2)/fh->len;
 		double maxl = sqr(slip);
-		double maxh = fh->walk?(fh->force==0?shoe::walkAcc:1)*walkForce:0;
+		double maxh = fh->walk?shoe::walkAcc*walkForce:0;
 		int hd = fh->y1<fh->y2?1:-1;
 		double force = dir*maxh;
 		double maxf = fh->walk?shoe::walkSpeed*walkSpeed:0;
 		if (flying) {
 			maxf *= swimSpeedDec;
 		}
-		if (fh->force) {
-			if (moving) {
-				double m = dir==sign(fh->force)?2*abs(fh->force):0.2/abs(fh->force);
-				force *= m;
-				maxf *= m;
-			} else {
-				force = fh->force*maxh;
-			}
-		}
 		force *= fh->y1>fh->y2?1-maxl:1+maxl;
-		double drag = fh->force==0?shoe::walkDrag:1;
+		double drag = shoe::walkDrag;
 		drag = drag>maxFriction?maxFriction:drag<minFriction?minFriction:drag;
 		if (drag < 1) {
 			drag *= 0.5;
@@ -138,7 +130,7 @@ void NLS::Physics::Update() {
 			} else if (vr > maxf) {
 				vr = max(maxf, vr-drag2*fs*Time.delta);
 			}
-			if (!moving and fh->force == 0) {
+			if (!moving) {
 				if (vr < 0) {
 					vr = min(0., vr+fslip*fs*Time.delta);
 				} else {
@@ -170,7 +162,7 @@ void NLS::Physics::Update() {
 				fslip = slip*slipForce*hd;
 				slip = slip*slipSpeed*hd;
 				if (dir*hd <= 0) {
-					if (moving or fh->force != 0) {
+					if (moving) {
 						fslip += force;
 						slip += maxl;
 					}
@@ -195,7 +187,7 @@ void NLS::Physics::Update() {
 					}
 				}
 			} else {
-				if (moving or fh->force != 0) {
+				if (moving) {
 					double fmax = hd*force>0?maxh:maxl;
 					if (force < 0) {
 						if (vr > -maxf) {
@@ -215,6 +207,7 @@ void NLS::Physics::Update() {
 				}
 			}
 		}
+		vr += fh->force;
 	} else if (lr) {
 		vx = 0;
 		vy = 0;
@@ -480,7 +473,7 @@ void NLS::Physics::Jump() {
 			}
 			if (left^right) {
 				double fmax = shoe::walkSpeed*walkSpeed;
-				int dir = left&&!right?-1:right&&!left?1:0;
+				int dir = left?-1:1;
 				fmax *= 1+sqr((fh->y2-fh->y1)/fh->len)*((fh->y2-fh->y1)*dir>0?1:-1);
 				if (fmax*0.8 > dir*vx) {
 					vx = dir*fmax*0.8;
