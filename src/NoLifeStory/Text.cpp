@@ -25,7 +25,7 @@ NLS::Text::Text(string str, int size) {
 void NLS::Text::Draw(int x, int y) {
 	glPushMatrix();
 	glTranslatef(x, y, 0);
-	auto& tex = font->GetTexture(fsize);
+	const auto& tex = font->GetTexture(fsize);
 	int xx = 0;
 	int yy = fsize;
 	uint32_t prev = 0;
@@ -43,10 +43,10 @@ void NLS::Text::Draw(int x, int y) {
 			//case L'\n' : y += lineSpacing; x = 0; continue;
 			//case L'\v' : y += lineSpacing * 4;    continue;
 		}
-		auto& glyph = font->GetGlyph(cur, fsize, false);
-		auto& advance = glyph.Advance;
-		auto& b = glyph.Bounds;
-		auto& c = tex.GetTexCoords(glyph.SubRect);
+		const auto& glyph = font->GetGlyph(cur, fsize, false);
+		const auto& advance = glyph.Advance;
+		const auto& b = glyph.Bounds;
+		const auto& c = tex.GetTexCoords(glyph.SubRect);
 		glTexCoord2f(c.Left, c.Top);
 		glVertex2i(xx+b.Left, yy+b.Top);
 		glTexCoord2f(c.Left+c.Width, c.Top);
