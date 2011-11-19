@@ -1,9 +1,9 @@
 CE = g++
 SBP = ../../src/NoLifeStory
-CF = -I../../include -std=gnu++0x -fshort-wchar
+CF = -g -I../../include -std=gnu++0x -fshort-wchar
 LF = lib/libbass64.so -lsfml-graphics -lsfml-window -lsfml-network -lsfml-system -lz
 EO = NLS
-OBJS = obj/AES.o obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Keys.o obj/LadderRope.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
+OBJS = obj/AES.o obj/AniSprite.o obj/Back.o obj/Client.o obj/Config.o obj/Foothold.o obj/Graphics.o obj/KeyMap.o obj/Keys.o obj/LadderRope.o obj/Map.o obj/Network.o obj/NoLifeStory.o obj/Obj.o obj/Physics.o obj/Player.o obj/Portal.o obj/Reactor.o obj/Sound.o obj/Sprite.o obj/Text.o obj/ThisPlayer.o obj/Tile.o obj/Time.o obj/UI.o obj/Utilities.o obj/View.o obj/WZ.o 
 
 target: $(OBJS)
 	$(CE) $(OBJS) -o $(EO) $(LF)
@@ -64,6 +64,9 @@ obj/Sound.o: $(SBP)/Sound.cpp $(SBP)/Global.h
 
 obj/Sprite.o: $(SBP)/Sprite.cpp $(SBP)/Global.h 
 	$(CE) -c $(CF) $(SBP)/Sprite.cpp -o obj/Sprite.o
+
+obj/Text.o: $(SBP)/Text.cpp $(SBP)/Global.h 
+	$(CE) -c $(CF) $(SBP)/Text.cpp -o obj/Text.o
 
 obj/ThisPlayer.o: $(SBP)/ThisPlayer.cpp $(SBP)/Global.h 
 	$(CE) -c $(CF) $(SBP)/ThisPlayer.cpp -o obj/ThisPlayer.o

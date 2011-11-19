@@ -46,7 +46,7 @@ void NLS::Text::Draw(int x, int y) {
 		auto& glyph = font->GetGlyph(cur, fsize, false);
 		auto& advance = glyph.Advance;
 		auto& b = glyph.Bounds;
-		auto& c = tex.GetTexCoords(glyph.SubRect);
+		const auto& c = tex.GetTexCoords(glyph.SubRect);
 		glTexCoord2f(c.Left, c.Top);
 		glVertex2i(xx+b.Left, yy+b.Top);
 		glTexCoord2f(c.Left+c.Width, c.Top);
