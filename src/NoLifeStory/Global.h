@@ -15,6 +15,7 @@
 #include "Sound.h"
 #include "WZ.h"
 #include "Graphics.h"
+#include "Text.h"
 #include "Time.h"
 #include "UI.h"
 #include "Foothold.h"

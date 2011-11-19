@@ -247,6 +247,11 @@ void NLS::InitWZ() {
 				throw(273);
 			}
 		}
+		if (ReadCInt(file) == 0) {
+			cerr << "Empty WZ file: " << filename << endl;
+			return;
+		}
+		file->seekg(fileStart+2);
 		Directory(n, file, fileStart);
 	};
 	Directory = [&File, &ReadOffset, &Directory](Node n, ifstream* file, uint32_t fileStart) {

@@ -70,7 +70,9 @@ void NLS::Physics::Reset(double x, double y) {
 }
 
 void NLS::Physics::Update() {
-	f = left&&!right?false:right&&!left?true:f;
+	if (!lr) {
+		f = left&&!right?false:right&&!left?true:f;
+	}
 	bool moving = left^right;
 	bool flying = (int)Map::node["info"]["swim"] or shoe::flyAcc > 0;
 	if (!lr) {

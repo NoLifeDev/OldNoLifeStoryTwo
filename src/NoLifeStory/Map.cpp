@@ -70,6 +70,7 @@ void NLS::Map::Load() {
 	if (!curmap.empty()) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
 		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, 0);
 		glColor4ub(4, 4, 4, 0);
 		glLoadIdentity();
 		for (int i = 0; i < 128; ++i) {

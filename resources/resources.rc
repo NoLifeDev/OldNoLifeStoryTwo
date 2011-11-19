@@ -1,4 +1,3 @@
 
 #include "Resource.h"
 IDI_NOLIFESTORY_ICON    ICON                    "maplestory.ico"
-IDI_NOLIFESTORY_FONT    RCDATA                 "font.ttf"

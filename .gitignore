@@ -29,3 +29,4 @@
 *.xml
 *.codeanalysis
 *.codeanalysisast
+*.config
