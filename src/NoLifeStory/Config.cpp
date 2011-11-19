@@ -16,9 +16,9 @@ void NLS::Config::Load() {
 		if (key == "path") {
 			Paths.push_back(value);
 		} else if (key == "mindfuck") {
-			Mindfuck = value=="true"?true:false;
+			Mindfuck = value == "true";
 		} else if (key == "fullscreen") {
-			Fullscreen = value=="true"?true:false;
+			Fullscreen = value == "true";
 		}
 	}
 	Config::Save();

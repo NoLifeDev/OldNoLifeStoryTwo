@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Reactor.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Text.h" />
     <ClInclude Include="..\..\src\NoLifeStory\ThisPlayer.h" />
     <ClInclude Include="..\..\src\NoLifeStory\UI.h" />
     <ClInclude Include="..\..\src\SuperGlobal.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\Reactor.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sound.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Sprite.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Text.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\ThisPlayer.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Tile.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Time.cpp" />
@@ -177,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\resources\maplestory.ico" />
-    <None Include="..\..\resources\font.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\resources\resources.rc" />

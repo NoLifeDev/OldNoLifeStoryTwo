@@ -107,10 +107,12 @@ void NLS::Graphics::Draw() {
 	}
 	Map::Draw();
 	View.Reset();
+	UI::Draw();
 	Time.Step();
 	if (Map::fade > 0) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
 		glBlendFunc(GL_ONE, GL_ONE);
+		glBindTexture(GL_TEXTURE_2D, 0);
 		glColor4f(Map::fade, Map::fade, Map::fade, 0);
 		glBegin(GL_QUADS);
 		glVertex2i(0, 0);
