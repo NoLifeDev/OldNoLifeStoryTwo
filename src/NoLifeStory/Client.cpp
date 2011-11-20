@@ -40,6 +40,7 @@ void NLS::Init() {
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
 	Time.Step();
 	cout << "Initialization complete" << endl;
+	NLS::UI::AddChatlog("[NoLifeStory] Welcome to NoLifeStory!", NLS::Text::TextColor(255, 255, 0));
 	Map::Load("100000000", "");
 	Map::Load();
 }
@@ -55,7 +56,7 @@ bool NLS::Loop() {
 			UI::HandleChar(e.Text.Unicode);
 			break;
 		case sf::Event::KeyPressed:
-			if (UI::HandleKey(e.Key.Code)) {
+			if (UI::HandleKey(e)) {
 				break;
 			}
 			KeyMap[e.Key.Code]();

@@ -62,6 +62,7 @@ void NLS::Map::Load() {
 	}
 	if (!node) {
 		cerr << "Unable to locate map " << nextmap << endl;
+		NLS::UI::AddChatlog("[WARN] Map not found!", NLS::Text::TextColor(255, 0, 0));
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -102,6 +103,13 @@ void NLS::Map::Load() {
 	}
 	Backgrounds.clear();
 	Foregrounds.clear();
+
+	// check if linked.
+	if (node["info"]["link"]) {
+		int32_t link = node["info"]["link"];
+		node = node[".."][link];
+	}
+
 	Sprite::Unload();
 	Foothold::Load(node);
 	Tile::Load(node);
