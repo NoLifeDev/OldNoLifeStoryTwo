@@ -40,14 +40,14 @@ void NLS::_ThisPlayer::Draw() {
 }
 
 void NLS::_ThisPlayer::UsePortal() {
-	if (pdelay > 0.4) {
-		for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
-			Portal& p = **it;
-			if (x+50 > p.x and x-50 < p.x and y+50 > p.y and y-50 < p.y) {
-				if (p.tm != "999999999" or p.tn != "") {
-					Map::Load(p.tm, p.tn);
-					pdelay = 0;
-				}
+	if (pdelay < 0.4) return;
+	if (lr) return;
+	for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
+		Portal& p = **it;
+		if (x+50 > p.x and x-50 < p.x and y+50 > p.y and y-50 < p.y) {
+			if (p.tm != "999999999" or p.tn != "") {
+				Map::Load(p.tm, p.tn);
+				pdelay = 0;
 			}
 		}
 	}
