@@ -14,6 +14,7 @@ NLS::Player::Player() : Physics() {
 	skin = 2000;
 	face = 20000;
 	hair = 30000;
+	level = 123;
 }
 
 void NLS::Player::Draw() {
