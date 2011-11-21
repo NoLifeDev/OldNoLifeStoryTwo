@@ -53,6 +53,7 @@ void NLS::UI::HandleChar(uint32_t ch) {
 	if (!enteringtext) return;
 	switch (ch) {
 	case 0x8:
+		if (!chat.size()) return;
 		chat.erase(chat.size()-1);
 		return;
 	case 0xA:
