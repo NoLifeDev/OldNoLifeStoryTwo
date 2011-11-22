@@ -4,11 +4,9 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-void NLS::UI::ChatLog::Clear() {
-	Messages.clear();
-}
+NLS::ChatLog NLS::Messenger;
+NLS::ChatLog NLS::MainChat;
 
-void NLS::UI::ChatLog::Draw(int x, int y) {
-	//Draw scrollbar
-	//Draw text
+void NLS::ChatLog::Clear() {
+	Messages.clear();
 }

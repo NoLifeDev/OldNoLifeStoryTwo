@@ -2,22 +2,31 @@
 // This file is part of NoLifeStory.              //
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
+//TODO - Move this stuff into separate files, perhaps a separate folder entirely?
 namespace NLS {
 	namespace UI {
 		extern bool Focused;//All input goes straight to UI
-		extern bool Typing;//All input goes straight to textbox
 		class Element {
 		public:
 			Element(Element* parent);
 			Element();
 			void Draw();
-			int32_t CalcX() {return x+(parent?parent->CalcX():0);}
-			int32_t CalcY() {return y+(parent?parent->CalcY():0);}
+			void HandleKey(sf::Keyboard::Key);
+			int CalcX() {return x+(parent?parent->CalcX():0);}
+			int CalcY() {return y+(parent?parent->CalcY():0);}
 			Element *parent;
 			int x, y;
 			int width, height;
 			vector<Element*> children;
+		private:
+			Element(const Element&);
 		} extern Screen;
+		class Movable : public Element {
+		public:
+			int GrabX;
+			int GrabY;
+			static Movable* Grabbed;
+		};
 		class Window : public Element {
 		public:
 		};
@@ -26,12 +35,17 @@ namespace NLS {
 		};
 		class TextBox : public Element {
 		public:
+			static TextBox* Active;
+			void Send();
+			void HandleChar(char32_t);
+			u32string text;
 		};
 		class ScrollBar : public Element {
+		public:
+			int LineHeight;
+			int CurLine;
 		};
 		void Init();
-		void AddWindow(NLS::UI::Window *, int32_t);
-		void Draw();
 		bool HandleKey(sf::Event);
 		void HandleChar(uint32_t);
 		bool HandleMousePress(sf::Mouse::Button, int, int);

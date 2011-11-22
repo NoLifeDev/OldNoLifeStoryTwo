@@ -5,15 +5,7 @@
 #include "Global.h"
 
 NLS::UI::Element NLS::UI::Screen;
-
-string chat;//Temporary
-bool enteringtext = false;
-bool justentered = false;
-vector<NLS::Text> chatlog;
-int32_t chatlogCurrentTopmostLine = 0;
-int32_t maxLinesShown = 5;
-vector<NLS::UI::Window *> windows[4];
-int16_t carretFlicker = 0;
+NLS::UI::TextBox* NLS::UI::TextBox::Active = nullptr;
 
 void NLS::UI::Init() {
 	Screen.x = 0;

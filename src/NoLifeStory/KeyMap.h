@@ -4,18 +4,23 @@
 ////////////////////////////////////////////////////
 
 namespace NLS {
-	class KeyAction {
-	public:
-		KeyAction();
-		KeyAction(function<void(void)>);
-		function<void(void)> action;
-		void operator() () {
-			if (action) {
-				return action();
+	namespace Key {
+		class Action {
+		public:
+			Action();
+			Action(function<void()>);
+			function<void()> action;
+			void operator() () {
+				if (action) {
+					return action();
+				}
 			}
-		}
-	};
-	void KeySet(sf::Keyboard::Key, function<void(void)>);
-	extern map <sf::Keyboard::Key, KeyAction> KeyMap;
+		};
+		void Init();
+		void Set(sf::Keyboard::Key, function<void()>);
+		extern map <sf::Keyboard::Key, Action> Map;
+		void Handle(sf::Event);
+		extern bool Left, Right, Up, Down;
+	}
 }
 #define Func(x) [&](){x();}

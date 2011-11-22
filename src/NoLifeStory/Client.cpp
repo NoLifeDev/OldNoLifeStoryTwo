@@ -30,17 +30,14 @@ void NLS::Init() {
 		HSTREAM s = BASS_StreamCreateFile(false, "bgm.mp3", 0, 0, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
 		BASS_ChannelPlay(s, true);
 	}
+	Mouse::Init();
 	UI::Init();
 	Text::Init();
 	Physics::Init();
-	KeySet(sf::Keyboard::Escape, Func(window->Close));
-	KeySet(sf::Keyboard::F, Func(ThisPlayer.MouseFly));
-	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
-	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
-	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
+	Key::Init();
 	Time::Step();
 	cout << "Initialization complete" << endl;
-	UI::MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << endl;
+	MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << endl;
 	Map::Load("100000000", "");
 	Map::Load();
 }
@@ -59,7 +56,7 @@ bool NLS::Loop() {
 			if (UI::HandleKey(e)) {
 				break;
 			}
-			KeyMap[e.Key.Code]();
+			Key::Map[e.Key.Code]();
 			break;
 			//TODO - Pass all these events to the Cursor and let that handle stuff.
 		case sf::Event::MouseButtonPressed:
