@@ -19,7 +19,7 @@ void NLS::Graphics::Init() {
 	GLenum error = glewInit();
 	switch (error) {
 	case GLEW_OK:
-		cout << "GLEW initialized" << endl;;
+		cout << "GLEW initialized" << endl;
 		break;
 	case GLEW_ERROR_NO_GL_VERSION:
 		cerr << "Unable to detect OpenGL version.";
@@ -75,30 +75,24 @@ void NLS::Graphics::Init() {
 
 void NLS::Graphics::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT);
-	View.Step();
+	View::Step();
 	Portal::Update();
 	if (Mindfuck) {
-		srand(floor(Time.tdelta*3));
+		srand(floor(Time::tdelta*3));
 		rand();
-		int so = rand();
-		srand(floor(Time.tdelta*3)+1);
+		float r = rand()*(1-fmod(Time::tdelta*3, 1));
+		float g = rand()*(1-fmod(Time::tdelta*3, 1));
+		float b = rand()*(1-fmod(Time::tdelta*3, 1));
+		srand(floor(Time::tdelta*3)+1);
 		rand();
-		int sn = rand();
-		srand(so);
-		rand();
-		float r = rand()*(1-fmod(Time.tdelta*3, 1));
-		float g = rand()*(1-fmod(Time.tdelta*3, 1));
-		float b = rand()*(1-fmod(Time.tdelta*3, 1));
-		srand(sn);
-		rand();
-		r += rand()*fmod(Time.tdelta*3, 1);
-		g += rand()*fmod(Time.tdelta*3, 1);
-		b += rand()*fmod(Time.tdelta*3, 1);
+		r += rand()*fmod(Time::tdelta*3, 1);
+		g += rand()*fmod(Time::tdelta*3, 1);
+		b += rand()*fmod(Time::tdelta*3, 1);
 		r /= RAND_MAX;
 		g /= RAND_MAX;
 		b /= RAND_MAX;
 		glColor4f(r, g, b, 1);
-		srand(Time.tdelta*10000);
+		srand(Time::tdelta*10000);
 		if ((double)rand()/RAND_MAX < 0.2) {
 			glLogicOp(GL_XOR);
 		} else {
@@ -106,9 +100,9 @@ void NLS::Graphics::Draw() {
 		}
 	}
 	Map::Draw();
-	View.Reset();
+	View::Reset();
 	UI::Draw();
-	Time.Step();
+	Time::Step();
 	if (Map::fade > 0) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
 		glBlendFunc(GL_ONE, GL_ONE);
@@ -116,15 +110,15 @@ void NLS::Graphics::Draw() {
 		glColor4f(Map::fade, Map::fade, Map::fade, 0);
 		glBegin(GL_QUADS);
 		glVertex2i(0, 0);
-		glVertex2i(View.width, 0);
-		glVertex2i(View.width, View.height);
-		glVertex2i(0, View.height);
+		glVertex2i(View::width, 0);
+		glVertex2i(View::width, View::height);
+		glVertex2i(0, View::height);
 		glEnd();
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBlendEquation(GL_FUNC_ADD);
-		Map::fade -= 2*Time.delta;
+		Map::fade -= 2*Time::delta;
 	}
-	window->SetTitle("NoLifeStory::FrameRate = "+tostring((int)Time.fps));
+	window->SetTitle("NoLifeStory::FrameRate = "+tostring((int)Time::fps));
 	window->Display();
 #ifdef DEBUG
 	switch (glGetError()) {

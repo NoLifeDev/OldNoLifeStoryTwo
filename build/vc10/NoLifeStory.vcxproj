@@ -103,6 +103,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\AES.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Chat.h" />
     <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Mouse.h" />
@@ -141,6 +142,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\AniSprite.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Back.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Chat.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Client.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Config.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />

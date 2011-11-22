@@ -4,14 +4,24 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-NLS::_Time NLS::Time;
-
-void NLS::_Time::Reset() {
 #ifdef NLS_CPP11
-	last = clock.now();
-	start = clock.now();
+chrono::high_resolution_clock tclock;
+chrono::high_resolution_clock::time_point last;
+chrono::high_resolution_clock::time_point start;
 #else
-	clock.Reset();
+sf::Clock tclock;
+#endif
+bool output;
+double NLS::Time::delta;
+double NLS::Time::tdelta;
+double NLS::Time::fps;
+
+void NLS::Time::Reset() {
+#ifdef NLS_CPP11
+	last = tclock.now();
+	start = tclock.now();
+#else
+	tclock.Reset();
 #endif
 	delta = 0;
 	tdelta = 0;
@@ -19,16 +29,16 @@ void NLS::_Time::Reset() {
 	output = true;
 }
 
-void NLS::_Time::Step() {
+void NLS::Time::Step() {
 #ifdef NLS_CPP11
-	chrono::high_resolution_clock::time_point now = clock.now();
+	chrono::high_resolution_clock::time_point now = tclock.now();
 	chrono::duration<double> dif = now-last;
 	chrono::duration<double> tdif = now-start;
 	delta = dif.count();
 	tdelta = tdif.count();
 	last = now;
 #else
-	double temp = clock.GetElapsedTime();
+	double temp = tclock.GetElapsedTime();
 	temp /= 1000;
 	delta = temp-tdelta;
 	tdelta = temp;

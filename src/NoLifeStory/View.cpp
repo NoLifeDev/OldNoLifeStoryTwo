@@ -4,9 +4,14 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-NLS::_View NLS::View;
+int NLS::View::x, NLS::View::y;
+double NLS::View::vx, NLS::View::vy;
+double NLS::View::tx, NLS::View::ty;
+int NLS::View::xmin, NLS::View::xmax, NLS::View::ymin, NLS::View::ymax;
+int NLS::View::width, NLS::View::height;
+bool NLS::View::relative;
 
-NLS::_View::_View() {
+void NLS::View::Init() {
 	x = 0;
 	y = 0;
 	vx = 0;
@@ -21,7 +26,7 @@ NLS::_View::_View() {
 	height = 600;
 }
 
-void NLS::_View::Step() {
+void NLS::View::Step() {
 	double mxmax = xmax;
 	double mxmin = xmin;
 	double mymax = ymax;
@@ -49,8 +54,8 @@ void NLS::_View::Step() {
 		dx *= (double)rand()/RAND_MAX;
 		dy *= (double)rand()/RAND_MAX;
 	}
-	vx += Time.delta*dx*5;
-	vy += Time.delta*dy*5;
+	vx += Time::delta*dx*5;
+	vy += Time::delta*dy*5;
 	if (!Mindfuck) {
 		vx = max(min(vx, mxmax-width), mxmin);
 		vy = max(min(vy, mymax-height), mymin);
@@ -62,7 +67,7 @@ void NLS::_View::Step() {
 	relative = true;
 }
 
-void NLS::_View::Reset() {
+void NLS::View::Reset() {
 	glLoadIdentity();
 	relative = false;
 }

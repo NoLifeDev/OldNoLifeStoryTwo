@@ -55,24 +55,24 @@ void NLS::Obj::Draw() {
 	switch(movetype) {
 	case 1:
 		if (movep) {
-			ax = movew*sin((double)Time.tdelta*2*PI/movep);
+			ax = movew*sin((double)Time::tdelta*2*PI/movep);
 		} else {
-			ax = movew*sin((double)Time.tdelta/1000);
+			ax = movew*sin((double)Time::tdelta/1000);
 		}
 		break;
 	case 2:
 		if (movep) {
-			ay = moveh*sin((double)Time.tdelta*2*PI/movep);
+			ay = moveh*sin((double)Time::tdelta*2*PI/movep);
 		} else {
-			ay = moveh*sin((double)Time.tdelta/1000);
+			ay = moveh*sin((double)Time::tdelta/1000);
 		}
 		break;
 	case 3:
-		ang = (double)Time.tdelta/mover*radtodeg;
+		ang = (double)Time::tdelta/mover*radtodeg;
 		break;
 	};
 	if (flow) {
-		ax += (double)Time.tdelta*rx/1000*5;
+		ax += (double)Time::tdelta*rx/1000*5;
 		int cx = View.xmax-View.xmin;
 		for(int i = (x+ax-View.x)%cx-cx+View.x; i < View.x+800+cx; i += cx) {
 			spr.Draw(i, y+ay, f, ang);

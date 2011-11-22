@@ -20,8 +20,8 @@ NLS::Player::Player() : Physics() {
 void NLS::Player::Draw() {
 	Physics::Update();
 	if (emote != "default") {
-		emoted += Time.delta*1000;
-		emotee += Time.delta*1000;
+		emoted += Time::delta*1000;
+		emotee += Time::delta*1000;
 		int d = WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]["delay"];
 		if (emoted > d) {
 			emotef++;
@@ -38,13 +38,13 @@ void NLS::Player::Draw() {
 			emotee = 0;
 		}
 	} else {
-		if (rand()%5000 < Time.delta*1000) {
+		if (rand()%5000 < Time::delta*1000) {
 			emote = "blink";
 			emotee = 0;
 		}
 	}
 	if (state != "rope" and state != "ladder") {
-		delay += Time.delta*1000;
+		delay += Time::delta*1000;
 	}
 	int d = WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["delay"];
 	if (delay > d) {

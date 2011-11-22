@@ -7,7 +7,7 @@
 bool NLS::Mindfuck = false;
 
 void NLS::Init() {
-	Time.Reset();
+	Time::Reset();
 	locale::global(locale(""));
 	freopen("nolifestory.log", "a", stdout);
 	freopen("nolifestory.log", "a", stderr);
@@ -38,9 +38,9 @@ void NLS::Init() {
 	KeySet(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
 	KeySet(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
 	KeySet(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
-	Time.Step();
+	Time::Step();
 	cout << "Initialization complete" << endl;
-	NLS::UI::AddChatlog("[NoLifeStory] Welcome to NoLifeStory!", NLS::Text::TextColor(255, 255, 0));
+	UI::MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << endl;
 	Map::Load("100000000", "");
 	Map::Load();
 }

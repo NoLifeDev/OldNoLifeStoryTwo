@@ -7,6 +7,17 @@
 #define degtorad 0.01745329251994329576923690768489
 #define radtodeg 57.295779513082320876798154814105
 
+inline u32string u32(const string& str) {
+	static char32_t s[1024];
+	char32_t* end = sf::Utf8::ToUtf32(str.begin(), str.end(), s);
+	return u32string(s, end);
+}
+inline string u8(const u32string& str) {
+	static char s[1024];
+	char* end = sf::Utf32::ToUtf8(str.begin(), str.end(), s);
+	return string(s, end);
+}
+
 inline void pad(string& str, char c, size_t l) {
 	str.insert(0, l-str.size(), c);
 }
@@ -88,6 +99,17 @@ inline int pot(int x) {
 		x = x|x>>i;
 	}
 	return x+1;
+}
+
+string GetClipboardText() {
+#ifdef NLS_WINDOWS
+	if (OpenClipboard(nullptr)) {
+		char* clip = (char*)GetClipboardData(CF_TEXT);
+		return clip;
+	}
+#else
+#endif
+	return string();
 }
 
 #ifndef NLS_TR2

@@ -2,13 +2,13 @@
 // This file is part of NoLifeStory.              //
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
+#include "Global.h"
 
-namespace NLS {
-	namespace Time {
-		void Reset();
-		void Step();
-		extern double delta;
-		extern double tdelta;
-		extern double fps;
-	};
+void NLS::UI::ChatLog::Clear() {
+	Messages.clear();
+}
+
+void NLS::UI::ChatLog::Draw(int x, int y) {
+	//Draw scrollbar
+	//Draw text
 }

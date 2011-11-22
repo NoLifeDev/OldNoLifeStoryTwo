@@ -13,24 +13,35 @@ void NLS::Text::Init() {
 void NLS::Text::Unload() {
 	delete font;
 }
-NLS::Text::Text(string str, int size, TextColor clr) {
-	static uint32_t s[1024];
-	uint32_t* end = sf::Utf8::ToUtf32(str.begin(), str.end(), s);
-	text.assign(s, end);
+u32string NLS::Text::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+	static char32_t s[2] = {0xFFFFFF, 0};
+	static uint8_t* c = (uint8_t*)&s[1];
+	c[0] = r;
+	c[1] = g;
+	c[2] = b;
+	c[3] = a;
+	return u32string(s, 2);
+}
+
+NLS::Text::Text(u32string str, int size) {
+	text = str;
 	fsize = size;
-	color = clr;
 	for (int i = 0; i < text.size(); ++i) {
 		font->GetGlyph(text[i], fsize, false);
 	}
 }
 
-int32_t NLS::Text::getTextWidth() {
-	int32_t xx = 0;
-	int32_t yy = fsize;
-	uint32_t prev = 0;
-	int space = font->GetGlyph(L' ', fsize, false).Advance;
+int NLS::Text::Width() {
+	int xx = 0;
+	int yy = fsize;
+	char32_t prev = 0;
+	int space = font->GetGlyph(' ', fsize, false).Advance;
 	for (int i = 0; i < text.size(); ++i) {
-		uint32_t cur = text[i];
+		char32_t cur = text[i];
+		if (cur == 0xFFFFFF) {
+			++i;
+			continue;
+		}
 		xx += font->GetKerning(prev, cur, fsize);
 		prev = cur;
 		switch (cur) {
@@ -46,7 +57,7 @@ int32_t NLS::Text::getTextWidth() {
 	return xx;
 }
 
-int32_t NLS::Text::getTextHeight() {
+int NLS::Text::Height() {
 	return fsize;
 }
 
@@ -56,20 +67,26 @@ void NLS::Text::Draw(int x, int y) {
 	const auto& tex = font->GetTexture(fsize);
 	int xx = 0;
 	int yy = fsize;
-	uint32_t prev = 0;
-	int space = font->GetGlyph(L' ', fsize, false).Advance;
-	glColor4f(color.Red, color.Green, color.Blue, color.Alpha);
+	char32_t prev = 0;
+	int space = font->GetGlyph(' ', fsize, false).Advance;
+	int linespace = font->GetLineSpacing(fsize);
+	glColor4f(0, 0, 0, 1);
 	tex.Bind();
 	glBegin(GL_QUADS);
 	for (int i = 0; i < text.size(); ++i) {
-		uint32_t cur = text[i];
+		char32_t cur = text[i];
 		xx += font->GetKerning(prev, cur, fsize);
+		if (cur == 0xFFFFFF) {
+			uint8_t* c = (uint8_t*)&text[++i];
+			glColor4ub(c[0], c[1], c[2], c[3]);
+			continue;
+		}
 		prev = cur;
 		switch (cur) {
-			case L' ' :  xx += space;              continue;
-			case L'\t' : xx += space * 4;          continue;
-			//case L'\n' : y += lineSpacing; x = 0; continue;
-			//case L'\v' : y += lineSpacing * 4;    continue;
+			case ' ' :  xx += space;              continue;
+			case '\t' : xx += space * 4;          continue;
+			//case '\n' : y += lineSpacing; x = 0; continue;
+			//case '\v' : y += lineSpacing * 4;    continue;
 		}
 		const auto& glyph = font->GetGlyph(cur, fsize, false);
 		const auto& advance = glyph.Advance;

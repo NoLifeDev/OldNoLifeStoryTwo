@@ -4,6 +4,8 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+NLS::UI::Element NLS::UI::Screen;
+
 string chat;//Temporary
 bool enteringtext = false;
 bool justentered = false;
@@ -14,6 +16,11 @@ vector<NLS::UI::Window *> windows[4];
 int16_t carretFlicker = 0;
 
 void NLS::UI::Init() {
+	Screen.x = 0;
+	Screen.y = 0;
+	Screen.width = View::width;
+	Screen.height = View::height;
+	/*
 	NLS::UI::Window *window = new NLS::UI::Window();
 	NLS::Sprite sprite = WZ["UI"]["StatusBar"]["base"]["backgrnd"];
 	window->setBackground(sprite);
@@ -174,8 +181,8 @@ void NLS::UI::Draw() {
 			glColor4f(0, 0, 0, 1);
 			glBindTexture(GL_TEXTURE_2D, 0);
 			glBegin(GL_QUADS);
-			int32_t w = t.getTextWidth();
-			int32_t h = t.getTextHeight();
+			int32_t w = t.Width();
+			int32_t h = t.Height();
 			glVertex2i(3 + w, boxLength + 2);
 			glVertex2i(4 + w, boxLength + 2);
 			glVertex2i(4 + w, boxLength + 2 + h);
@@ -297,25 +304,4 @@ void NLS::UI::AnimatedImage::Draw() {
 	if (!isVisible()) return;
 	sprite.Draw(getViewX(), getViewY());
 }
-
-string NLS::UI::GetClipboardText() {
-#ifdef NLS_WINDOWS
-	HANDLE clip;
-	if (OpenClipboard(NULL)) {
-		clip = GetClipboardData(CF_TEXT);
-		return string((char *)clip);
-	}
-#else
-#endif
-	return "";
-}
-
-void NLS::UI::AddChatlog(const string& msg, NLS::Text::TextColor color) {
-	chatlog.push_back(NLS::Text(msg, 14, color));
-	if (chatlog.size() >= 50) {
-		// Remove first message from list
-		chatlog.erase(chatlog.begin());
-	}
-	
-	chatlogCurrentTopmostLine = chatlog.size() < maxLinesShown ? 0 : chatlog.size() - maxLinesShown;
-}
+*/

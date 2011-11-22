@@ -126,24 +126,24 @@ void NLS::Physics::Update() {
 		double drag2 = walkDrag/5;
 		if (slip == 0) {
 			if (vr < -maxf) {
-				vr = min(-maxf, vr+drag2*fs*Time.delta);
+				vr = min(-maxf, vr+drag2*fs*Time::delta);
 			} else if (vr > maxf) {
-				vr = max(maxf, vr-drag2*fs*Time.delta);
+				vr = max(maxf, vr-drag2*fs*Time::delta);
 			}
 			if (!moving) {
 				if (vr < 0) {
-					vr = min(0., vr+fslip*fs*Time.delta);
+					vr = min(0., vr+fslip*fs*Time::delta);
 				} else {
-					vr = max(0., vr-fslip*fs*Time.delta);
+					vr = max(0., vr-fslip*fs*Time::delta);
 				}
 			} else {
 				if (force < 0) {
 					if (vr > -maxf) {
-						vr = max(-maxf, vr+force*fs*Time.delta);
+						vr = max(-maxf, vr+force*fs*Time::delta);
 					}
 				} else {
 					if (vr < maxf) {
-						vr = min(maxf, vr+force*fs*Time.delta);
+						vr = min(maxf, vr+force*fs*Time::delta);
 					}
 				}
 			}
@@ -154,9 +154,9 @@ void NLS::Physics::Update() {
 				maxl = maxh;
 			}
 			if (vr > maxl) {
-				vr = max(maxl, vr-drag2*fs*Time.delta);
+				vr = max(maxl, vr-drag2*fs*Time::delta);
 			} else if (vr < -maxl) {
-				vr = min(maxl, vr+drag2*fs*Time.delta);
+				vr = min(maxl, vr+drag2*fs*Time::delta);
 			}
 			if (shoe::walkSlant < slip) {
 				fslip = slip*slipForce*hd;
@@ -172,18 +172,18 @@ void NLS::Physics::Update() {
 				}
 				if (hd*dir < 0) {
 					if (vr < 0) {
-						vr = min(0., vr-drag2*fs*Time.delta);
+						vr = min(0., vr-drag2*fs*Time::delta);
 					} else {
-						vr = max(0., vr+drag2*fs*Time.delta);
+						vr = max(0., vr+drag2*fs*Time::delta);
 					}
 				}
 				if (hd < 0) {
 					if (vr > slip) {
-						vr = max(slip, vr+fslip*fs*Time.delta);
+						vr = max(slip, vr+fslip*fs*Time::delta);
 					}
 				} else {
 					if (vr < slip) {
-						vr = min(slip, vr+fslip*fs*Time.delta);
+						vr = min(slip, vr+fslip*fs*Time::delta);
 					}
 				}
 			} else {
@@ -191,18 +191,18 @@ void NLS::Physics::Update() {
 					double fmax = hd*force>0?maxh:maxl;
 					if (force < 0) {
 						if (vr > -maxf) {
-							vr = max(-fmax, vr+force*fs*Time.delta);
+							vr = max(-fmax, vr+force*fs*Time::delta);
 						}
 					} else {
 						if (vr < maxf) {
-							vr = min(fmax, vr+force*fs*Time.delta);
+							vr = min(fmax, vr+force*fs*Time::delta);
 						}
 					}
 				} else {
 					if (vr < 0) {
-						vr = min(0., vr+fslip*fs*Time.delta);
+						vr = min(0., vr+fslip*fs*Time::delta);
 					} else {
-						vr = max(0., vr-fslip*fs*Time.delta);
+						vr = max(0., vr-fslip*fs*Time::delta);
 					}
 				}
 			}
@@ -212,9 +212,9 @@ void NLS::Physics::Update() {
 		vx = 0;
 		vy = 0;
 		if (up&&!down) {
-			y -= Time.delta*shoe::mass;
+			y -= Time::delta*shoe::mass;
 		} else if (down&&!up) {
-			y += Time.delta*shoe::mass;
+			y += Time::delta*shoe::mass;
 		}
 		if (y < lr->y1) {
 			if (lr->uf) {
@@ -238,81 +238,81 @@ void NLS::Physics::Update() {
 				vmax = shoe::flySpeed*flySpeed;
 			}
 			if (vx < -vmax) {
-				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time.delta);
+				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time::delta);
 			} else if (vx > vmax) {
-				vx = max(vmax, vx-floatDrag1/shoe::mass*Time.delta);
+				vx = max(vmax, vx-floatDrag1/shoe::mass*Time::delta);
 			}
 			if (moving) {
 				if (left) {
 					if (vx > -vmax) {
-						vx = max(-vmax, vx-floatDrag1/shoe::mass*Time.delta);
+						vx = max(-vmax, vx-floatDrag1/shoe::mass*Time::delta);
 					}
 				} else {
 					if (vx < vmax) {
-						vx = min(vmax, vx+floatDrag1/shoe::mass*Time.delta);
+						vx = min(vmax, vx+floatDrag1/shoe::mass*Time::delta);
 					}
 				}
 			} else {
 				if (vx > 0) {
-					vx = max(0., vx-floatDrag1/shoe::mass*Time.delta);
+					vx = max(0., vx-floatDrag1/shoe::mass*Time::delta);
 				} else {
-					vx = min(0., vx+floatDrag1/shoe::mass*Time.delta);
+					vx = min(0., vx+floatDrag1/shoe::mass*Time::delta);
 				}
 			}
 			if (vx < -vmax) {
-				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time.delta);
+				vx = min(-vmax, vx+floatDrag1/shoe::mass*Time::delta);
 			} else if (vx > vmax) {
-				vx = max(vmax, vx-floatDrag1/shoe::mass*Time.delta);
+				vx = max(vmax, vx-floatDrag1/shoe::mass*Time::delta);
 			}
 			double stuff = flyForce/shoe::mass*vmid;
 			if (up^down) {
 				if (up) {
 					if (vy < vmax*0.3) {
-						vy = min(vmax*0.3, vy+stuff*Time.delta*0.5);
+						vy = min(vmax*0.3, vy+stuff*Time::delta*0.5);
 					} else {
-						vy = max(vmax*0.3, vy-stuff*Time.delta);
+						vy = max(vmax*0.3, vy-stuff*Time::delta);
 					}
 				} else {
 					if (vy < vmax*1.5) {
-						vy = min(vmax*1.5, vy+stuff*Time.delta);
+						vy = min(vmax*1.5, vy+stuff*Time::delta);
 					} else {
-						vy = max(vmax*1.5, vy-stuff*Time.delta*0.5);
+						vy = max(vmax*1.5, vy-stuff*Time::delta*0.5);
 					}
 				}
 			} else if (vy < vmax) {
-				vy = min(vmax, vy+stuff*Time.delta);
+				vy = min(vmax, vy+stuff*Time::delta);
 			}
 		} else {
 			if (vy > 0.) {
-				vy = max(0., vy-floatDrag2/shoe::mass*Time.delta);
+				vy = max(0., vy-floatDrag2/shoe::mass*Time::delta);
 			} else {
-				vy = min(0., vy+floatDrag2/shoe::mass*Time.delta);
+				vy = min(0., vy+floatDrag2/shoe::mass*Time::delta);
 			}
-			vy += gravityAcc*Time.delta;
+			vy += gravityAcc*Time::delta;
 			vy = max(min(vy, fallSpeed), -fallSpeed);
 			if (moving) {
 				double l = floatDrag2*wat1;
 				if (left) {
 					if (vx > -l) {
-						vx = max(-l, vx-floatDrag2*2/shoe::mass*Time.delta);
+						vx = max(-l, vx-floatDrag2*2/shoe::mass*Time::delta);
 					}
 				} else {
 					if (vx < l) {
-						vx = min(l, vx+floatDrag2*2/shoe::mass*Time.delta);
+						vx = min(l, vx+floatDrag2*2/shoe::mass*Time::delta);
 					}
 				}
 			} else {
 				if (vy < fallSpeed) {
 					if (vx > 0) {
-						vx = max(0., vx-floatDrag2*floatCoefficient/shoe::mass*Time.delta);
+						vx = max(0., vx-floatDrag2*floatCoefficient/shoe::mass*Time::delta);
 					} else {
-						vx = min(0., vx+floatDrag2*floatCoefficient/shoe::mass*Time.delta);
+						vx = min(0., vx+floatDrag2*floatCoefficient/shoe::mass*Time::delta);
 					}
 				} else {
 					if (vx > 0) {
-						vx = max(0., vx-floatDrag2/shoe::mass*Time.delta);
+						vx = max(0., vx-floatDrag2/shoe::mass*Time::delta);
 					} else {
-						vx = min(0., vx+floatDrag2/shoe::mass*Time.delta);
+						vx = min(0., vx+floatDrag2/shoe::mass*Time::delta);
 					}
 				}
 			}
@@ -320,7 +320,7 @@ void NLS::Physics::Update() {
 	}
 	if (fh) {
 		double rp = r;
-		r += vr*Time.delta;
+		r += vr*Time::delta;
 		if (r > fh->len) {
 			if (fh->next) {
 				if (fh->next->walk) {
@@ -369,9 +369,9 @@ void NLS::Physics::Update() {
 	} else if (!lr) {
 		double xp = x;
 		double yp = y;
-		x += vx*Time.delta;
-		y += vy*Time.delta;
-		double dis = pdis(vx, vy)*Time.delta;
+		x += vx*Time::delta;
+		y += vy*Time::delta;
+		double dis = pdis(vx, vy)*Time::delta;
 		double dir = pdir(vx, vy);
 		for (auto it = Foothold::begin(); it != Foothold::end(); ++it) {
 			Foothold& o = **it;
@@ -405,7 +405,7 @@ void NLS::Physics::Update() {
 					x = fh->x1-0.1;
 				}
 				if (vy < 0) {
-					y = yp+vy*Time.delta;
+					y = yp+vy*Time::delta;
 				}
 				fh = nullptr;
 			} else {
@@ -432,7 +432,7 @@ void NLS::Physics::Update() {
 		if (vy < fallSpeed) {
 			freefall = 0;
 		} else {
-			freefall += Time.delta;
+			freefall += Time::delta;
 		}
 		if (y > View.ymax) {
 			vy = 0;

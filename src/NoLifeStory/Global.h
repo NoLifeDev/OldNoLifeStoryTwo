@@ -20,6 +20,7 @@
 #include "Time.h"
 #include "Mouse.h"
 #include "UI.h"
+#include "Chat.h"
 #include "Foothold.h"
 #include "LadderRope.h"
 #include "Physics.h"

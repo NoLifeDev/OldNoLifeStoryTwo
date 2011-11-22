@@ -30,7 +30,7 @@ void NLS::AniSprite::Step() {
 	if (!n) {
 		return;
 	}
-	delay += Time.delta*1000;
+	delay += Time::delta*1000;
 	int d = f["delay"];
 	if (d == 0) {
 		d = 100;
