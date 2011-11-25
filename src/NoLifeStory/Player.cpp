@@ -19,6 +19,9 @@ NLS::Player::Player() : Physics() {
 
 void NLS::Player::Draw() {
 	Physics::Update();
+	if (y > View::ymax + 1000) {
+		Map::Load("999999999", "sp");
+	}
 	if (emote != "default") {
 		emoted += Time::delta*1000;
 		emotee += Time::delta*1000;
@@ -43,16 +46,8 @@ void NLS::Player::Draw() {
 			emotee = 0;
 		}
 	}
-	if (state != "rope" and state != "ladder") {
+	if (!lr or (up^down)) {
 		delay += Time::delta*1000;
-	}
-	int d = WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["delay"];
-	if (delay > d) {
-		delay = 0;
-		frame++;
-	}
-	if (!WZ["Character"]["0000"+tostring(skin, 4)][state][frame]) {
-		frame = 0;
 	}
 	if (fh) {
 		if (left^right) {
@@ -64,14 +59,34 @@ void NLS::Player::Draw() {
 		}
 	} else if (lr) {
 		if (lr->l) {
-			state = "rope";
-		} else {
 			state = "ladder";
+		} else {
+			state = "rope";
 		}
 	} else if ((int)Map::node["info"]["swim"]) {
 		state = "fly";
 	} else {
 		state = "jump";
+	}
+	int d = WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["delay"];
+	static bool weird = false;
+	if (delay > d) {
+		delay = 0;
+		if (weird and state == "stand1") {
+			frame--;
+			weird = false;
+		} else {
+			frame++;
+			weird = false;
+		}
+	}
+	if (!WZ["Character"]["0000"+tostring(skin, 4)][state][frame]) {
+		if (state == "stand1") {
+			frame = 1;
+			weird = true;
+		} else {
+			frame = 0;
+		}
 	}
 	Node zmap = WZ["zmap"];
 	zmap[""];

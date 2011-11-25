@@ -2,42 +2,47 @@
 // This file is part of NoLifeStory.              //
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
-//TODO - Move this stuff into separate files, perhaps a separate folder entirely?
+
 namespace NLS {
 	namespace UI {
-		extern bool Focused;//All input goes straight to UI
-		class Element {
+		class Element;
+		class Window {
 		public:
-			Element(Element* parent);
-			Element();
-			void Draw();
-			void HandleKey(sf::Keyboard::Key);
-			int CalcX() {return x+(parent?parent->CalcX():0);}
-			int CalcY() {return y+(parent?parent->CalcY():0);}
-			Element *parent;
+			void Draw() {}
+			void HandleKey(sf::Keyboard::Key) {}
+			void HandleClick(sf::Event::MouseButtonEvent) {}
+			vector<Element*> Elements;
 			int x, y;
 			int width, height;
+			static list<Window*> All;
+			static list<Window*>::iterator begin() {return All.begin();}
+			static list<Window*>::iterator end() {return All.end();}
+		};
+		class Element {
+		public:
+			Element(Window* parent) : parent(parent) {}
+			virtual void Draw();
+			int CalcX() {return x+parent->x;}
+			int CalcY() {return y+parent->y;}
+			int x, y;
+			int width, height;
+			Window* parent;
 			vector<Element*> children;
 		private:
 			Element(const Element&);
-		} extern Screen;
-		class Movable : public Element {
-		public:
-			int GrabX;
-			int GrabY;
-			static Movable* Grabbed;
 		};
-		class Window : public Element {
+		class Movable : public Element {
 		public:
 		};
 		class Button : public Element {
 		public:
+			function<void()> action;
 		};
 		class TextBox : public Element {
 		public:
 			static TextBox* Active;
-			void Send();
-			void HandleChar(char32_t);
+			void Send() {}
+			void HandleChar(char32_t) {}
 			u32string text;
 		};
 		class ScrollBar : public Element {
@@ -46,11 +51,7 @@ namespace NLS {
 			int CurLine;
 		};
 		void Init();
-		bool HandleKey(sf::Event);
-		void HandleChar(uint32_t);
-		bool HandleMousePress(sf::Mouse::Button, int, int);
-		bool HandleMouseRelease(sf::Mouse::Button, int, int);
-		bool HandleMouseScroll(int, int, int);
-		string GetClipboardText();
+		void Draw();
+		extern bool Focused;
 	}
 }

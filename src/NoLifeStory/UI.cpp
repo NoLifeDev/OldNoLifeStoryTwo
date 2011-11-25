@@ -4,14 +4,22 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-NLS::UI::Element NLS::UI::Screen;
 NLS::UI::TextBox* NLS::UI::TextBox::Active = nullptr;
+bool NLS::UI::Focused;
+list<NLS::UI::Window*> NLS::UI::Window::All;
+
+void InitScreen() {
+
+}
 
 void NLS::UI::Init() {
-	Screen.x = 0;
-	Screen.y = 0;
-	Screen.width = View::width;
-	Screen.height = View::height;
+	
+}
+void NLS::UI::Draw() {
+	for_each(Window::begin(), Window::end(), [](Window* w){
+		w->Draw();
+	});
+}
 	/*
 	NLS::UI::Window *window = new NLS::UI::Window();
 	NLS::Sprite sprite = WZ["UI"]["StatusBar"]["base"]["backgrnd"];

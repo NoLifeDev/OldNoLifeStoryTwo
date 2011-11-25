@@ -5,5 +5,6 @@
 namespace NLS {
 	namespace Mouse {
 		void Init();
+		inline void HandleEvent(sf::Event) {}
 	}
 }

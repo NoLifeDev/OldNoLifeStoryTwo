@@ -16,8 +16,8 @@ void NLS::_ThisPlayer::Draw() {
 	up = sf::Keyboard::IsKeyPressed(sf::Keyboard::Up);
 	down = sf::Keyboard::IsKeyPressed(sf::Keyboard::Down);
 	Player::Draw();
-	View.tx = x;
-	View.ty = y;
+	View::tx = x;
+	View::ty = y;
 	pdelay += Time::delta;
 	for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
 		Portal& p = **it;

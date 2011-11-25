@@ -99,8 +99,8 @@ void NLS::Back::Draw() {
 		ang = (double)Time::tdelta*1000/mover*radtodeg;
 		break;
 	};
-	int ox = (100+rx)*(View.x+400)/100;
-	int oy = (100+ry)*(View.y+300)/100;
+	int ox = (100+rx)*(View::x+400)/100;
+	int oy = (100+ry)*(View::y+300)/100;
 	int orx = ogx-ogx%cx;
 	int ory = ogy-ogy%cy;
 	auto draw = [&](int x, int y, bool flipped, float rotation) {
@@ -112,18 +112,18 @@ void NLS::Back::Draw() {
 	};
 	//TODO - Look into drawing a single tiled primitive when cx/cy = width/height
 	auto drawhorz = [&]() {
-		for(int i = (x+ax-View.x+ox+orx)%cx-cx+View.x-ox; i+ox < View.x+800+cx+orx; i += cx) {
+		for(int i = (x+ax-View::x+ox+orx)%cx-cx+View::x-ox; i+ox < View::x+800+cx+orx; i += cx) {
 			draw(i+ox, y+oy+ay, f, ang);
 		}
 	};
 	auto drawvert = [&]() {
-		for(int j = (y+ay-View.y+oy+ory)%cy-cy+View.y-oy; j+oy < View.y+600+cy+ory; j += cy) {
+		for(int j = (y+ay-View::y+oy+ory)%cy-cy+View::y-oy; j+oy < View::y+600+cy+ory; j += cy) {
 			draw(x+ox+ax, j+oy, f, ang);
 		}
 	};
 	auto drawboth = [&]() {
-		for(int i = (x+ax-View.x+ox+orx)%cx-cx+View.x-ox; i+ox < View.x+800+cx+orx; i += cx) {
-			for(int j = (y+ay-View.y+oy+ory)%cy-cy+View.y-oy; j+oy < View.y+600+cy+ory; j += cy) {
+		for(int i = (x+ax-View::x+ox+orx)%cx-cx+View::x-ox; i+ox < View::x+800+cx+orx; i += cx) {
+			for(int j = (y+ay-View::y+oy+ory)%cy-cy+View::y-oy; j+oy < View::y+600+cy+ory; j += cy) {
 				draw(i+ox, j+oy, f, ang);
 			}
 		}

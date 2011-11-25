@@ -21,6 +21,7 @@ void NLS::Init() {
 	Network::Init();
 	InitWZ();
 	Graphics::Init();
+	View::Init();
 #ifdef NLS_WINDOWS
 	BASS_Init(-1, 44100, 0, window->GetSystemHandle(), 0);
 #else
@@ -37,7 +38,7 @@ void NLS::Init() {
 	Key::Init();
 	Time::Step();
 	cout << "Initialization complete" << endl;
-	MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << endl;
+	MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << cendl;
 	Map::Load("100000000", "");
 	Map::Load();
 }
@@ -50,25 +51,14 @@ bool NLS::Loop() {
 	while (window->PollEvent(e)) {
 		switch (e.Type) {
 		case sf::Event::TextEntered:
-			UI::HandleChar(e.Text.Unicode);
-			break;
 		case sf::Event::KeyPressed:
-			if (UI::HandleKey(e)) {
-				break;
-			}
-			Key::Map[e.Key.Code]();
+			Key::Handle(e);
 			break;
-			//TODO - Pass all these events to the Cursor and let that handle stuff.
 		case sf::Event::MouseButtonPressed:
-			if (UI::HandleMousePress(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y)) {
-				break;
-			}
-			break;
 		case sf::Event::MouseButtonReleased:
-			UI::HandleMouseRelease(e.MouseButton.Button, e.MouseButton.X, e.MouseButton.Y);
-			break;
 		case sf::Event::MouseWheelMoved:
-			UI::HandleMouseScroll(e.MouseWheel.Delta, e.MouseButton.X, e.MouseButton.Y);
+		case sf::Event::MouseMoved:
+			Mouse::HandleEvent(e);
 			break;
 		case sf::Event::Closed:
 			return false;

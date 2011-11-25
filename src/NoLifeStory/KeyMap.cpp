@@ -48,7 +48,7 @@ void NLS::Key::Handle(sf::Event e) {
 			break;
 		}
 		if (UI::Focused) {
-			UI::Screen.HandleKey(e.Key.Code);
+			UI::Window::All.front()->HandleKey(e.Key.Code);
 			return;
 		}
 		Map[e.Key.Code]();

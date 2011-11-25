@@ -41,8 +41,8 @@ void NLS::Map::Load() {
 		int r = rand()%possible.size();
 		ThisPlayer.Reset(possible[r]->x, possible[r]->y-16);
 		if (change) {
-			View.vx = ThisPlayer.x-View.width/2;
-			View.vy = ThisPlayer.y-View.height/2;
+			View::vx = ThisPlayer.x-View::width/2;
+			View::vy = ThisPlayer.y-View::height/2;
 		}
 	};
 	if (curmap == nextmap) {
@@ -62,7 +62,7 @@ void NLS::Map::Load() {
 	}
 	if (!node) {
 		cerr << "Unable to locate map " << nextmap << endl;
-		NLS::UI::AddChatlog("[WARN] Map not found!", NLS::Text::TextColor(255, 0, 0));
+		MainChat << Text::Color(255, 0, 0) << "[WARN] Map not found!" << cendl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
@@ -77,9 +77,9 @@ void NLS::Map::Load() {
 		for (int i = 0; i < 128; ++i) {
 			glBegin(GL_QUADS);
 			glVertex2i(0, 0);
-			glVertex2i(View.width, 0);
-			glVertex2i(View.width, View.height);
-			glVertex2i(0, View.height);
+			glVertex2i(View::width, 0);
+			glVertex2i(View::width, View::height);
+			glVertex2i(0, View::height);
 			glEnd();
 			window->Display();
 		}
@@ -88,7 +88,7 @@ void NLS::Map::Load() {
 		glBlendEquation(GL_FUNC_ADD);
 	}
 	fade = 1;
-	Time.Reset();
+	Time::Reset();
 	curmap = nextmap;
 	cout << "Loading map " << nextmap << endl;
 	if (!Mindfuck) {
@@ -118,26 +118,26 @@ void NLS::Map::Load() {
 	Portal::Load(node);
 	Reactor::Load(node);
 	LadderRope::Load(node);
-	View.tx = 0;
-	View.ty = 0;
+	View::tx = 0;
+	View::ty = 0;
 	if (node["info"]["VRLeft"]) {
-		View.xmin = node["info"]["VRLeft"];
-		View.xmax = node["info"]["VRRight"];
-		View.ymin = node["info"]["VRTop"];
-		View.ymax = node["info"]["VRBottom"];
+		View::xmin = node["info"]["VRLeft"];
+		View::xmax = node["info"]["VRRight"];
+		View::ymin = node["info"]["VRTop"];
+		View::ymax = node["info"]["VRBottom"];
 	} else {
-		View.xmin = 1000000;
-		View.xmax = -1000000;
-		View.ymin = 1000000;
-		View.ymax = -1000000;
+		View::xmin = 1000000;
+		View::xmax = -1000000;
+		View::ymin = 1000000;
+		View::ymax = -1000000;
 		for_each(Foothold::begin(), Foothold::end(), [&](Foothold* fh){
-			View.xmin = min(min((double)View.xmin, fh->x1), fh->x2);
-			View.ymin = min(min((double)View.ymin, fh->y1), fh->y2);
-			View.xmax = max(max((double)View.xmax, fh->x1), fh->x2);
-			View.ymax = max(max((double)View.ymax, fh->y1), fh->y2);
+			View::xmin = min(min((double)View::xmin, fh->x1), fh->x2);
+			View::ymin = min(min((double)View::ymin, fh->y1), fh->y2);
+			View::xmax = max(max((double)View::xmax, fh->x1), fh->x2);
+			View::ymax = max(max((double)View::ymax, fh->y1), fh->y2);
 		});
-		View.ymax += 128;
-		View.ymin -= View.height;
+		View::ymax += 128;
+		View::ymin -= View::height;
 	}
 	teleport(nextportal, true);
 	nextmap = "";

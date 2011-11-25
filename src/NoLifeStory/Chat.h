@@ -7,13 +7,13 @@ namespace NLS {
 	class ChatLog {
 	public:
 		void Clear();
-		ChatLog& operator<< (u32string);
-		ChatLog& operator<< (string);
-		ChatLog& operator<< (ChatLog&(*)(ChatLog&));
+		ChatLog& operator<< (u32string) {return *this;}
+		ChatLog& operator<< (string) {return *this;}
+		ChatLog& operator<< (ChatLog&(*cl)(ChatLog&)) {return cl(*this);}
 		deque<u32string> Messages;
 		u32string Message;
 	};
 	extern ChatLog Messenger;
 	extern ChatLog MainChat;
-	ChatLog& endl(ChatLog&);
+	inline ChatLog& cendl(ChatLog& cl) {return cl;}
 }

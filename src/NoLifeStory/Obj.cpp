@@ -73,8 +73,8 @@ void NLS::Obj::Draw() {
 	};
 	if (flow) {
 		ax += (double)Time::tdelta*rx/1000*5;
-		int cx = View.xmax-View.xmin;
-		for(int i = (x+ax-View.x)%cx-cx+View.x; i < View.x+800+cx; i += cx) {
+		int cx = View::xmax-View::xmin;
+		for(int i = (x+ax-View::x)%cx-cx+View::x; i < View::x+800+cx; i += cx) {
 			spr.Draw(i, y+ay, f, ang);
 		}
 	} else {

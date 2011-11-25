@@ -417,13 +417,13 @@ void NLS::Physics::Update() {
 	if (fh) {
 		x = fh->x1+ldx(r, fh->dir);
 		y = fh->y1+ldy(r, fh->dir);
-		if (x < View.xmin+16) {
-			r += ldx(View.xmin+16.1-x, fh->dir);
+		if (x < View::xmin+16) {
+			r += ldx(View::xmin+16.1-x, fh->dir);
 			x = fh->x1+ldx(r, fh->dir);
 			y = fh->y1+ldy(r, fh->dir);
 			vr = 0;
-		} else if (x > View.xmax-16) {
-			r += ldx(View.xmax-16.1-x, fh->dir);
+		} else if (x > View::xmax-16) {
+			r += ldx(View::xmax-16.1-x, fh->dir);
 			x = fh->x1+ldx(r, fh->dir);
 			y = fh->y1+ldy(r, fh->dir);
 			vr = 0;
@@ -434,19 +434,15 @@ void NLS::Physics::Update() {
 		} else {
 			freefall += Time::delta;
 		}
-		if (y > View.ymax) {
+		if (y < View::ymin) {
 			vy = 0;
-			y = View.ymax;
+			y = View::ymin;
 		}
-		if (y < View.ymin) {
-			vy = 0;
-			y = View.ymin;
-		}
-		if (x < View.xmin+16) {
-			x = View.xmin+16.1;
+		if (x < View::xmin+16) {
+			x = View::xmin+16.1;
 			vx = 0;
-		} else if (x > View.xmax-16) {
-			x = View.xmax-16.1;
+		} else if (x > View::xmax-16) {
+			x = View::xmax-16.1;
 			vx = 0;
 		}
 	}
@@ -454,7 +450,7 @@ void NLS::Physics::Update() {
 
 void NLS::Physics::MouseFly() {
 	auto p = sf::Mouse::GetPosition(*window);
-	Reset(p.x+View.x, p.y+View.y);
+	Reset(p.x+View::x, p.y+View::y);
 }
 
 void NLS::Physics::Jump() {

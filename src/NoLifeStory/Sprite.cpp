@@ -14,19 +14,19 @@ void NLS::Sprite::Draw(int x, int y, bool flipped, float alpha, float rotation) 
 	if (!data) {
 		return;
 	}
-	if (View.relative && !rotation) {
+	if (View::relative && !rotation) {
 		if (flipped) {
-			if (x+data->originx < View.x ||
-				y+data->height-data->originy < View.y ||
-				x-data->width+data->originx > View.x+800 ||
-				y-data->originy > View.y+600) {
+			if (x+data->originx < View::x ||
+				y+data->height-data->originy < View::y ||
+				x-data->width+data->originx > View::x+800 ||
+				y-data->originy > View::y+600) {
 				return;
 			}
 		} else {
-			if (x+data->width-data->originx < View.x ||
-				y+data->height-data->originy < View.y ||
-				x-data->originx > View.x+800 ||
-				y-data->originy > View.y+600) {
+			if (x+data->width-data->originx < View::x ||
+				y+data->height-data->originy < View::y ||
+				x-data->originx > View::x+800 ||
+				y-data->originy > View::y+600) {
 				return;
 			}
 		}
