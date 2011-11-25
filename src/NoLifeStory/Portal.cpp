@@ -63,7 +63,14 @@ void NLS::Portal::Draw() {
 	case 2:
 		pvsprite.Draw(x, y);
 		break;
-	default:
+	default: {
 		sprites[pt].Draw(x, y);
+		//NLS::Text txt("(" + tostring(pt) + " " + (this->script.length() > 0 ? "(script: " + script + ") " : ""), 14, NLS::Text::TextColor(100,100,100));
+		if (this->script.length() > 0) {
+			NLS::Text txt(this->script, 18);
+			
+			txt.Draw(x - txt.getTextWidth() / 2, y);
+		}
+	}
 	}
 }
