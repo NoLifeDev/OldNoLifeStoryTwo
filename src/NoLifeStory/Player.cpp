@@ -4,11 +4,13 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+bool animUp = true;
+
 NLS::Player::Player() : Physics() {
 	state = "stand1";
 	frame = 0;
 	delay = 0;
-	emote = "default";
+	emote = "dam";
 	emoted = 0;
 	emotef = 0;
 	skin = 2000;
@@ -20,6 +22,34 @@ NLS::Player::Player() : Physics() {
 void NLS::Player::Draw() {
 	Physics::Update();
 	delay += Time.delta*1000;
+
+	NLS::Node charImgData = WZ["Character"]["0000"+tostring(skin, 4)];
+
+	int d_normal = charImgData[state][frame]["delay"];
+	if (d_normal <= delay) {
+		delay = 0;
+		if (charImgData[state][frame]["frame"]) {
+			frame = charImgData[state][frame]["frame"];
+		}
+		else {
+			// check if we can go either up or down in animation list....
+			if (!charImgData[state][frame + (animUp ? 1 : -1)]) {
+				if (animUp) {
+					frame--;
+					animUp = false;
+				}
+				else {
+					frame++;
+					animUp = true;
+				}
+			}
+			else {
+				if (animUp) frame++;
+				else frame--;
+			}
+		}
+	}
+
 	if (emote != "default") {
 		emoted += Time.delta*1000;
 		emotee += Time.delta*1000;
@@ -65,7 +95,7 @@ void NLS::Player::Draw() {
 	};
 	vector<part> sparts;
 	map<string, sf::Vector2<double>> maps;
-	Node base = WZ["Character"]["0000"+tostring(skin, 4)][state][frame];
+	Node base = charImgData[state][frame];
 	if (f) {
 		maps["navel"].x = x-(double)base["body"]["map"]["navel"]["x"];
 	} else {

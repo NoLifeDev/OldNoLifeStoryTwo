@@ -13,6 +13,20 @@ int32_t maxLinesShown = 5;
 vector<NLS::UI::Window *> windows[4];
 int16_t carretFlicker = 0;
 
+namespace Functors {
+	struct TestMessageBoxKeyHandler {
+		bool operator()(NLS::UI::Element *elem, sf::Keyboard::Key key) {
+			if (key == sf::Keyboard::Space) {
+				elem->setVisible(false);
+				NLS::UI::RemoveWindow((NLS::UI::Window *)elem);
+				elem = nullptr;
+				return true;
+			}
+			return false;
+		}
+	};
+}
+
 void NLS::UI::Init() {
 	NLS::UI::Window *window = new NLS::UI::Window();
 	NLS::Sprite sprite = WZ["UI"]["StatusBar"]["base"]["backgrnd"];
@@ -36,44 +50,22 @@ void NLS::UI::Init() {
 	// Generate the level thingy
 
 	NLS::Node sprites = WZ["UI"]["Basic"]["LevelNo"]; // numbers
-	int level1 = NLS::ThisPlayer.level / 100;
-	int level2 = NLS::ThisPlayer.level / 10 - level1 * 10;
-	int level3 = NLS::ThisPlayer.level % 10;
+	uint8_t level1 = NLS::ThisPlayer.level / 100;
+	uint8_t level2 = NLS::ThisPlayer.level / 10 - level1 * 10;
+	uint8_t level3 = NLS::ThisPlayer.level % 10;
 	NLS::UI::Image *img;
 
 	img = new NLS::UI::Image();
-	img->setSprite(sprites["blank"]);
+	img->setSprite(level1 > 0 ? sprites[tostring(level1)] : sprites["blank"]);
 	img->setX(38);
 	img->setY(47);
 	window->addChild(img);
 
 	img = new NLS::UI::Image();
-	img->setSprite(sprites["blank"]);
+	img->setSprite((level2 == 0 && level1 > 0) || (level2 > 0) ? sprites[tostring(level2)] : sprites["blank"]);
 	img->setX(50);
 	img->setY(47);
 	window->addChild(img);
-
-	img = new NLS::UI::Image();
-	img->setSprite(sprites["blank"]);
-	img->setX(62);
-	img->setY(47);
-	window->addChild(img);
-	
-	if (level1 > 0) {
-		img = new NLS::UI::Image();
-		img->setSprite(sprites[tostring(level1)]);
-		img->setX(38);
-		img->setY(47);
-		window->addChild(img);
-	}
-	
-	if (level2 > 0) {
-		img = new NLS::UI::Image();
-		img->setSprite(sprites[tostring(level2)]);
-		img->setX(50);
-		img->setY(47);
-		window->addChild(img);
-	}
 
 	img = new NLS::UI::Image();
 	img->setSprite(sprites[tostring(level3)]);
@@ -82,16 +74,45 @@ void NLS::UI::Init() {
 	window->addChild(img);
 
 	AddWindow(window, 1);
+
+	auto msgBox = new Dialog();
+	msgBox->SetImages(2);
+	msgBox->AddMsg("Welkom op NoLifeStory!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé!");
+	msgBox->AddMsg("Gewoon space drukken hé! LOOOOL");
+	msgBox->setX(300);
+	msgBox->setY(200);
+	msgBox->setDragable(true);
+
+	//msgBox->SetKeyHandler(Functors::TestMessageBoxKeyHandler());
+	AddWindow(msgBox, 1);
 }
 
 void NLS::UI::AddWindow(NLS::UI::Window *window, int32_t layer) {
 	windows[layer].push_back(window);
 }
 
+void NLS::UI::RemoveWindow(NLS::UI::Window *window) {
+	for (size_t i = 0; i < 4; i++) {
+		for (size_t j = 0; j < windows[i].size(); i++) {
+			if (windows[i][j] == window) {
+
+			}
+		}
+	}
+}
+
 void NLS::UI::Draw() {
 	for (int32_t layerI = 4; layerI > 0; layerI--) {
 		for (size_t i = 0; i < windows[layerI].size(); i++) {
-			windows[layerI][i]->Draw();
+			if (windows[layerI][i]->isVisible())
+				windows[layerI][i]->Draw();
 		}
 	}
 
@@ -121,6 +142,9 @@ void NLS::UI::Draw() {
 
 		// Draw chatlog
 		int32_t curPos = 2;
+		if (chatlog.size() < maxLinesShown) {
+			curPos += textLineHeight * (maxLinesShown - chatlog.size());
+		}
 		for (size_t i = chatlogCurrentTopmostLine; i < chatlog.size() && i < chatlogCurrentTopmostLine + maxLinesShown; i++) {
 			chatlog[i].Draw(2, curPos);
 			curPos += textLineHeight;
@@ -227,49 +251,116 @@ bool NLS::UI::HandleKey(sf::Event _event) {
 	case sf::Keyboard::Escape:
 		return false;
 		break;
-	default:
-		return false;
 	}
+	
+
+	for (int32_t layerI = 4; layerI > 0; layerI--) {
+		for (size_t i = 0; i < windows[layerI].size(); i++) {
+			auto window = windows[layerI][i];
+			auto children = window->getChildren();
+			if (window->handleKey(key)) return true;
+			for (size_t j = 0; j < children.size(); j++) {
+				if (children[j] != nullptr) {
+					if (children[j]->handleKey(key)) return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 void NLS::UI::HandleChar(uint32_t ch) {
-	if (!enteringtext) return;
-	switch (ch) {
-	case 0x16: return; // CTRL + V charcode... not needed!
-	case 0x8:
-		if (chat.size() > 0) {
-			chat.erase(chat.size()-1);
-		}
-		return;
-	case 0xA:
-	case 0xD:
-		if (justentered) {
-			justentered = false;
+	if (enteringtext) {
+		switch (ch) {
+		case 0x16: return; // CTRL + V charcode... not needed!
+		case 0x8:
+			if (chat.size() > 0) {
+				chat.erase(chat.size()-1);
+			}
+			return;
+		case 0xA:
+		case 0xD:
+			if (justentered) {
+				justentered = false;
+				return;
+			}
+			enteringtext = false;
+			if (chat.length() == 0) return;
+
+			AddChatlog(chat);
+
+			if (chat.length() <= 9) {
+				Map::Load(chat, "");
+			}
+			chat = "";
+			return;
+		case 0x1B:
+			enteringtext = false;
 			return;
 		}
-		enteringtext = false;
-		if (chat.length() == 0) return;
-
-		AddChatlog(chat);
-
-		if (chat.length() <= 9) {
-			Map::Load(chat, "");
-		}
-		chat = "";
-		return;
-	case 0x1B:
-		enteringtext = false;
+		static char s[4];
+		char* ss = sf::Utf8::Encode(ch, s);
+		chat.append(s, ss-s);
 		return;
 	}
-	static char s[4];
-	char* ss = sf::Utf8::Encode(ch, s);
-	chat.append(s, ss-s);
+
+	for (int32_t layerI = 0; layerI < 4; layerI++) {
+		for (size_t i = 0; i < windows[layerI].size(); i++) {
+			auto window = windows[layerI][i];
+			auto children = window->getChildren();
+			if (window->handleChar(ch)) return;
+			for (size_t j = 0; j < children.size(); j++) {
+				if (children[j] != nullptr) {
+					if (children[j]->handleChar(ch)) return;
+				}
+			}
+		}
+	}
 }
-bool NLS::UI::HandleMousePress(sf::Mouse::Button, int, int) {
+bool NLS::UI::HandleMousePress(sf::Mouse::Button btn, int x, int y) {
+	for (int32_t layerI = 4; layerI > 0; layerI--) {
+		for (vector<NLS::UI::Window *>::iterator iter = windows[layerI].begin(); iter != windows[layerI].end(); iter++) {
+			auto wnd = *iter;
+			if (!wnd->isDragable()) continue;
+			int vx = wnd->getViewX();
+			int vy = wnd->getViewY();
+			if (vx <= x && vx + wnd->getWidth() >= x) {
+				if (vy <= y && vy + wnd->getHeight() >= y) {
+					//wnd->setX(x);
+					//wnd->setY(y);
+					wnd->setDragX(x - vx);
+					wnd->setDragY(y - vy);
+					wnd->setDragging(true);
+					return true;
+				}
+			}
+		}
+	}
 	return false;
 }
 bool NLS::UI::HandleMouseRelease(sf::Mouse::Button, int, int) {
-	return false;
+	bool k = false;
+	for (int32_t layerI = 4; layerI > 0; layerI--) {
+		for (vector<NLS::UI::Window *>::iterator iter = windows[layerI].begin(); iter != windows[layerI].end(); iter++) {
+			auto wnd = *iter;
+			if (wnd->isGrabbed()) {
+				wnd->setDragging(false);
+				k = true;
+			}
+		}
+	}
+	return k;
+}
+void NLS::UI::HandleMouseMove(int x, int y) {
+	for (int32_t layerI = 4; layerI > 0; layerI--) {
+		for (size_t i = 0; i < windows[layerI].size(); i++) {
+			auto wnd = windows[layerI][i];
+			if (wnd->isGrabbed()) {
+				wnd->setX(x - wnd->getDragX());
+				wnd->setY(y - wnd->getDragY());
+			}
+		}
+	}
 }
 bool NLS::UI::HandleMouseScroll(int, int, int) {
 	return false;
@@ -309,6 +400,31 @@ string NLS::UI::GetClipboardText() {
 #else
 #endif
 	return "";
+}
+
+void NLS::UI::Dialog::Draw() {
+	int lines = msg.size();
+
+	if (getHeight() == 0) {
+		int height = bottom.data->height + top.data->height + (middle.data->height * lines);
+		setHeight(height);
+		setWidth(bottom.data->width);
+	}
+
+	top.Draw(getViewX(), getViewY());
+	for (int i = 0; i < lines; i++) {
+		middle.Draw(getViewX(), getViewY() + top.data->height + (middle.data->height * i));
+	}
+	bottom.Draw(getViewX(), getViewY() + top.data->height + (middle.data->height * lines));
+	for (int i = 0; i < msg.size(); i++) {
+		NLS::Text txt(msg[i], 14);
+		txt.Draw(getViewX() + middle.data->width/2 - (txt.getTextWidth() / 2), getViewY() + top.data->height + (20 * i));
+	}
+}
+
+void NLS::UI::Dialog::SetImages(int8_t type) {
+	NLS::Node base = WZ["UI"]["Basic"]["YesNo" + string(type == 1 ? "2" : "3")];
+	SetImages(base["t"], base["c"], base["s"]);
 }
 
 void NLS::UI::AddChatlog(const string& msg, NLS::Text::TextColor color) {

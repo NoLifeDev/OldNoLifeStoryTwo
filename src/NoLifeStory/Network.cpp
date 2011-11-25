@@ -49,6 +49,7 @@ void NLS::Network::Init() {
 	size_t length = Get<uint16_t>(lengthd);
 	char* header = new char[length];
 	Receive(header, length);
+
 	Version = Get<uint16_t>(header);
 	Patch = Get<string>(header);
 	SendIV = Get<uint32_t>(header);

@@ -93,7 +93,7 @@ void NLS::Physics::Update() {
 			if (up) {
 				Check(y-20);
 			}
-			if (down and !lr) {
+			if (down && !lr) {
 				Check(y+10);
 			}
 		} else if (up) {

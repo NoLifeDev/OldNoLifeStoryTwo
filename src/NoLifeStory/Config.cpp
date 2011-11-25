@@ -21,7 +21,6 @@ void NLS::Config::Load() {
 			Fullscreen = value == "true";
 		}
 	}
-	Config::Save();
 }
 void NLS::Config::LoadDefault() {
 	Paths.push_back("");

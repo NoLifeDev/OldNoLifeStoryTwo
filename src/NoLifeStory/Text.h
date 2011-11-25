@@ -34,7 +34,7 @@ namespace NLS {
 
 		static void Init();
 		static void Unload();
-		Text(string str, int size, TextColor clr = TextColor(0, 0, 0, 255));
+		Text(const string &str, int size, TextColor clr = TextColor(0, 0, 0, 255));
 		void Draw(int x, int y);
 		int32_t getTextWidth();
 		int32_t getTextHeight();

@@ -13,7 +13,7 @@ void NLS::Text::Init() {
 void NLS::Text::Unload() {
 	delete font;
 }
-NLS::Text::Text(string str, int size, TextColor clr) {
+NLS::Text::Text(const string &str, int size, TextColor clr) {
 	static uint32_t s[1024];
 	uint32_t* end = sf::Utf8::ToUtf32(str.begin(), str.end(), s);
 	text.assign(s, end);
@@ -65,16 +65,16 @@ void NLS::Text::Draw(int x, int y) {
 		uint32_t cur = text[i];
 		xx += font->GetKerning(prev, cur, fsize);
 		prev = cur;
-		switch (cur) {
-			case L' ' :  xx += space;              continue;
-			case L'\t' : xx += space * 4;          continue;
-			//case L'\n' : y += lineSpacing; x = 0; continue;
-			//case L'\v' : y += lineSpacing * 4;    continue;
-		}
 		const auto& glyph = font->GetGlyph(cur, fsize, false);
 		const auto& advance = glyph.Advance;
 		const auto& b = glyph.Bounds;
 		const auto& c = tex.GetTexCoords(glyph.SubRect);
+		switch (cur) {
+			case L' ' :  xx += space;              continue;
+			case L'\t' : xx += space * 4;          continue;
+			case L'\n' : yy += b.Height; xx = 0; continue;
+			//case L'\v' : y += lineSpacing * 4;    continue;
+		}
 		glTexCoord2f(c.Left, c.Top);
 		glVertex2i(xx+b.Left, yy+b.Top);
 		glTexCoord2f(c.Left+c.Width, c.Top);

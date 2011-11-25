@@ -108,6 +108,7 @@ void NLS::Graphics::Draw() {
 	Map::Draw();
 	View.Reset();
 	UI::Draw();
+	Mouse::Draw();
 	Time.Step();
 	if (Map::fade > 0) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);

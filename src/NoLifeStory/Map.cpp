@@ -151,10 +151,13 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Reactor::Reactors.size(); ++i) {
 		Reactor::Reactors[i]->Draw();
 	}
-	for (uint8_t i = 0; i < 8; i++) {
+	for (uint8_t i = 0; i < 6; i++) {
 		Layers[i].Draw();
 	}
 	ThisPlayer.Draw();
+	for (uint8_t i = 5; i < 8; i++) {
+		Layers[i].Draw();
+	}
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
 		Portal::Portals[i]->Draw();
 	}
