@@ -7,7 +7,7 @@
 bool animUp = true;
 
 NLS::Player::Player() : Physics() {
-	state = "stand1";
+	state = "jump";
 	frame = 0;
 	delay = 0;
 	emote = "dam";
@@ -21,7 +21,6 @@ NLS::Player::Player() : Physics() {
 
 void NLS::Player::Draw() {
 	Physics::Update();
-	delay += Time.delta*1000;
 
 	NLS::Node charImgData = WZ["Character"]["0000"+tostring(skin, 4)];
 
@@ -73,6 +72,36 @@ void NLS::Player::Draw() {
 			emote = "blink";
 			emotee = 0;
 		}
+	}
+	if (state != "rope" and state != "ladder") {
+		delay += Time.delta*1000;
+	}
+	int d = WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["delay"];
+	if (delay > d) {
+		delay = 0;
+		frame++;
+	}
+	if (!WZ["Character"]["0000"+tostring(skin, 4)][state][frame]) {
+		frame = 0;
+	}
+	if (fh) {
+		if (left^right) {
+			state = "walk1";
+		} else if (down) {
+			state = "prone";
+		} else {
+			state = "stand1";
+		}
+	} else if (lr) {
+		if (lr->l) {
+			state = "rope";
+		} else {
+			state = "ladder";
+		}
+	} else if ((int)Map::node["info"]["swim"]) {
+		state = "fly";
+	} else {
+		state = "jump";
 	}
 	Node zmap = WZ["zmap"];
 	zmap[""];
