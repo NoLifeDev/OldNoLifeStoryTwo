@@ -5,6 +5,7 @@
 
 namespace Crypto {
 	void Init();
+	void TransformData(uint8_t* IV, uint8_t* data, uint32_t len);
 }
 
 extern uint8_t WZKeys[3][0x10000];

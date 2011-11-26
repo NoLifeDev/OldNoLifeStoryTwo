@@ -954,7 +954,7 @@ void AES::Decrypt(const uint8_t * datain, uint8_t * dataout, uint32_t numBlocks,
 		}
 	} // Decrypt
 
-void AES::DecryptOFB(uint8_t* buffer, uint8_t* iv, int size){
+void AES::TransformOFB(uint8_t* buffer, uint8_t* iv, int size){
 	uint8_t IV[16];
 	for(int i=0; i<16; i++){
 		IV[i] = iv[i%4];

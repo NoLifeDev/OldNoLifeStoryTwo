@@ -11,15 +11,21 @@ namespace NLS {
 		extern bool Online;
 		extern uint16_t Version;
 		extern string Patch;
-		extern uint32_t SendIV;
-		extern uint32_t RecvIV;
+		extern uint8_t SendIV[4];
+		extern uint8_t RecvIV[4];
 		extern uint8_t Locale;
+		extern string IP;
+		extern uint16_t Port;
 	}
 	class Packet {
 	public:
 		vector<char> data;
 		size_t pos;
 		Packet() : pos(0), data() {}
+		Packet(uint16_t opcode) : pos(0), data() { 
+			Write<int32_t>(0);
+			Write<uint16_t>(opcode);
+		}
 		void Send();
 		template <class T>
 		T Read() {
@@ -28,7 +34,7 @@ namespace NLS {
 			return ret;
 		}
 		template <class T>
-		T Write(T v) {
+		void Write(T v) {
 			data.insert(data.end(), (char*)&v, (char*)&v+sizeof(T));
 		}
 	};
@@ -40,7 +46,7 @@ namespace NLS {
 		return s;
 	}
 	template <>
-	inline string Packet::Write<string>(string s) {
+	inline void Packet::Write<string>(string s) {
 		Write<uint16_t>(s.size());
 		data.insert(data.end(), s.begin(), s.end());
 	}
