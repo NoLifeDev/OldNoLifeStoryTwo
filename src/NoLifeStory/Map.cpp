@@ -118,6 +118,7 @@ void NLS::Map::Load() {
 	Portal::Load(node);
 	Reactor::Load(node);
 	LadderRope::Load(node);
+	Life::Load();
 	View::tx = 0;
 	View::ty = 0;
 	if (node["info"]["VRLeft"]) {
@@ -153,6 +154,9 @@ void NLS::Map::Draw() {
 	}
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
+	}
+	for (uint32_t i = 0; i < Life::Lifes.size(); ++i) {
+		Life::Lifes[i]->Draw();
 	}
 	ThisPlayer.Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {

@@ -143,8 +143,7 @@ void NLS::Network::Unload() {
 
 void NLS::Packet::Send() {
 	CreateHeader((uint8_t *)data.data(), NLS::Network::Version, (uint16_t)data.size() - 4, NLS::Network::SendIV);
-	unsigned char * d = ((uint8_t *)data.data()) + 4;
-	EncryptPacket(d, data.size() - 4);
+	EncryptPacket(((uint8_t *)data.data()) + 4, data.size() - 4);
 	Socket.Send(data.data(), data.size());
 }
 
@@ -152,7 +151,7 @@ void SendHandshakeOK() {
 	// Depends on the versions.
 	using namespace NLS::Network;
 	if (Locale == 0x08 && Version <= 100) return; // GMS V.100 and lower didn't have this.
-	if (Locale == 0x07 && Version <= 111) return; // MSEA V.101 and lower didn't have this. |NOTSURE|
+	if (Locale == 0x07 && Version <= 111) return; // MSEA V.111 and lower didn't have this. |NOTSURE|
 
 	uint16_t subversion = atoi(Patch.c_str());
 	uint16_t header = 0;

@@ -32,6 +32,7 @@
 #include "Tile.h"
 #include "Back.h"
 #include "Reactor.h"
+#include "Life.h"
 #include "Portal.h"
 #include "Map.h"
 #include "View.h"
