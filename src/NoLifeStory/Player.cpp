@@ -19,7 +19,7 @@ NLS::Player::Player() : Physics() {
 
 void NLS::Player::Draw() {
 	Physics::Update();
-	if (y > View::ymax + 1000) {
+	if (y > View::ymax+1000) {
 		Map::Load("999999999", "sp");
 	}
 	if (emote != "default") {

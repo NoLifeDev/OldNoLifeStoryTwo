@@ -19,13 +19,8 @@ void NLS::Init() {
 	srand(time(0));
 	Config::Load();
 	Crypto::Init();
-	Network::Init();
 	InitWZ();
-
-	if (Network::Version != NLS::Version) {
-		cout << "[Warning] WZ files version (" << NLS::Version << ") is not the same as the server's (" << Network::Version << ")." << endl;
-	}
-
+	Network::Init();
 	Graphics::Init();
 	View::Init();
 #ifdef NLS_WINDOWS
@@ -49,10 +44,9 @@ void NLS::Init() {
 	if (NLS::Network::Online) {
 		string v1 = NLS::Network::Version / 100 != 0 ? tostring(((int32_t)NLS::Network::Version / 100)) : "";
 		string v2 = tostring(NLS::Network::Version % 100);
-		NLS::UI::AddChatlog("[INFO] Connected with MapleStory v" + v1 + "." + v2 + "!", NLS::Text::TextColor(255, 20, 50));
-	}
-	else {
-		NLS::UI::AddChatlog("[INFO] Not connected with any MapleStory server!", NLS::Text::TextColor(255, 20, 50));
+		MainChat << Text::Color(255, 20, 50) << "[INFO] Connected with MapleStory v" + v1 + "." + v2 + "!" << cendl;
+	} else {
+		MainChat << Text::Color(255, 20, 50) << "[INFO] Not connected with any MapleStory server!" << cendl;
 	}
 	Map::Load("100000000", "");
 	Map::Load();

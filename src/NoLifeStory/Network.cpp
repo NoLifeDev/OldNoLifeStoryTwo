@@ -60,6 +60,9 @@ void NLS::Network::Init() {
 	cout << "Locale: " << (uint16_t)Locale << endl;
 	cout << "SendIV: " << SendIV << endl;
 	cout << "RecvIV: " << RecvIV << endl;
+	if (Version != NLS::Version) {
+		cout << "[Warning] WZ files version (" << NLS::Version << ") is not the same as the server's (" << Version << ")." << endl;
+	}
 	Socket.SetBlocking(false);
 }
 void NLS::Network::Loop() {

@@ -17,9 +17,9 @@ NLS::AniSprite onOverScrollbarVerticalLocked;
 NLS::AniSprite grabbed;
 NLS::AniSprite onOverClickableLocked;
 
-int NLS::Mouse::mouseX = 0;
-int NLS::Mouse::mouseY = 0;
-int NLS::Mouse::Status = NLS::Mouse::Normal;
+int NLS::Mouse::x = 0;
+int NLS::Mouse::y = 0;
+NLS::Mouse::MState NLS::Mouse::State = NLS::Mouse::Normal;
 
 void NLS::Mouse::Init() {
 	Node base = WZ["UI"]["Basic"]["Cursor"];
@@ -39,17 +39,12 @@ void NLS::Mouse::Init() {
 
 void NLS::Mouse::Draw() {
 	NLS::AniSprite curSprite;
-	switch (Status) {
+	switch (State) {
 	case NLS::Mouse::Normal: curSprite = normal; break;
 	case NLS::Mouse::Grabbed: curSprite = grabbed; break;
 	case NLS::Mouse::OnOverClickable: curSprite = onOverClickable; break;
 	case NLS::Mouse::OnOverClickableLocked: curSprite = onOverClickableLocked; break;
 	default: curSprite = normal; break;
 	}
-	curSprite.Draw(mouseX, mouseY);
-}
-
-void NLS::Mouse::HandleMouseMove(sf::Event::MouseMoveEvent &ev) {
-	mouseX = ev.X;
-	mouseY = ev.Y;
+	curSprite.Draw(x, y);
 }

@@ -954,6 +954,28 @@ void AES::Decrypt(const uint8_t * datain, uint8_t * dataout, uint32_t numBlocks,
 		}
 	} // Decrypt
 
+void AES::DecryptOFB(uint8_t* buffer, uint8_t* iv, int size){
+	uint8_t IV[16];
+	for(int i=0; i<16; i++){
+		IV[i] = iv[i%4];
+	}
+	int numBlocks = size/16 + (size%16 != 0);
+	uint8_t temp[16] = {0};
+	EncryptBlock(IV,temp);
+	uint8_t j = (size < 16) ? size : 16;
+	for (uint8_t pos = 0; pos < j; ++pos)
+		*buffer++ ^= temp[pos];
+	memcpy(IV, temp, 16);
+	numBlocks--;
+	while (numBlocks){
+		EncryptBlock(IV,temp);
+		j = (numBlocks == 1) ? size%16 : 16;
+		for (uint8_t pos = 0; pos < j; ++pos)
+			*buffer++ ^= temp[pos];
+		memcpy(IV, temp, 16);
+		--numBlocks;
+	}
+}
 // the constructor - makes sure local things are initialized
 AES::AES(void)
 	{

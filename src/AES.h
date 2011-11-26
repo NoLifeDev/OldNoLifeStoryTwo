@@ -99,6 +99,7 @@ public:
 	// length of the output data, since all the blocks are returned decrypted. 
 	// Encryption must use the same mode as the decryption.
 	void Decrypt(const uint8_t * datain, uint8_t * dataout, uint32_t numBlocks, BlockMode mode = CBC);
+	void DecryptOFB(uint8_t* buffer, uint8_t* iv, int size);
 
 private:
 
