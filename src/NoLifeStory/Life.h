@@ -7,20 +7,22 @@ namespace NLS {
 	class Npc;
 	class Mob;
 
-	class Life {
+	class Life : public Physics {
 	public:
 		static void Load();
+		Life() : Physics(), timeToNextAction(0) {}
 		void Init();
 		virtual void Draw();
 		void Update();
 		void ChangeState(const string &);
-		int x, y, cx, cy, rx0, rx1;
+		int cx, cy, rx0, rx1;
+		int timeToNextAction;
 		int time;
 		string id, type, defaultState, currentState, name;
 		Node data;
 
 		AniSprite currentAnimation;
-		bool f, hide;
+		bool hide;
 		static vector <Mob *> Mobs;
 		static vector <Npc *> Npcs;
 	};
@@ -29,6 +31,7 @@ namespace NLS {
 	public:
 		Npc::Npc() : hasMapleTVAnim(false) { }
 		void Draw();
+		string function;
 	private:
 		AniSprite mapleTVanim;
 		AniSprite mapleTVanimMsg;

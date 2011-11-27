@@ -14,7 +14,9 @@ NLS::Player::Player() : Physics() {
 	skin = 2000;
 	face = 20000;
 	hair = 30000;
-	level = 123;
+	level = 8;
+	name = "Diamundz";
+	guildname = "!!DerpFaicez!!";
 }
 
 void NLS::Player::Draw() {
@@ -167,5 +169,45 @@ void NLS::Player::Draw() {
 	sort(sparts.begin(), sparts.end(), [&](const part& a, const part& b){return a.z>b.z;});
 	for (auto it = sparts.begin(); it != sparts.end(); it++) {
 		it->spr.Draw(it->x, it->y, f);
+	}
+
+
+	NLS::Text txt(Text::Color(255, 255, 255) + u32(name), 14);
+
+	int32_t tempy = y + 5;
+	int32_t textmiddle = txt.Width()/2;
+
+	int32_t left = x - textmiddle - 3, right = x + textmiddle + 3;
+	int32_t top = tempy, bottom = tempy + 15;
+
+	glColor4f(0.33f, 0.33f, 0.33f, 0.75f);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBegin(GL_QUADS);
+	glVertex2i(left, top);
+	glVertex2i(right, top);
+	glVertex2i(right, bottom);
+	glVertex2i(left, bottom);
+	glEnd();
+
+	txt.Draw(left + 2, top - 1);
+
+	if (guildname.empty()) {
+		tempy = bottom + 1;
+		txt = NLS::Text(Text::Color(255, 255, 255) + u32(guildname), 14);
+		left = x - txt.Width()/2 - 3;
+		right = x + txt.Width()/2 + 3;
+		top = tempy;
+		bottom = tempy + 15;
+
+		glColor4f(0.33f, 0.33f, 0.33f, 0.75f);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBegin(GL_QUADS);
+		glVertex2i(left, top);
+		glVertex2i(right, top);
+		glVertex2i(right, bottom);
+		glVertex2i(left, bottom);
+		glEnd();
+
+		txt.Draw(left + 2, top - 1);
 	}
 }

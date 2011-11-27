@@ -46,11 +46,11 @@ void NLS::Physics::Init() {
 	Node n = WZ["Map"]["Physics"];
 }
 
-NLS::Physics::Physics() {
+NLS::Physics::Physics() : notAPlayer(false), speedMin(0) {
 	Reset(0, 0);
 }
 
-NLS::Physics::Physics(double x, double y) {
+NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0) {
 	Reset(x, y);
 }
 
@@ -112,7 +112,7 @@ void NLS::Physics::Update() {
 		double maxh = fh->walk?shoe::walkAcc*walkForce:0;
 		int hd = fh->y1<fh->y2?1:-1;
 		double force = dir*maxh;
-		double maxf = fh->walk?shoe::walkSpeed*walkSpeed:0;
+		double maxf = fh->walk ? shoe::walkSpeed * (walkSpeed - speedMin) : 0;
 		if (flying) {
 			maxf *= swimSpeedDec;
 		}
@@ -218,14 +218,24 @@ void NLS::Physics::Update() {
 		}
 		if (y < lr->y1) {
 			if (lr->uf) {
-				y = lr->y1-5;
-				lr = nullptr;
+				if (notAPlayer) {
+					left = right = false;
+				}
+				else {
+					y = lr->y1-5;
+					lr = nullptr;
+				}
 			} else {
 				y = lr->y1;
 			}
 		} else if (y > lr->y2) {
-			y = lr->y2+1;
-			lr = nullptr;
+			if (notAPlayer) {
+				left = right = false;
+			}
+			else {
+				y = lr->y2+1;
+				lr = nullptr;
+			}
 		}
 	} else {
 		if (flying) {
@@ -468,7 +478,7 @@ void NLS::Physics::Jump() {
 				vy *= 0.7;
 			}
 			if (left^right) {
-				double fmax = shoe::walkSpeed*walkSpeed;
+				double fmax = shoe::walkSpeed*(walkSpeed - speedMin);
 				int dir = left?-1:1;
 				fmax *= 1+sqr((fh->y2-fh->y1)/fh->len)*((fh->y2-fh->y1)*dir>0?1:-1);
 				if (fmax*0.8 > dir*vx) {

@@ -34,7 +34,6 @@ void NLS::Init() {
 	}
 	Mouse::Init();
 	UI::Init();
-	Mouse::Init();
 	Text::Init();
 	Physics::Init();
 	Key::Init();

@@ -13,6 +13,8 @@ namespace NLS {
 		int freefall;
 		bool left, right, up, down;
 		bool f;
+		bool notAPlayer;
+		float speedMin;
 		Foothold* djump;
 		Physics();
 		Physics(double x, double y);

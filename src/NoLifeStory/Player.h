@@ -7,6 +7,10 @@ namespace NLS {
 	public:
 		Player();
 		void Draw();
+		uint8_t level;
+		string name;
+		string guildname;
+
 		string state;
 		int frame, delay;
 		string emote;
@@ -18,6 +22,5 @@ namespace NLS {
 		int gloves, pants, belt, ring3;
 		int ring4, shoes, petmp, tamingmob;
 		int saddle, mobequip, petacc, pethp;
-		uint8_t level;
 	};
 }
