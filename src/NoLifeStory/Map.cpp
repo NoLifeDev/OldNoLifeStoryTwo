@@ -14,6 +14,8 @@ vector<NLS::Back*> NLS::Map::Foregrounds;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
 
+NLS::ChatDialog *NLS::Map::dialog = nullptr;
+
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
 	nextportal = portal;
@@ -108,6 +110,10 @@ void NLS::Map::Load() {
 	if (node["info"]["link"]) {
 		int32_t link = node["info"]["link"];
 		node = node[".."][link];
+	}
+
+	if (dialog == nullptr) {
+		dialog = new NLS::ChatDialog();
 	}
 
 	Sprite::Unload();

@@ -34,7 +34,7 @@ void NLS::Graphics::Init() {
 		throw(273);
 		break;
 	default:
-		cerr << "GLEW has given me an unknown error code so I'll just abort.";
+		cerr << "GLEW has given me an unknown error code so I'll just abort. (Error: " << (int)error << ")";
 		throw(273);
 		break;
 	}
@@ -102,6 +102,7 @@ void NLS::Graphics::Draw() {
 	Map::Draw();
 	View::Reset();
 	UI::Draw();
+	NLS::Map::dialog->Draw();
 	Mouse::Draw();
 	Time::Step();
 	if (Map::fade > 0) {

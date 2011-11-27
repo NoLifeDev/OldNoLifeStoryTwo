@@ -34,6 +34,7 @@
 #include "Reactor.h"
 #include "Life.h"
 #include "Portal.h"
+#include "ChatDialog.h"
 #include "Map.h"
 #include "View.h"
 #include "Config.h"

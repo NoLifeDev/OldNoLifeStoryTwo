@@ -24,5 +24,6 @@ namespace NLS {
 		extern vector<Back*> Foregrounds;
 		extern Sound bgmusic;
 		extern float fade;
+		extern ChatDialog *dialog;
 	}
 }
