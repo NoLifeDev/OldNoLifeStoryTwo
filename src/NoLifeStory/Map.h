@@ -8,6 +8,7 @@ namespace NLS {
 		void Load(const string& id, const string& portal);
 		void Load();
 		void Draw();
+		void DrawClock();
 		extern Node node;
 		extern string nextmap;
 		extern string nextportal;

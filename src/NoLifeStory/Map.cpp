@@ -155,8 +155,11 @@ void NLS::Map::Draw() {
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
 	}
-	for (uint32_t i = 0; i < Life::Lifes.size(); ++i) {
-		Life::Lifes[i]->Draw();
+	for (uint32_t i = 0; i < Life::Mobs.size(); ++i) {
+		Life::Mobs[i]->Draw();
+	}
+	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
+		Life::Npcs[i]->Draw();
 	}
 	ThisPlayer.Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
@@ -165,6 +168,7 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();
 	}
+	DrawClock();
 }
 
 void NLS::Map::Layer::Draw() {
@@ -174,4 +178,47 @@ void NLS::Map::Layer::Draw() {
 	for (auto it = Tiles.begin(); it != Tiles.end(); ++it) {
 		(*it)->Draw();
 	}
+}
+
+void NLS::Map::DrawClock() {
+	if (!node["clock"]) return;
+	int32_t x = node["clock"]["x"], y = node["clock"]["y"];
+	NLS::Node clockImgs = WZ["Map"]["Obj"]["etc"]["clock"]["fontTime"];
+
+	y += 81;
+	x += 12;
+
+	time_t rawtime = time(0);
+	tm *timeinfo = localtime(&rawtime);
+	uint8_t digit_1 = timeinfo->tm_hour / 10;
+	uint8_t digit_2 = timeinfo->tm_hour % 10;
+	uint8_t digit_3 = timeinfo->tm_min / 10;
+	uint8_t digit_4 = timeinfo->tm_min % 10;
+	
+	string ampm = timeinfo->tm_hour >= 12 ? "pm" : "am";
+
+	Sprite sprite_ampm = clockImgs[ampm];
+	sprite_ampm.Draw(x, y);
+
+	x += sprite_ampm.data->width + 10;
+
+	Sprite digit = clockImgs[tostring(digit_1)];
+	digit.Draw(x, y);
+	x += digit.data->width + 5;
+
+	digit = clockImgs[tostring(digit_2)];
+	digit.Draw(x, y);
+	x += digit.data->width + 5;
+
+	digit = clockImgs["comma"];
+	digit.Draw(x, y);
+	x += digit.data->width + 5;
+
+	digit = clockImgs[tostring(digit_3)];
+	digit.Draw(x, y);
+	x += digit.data->width + 5;
+
+	digit = clockImgs[tostring(digit_4)];
+	digit.Draw(x, y);
+
 }
