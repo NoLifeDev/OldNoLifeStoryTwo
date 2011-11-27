@@ -46,5 +46,14 @@ void NLS::Mouse::Draw() {
 	case NLS::Mouse::OnOverClickableLocked: curSprite = onOverClickableLocked; break;
 	default: curSprite = normal; break;
 	}
+	auto p = sf::Mouse::GetPosition(*window);
+	x = p.x;
+	y = p.y;
 	curSprite.Draw(x, y);
+}
+
+void NLS::Mouse::HandleEvent(sf::Event& e) {
+	switch (e.Type) {
+
+	}
 }

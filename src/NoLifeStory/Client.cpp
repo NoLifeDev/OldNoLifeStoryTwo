@@ -65,7 +65,6 @@ bool NLS::Loop() {
 		case sf::Event::MouseButtonPressed:
 		case sf::Event::MouseButtonReleased:
 		case sf::Event::MouseWheelMoved:
-		case sf::Event::MouseMoved:
 			Mouse::HandleEvent(e);
 			break;
 		case sf::Event::Closed:

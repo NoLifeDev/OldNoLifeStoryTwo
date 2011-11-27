@@ -5,10 +5,8 @@
 namespace NLS {
 	namespace Mouse {
 		void Init();
-		inline void HandleEvent(sf::Event) {}
+		void HandleEvent(sf::Event&);
 		void Draw();
-		void HandleMouseMove(sf::Event::MouseMoveEvent &);
-
 		enum MState {
 			Normal,
 			OnOverGrab,
