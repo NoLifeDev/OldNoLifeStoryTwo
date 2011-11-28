@@ -20,11 +20,11 @@ namespace NLS {
 		int time;
 		string id, type, defaultState, currentState, name;
 		Node data;
-
+		NameTag nametag;
 		AniSprite currentAnimation;
 		bool hide;
-		static vector <Mob *> Mobs;
-		static vector <Npc *> Npcs;
+		static vector <Mob*> Mobs;
+		static vector <Npc*> Npcs;
 	};
 
 	class Npc : public Life {
@@ -32,6 +32,7 @@ namespace NLS {
 		Npc::Npc() : hasMapleTVAnim(false) { }
 		void Draw();
 		string function;
+		NameTag functiontag;
 	private:
 		AniSprite mapleTVanim;
 		AniSprite mapleTVanimMsg;

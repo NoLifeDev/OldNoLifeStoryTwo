@@ -67,7 +67,7 @@ void NLS::Portal::Draw() {
 		sprites[pt].Draw(x, y);
 	}
 	if (!script.empty()) {
-		NLS::Text txt(Text::Color(255, 255, 255) + u32(script), 18);
-		txt.Draw(x-txt.Width()/2, y);
+		//NLS::Text txt(Text::Color(255, 255, 255) + u32(script), 18);
+		//txt.Draw(x-txt.Width()/2, y);
 	}
 }

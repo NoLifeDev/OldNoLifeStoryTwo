@@ -17,7 +17,7 @@ void NLS::Life::Load() {
 	}
 	Npcs.clear();
 
-	Node data = NLS::Map::node["life"];
+	Node data = Map::node["life"];
 	if (!data) return;
 	
 	for (auto it = data.begin(); it != data.end(); it++) {
@@ -26,22 +26,23 @@ void NLS::Life::Load() {
 		string type = (string) rn["type"];
 		if (type == "n")	{
 			r = new Npc;
-			r->id = (string) rn["id"];
+			r->id = (string)rn["id"];
 			r->data = WZ["Npc"][r->id];
 			auto str =  WZ["String"]["Npc"][r->id];
-			r->name = str["name"];
-			((Npc *)r)->function = str["func"] ? (string)str["func"] : "";
+			r->name = (string)str["name"];
+			((Npc*)r)->function = (string)str["func"];
+			((Npc*)r)->functiontag.Set(((Npc*)r)->function);
 			r->speedMin = 30;
 		}
 		else if (type == "m") {
 			r = new Mob;
-			r->id = (string) rn["id"];
+			r->id = (string)rn["id"];
 			r->data = WZ["Mob"][r->id];
-			r->name = WZ["String"]["Mob"][r->id]["name"];
+			r->name = (string)WZ["String"]["Mob"][r->id]["name"];
 			r->speedMin = (double)abs((int)r->data["info"]["speed"]) + 10;
 		}
 		else {
-			cerr << "[WARN] Loading unknown 'life'! Map: " << NLS::Map::curmap << ", Life list ID: " << it->first << ", Type: " << r->type << endl;
+			cerr << "[WARN] Loading unknown 'life'! Map: " << Map::curmap << ", Life list ID: " << it->first << ", Type: " << r->type << endl;
 			// Safe mode, Erwin style
 			//  delete r;
 			//  continue;
@@ -60,7 +61,7 @@ void NLS::Life::Load() {
 		r->down = false;
 		r->up = false;
 		r->notAPlayer = true;
-
+		r->nametag.Set(r->name);
 		if (r->data["info"]["link"]) {
 			r->data = r->data[".."][r->data["info"]["link"]];
 			// Linked mobs... common!
@@ -89,44 +90,28 @@ void NLS::Life::ChangeState(const string &newState) {
 void NLS::Life::Draw() {
 	Update();
 	currentAnimation.Draw(x, y, f);
-	NLS::Text txt(Text::Color(255, 255, 255) + u32(name), 14);
-
-	int32_t tempy = y + 5;
-	int32_t textmiddle = txt.Width()/2;
-
-	int32_t left = x - textmiddle - 3, right = x + textmiddle + 3;
-	int32_t top = tempy, bottom = tempy + 15;
-
-	glColor4f(0.33f, 0.33f, 0.33f, 0.75f);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBegin(GL_QUADS);
-	glVertex2i(left, top);
-	glVertex2i(right, top);
-	glVertex2i(right, bottom);
-	glVertex2i(left, bottom);
-	glEnd();
-
-	txt.Draw(left + 2, top - 1);
+	nametag.Draw(x, y);
 }
 
 void NLS::Life::Update() {
 	if (data["move"]) {
 		if (timeToNextAction-- <= 0) {
-			int32_t r = rand() % 3;
-			if (r == 0) {
+			switch (rand()%3) {
+			case 0:
 				left = true;
 				right = false;
 				timeToNextAction = rand() % (type == "n" ? 90 : 100);
-			}
-			else if (r == 1) {
+				break;
+			case 1:
 				left = false;
 				right = true;
 				timeToNextAction = rand() % (type == "n" ? 90 : 100);
-			}
-			else {
+				break;
+			case 2:
 				left = false;
 				right = false;
 				timeToNextAction = rand() % (type == "n" ? 5000 : 1000);
+				break;
 			}
 		}
 	}
@@ -153,24 +138,7 @@ void NLS::Npc::Draw() {
 	NLS::Life::Draw();
 
 	if (!function.empty()) {
-		NLS::Text txt(Text::Color(255, 255, 255) + u32(function), 14);
-
-		int32_t tempy = y + 21;
-		int32_t textmiddle = txt.Width()/2;
-
-		int32_t left = x - textmiddle - 3, right = x + textmiddle + 3;
-		int32_t top = tempy, bottom = tempy + 15;
-
-		glColor4f(0.33f, 0.33f, 0.33f, 0.75f);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glBegin(GL_QUADS);
-		glVertex2i(left, top);
-		glVertex2i(right, top);
-		glVertex2i(right, bottom);
-		glVertex2i(left, bottom);
-		glEnd();
-
-		txt.Draw(x - (txt.Width()/2), tempy);
+		functiontag.Draw(x, y+15);
 	}
 	if (data["info"]["MapleTV"] && (int)data["info"]["MapleTV"] == 1) {
 		int32_t mx = x + (int)data["info"]["MapleTVadX"];
@@ -198,9 +166,4 @@ void NLS::Npc::Draw() {
 
 void NLS::Mob::Draw() {
 	NLS::Life::Draw();
-	NLS::Text txt(Text::Color(255, 255, 255) + u32(name), 14);
-	//txt.Draw(x - (txt.Width()/2), cy);
-
-	txt = NLS::Text(Text::Color(0, 0, 0) + u32(id), 14);
-	//txt.Draw(x - (txt.Width()/2), cy + 16);
 }

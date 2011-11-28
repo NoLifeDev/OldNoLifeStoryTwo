@@ -10,7 +10,8 @@ namespace NLS {
 		uint8_t level;
 		string name;
 		string guildname;
-
+		NameTag nametag;
+		NameTag guildtag;
 		string state;
 		int frame, delay;
 		string emote;

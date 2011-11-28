@@ -192,6 +192,9 @@ using namespace std::tr2::sys;
 #endif
 
 //Do some type checks
+#ifdef SFML_ENDIAN_BIG
+#error "Why are you using big endian???"
+#endif
 static_assert(sizeof(char) == 1, "Unsupported char size");
 static_assert(sizeof(wchar_t) == 2, "Unsupported wchar_t size");
 

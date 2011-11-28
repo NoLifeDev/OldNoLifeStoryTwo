@@ -109,6 +109,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Life.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Mouse.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\NameTag.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Text.h" />
     <ClInclude Include="..\..\src\NoLifeStory\UI.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\LadderRope.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Life.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Mouse.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\NameTag.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Text.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\UI.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />

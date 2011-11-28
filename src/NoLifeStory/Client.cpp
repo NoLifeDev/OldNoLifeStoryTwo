@@ -41,8 +41,8 @@ void NLS::Init() {
 	cout << "Initialization complete" << endl;
 	MainChat << Text::Color(255, 255, 0, 255) << "[NoLifeStory] Welcome to NoLifeStory!" << cendl;
 	if (NLS::Network::Online) {
-		string v1 = NLS::Network::Version / 100 != 0 ? tostring(((int32_t)NLS::Network::Version / 100)) : "";
-		string v2 = tostring(NLS::Network::Version % 100);
+		string v1 = NLS::Network::Version/100?tostring(NLS::Network::Version/100):string();
+		string v2 = tostring(NLS::Network::Version%100);
 		MainChat << Text::Color(255, 20, 50) << "[INFO] Connected with MapleStory v" + v1 + "." + v2 + "!" << cendl;
 	} else {
 		MainChat << Text::Color(255, 20, 50) << "[INFO] Not connected with any MapleStory server!" << cendl;

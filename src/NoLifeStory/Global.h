@@ -17,6 +17,7 @@
 #include "AniSprite.h"
 #include "Graphics.h"
 #include "Text.h"
+#include "NameTag.h"
 #include "Time.h"
 #include "Mouse.h"
 #include "UI.h"
