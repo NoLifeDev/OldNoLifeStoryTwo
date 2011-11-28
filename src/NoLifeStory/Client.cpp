@@ -52,9 +52,6 @@ void NLS::Init() {
 }
 
 bool NLS::Loop() {
-	if (NLS::Network::Online) {
-		Network::Loop();
-	}
 	sf::Event e;
 	while (window->PollEvent(e)) {
 		switch (e.Type) {
@@ -85,6 +82,7 @@ bool NLS::Loop() {
 	if (!Map::nextmap.empty()) {
 		Map::Load();
 	}
+	Network::Loop();
 	return window->IsOpened();
 }
 

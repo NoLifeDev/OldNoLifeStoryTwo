@@ -6,7 +6,6 @@
 
 #ifdef NLS_CPP11
 chrono::high_resolution_clock tclock;
-chrono::high_resolution_clock::time_point last;
 chrono::high_resolution_clock::time_point start;
 #else
 sf::Clock tclock;
@@ -18,7 +17,6 @@ double NLS::Time::fps;
 
 void NLS::Time::Reset() {
 #ifdef NLS_CPP11
-	last = tclock.now();
 	start = tclock.now();
 #else
 	tclock.Reset();
@@ -32,19 +30,17 @@ void NLS::Time::Reset() {
 void NLS::Time::Step() {
 #ifdef NLS_CPP11
 	chrono::high_resolution_clock::time_point now = tclock.now();
-	chrono::duration<double> dif = now-last;
-	chrono::duration<double> tdif = now-start;
-	delta = dif.count();
-	tdelta = tdif.count();
-	last = now;
+	chrono::duration<double> dif = now-start;
+	delta = dif.count()-tdelta;
+	tdelta = dif.count();
 #else
 	double temp = tclock.GetElapsedTime();
 	temp /= 1000;
 	delta = temp-tdelta;
 	tdelta = temp;
 #endif
-	fps = fps*0.99+1/min(delta, 0.01)*0.01;
-	if (!(fps > 0 and fps < 1000)) {
+	fps = fps*0.98+1/max(delta, 0.001)*0.02;
+	if (fps < 0 or fps > 1000) {
 		fps = 0;
 	}
 #ifdef NLS_CPP11

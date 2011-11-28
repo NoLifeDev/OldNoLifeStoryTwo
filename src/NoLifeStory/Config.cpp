@@ -19,12 +19,10 @@ void NLS::Config::Load() {
 			Mindfuck = value == "true";
 		} else if (key == "fullscreen") {
 			Fullscreen = value == "true";
-		}
-		else if (key == "ms_ip") {
-			NLS::Network::IP = value;
-		}
-		else if (key == "ms_ip") {
-			NLS::Network::Port = atoi(value.c_str());
+		} else if (key == "ms_ip") {
+			Network::IP = value;
+		} else if (key == "ms_port") {
+			Network::Port = atoi(value.c_str());
 		}
 	}
 	Config::Save();
@@ -33,8 +31,8 @@ void NLS::Config::Load() {
 void NLS::Config::LoadDefault() {
 	Paths.push_back("");
 	Paths.push_back("C:/Nexon/MapleStory/");
-	NLS::Network::IP = "63.251.217.3";
-	NLS::Network::Port = 8484;
+	Network::IP = "63.251.217.3";
+	Network::Port = 8484;
 	Config::Save();
 }
 
@@ -42,19 +40,19 @@ void NLS::Config::Save() {
 	ofstream file("client.config");
 	if (!file.is_open()) return;
 
-	auto Write = [&](string key, string value){file << key << "=" << value << endl;};
+	auto Write = [&](string key, string value){
+		file << key << "=" << value << endl;
+	};
 
 	for_each(Paths.begin(), Paths.end(), [&](path s){Write("path", s);});
 	Write("mindfuck", Mindfuck?"true":"false");
 	Write("fullscreen", Fullscreen?"true":"false");
-
-	if (NLS::Network::IP == "") {
-		NLS::Network::IP = "63.251.217.3";
+	if (Network::IP == "") {
+		Network::IP = "63.251.217.3";
 	}
-	if (NLS::Network::Port == 0) {
-		NLS::Network::Port = 8484;
+	if (Network::Port == 0) {
+		Network::Port = 8484;
 	}
-
-	Write("ms_ip", NLS::Network::IP);
-	Write("ms_port", tostring(NLS::Network::Port));
+	Write("ms_ip", Network::IP);
+	Write("ms_port", tostring(Network::Port));
 }

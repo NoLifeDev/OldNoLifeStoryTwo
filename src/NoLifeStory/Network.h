@@ -19,13 +19,14 @@ namespace NLS {
 	}
 	class Packet {
 	public:
-		vector<char> data;
+		vector<uint8_t> data;
 		size_t pos;
 		Packet() : pos(0), data() {}
 		Packet(uint16_t opcode) : pos(0), data() { 
 			Write<int32_t>(0);
 			Write<uint16_t>(opcode);
 		}
+		Packet(uint8_t* data, uint16_t len) : pos(0), data(data, data+len) {}
 		void Send();
 		template <class T>
 		T Read() {
@@ -35,13 +36,15 @@ namespace NLS {
 		}
 		template <class T>
 		void Write(T v) {
-			data.insert(data.end(), (char*)&v, (char*)&v+sizeof(T));
+			data.insert(data.end(), (uint8_t*)&v, (uint8_t*)&v+sizeof(T));
 		}
+		void Encrypt();
+		void Decrypt();
 	};
 	template <>
 	inline string Packet::Read<string>() {
 		size_t size = Read<uint16_t>();
-		string s(&data[pos], size);
+		string s((char*)&data[pos], size);
 		pos += size;
 		return s;
 	}

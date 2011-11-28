@@ -78,7 +78,9 @@ void NLS::Life::Init() {
 }
 
 void NLS::Life::ChangeState(const string &newState) {
-	if (!data[newState]) throw(273);
+	if (!data[newState]) {
+		return;
+	}
 	if (newState == currentState) return;
 	currentAnimation.Set(data[newState]);
 	currentState = newState;

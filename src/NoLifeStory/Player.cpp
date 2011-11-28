@@ -5,7 +5,7 @@
 #include "Global.h"
 
 NLS::Player::Player() : Physics() {
-	state = "stand1";
+	state = "jump";
 	frame = 0;
 	delay = 0;
 	emote = "default";
