@@ -40,6 +40,7 @@ namespace NLS {
 		}
 		void Encrypt();
 		void Decrypt();
+		string ToString();
 	};
 	template <>
 	inline string Packet::Read<string>() {
@@ -52,5 +53,13 @@ namespace NLS {
 	inline void Packet::Write<string>(string s) {
 		Write<uint16_t>(s.size());
 		data.insert(data.end(), s.begin(), s.end());
+	}
+	inline string Packet::ToString() {
+		std::stringstream out;
+		for (int i = 0; i < data.size(); ++i) {
+			out << hex << uppercase << setw(2) << setfill('0') << (uint16_t)data[i];
+			out << ' ';
+		}
+		return out.str();
 	}
 }

@@ -19,7 +19,7 @@ void SendHandshakeOK();
 void NextIV(uint8_t *oldiv);
 
 void NLS::Network::Init() {
-	Socket.SetBlocking(false);
+	Socket.SetBlocking(true);
 }
 
 void NLS::Network::Loop() {
@@ -34,18 +34,21 @@ void NLS::Network::Loop() {
 	static uint8_t data[0x10000];
 	auto Receive = [&](uint8_t* data, size_t len) -> bool{
 		size_t received = 0;
-		sf::Socket::Status err = Socket.Receive((char*)data+pos, len-pos, received);
+		sf::Socket::Status err = Socket.Receive((char *)data+pos, len-pos, received);
 		pos += received;
 		switch (err) {
 		case sf::Socket::Disconnected:
-			if (!ghead and !initial) {
+			if (!ghead && !initial) {
 				cerr << "Disconnected from the server" << endl;
 				connected = false;
 				Online = false;
 			}
 			return false;
 		case sf::Socket::Error:
-			cerr << "Network error occured" << endl;
+			cerr << "Network error occured " << endl;
+#if _WIN32
+			cerr << "[DEBUGINFO] WSAGetLastError: " << WSAGetLastError() << endl;
+#endif
 			connected = false;
 			Online = false;
 			return false;
@@ -57,6 +60,7 @@ void NLS::Network::Loop() {
 	if (!Online) return;
 	if (!connected) {
 		Socket.Connect(IP, Port);
+		Socket.SetBlocking(false);
 		connected = true;
 		initial = true;
 		ghead = true;
@@ -94,6 +98,7 @@ void NLS::Network::Loop() {
 				cout << "Connected to server at " << IP << ":" << Port << endl;
 				initial = false;
 				ghead = true;
+				pos = 0;
 			}
 		} else {
 			if (ghead) {
@@ -104,20 +109,13 @@ void NLS::Network::Loop() {
 				len = (llen>>16)^llen;
 				ghead = false;
 				pos = 0;
-
 			} else {
 				if (!Receive(data, len)) {
 					return;
 				}
 				Packet p(data, len);
 				p.Decrypt();
-				cout << "Packet: ";
-				std::stringstream out;
-				for (int i = 0; i < len; ++i) {
-					out << hex << uppercase << setw(2) << setfill('0') << (uint16_t)data[i];
-					out << ' ';
-				}
-				cout << out << endl;
+				cout << "Packet: " << p.ToString() << endl;
 				ghead = true;
 				pos = 0;
 			}
@@ -181,6 +179,7 @@ void NLS::Packet::Encrypt() {
 	uint8_t a, c;
 	uint8_t* buf = data.data()+4;
 	size_t size = data.size()-4;
+	
 	for (uint8_t i = 0; i < 3; i++) {
 		a = 0;
 		for (j = size; j > 0; j--) {
@@ -206,14 +205,14 @@ void NLS::Packet::Encrypt() {
 			buf[j-1] = c;
 		}
 	}
-
+	
 	Crypto::TransformData(NLS::Network::SendIV, buf, size);
 	NextIV(NLS::Network::SendIV);
 }
 
 void NLS::Packet::Decrypt() {
-	uint8_t* buf = data.data()+4;
-	size_t size = data.size()-4;
+	uint8_t* buf = data.data(); // NO HEADERS HERE!!!
+	size_t size = data.size();
 	Crypto::TransformData(NLS::Network::RecvIV, buf, size);
 	NextIV(NLS::Network::RecvIV);
 	int32_t j;
@@ -247,7 +246,6 @@ void NLS::Packet::Decrypt() {
 			buf[size-j] = c;
 		}
 	}
-
 }
 
 void NextIV(uint8_t *oldiv) {
