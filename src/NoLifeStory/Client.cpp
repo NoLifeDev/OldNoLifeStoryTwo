@@ -22,7 +22,6 @@ void NLS::Init() {
 	InitWZ();
 	Network::Init();
 	Graphics::Init();
-	View::Init();
 #ifdef NLS_WINDOWS
 	BASS_Init(-1, 44100, 0, window->GetSystemHandle(), 0);
 #else
@@ -32,9 +31,11 @@ void NLS::Init() {
 		HSTREAM s = BASS_StreamCreateFile(false, "bgm.mp3", 0, 0, BASS_SAMPLE_FLOAT|BASS_SAMPLE_LOOP);
 		BASS_ChannelPlay(s, true);
 	}
+	Text::Init();
+	ThisPlayer = new _ThisPlayer;
+	View::Init();
 	Mouse::Init();
 	UI::Init();
-	Text::Init();
 	Physics::Init();
 	Key::Init();
 	Time::Step();

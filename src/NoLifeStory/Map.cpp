@@ -41,10 +41,10 @@ void NLS::Map::Load() {
 			return;
 		}
 		int r = rand()%possible.size();
-		ThisPlayer.Reset(possible[r]->x, possible[r]->y-16);
+		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
 		if (change) {
-			View::vx = ThisPlayer.x-View::width/2;
-			View::vy = ThisPlayer.y-View::height/2;
+			View::vx = ThisPlayer->x-View::width/2;
+			View::vy = ThisPlayer->y-View::height/2;
 		}
 	};
 	if (curmap == nextmap) {
@@ -167,7 +167,7 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
 		Life::Npcs[i]->Draw();
 	}
-	ThisPlayer.Draw();
+	ThisPlayer->Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
 		Portal::Portals[i]->Draw();
 	}

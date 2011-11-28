@@ -26,11 +26,11 @@ u32string NLS::Text::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 NLS::Text::Text() {
 	width = 0;
 	height = 0;
-	//tex = new sf::RenderTexture();
+	tex = new sf::RenderTexture();
 }
 
 void NLS::Text::Set(u32string str, int size) {
-	if (str.empty() or true) {
+	if (str.empty()) {
 		width = 0;
 		height = 0;
 		return;
@@ -65,22 +65,34 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	width = max(width, x);
 	height = y+linespace;
+	if (width == 0) {
+		width = 0;
+		height = 0;
+		return;
+	}
 	x = 0;
 	y = fsize;
 	tex->Create(width, height);
 	tex->SetActive(true);
-	tex->Clear(sf::Color(0, 0, 0, 255));
+	tex->Clear(sf::Color(0, 0, 0, 0));
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_ONE, GL_ONE);
-	glPushMatrix();
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glColor4f(0, 0, 0, 1);
-	ftex.Bind();
+	glOrtho(0, width, height, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glColor4f(1, 0, 0, 1);
+	//ftex.Bind();
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glBegin(GL_QUADS);
 	for (int i = 0; i < text.size(); ++i) {
 		char32_t cur = text[i];
 		if (cur == 0xFFFFFF) {
 			uint8_t* c = (uint8_t*)&text[++i];
-			glColor4ub(c[0], c[1], c[2], c[3]);
+			//glColor4ub(c[0], c[1], c[2], c[3]);
 			continue;
 		}
 		x += font->GetKerning(prev, cur, fsize);
@@ -108,8 +120,7 @@ void NLS::Text::Set(u32string str, int size) {
 		x += advance;
 	}
 	glEnd();
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glPopMatrix();
+	tex->Display();
 	window->SetActive(true);
 }
 

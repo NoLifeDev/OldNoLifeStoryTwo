@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-NLS::_ThisPlayer NLS::ThisPlayer;
+NLS::_ThisPlayer* NLS::ThisPlayer;
 
 NLS::_ThisPlayer::_ThisPlayer() : Player() {
 	pdelay = 0;

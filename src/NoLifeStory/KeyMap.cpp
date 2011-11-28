@@ -9,10 +9,10 @@ bool Left, Right, Up, Down;
 
 void NLS::Key::Init() {
 	Set(sf::Keyboard::Escape, Func(window->Close));
-	Set(sf::Keyboard::F, Func(ThisPlayer.MouseFly));
-	Set(sf::Keyboard::Up, Func(ThisPlayer.UsePortal));
-	Set(sf::Keyboard::LAlt, Func(ThisPlayer.Jump));
-	Set(sf::Keyboard::RAlt, Func(ThisPlayer.Jump));
+	Set(sf::Keyboard::F, Func(ThisPlayer->MouseFly));
+	Set(sf::Keyboard::Up, Func(ThisPlayer->UsePortal));
+	Set(sf::Keyboard::LAlt, Func(ThisPlayer->Jump));
+	Set(sf::Keyboard::RAlt, Func(ThisPlayer->Jump));
 }
 
 NLS::Key::Action::Action() {
