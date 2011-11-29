@@ -4,4 +4,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)\..\..\..\resources</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <EnableVsGraphicsCapture>false</EnableVsGraphicsCapture>
+  </PropertyGroup>
 </Project>

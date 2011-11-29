@@ -175,5 +175,5 @@ void NLS::Player::Draw() {
 
 
 	nametag.Draw(x, y);
-	guildtag.Draw(x, y);
+	guildtag.Draw(x, y+15);
 }

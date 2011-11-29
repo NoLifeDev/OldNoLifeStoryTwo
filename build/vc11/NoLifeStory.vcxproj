@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Life.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Mouse.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\NameTag.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Npc.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\Life.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Map.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Mouse.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\NameTag.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Network.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\NoLifeStory.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

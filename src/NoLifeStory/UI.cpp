@@ -36,12 +36,12 @@ void NLS::UI::Window::Draw() {
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
 		e->Draw();
 	});
-	if (ExtraDraw) ExtraDraw();
 }
 
 void NLS::UI::Window::Focus() {
 	if (!focusable) return;
 	if (All.back() == this) return;
+	if (All.back()->stealsfocus) return;
 	auto it = find(begin(), end(), this);
 	if (it == end()) {
 		cerr << "The UI is screwed up D:" << endl;

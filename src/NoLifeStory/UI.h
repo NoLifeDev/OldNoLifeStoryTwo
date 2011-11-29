@@ -9,15 +9,14 @@ namespace NLS {
 		class Window {
 		public:
 			Window();
-			void Draw();
-			void HandleClick(sf::Event::MouseButtonEvent);
+			virtual void Draw();
+			virtual void HandleClick(sf::Event::MouseButtonEvent);
 			void Focus();
-			function<void(sf::Keyboard::Key)> HandleKey;
-			function<void(void)> ExtraDraw;
+			virtual void HandleKey(sf::Keyboard::Key)=0;
 			vector<Element*> Elements;
 			int x, y;
 			int width, height;
-			bool focusable;
+			bool focusable, stealsfocus;
 			static list<Window*> All;
 			static list<Window*>::iterator begin() {return All.begin();}
 			static list<Window*>::iterator end() {return All.end();}

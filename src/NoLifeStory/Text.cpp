@@ -73,26 +73,25 @@ void NLS::Text::Set(u32string str, int size) {
 	x = 0;
 	y = fsize;
 	tex->Create(width, height);
-	tex->SetActive(true);
 	tex->Clear(sf::Color(0, 0, 0, 0));
+	tex->SetActive();
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_DEPTH_TEST);
 	glBlendFunc(GL_ONE, GL_ONE);
+	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, width, height, 0, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glColor4f(1, 0, 0, 1);
-	//ftex.Bind();
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glColor4f(0, 0, 0, 1);
+	ftex.Bind();
 	glBegin(GL_QUADS);
 	for (int i = 0; i < text.size(); ++i) {
 		char32_t cur = text[i];
 		if (cur == 0xFFFFFF) {
 			uint8_t* c = (uint8_t*)&text[++i];
-			//glColor4ub(c[0], c[1], c[2], c[3]);
+			glColor4ub(c[0], c[1], c[2], c[3]);
 			continue;
 		}
 		x += font->GetKerning(prev, cur, fsize);
@@ -121,7 +120,7 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	glEnd();
 	tex->Display();
-	window->SetActive(true);
+	window->SetActive();
 }
 
 int NLS::Text::Width() {
@@ -140,13 +139,13 @@ void NLS::Text::Draw(int x, int y) {
 	tex->GetTexture().Bind();
 	const auto& b = tex->GetTexture().GetTexCoords(sf::IntRect(0, 0, width, height));
 	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0);
+	glTexCoord2f(b.Left, b.Top);
 	glVertex2i(0, 0);
-	glTexCoord2f(b.Width, 0);
+	glTexCoord2f(b.Left+b.Width, b.Top);
 	glVertex2i(width, 0);
-	glTexCoord2f(b.Width, b.Height);
+	glTexCoord2f(b.Left+b.Width, b.Top+b.Height);
 	glVertex2i(width, height);
-	glTexCoord2f(0, b.Height);
+	glTexCoord2f(b.Left, b.Top+b.Height);
 	glVertex2i(0, height);
 	glEnd();
 	glPopMatrix();
