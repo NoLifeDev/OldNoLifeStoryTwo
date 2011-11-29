@@ -14,12 +14,13 @@ string NLS::Network::IP;
 uint16_t NLS::Network::Port;
 vector<NLS::Packet> ToSend;
 sf::TcpSocket Socket;
+map<uint16_t, function<void(NLS::Packet&)>> NLS::Packet::Handlers;
 
 void SendHandshakeOK();
 void NextIV(uint8_t *oldiv);
 
 void NLS::Network::Init() {
-	Socket.SetBlocking(true);
+	Socket.SetBlocking(false);
 }
 
 void NLS::Network::Loop() {
@@ -38,7 +39,7 @@ void NLS::Network::Loop() {
 		pos += received;
 		switch (err) {
 		case sf::Socket::Disconnected:
-			if (!ghead && !initial) {
+			if (!connecting) {
 				cerr << "Disconnected from the server" << endl;
 				connected = false;
 				Online = false;
@@ -54,14 +55,16 @@ void NLS::Network::Loop() {
 			return false;
 		case sf::Socket::NotReady:
 			return false;
+		default:
+			connecting = false;
 		}
 		return pos == len;
 	};
 	if (!Online) return;
 	if (!connected) {
 		Socket.Connect(IP, Port);
-		Socket.SetBlocking(false);
 		connected = true;
+		connecting = true;
 		initial = true;
 		ghead = true;
 		pos = 0;
@@ -116,6 +119,13 @@ void NLS::Network::Loop() {
 				Packet p(data, len);
 				p.Decrypt();
 				cout << "Packet: " << p.ToString() << endl;
+				uint16_t opcode = p.Read<uint16_t>();
+				auto& f = p.Handlers[opcode];
+				if (f) {
+					f(p);
+				} else {
+					cerr << "No packet handler for opcode: " << opcode << endl;
+				}
 				ghead = true;
 				pos = 0;
 			}

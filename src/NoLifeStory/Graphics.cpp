@@ -102,7 +102,6 @@ void NLS::Graphics::Draw() {
 	Map::Draw();
 	View::Reset();
 	UI::Draw();
-	NLS::Map::dialog->Draw();
 	Mouse::Draw();
 	Time::Step();
 	if (Map::fade > 0) {

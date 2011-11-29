@@ -21,13 +21,17 @@ namespace NLS {
 	public:
 		vector<uint8_t> data;
 		size_t pos;
+		static map<uint16_t, function<void(Packet&)>> Handlers;
 		Packet() : pos(0), data() {}
-		Packet(uint16_t opcode) : pos(0), data() { 
+		Packet(uint16_t opcode) : pos(0), data() {
 			Write<int32_t>(0);
 			Write<uint16_t>(opcode);
 		}
 		Packet(uint8_t* data, uint16_t len) : pos(0), data(data, data+len) {}
 		void Send();
+		void Encrypt();
+		void Decrypt();
+		string ToString();
 		template <class T>
 		T Read() {
 			T& ret = *(T*)&data[pos];
@@ -38,9 +42,6 @@ namespace NLS {
 		void Write(T v) {
 			data.insert(data.end(), (uint8_t*)&v, (uint8_t*)&v+sizeof(T));
 		}
-		void Encrypt();
-		void Decrypt();
-		string ToString();
 	};
 	template <>
 	inline string Packet::Read<string>() {

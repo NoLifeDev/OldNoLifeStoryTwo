@@ -73,8 +73,9 @@ void NLS::Text::Set(u32string str, int size) {
 	x = 0;
 	y = fsize;
 	tex->Create(width, height);
-	tex->Clear(sf::Color(0, 0, 0, 0));
 	tex->SetActive();
+	glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_ONE, GL_ONE);
