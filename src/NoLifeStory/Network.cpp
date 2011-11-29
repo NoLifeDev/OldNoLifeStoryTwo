@@ -4,6 +4,8 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+#define DiamondLULZ // For lulz and packets
+
 bool NLS::Network::Online = true;
 uint16_t NLS::Network::Version;
 string NLS::Network::Patch;
@@ -96,8 +98,16 @@ void NLS::Network::Loop() {
 				memcpy(SendIV, &siv, 4);
 				memcpy(RecvIV, &riv, 4);
 				SendHandshakeOK();
+
+#ifndef DiamondLULZ
 				NLS::Packet packet(0x18);
 				packet.Send();
+#else
+				NLS::Packet packet(0x14);
+				packet.Write<int32_t>(3); // Special Character!
+				packet.Send();
+#endif
+
 				cout << "Connected to server at " << IP << ":" << Port << endl;
 				initial = false;
 				ghead = true;
@@ -128,6 +138,7 @@ void NLS::Network::Loop() {
 				}
 				ghead = true;
 				pos = 0;
+				break;
 			}
 		}
 	}

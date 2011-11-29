@@ -24,4 +24,9 @@ namespace NLS {
 		void MouseFly();
 		static void Init();
 	};
+
+	struct Movement {
+		int8_t type;
+
+	};
 }

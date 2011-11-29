@@ -55,7 +55,7 @@ inline string ReadEncString(ifstream* file) {
 		ws[len] = '\0';
 		static char s[0x10000];
 		sf::Utf8::FromWide(ws, ws+len+1, s);
-		cout << "Wide: " << s << endl;
+		// cout << "Wide: " << s << endl;
 		return s;
 	} else {
 		int32_t len;

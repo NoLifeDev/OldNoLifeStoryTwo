@@ -38,6 +38,7 @@ void NLS::Portal::Load(Node n) {
 	for (auto it = n.begin(); it != n.end(); it++) {
 		Node pn = it->second;
 		Portal* p = new Portal;
+		p->id = (int8_t)toint(it->first);
 		p->x = pn["x"];
 		p->y = pn["y"];
 		p->pt = pn["pt"];

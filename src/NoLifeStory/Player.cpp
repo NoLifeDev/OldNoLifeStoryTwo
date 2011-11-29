@@ -11,13 +11,13 @@ NLS::Player::Player() : Physics() {
 	emote = "default";
 	emoted = 0;
 	emotef = 0;
-	skin = 2000;
+	skin = 1;
 	face = 20000;
 	hair = 30000;
 	level = 8;
-	name = "Diamundz";
+	name = "NotYourself";
 	nametag.Set(name);
-	guildname = "!!DerpFaicez!!";
+	guildname = "";
 	guildtag.Set(guildname);
 }
 
@@ -72,7 +72,11 @@ void NLS::Player::Draw() {
 	} else {
 		state = "jump";
 	}
-	int d = WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["delay"];
+
+	auto skinData1 = WZ["Character"]["00002"+tostring(skin, 3)];
+	auto skinData2 = WZ["Character"]["00012"+tostring(skin, 3)];
+
+	int d = skinData1[state][frame]["delay"];
 	static bool weird = false;
 	if (delay > d) {
 		delay = 0;
@@ -84,7 +88,7 @@ void NLS::Player::Draw() {
 			weird = false;
 		}
 	}
-	if (!WZ["Character"]["0000"+tostring(skin, 4)][state][frame]) {
+	if (!skinData1[state][frame]) {
 		if (state == "stand1") {
 			frame = 1;
 			weird = true;
@@ -95,10 +99,10 @@ void NLS::Player::Draw() {
 	Node zmap = WZ["zmap"];
 	zmap[""];
 	vector<Node> parts;
-	parts.push_back(WZ["Character"]["0000"+tostring(skin, 4)][state][frame]);
-	parts.push_back(WZ["Character"]["0001"+tostring(skin, 4)][state][frame]);
+	parts.push_back(skinData1[state][frame]);
+	parts.push_back(skinData2[state][frame]);
 	parts.push_back(WZ["Character"]["Hair"][tostring(hair, 8)][state][frame]);
-	if ((int)WZ["Character"]["0000"+tostring(skin, 4)][state][frame]["face"]) {
+	if ((int)skinData1[state][frame]["face"]) {
 		if (emote == "default") {
 			parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
 		} else {
@@ -113,7 +117,7 @@ void NLS::Player::Draw() {
 	};
 	vector<part> sparts;
 	map<string, sf::Vector2<double>> maps;
-	Node base = WZ["Character"]["0000"+tostring(skin, 4)][state][frame];
+	Node base = skinData1[state][frame];
 	if (f) {
 		maps["navel"].x = x-(double)base["body"]["map"]["navel"]["x"];
 	} else {

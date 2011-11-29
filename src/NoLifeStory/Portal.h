@@ -9,6 +9,7 @@ namespace NLS {
 		static void Load(Node n);
 		static void Update();
 		int x, y;
+		int8_t id;
 		int pt;
 		string tm, pn, tn;
 		int hi, vi;

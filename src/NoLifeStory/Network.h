@@ -38,6 +38,8 @@ namespace NLS {
 			pos += sizeof(T);
 			return ret;
 		}
+
+		string ReadStringLen(int32_t length);
 		template <class T>
 		void Write(T v) {
 			data.insert(data.end(), (uint8_t*)&v, (uint8_t*)&v+sizeof(T));
@@ -51,6 +53,19 @@ namespace NLS {
 		return s;
 	}
 	template <>
+	inline bool Packet::Read<bool>() {
+		return Read<uint8_t>() != 0;
+	}
+	inline string Packet::ReadStringLen(int32_t length) {
+		stringstream ret;
+		for (auto i = 0; i < length; i++) {
+			if (data[pos + i] == 0x00) break;
+			ret << (char)data[pos + i];
+		}
+		pos += length;
+		return ret.str();
+	}
+	template <>
 	inline void Packet::Write<string>(string s) {
 		Write<uint16_t>(s.size());
 		data.insert(data.end(), s.begin(), s.end());
@@ -62,5 +77,9 @@ namespace NLS {
 			out << ' ';
 		}
 		return out.str();
+	}
+	template <>
+	inline void Packet::Write<bool>(bool v) {
+		Write<int8_t>(v ? 1 : 0);
 	}
 }

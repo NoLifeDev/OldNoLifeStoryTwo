@@ -7,7 +7,8 @@ namespace NLS {
 	public:
 		Player();
 		void Draw();
-		uint8_t level;
+		int32_t charid;
+		uint8_t level, gender;
 		string name;
 		string guildname;
 		NameTag nametag;

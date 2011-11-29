@@ -12,6 +12,7 @@ namespace NLS {
 		extern Node node;
 		extern string nextmap;
 		extern string nextportal;
+		extern int8_t nextportalID;
 		extern string curmap;
 		class Layer {
 		public:
@@ -22,6 +23,7 @@ namespace NLS {
 		extern vector<Back*> Backgrounds;
 		extern Layer Layers[8];
 		extern vector<Back*> Foregrounds;
+		extern vector<Player *> Players;
 		extern Sound bgmusic;
 		extern float fade;
 		extern ChatDialog *dialog;

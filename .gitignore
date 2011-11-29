@@ -30,3 +30,6 @@
 *.codeanalysis
 *.codeanalysisast
 *.config
+
+/build/vc10/Debug/bgm.mp3
+/build/vc10/Debug/font.ttf

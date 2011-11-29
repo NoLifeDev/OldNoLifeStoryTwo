@@ -8,9 +8,11 @@ NLS::Node NLS::Map::node;
 string NLS::Map::nextmap;
 string NLS::Map::curmap;
 string NLS::Map::nextportal;
+int8_t NLS::Map::nextportalID = -1;
 vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
+vector<NLS::Player *> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
 
@@ -23,7 +25,7 @@ void NLS::Map::Load(const string& id, const string& portal) {
 
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
-		if (portal.empty()) {
+		if (portal.empty() && nextportalID != -1) {
 			if (change) {
 				portal = "sp";
 			} else {
@@ -33,12 +35,19 @@ void NLS::Map::Load() {
 		vector <Portal*> possible;
 		for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
 			Portal* p = *it;
-			if (portal == p->pn) {
+			// TODO: Make this prettier xd ty, Erwin
+			if (nextportalID != -1) {
+				if (nextportalID == p->id) {
+					possible.push_back(p);
+				}
+			}
+			else if (portal == p->pn) {
 				possible.push_back(p);
 			}
 		}
 		if (possible.empty()) {
-			return;
+			// return;
+			possible.push_back(Portal::Portals[0]); // Take a spot.
 		}
 		int r = rand()%possible.size();
 		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
@@ -103,6 +112,7 @@ void NLS::Map::Load() {
 		Layers[i].Tiles.clear();
 		Layers[i].Objs.clear();
 	}
+	
 	Backgrounds.clear();
 	Foregrounds.clear();
 
@@ -149,6 +159,7 @@ void NLS::Map::Load() {
 	teleport(nextportal, true);
 	nextmap = "";
 	nextportal = "";
+	nextportalID = -1;
 }
 
 void NLS::Map::Draw() {
@@ -166,6 +177,9 @@ void NLS::Map::Draw() {
 	}
 	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
 		Life::Npcs[i]->Draw();
+	}
+	for (uint32_t i = 0; i < Players.size(); ++i) {
+		Players[i]->Draw();
 	}
 	ThisPlayer->Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
