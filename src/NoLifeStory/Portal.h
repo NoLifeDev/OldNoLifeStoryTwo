@@ -9,7 +9,7 @@ namespace NLS {
 		static void Load(Node n);
 		static void Update();
 		int x, y;
-		int8_t id;
+		int id;
 		int pt;
 		string tm, pn, tn;
 		int hi, vi;
@@ -18,6 +18,8 @@ namespace NLS {
 		int delay;
 		int hidetooltip;
 		bool close;
-		static vector <Portal*> Portals;
+		static set<Portal*> All;
+		static set<Portal*>::iterator begin() {return All.begin();}
+		static set<Portal*>::iterator end() {return All.end();}
 	};
 }

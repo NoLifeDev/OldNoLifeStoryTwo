@@ -119,6 +119,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\Mouse.h" />
     <ClInclude Include="..\..\src\NoLifeStory\NameTag.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Npc.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Packet.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Physics.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Player.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Portal.h" />
@@ -174,6 +175,7 @@
     </ClCompile>
     <ClCompile Include="..\..\src\NoLifeStory\Npc.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Obj.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Packet.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Physics.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Player.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Portal.cpp" />

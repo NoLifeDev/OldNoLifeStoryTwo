@@ -17,7 +17,14 @@ namespace NLS {
 		void Send();
 		void Encrypt();
 		void Decrypt();
-		string ToString();
+		string ToString()  {
+			std::stringstream out;
+			for (int i = 0; i < data.size(); ++i) {
+				out << hex << uppercase << setw(2) << setfill('0') << (uint16_t)data[i];
+				out << ' ';
+			}
+			return out.str();
+		}
 		template <class T>
 		T Read() {
 			T& ret = *(T*)&data[pos];
@@ -25,7 +32,11 @@ namespace NLS {
 			return ret;
 		}
 
-		string ReadStringLen(int32_t length);
+		string ReadStringLen(size_t size) {
+			string s((char*)&data[pos], size);
+			pos += size;
+			return s;
+		}
 		template <class T>
 		void Write(T v) {
 			data.insert(data.end(), (uint8_t*)&v, (uint8_t*)&v+sizeof(T));
@@ -40,40 +51,27 @@ namespace NLS {
 	}
 	template <>
 	inline bool Packet::Read<bool>() {
-		return Read<uint8_t>() != 0;
-	}
-	inline string Packet::ReadStringLen(int32_t length) {
-		stringstream ret;
-		for (auto i = 0; i < length; i++) {
-			if (data[pos + i] == 0x00) break;
-			ret << (char)data[pos + i];
-		}
-		pos += length;
-		return ret.str();
+		return Read<uint8_t>();
 	}
 	template <>
 	inline void Packet::Write<string>(string s) {
 		Write<uint16_t>(s.size());
 		data.insert(data.end(), s.begin(), s.end());
 	}
-	inline string Packet::ToString() {
-		std::stringstream out;
-		for (int i = 0; i < data.size(); ++i) {
-			out << hex << uppercase << setw(2) << setfill('0') << (uint16_t)data[i];
-			out << ' ';
-		}
-		return out.str();
-	}
 	template <>
 	inline void Packet::Write<bool>(bool v) {
-		Write<int8_t>(v ? 1 : 0);
+		Write<uint8_t>(v);
 	}
-
-	namespace PacketHandlers {
-		void RegisterHandlers();
-		void HandlePing(Packet &);
-		void HandleChangeMap(Packet &);
-		void HandlePlayerSpawn(Packet &);
-		void HandlePlayerDespawn(Packet &);
+	namespace Handle {
+		void Init();
+		void Ping(Packet&);
+		void ChangeMap(Packet&);
+		void PlayerSpawn(Packet&);
+		void PlayerDespawn(Packet&);
+	}
+	namespace Send {
+		void Pong();
+		void Pang();
+		void Handshake();
 	}
 }

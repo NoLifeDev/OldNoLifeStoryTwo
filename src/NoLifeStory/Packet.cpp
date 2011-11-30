@@ -15,6 +15,7 @@ void NLS::Packet::Send() {
 	data[1] = a/0x100;
 	data[2] = b%0x100;
 	data[3] = b/0x100;
+	cout << "Sent Packet: " << ToString() << endl;
 	Encrypt();
 	Network::Socket.Send((char*)data.data(), data.size());
 }
@@ -109,8 +110,7 @@ void NLS::Packet::Decrypt() {
 }
 
 void NextIV(uint8_t *oldiv) {
-	uint8_t newIV[4] = { 0xF2, 0x53, 0x50, 0xC6 };
-
+	uint8_t newIV[4] = {0xF2, 0x53, 0x50, 0xC6};
 	for (auto i = 0; i < 4; i++) {
 		uint8_t input = oldiv[i];
 		uint8_t tableInput = ShuffleKey[input];
@@ -118,13 +118,11 @@ void NextIV(uint8_t *oldiv) {
 		newIV[1] -= newIV[2]^tableInput;
 		newIV[2] ^= ShuffleKey[newIV[3]]+input;
 		newIV[3] -= newIV[0]-tableInput;
-
 		uint32_t& merged = *(uint32_t*)newIV;
 		merged = merged<<3|merged>>0x1D;
 	}
-
 	for (auto i = 0; i < 4; i++) {
-		oldiv[i] = newIV[i]; // Transferring all bytes!
+		oldiv[i] = newIV[i];
 	}
 }
 
@@ -132,33 +130,28 @@ void NextIV(uint8_t *oldiv) {
 
 #pragma region Packet Handlers
 
-void NLS::PacketHandlers::RegisterHandlers() {
-	if (!Network::Connected) {
-		throw(273);
-	}
-
+void NLS::Handle::Init() {
 	uint8_t locale = Network::Locale;
 	uint16_t version = Network::Version;
 	uint16_t subversion = toint(Network::Patch);
 
 	if (locale == NLS::Locales::Global) {
 		if (version == 75) {
-			Packet::Handlers[0x11] = &NLS::PacketHandlers::HandlePing;
-			Packet::Handlers[0x72] = &NLS::PacketHandlers::HandleChangeMap;
-			Packet::Handlers[0x91] = &NLS::PacketHandlers::HandlePlayerSpawn;
-			Packet::Handlers[0x92] = &NLS::PacketHandlers::HandlePlayerDespawn;
+			Packet::Handlers[0x11] = &NLS::Handle::Ping;
+			Packet::Handlers[0x72] = &NLS::Handle::ChangeMap;
+			Packet::Handlers[0x91] = &NLS::Handle::PlayerSpawn;
+			Packet::Handlers[0x92] = &NLS::Handle::PlayerDespawn;
 		}
 	}
 
 	cout << "[INFO] " << Packet::Handlers.size() << " handlers added for this MapleStory version." << endl;
 }
 
-void NLS::PacketHandlers::HandlePing(Packet &p) {
-	Packet packet(0x19);
-	packet.Send();
+void NLS::Handle::Ping(Packet &p) {
+	Send::Pong();
 }
 
-void NLS::PacketHandlers::HandleChangeMap(Packet &p) {
+void NLS::Handle::ChangeMap(Packet &p) {
 	int32_t channel = p.Read<int32_t>();
 	uint8_t portalCount = p.Read<uint8_t>();
 	bool channelConnect = p.Read<bool>();
@@ -217,7 +210,7 @@ void NLS::PacketHandlers::HandleChangeMap(Packet &p) {
 	}
 }
 
-void NLS::PacketHandlers::HandlePlayerSpawn(Packet &p) {
+void NLS::Handle::PlayerSpawn(Packet &p) {
 	// Spawn player
 	uint32_t id = p.Read<uint32_t>();
 	// TODO: Should check if player in list... oh w/e
@@ -234,7 +227,7 @@ void NLS::PacketHandlers::HandlePlayerSpawn(Packet &p) {
 	Map::Players[id] = player;
 }
 
-void NLS::PacketHandlers::HandlePlayerDespawn(Packet &p) {
+void NLS::Handle::PlayerDespawn(Packet &p) {
 	// Spawn player
 	uint32_t id = p.Read<uint32_t>();
 	if (Map::Players.find(id) != Map::Players.end()) {
@@ -244,3 +237,37 @@ void NLS::PacketHandlers::HandlePlayerDespawn(Packet &p) {
 		// TODO remove all other stuff
 	}
 }
+
+void NLS::Send::Pong() {
+	Packet packet(0x19);
+	packet.Send();
+}
+
+void NLS::Send::Pang() {
+		NLS::Packet packet(0x14);
+		packet.Write<int32_t>(3); // Special Character!
+		packet.Send();
+		//NLS::Packet packet(0x18);
+		//packet.Send();
+}
+
+void NLS::Send::Handshake() {
+	if (Network::Locale == 0x08 && Network::Version <= 100) return; // GMS V.100 and lower didn't have this.
+	if (Network::Locale == 0x07 && Network::Version <= 111) return; // MSEA V.111 and lower didn't have this. |NOTSURE|
+
+	uint16_t subversion = atoi(Network::Patch.c_str());
+	uint16_t header = 0;
+	if (Network::Locale == 0x08) {
+		if (Network::Version >= 101) header = 0x14;
+	}
+	else if (Network::Locale == 0x09) {
+		if (Network::Version >= 112) header = 0x01; // No shit!
+	}
+
+	NLS::Packet packet(header);
+	packet.Write<uint8_t>(Network::Locale);
+	packet.Write<uint16_t>(Network::Version);
+	packet.Write<uint16_t>(subversion);
+	packet.Send();
+}
+#pragma endregion

@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-vector <NLS::Portal*> NLS::Portal::Portals;
+set<NLS::Portal*> NLS::Portal::All;
 bool loaded = false;
 NLS::Sprite sprites[15];
 NLS::AniSprite pvsprite;
@@ -30,15 +30,13 @@ void NLS::Portal::Load(Node n) {
 		pvsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["pv"]);
 		loaded = true;
 	}
-	for (auto it = Portals.begin(); it != Portals.end(); it++) {
-		delete *it;
-	}
-	Portals.clear();
+	for_each(begin(), end(), [](Portal* p){delete p;});
+	All.clear();
 	n = n["portal"];
 	for (auto it = n.begin(); it != n.end(); it++) {
 		Node pn = it->second;
 		Portal* p = new Portal;
-		p->id = (int8_t)toint(it->first);
+		p->id = toint(it->first);
 		p->x = pn["x"];
 		p->y = pn["y"];
 		p->pt = pn["pt"];
@@ -51,7 +49,7 @@ void NLS::Portal::Load(Node n) {
 		p->onlyonce = pn["onlyOnce"];
 		p->hidetooltip = pn["hideTooltip"];
 		p->delay = pn["delay"];
-		Portals.push_back(p);
+		All.insert(p);
 	}
 }
 

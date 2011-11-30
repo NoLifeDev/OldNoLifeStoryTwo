@@ -9,15 +9,15 @@ float bgVolume;
 
 void NLS::Init() {
 	Time::Reset();
+	Config::Load();
 	locale::global(locale(""));
-	//freopen("nolifestory.log", "a", stdout);
-	//freopen("nolifestory.log", "a", stderr);
+	freopen("nolifestory.log", "a", stdout);
+	freopen("nolifestory.log", "a", stderr);
 	cout << endl << "Initializing NoLifeStory" << endl;
 	cout << "아무 라이프 스토리 없음" << endl;
 	cout << "유니 코드는 사용" << endl;
 	cout << "Using locale: " << locale().name() << endl;
 	srand(time(0));
-	Config::Load();
 	Crypto::Init();
 	InitWZ();
 	Network::Init();
@@ -33,8 +33,6 @@ void NLS::Init() {
 	}
 	Text::Init();
 	ThisPlayer = new _ThisPlayer;
-	View::Init();
-	Player::Init();
 	View::Init();
 	Mouse::Init();
 	UI::Init();

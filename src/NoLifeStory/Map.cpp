@@ -12,11 +12,9 @@ int8_t NLS::Map::nextportalID = -1;
 vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
-map<uint32_t, NLS::Player *> NLS::Map::Players;
+map<uint32_t, NLS::Player*> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
-
-NLS::ChatDialog *NLS::Map::dialog = nullptr;
 
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
@@ -25,7 +23,7 @@ void NLS::Map::Load(const string& id, const string& portal) {
 
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
-		if (portal.empty() && nextportalID != -1) {
+		if (portal.empty() && nextportalID >= 0) {
 			if (change) {
 				portal = "sp";
 			} else {
@@ -33,21 +31,13 @@ void NLS::Map::Load() {
 			}
 		}
 		vector <Portal*> possible;
-		for (auto it = Portal::Portals.begin(); it != Portal::Portals.end(); it++) {
-			Portal* p = *it;
-			// TODO: Make this prettier xd ty, Erwin
-			if (nextportalID != -1) {
-				if (nextportalID == p->id) {
-					possible.push_back(p);
-				}
-			}
-			else if (portal == p->pn) {
+		for_each(Portal::begin(), Portal::end(), [&](Portal* p){
+			if (nextportalID == p->id or portal == p->pn) {
 				possible.push_back(p);
 			}
-		}
+		});
 		if (possible.empty()) {
-			// return;
-			possible.push_back(Portal::Portals[0]); // Take a spot.
+			possible.insert(possible.end(), Portal::begin(), Portal::end());
 		}
 		int r = rand()%possible.size();
 		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
@@ -56,27 +46,37 @@ void NLS::Map::Load() {
 			View::vy = ThisPlayer->y-View::height/2;
 		}
 	};
+	Node mn;
+	if (nextmap == "MapLogin") {
+		mn = WZ["UI"]["MapLogin"];
+		throw(273);//We don't deal with this shit yet
+	} else {
+		pad(nextmap, '0', 9);
+		char zone = nextmap[0];
+		mn = WZ["Map"]["Map"][string("Map")+zone][nextmap];
+	}
 	if (curmap == nextmap) {
-		cerr << "The specified map is already loaded" << endl;
+		cerr << "Map " << nextmap << " is already loaded" << endl;
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
 		return;
 	}
-	if (nextmap == "MapLogin") {
-		node = WZ["UI"]["MapLogin"];
-		throw(273);//We don't deal with this shit yet
-	} else {
-		pad(nextmap, '0', 9);
-		char zone = nextmap[0];
-		node = WZ["Map"]["Map"][string("Map")+zone][nextmap];
-	}
-	if (!node) {
-		cerr << "Unable to locate map " << nextmap << endl;
-		MainChat << Text::Color(255, 0, 0) << "[WARN] Map not found!" << cendl;
+	if (!mn) {
+		if (nextmap != "999999999") {
+			cerr << "Unable to locate map " << nextmap << endl;
+			MainChat << Text::Color(255, 0, 0) << "[WARN] Map not found!" << cendl;
+		}
 		teleport(nextportal, false);
 		nextmap = "";
 		nextportal = "";
+		return;
+	}
+	node = mn;
+	if (node["info"]["link"]) {
+		nextmap = node["info"]["link"];
+		cout << "Following link to map " << nextmap << endl;
+		Load();
 		return;
 	}
 	if (!curmap.empty()) {
@@ -112,19 +112,8 @@ void NLS::Map::Load() {
 		Layers[i].Tiles.clear();
 		Layers[i].Objs.clear();
 	}
-	
 	Backgrounds.clear();
 	Foregrounds.clear();
-
-	// check if linked.
-	if (node["info"]["link"]) {
-		int32_t link = node["info"]["link"];
-		node = node[".."][link];
-	}
-
-	if (dialog == nullptr) {
-		dialog = new NLS::ChatDialog();
-	}
 
 	Sprite::Unload();
 	Foothold::Load(node);
@@ -178,14 +167,13 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
 		Life::Npcs[i]->Draw();
 	}
-	for (map<uint32_t, Player *>::iterator iter = Players.begin(); iter != Players.end(); iter++) {
-		iter->second->Draw();
-	}
+
+	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p){p.second->Draw();});
 
 	ThisPlayer->Draw();
-	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
-		Portal::Portals[i]->Draw();
-	}
+
+	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
+
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();
 	}

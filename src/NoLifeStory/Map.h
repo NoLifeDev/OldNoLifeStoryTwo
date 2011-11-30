@@ -23,9 +23,8 @@ namespace NLS {
 		extern vector<Back*> Backgrounds;
 		extern Layer Layers[8];
 		extern vector<Back*> Foregrounds;
-		extern map<uint32_t, Player *> Players;
+		extern map<uint32_t, Player*> Players;
 		extern Sound bgmusic;
 		extern float fade;
-		extern ChatDialog *dialog;
 	}
 }

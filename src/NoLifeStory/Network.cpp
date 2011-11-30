@@ -4,8 +4,6 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-#define DiamondLULZ // For lulz and packets
-
 bool NLS::Network::Online = true;
 bool NLS::Network::Connected = false;
 uint16_t NLS::Network::Version;
@@ -48,9 +46,6 @@ void NLS::Network::Loop() {
 			return false;
 		case sf::Socket::Error:
 			cerr << "Network error occured " << endl;
-#if _WIN32
-			cerr << "[DEBUGINFO] WSAGetLastError: " << WSAGetLastError() << endl;
-#endif
 			Connected = false;
 			Online = false;
 			return false;
@@ -73,22 +68,19 @@ void NLS::Network::Loop() {
 	while (true) {
 		if (initial) {
 			if (ghead) {
-				if (!Receive(header, 2)) {
-					return;
-				}
+				if (!Receive(header, 2)) return;
 				len = *(uint16_t*)header;
 				ghead = false;
 				pos = 0;
 			} else {
-				if (!Receive(data, len)) {
-					return;
-				}
+				if (!Receive(data, len)) return;
 				Packet p(data, len);
 				Version = p.Read<uint16_t>();
 				Patch = p.Read<string>();
 				uint32_t siv = p.Read<uint32_t>();
 				uint32_t riv = p.Read<uint32_t>();
 				Locale = p.Read<uint8_t>();
+				cout << "Connected to server at " << IP << ":" << Port << endl;
 				cout << "Server version: " << Version << endl;
 				cout << "Patch location: " << Patch << endl;
 				cout << "Locale: " << (uint16_t)Locale << endl;
@@ -96,49 +88,29 @@ void NLS::Network::Loop() {
 				cout << "RecvIV: " << riv << endl;
 				memcpy(SendIV, &siv, 4);
 				memcpy(RecvIV, &riv, 4);
-
-				// Initialize handlers...
-				PacketHandlers::RegisterHandlers();
-
-				SendHandshakeOK();
-
-#ifndef DiamondLULZ
-				NLS::Packet packet(0x18);
-				packet.Send();
-#else
-				NLS::Packet packet(0x14);
-				packet.Write<int32_t>(3); // Special Character!
-				packet.Send();
-#endif
-
-				cout << "Connected to server at " << IP << ":" << Port << endl;
+				Handle::Init();
+				Send::Handshake();
+				Send::Pang();
 				initial = false;
 				ghead = true;
 				pos = 0;
 			}
 		} else {
 			if (ghead) {
-				if (!Receive(header, 4)) {
-					return;
-				}
+				if (!Receive(header, 4)) return;
 				uint32_t llen = *(uint32_t*)header;
 				len = (llen>>16)^llen;
 				ghead = false;
 				pos = 0;
 			} else {
-				if (!Receive(data, len)) {
-					return;
-				}
+				if (!Receive(data, len)) return;
 				Packet p(data, len);
 				p.Decrypt();
-				cout << "Packet: " << p.ToString() << endl;
+				cout << "Received Packet: " << p.ToString() << endl;
 				uint16_t opcode = p.Read<uint16_t>();
 				auto& f = p.Handlers[opcode];
-				if (f) {
-					f(p);
-				} else {
-					cerr << "No packet handler for opcode: " << opcode << endl;
-				}
+				if (f) f(p);
+				else cerr << "No packet handler for opcode: " << opcode << endl;
 				ghead = true;
 				pos = 0;
 				break;
@@ -149,26 +121,4 @@ void NLS::Network::Loop() {
 
 void NLS::Network::Unload() {
 
-}
-
-void SendHandshakeOK() {
-	// Depends on the versions.
-	using namespace NLS::Network;
-	if (Locale == 0x08 && Version <= 100) return; // GMS V.100 and lower didn't have this.
-	if (Locale == 0x07 && Version <= 111) return; // MSEA V.111 and lower didn't have this. |NOTSURE|
-
-	uint16_t subversion = atoi(Patch.c_str());
-	uint16_t header = 0;
-	if (Locale == 0x08) {
-		if (Version >= 101) header = 0x14;
-	}
-	else if (Locale == 0x09) {
-		if (Version >= 112) header = 0x01; // No shit!
-	}
-
-	NLS::Packet packet(header);
-	packet.Write<uint8_t>(Locale);
-	packet.Write<uint16_t>(Version);
-	packet.Write<uint16_t>(subversion);
-	packet.Send();
 }
