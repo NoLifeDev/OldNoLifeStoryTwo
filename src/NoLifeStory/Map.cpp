@@ -115,6 +115,8 @@ void NLS::Map::Load() {
 	Backgrounds.clear();
 	Foregrounds.clear();
 
+	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p) { delete p.second; });
+
 	Sprite::Unload();
 	Foothold::Load(node);
 	Tile::Load(node);

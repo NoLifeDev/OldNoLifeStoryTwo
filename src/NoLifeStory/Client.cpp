@@ -96,7 +96,7 @@ bool NLS::Loop() {
 		p.Write<int16_t>(ThisPlayer->x);
 		p.Write<int16_t>(ThisPlayer->y);
 		p.Write<int8_t>(1);
-
+		
 		p.Write<int8_t>(0);
 		p.Write<int16_t>(ThisPlayer->x);
 		p.Write<int16_t>(ThisPlayer->y);
