@@ -12,7 +12,7 @@ int8_t NLS::Map::nextportalID = -1;
 vector<NLS::Back*> NLS::Map::Backgrounds;
 NLS::Map::Layer NLS::Map::Layers[8];
 vector<NLS::Back*> NLS::Map::Foregrounds;
-vector<NLS::Player *> NLS::Map::Players;
+map<uint32_t, NLS::Player *> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
 
@@ -178,9 +178,10 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
 		Life::Npcs[i]->Draw();
 	}
-	for (uint32_t i = 0; i < Players.size(); ++i) {
-		Players[i]->Draw();
+	for (map<uint32_t, Player *>::iterator iter = Players.begin(); iter != Players.end(); iter++) {
+		iter->second->Draw();
 	}
+
 	ThisPlayer->Draw();
 	for (uint32_t i = 0; i < Portal::Portals.size(); ++i) {
 		Portal::Portals[i]->Draw();

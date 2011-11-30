@@ -29,6 +29,7 @@
 #include "ThisPlayer.h"
 #include "Client.h"
 #include "Network.h"
+#include "Packet.h"
 #include "Obj.h"
 #include "Tile.h"
 #include "Back.h"

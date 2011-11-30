@@ -4,11 +4,14 @@
 ////////////////////////////////////////////////////
 
 namespace NLS {
+	class Packet;
 	namespace Network {
 		void Init();
 		void Loop();
 		void Unload();
+		extern sf::TcpSocket Socket;
 		extern bool Online;
+		extern bool Connected;
 		extern uint16_t Version;
 		extern string Patch;
 		extern uint8_t SendIV[4];
@@ -17,69 +20,25 @@ namespace NLS {
 		extern string IP;
 		extern uint16_t Port;
 	}
-	class Packet {
-	public:
-		vector<uint8_t> data;
-		size_t pos;
-		static map<uint16_t, function<void(Packet&)>> Handlers;
-		Packet() : pos(0), data() {}
-		Packet(uint16_t opcode) : pos(0), data() {
-			Write<int32_t>(0);
-			Write<uint16_t>(opcode);
-		}
-		Packet(uint8_t* data, uint16_t len) : pos(0), data(data, data+len) {}
-		void Send();
-		void Encrypt();
-		void Decrypt();
-		string ToString();
-		template <class T>
-		T Read() {
-			T& ret = *(T*)&data[pos];
-			pos += sizeof(T);
-			return ret;
-		}
 
-		string ReadStringLen(int32_t length);
-		template <class T>
-		void Write(T v) {
-			data.insert(data.end(), (uint8_t*)&v, (uint8_t*)&v+sizeof(T));
-		}
-	};
-	template <>
-	inline string Packet::Read<string>() {
-		size_t size = Read<uint16_t>();
-		string s((char*)&data[pos], size);
-		pos += size;
-		return s;
-	}
-	template <>
-	inline bool Packet::Read<bool>() {
-		return Read<uint8_t>() != 0;
-	}
-	inline string Packet::ReadStringLen(int32_t length) {
-		stringstream ret;
-		for (auto i = 0; i < length; i++) {
-			if (data[pos + i] == 0x00) break;
-			ret << (char)data[pos + i];
-		}
-		pos += length;
-		return ret.str();
-	}
-	template <>
-	inline void Packet::Write<string>(string s) {
-		Write<uint16_t>(s.size());
-		data.insert(data.end(), s.begin(), s.end());
-	}
-	inline string Packet::ToString() {
-		std::stringstream out;
-		for (int i = 0; i < data.size(); ++i) {
-			out << hex << uppercase << setw(2) << setfill('0') << (uint16_t)data[i];
-			out << ' ';
-		}
-		return out.str();
-	}
-	template <>
-	inline void Packet::Write<bool>(bool v) {
-		Write<int8_t>(v ? 1 : 0);
+	namespace Locales {
+		// Credits: Vana (Bui)
+		const int8_t Korea = 0x01;
+		const int8_t Japan = 0x03;
+		const int8_t China = 0x05;
+		const int8_t Sea = 0x07;
+		const int8_t Thailand = 0x07;
+		const int8_t Global = 0x08;
+		const int8_t Europe = 0x09;
+		const int8_t Brazil = 0x09;
+		const int8_t Taiwan = 0x3C; // Not sure about this one!
+		const int8_t Vietnam = 0x00;
+
+		const int8_t KoreaTest = 0x02;
+		const int8_t ChinaTest = 0x04;
+		const int8_t GlobalTest = 0x05;
+		const int8_t TaiwanTest = 0x06;
+		const int8_t EuropeTest = 0x00;
+		const int8_t JapanTest = 0x00;
 	}
 }

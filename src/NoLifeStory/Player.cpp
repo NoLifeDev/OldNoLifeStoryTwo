@@ -19,6 +19,7 @@ NLS::Player::Player() : Physics() {
 	nametag.Set(name);
 	guildname = "";
 	guildtag.Set(guildname);
+	left = right = up = down = false;
 }
 
 void NLS::Player::Draw() {
