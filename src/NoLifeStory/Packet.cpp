@@ -207,6 +207,7 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		ThisPlayer->nametag.Set(ThisPlayer->name);
 		Map::nextmap = tostring(mapid);
 		Map::nextportalID = mappos;
+		GoTest = true;
 	}
 }
 

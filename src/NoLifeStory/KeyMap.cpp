@@ -40,6 +40,9 @@ void NLS::Key::Handle(sf::Event e) {
 				return;
 			}
 			break;
+		case sf::Keyboard::M:
+			NLS::tderp += 2;
+			break;
 		case sf::Keyboard::Escape:
 			if (UI::TextBox::Active) {
 				UI::TextBox::Active = nullptr;

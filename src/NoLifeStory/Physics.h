@@ -26,7 +26,7 @@ namespace NLS {
 	};
 
 	struct Movement {
-		int8_t type;
-
+		int8_t type, stance;
+		int16_t x, y, fh;
 	};
 }
