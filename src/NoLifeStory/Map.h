@@ -26,5 +26,6 @@ namespace NLS {
 		extern map<uint32_t, Player*> Players;
 		extern Sound bgmusic;
 		extern float fade;
+		//extern Text scrollingHeader;
 	}
 }

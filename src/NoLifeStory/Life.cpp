@@ -31,7 +31,7 @@ void NLS::Life::Load() {
 			auto str =  WZ["String"]["Npc"][r->id];
 			r->name = (string)str["name"];
 			((Npc*)r)->function = (string)str["func"];
-			((Npc*)r)->functiontag.Set(((Npc*)r)->function);
+			((Npc*)r)->functiontag.Set(((Npc*)r)->function, true);
 			r->speedMin = 30;
 		}
 		else if (type == "m") {
@@ -61,7 +61,7 @@ void NLS::Life::Load() {
 		r->down = false;
 		r->up = false;
 		r->notAPlayer = true;
-		r->nametag.Set(r->name);
+		r->nametag.Set(r->name, true);
 		if (r->data["info"]["link"]) {
 			r->data = r->data[".."][r->data["info"]["link"]];
 			// Linked mobs... common!

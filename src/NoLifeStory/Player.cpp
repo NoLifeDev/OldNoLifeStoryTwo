@@ -18,9 +18,9 @@ NLS::Player::Player() : Physics() {
 	hair = 30000;
 	level = 8;
 	name = "NotYourself";
-	nametag.Set(name);
+	nametag.Set(name, false);
 	guildname = "";
-	guildtag.Set(guildname);
+	guildtag.Set(guildname, false);
 	for (int8_t i = 0; i < 20; i++) {
 		SetItemBySlot(i, 0);
 	}

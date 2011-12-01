@@ -5,7 +5,7 @@
 namespace NLS {
 	class NameTag {
 	public:
-		void Set(const string&);
+		void Set(const string&, bool);
 		void Draw(int x, int y);
 	private:
 		Text t;

@@ -8,7 +8,6 @@ namespace NLS {
 	public:
 		ChatDialog();
 		void Draw();
-
 	private:
 		NLS::Sprite imgTop, imgMiddle, imgBottom;
 		NLS::AniSprite npcImg;

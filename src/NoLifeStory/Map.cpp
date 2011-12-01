@@ -15,6 +15,7 @@ vector<NLS::Back*> NLS::Map::Foregrounds;
 map<uint32_t, NLS::Player*> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
+//NLS::Text NLS::Map::scrollingHeader;
 
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
@@ -47,8 +48,8 @@ void NLS::Map::Load() {
 		}
 	};
 	Node mn;
-	if (nextmap == "MapLogin") {
-		mn = WZ["UI"]["MapLogin"];
+	if (nextmap == "MapLogin" || nextmap == "MapLogin2") {
+		mn = WZ["UI"][nextmap];
 		throw(273);//We don't deal with this shit yet
 	} else {
 		pad(nextmap, '0', 9);
@@ -151,6 +152,7 @@ void NLS::Map::Load() {
 	nextmap = "";
 	nextportal = "";
 	nextportalID = -1;
+	//scrollingHeader.Set(Text::Color(255,255,0)+u32("TEST"), 14);
 }
 
 void NLS::Map::Draw() {
