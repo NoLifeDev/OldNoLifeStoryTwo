@@ -20,6 +20,26 @@ NLS::Player::Player() : Physics() {
 	guildname = "";
 	guildtag.Set(guildname);
 	left = right = up = down = false;
+	for (int8_t i = 0; i < 20; i++) {
+		SetItemBySlot(i, 0);
+	}
+}
+
+void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
+	slotid = abs(slotid);
+	switch (slotid) {
+	case 1: cap = itemid; break;
+	case 2: forehead = itemid; break;
+	case 3: eyeacc = itemid; break;
+	case 4: earacc = itemid; break;
+	case 5: clothes = itemid; break;
+	case 6: pants = itemid; break;
+	case 7: shoes = itemid; break;
+	case 8: gloves = itemid; break;
+	case 9: mantle = itemid; break;
+	case 10: shield = itemid; break;
+	case 11: weapon = itemid; break;
+	}
 }
 
 void NLS::Player::Draw() {
@@ -107,6 +127,8 @@ void NLS::Player::Draw() {
 			parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
 		}
 	}
+	GetEquips(parts);
+
 	struct part {
 		Sprite spr;
 		int z;
@@ -170,4 +192,18 @@ void NLS::Player::Draw() {
 	}
 	nametag.Draw(x, y);
 	guildtag.Draw(x, y+15);
+}
+
+void NLS::Player::GetEquips(vector<Node>& parts) {
+	if (clothes > 0) {
+		if (clothes < 1050000){
+			parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
+		}
+		else {
+			parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
+		}
+	}
+	if (pants > 0) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
+	if (cap > 0) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
+	if (shoes > 0) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);
 }

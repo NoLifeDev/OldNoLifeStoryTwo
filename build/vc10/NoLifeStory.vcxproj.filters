@@ -123,6 +123,9 @@
     <ClInclude Include="..\..\src\NoLifeStory\Packet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\NoLifeStory\GameInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\NoLifeStory\WZ.cpp">

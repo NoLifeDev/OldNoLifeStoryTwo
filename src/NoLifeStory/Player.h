@@ -7,6 +7,7 @@ namespace NLS {
 	public:
 		Player();
 		void Draw();
+		void GetEquips(vector<Node>&);
 		uint32_t charid;
 		uint8_t level, gender;
 		string name;
@@ -24,5 +25,6 @@ namespace NLS {
 		int gloves, pants, belt, ring3;
 		int ring4, shoes, petmp, tamingmob;
 		int saddle, mobequip, petacc, pethp;
+		void SetItemBySlot(int8_t slotid, int32_t itemid);
 	};
 }

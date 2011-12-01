@@ -9,6 +9,7 @@
 
 #include "../SuperGlobal.h"
 #include "Utilities.h"
+#include "GameInfo.h"
 #include "Keys.h"
 #include "KeyMap.h"
 #include "Sprite.h"

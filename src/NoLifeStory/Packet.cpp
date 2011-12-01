@@ -141,6 +141,7 @@ void NLS::Handle::Init() {
 			Packet::Handlers[0x72] = &NLS::Handle::ChangeMap;
 			Packet::Handlers[0x91] = &NLS::Handle::PlayerSpawn;
 			Packet::Handlers[0x92] = &NLS::Handle::PlayerDespawn;
+			Packet::Handlers[0xA7] = &NLS::Handle::PlayerMove;
 		}
 	}
 
@@ -154,6 +155,7 @@ void NLS::Handle::Ping(Packet &p) {
 void NLS::Handle::ChangeMap(Packet &p) {
 	int32_t channel = p.Read<int32_t>();
 	uint8_t portalCount = p.Read<uint8_t>();
+	ThisPlayer->currentPortal = portalCount;
 	bool channelConnect = p.Read<bool>();
 	// Special stuff begin
 	int16_t topMsgs = p.Read<int16_t>();
@@ -219,9 +221,152 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 	player->charid = id;
 	player->name = p.Read<string>();
 	player->guildname = p.Read<string>();
-	player->x = ThisPlayer->x;
-	player->y = ThisPlayer->y;
+	
+	p.Read<int16_t>(); // Guild Emblem BG
+	p.Read<int8_t>(); // Guild Emblem BG Color
+	p.Read<int16_t>(); // Guild Emblem
+	p.Read<int8_t>(); // Guild Emblem Color
+
+
 	// OK THIS IS MADNESS. BRB GUYS
+
+	// ok.. there we go. Started 1-12-2011
+
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+
+	// oh my gah
+
+	uint64_t buffFlags = p.Read<uint64_t>();
+	// gets WvsBeta
+	{
+		using namespace NLS::BuffValueTypes;
+		if (buffFlags & Speed) {
+			p.Read<int8_t>(); // Value
+		}
+		if (buffFlags & ComboAttack) {
+			p.Read<int8_t>(); // Value
+		}
+		if (buffFlags & Charges) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Stun) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Darkness) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Seal) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Weakness) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Curse) {
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & Poison) {
+			p.Read<int16_t>(); // 'value'?
+			p.Read<int32_t>(); // SkillID
+		}
+		if (buffFlags & ShadowPartner) {
+			
+		}
+		if (buffFlags & DarkSight) {
+			
+		}
+		if (buffFlags & SoulArrow) {
+			
+		}
+	}
+	// Ok.. could be worse. Need to handle more types on different versions (V.88 has 2 longs)
+	
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int16_t>();
+	p.Read<int32_t>(); // Static value?
+	
+	p.Read<int16_t>();
+	p.Read<int8_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Static value?
+	
+	p.Read<int16_t>();
+	p.Read<int8_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Static value?
+	
+	p.Read<int16_t>();
+	p.Read<int8_t>();
+	p.Read<int32_t>(); // Mount ID
+	p.Read<int32_t>(); // Mount Skill
+	p.Read<int32_t>(); // Static value?
+
+	p.Read<int8_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Static value?
+	
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Static value?
+
+	p.Read<int8_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Static value?
+	
+	p.Read<int16_t>();
+	p.Read<int8_t>();
+
+	
+	// PLAYER INFO. FINALLY
+	{
+		p.Read<int16_t>(); // Player Job
+		player->gender = p.Read<int8_t>();
+		player->skin = p.Read<int8_t>();
+		player->face = p.Read<int32_t>();
+		p.Read<int8_t>(); // Actually slot 0 for hair!!!
+		player->hair = p.Read<int32_t>();
+		// Shown
+		while (true) {
+			int8_t slot = p.Read<int8_t>();
+			if (slot == -1) break;
+			int32_t itemid = p.Read<int32_t>(); // ItemID
+			player->SetItemBySlot(slot, itemid);
+		}
+		// Hidden
+		while (true) {
+			int8_t slot = p.Read<int8_t>();
+			if (slot == -1) break;
+			p.Read<int32_t>(); // ItemID
+		}
+		p.Read<int32_t>(); // Special Cash Weapon
+
+		p.Read<int32_t>(); // Pet IDs
+		p.Read<int32_t>();
+		p.Read<int32_t>();
+	}
+
+	p.Read<int32_t>();
+	p.Read<int32_t>(); // Item Effect
+	p.Read<int32_t>(); // Chair
+	player->x = p.Read<int16_t>();
+	player->y = p.Read<int16_t>();
+	player->state = player->StanceToString(p.Read<int8_t>());
+	int16_t foothold = p.Read<int16_t>();
+	for (set<Foothold*>::iterator iter = Foothold::begin(); iter != Foothold::end(); iter++) {
+		if ((*iter)->id == foothold) {
+			player->fh = (*iter);
+		}
+	}
+
+	// More to come...
 
 	player->guildtag.Set(player->guildname);
 	player->nametag.Set(player->name);
@@ -231,11 +376,98 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 void NLS::Handle::PlayerDespawn(Packet &p) {
 	// Spawn player
 	uint32_t id = p.Read<uint32_t>();
-	if (Map::Players.find(id) != Map::Players.end()) {
-		Player *plyr = Map::Players[id];
-		Map::Players.erase(id);
-		delete plyr;
-		// TODO remove all other stuff
+	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	if (player == nullptr) return;
+	Map::Players.erase(id);
+	delete player;
+	// TODO: delete other stuff too
+}
+
+void NLS::Handle::PlayerMove(Packet &p) {
+	uint32_t id = p.Read<uint32_t>();
+	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	if (player == nullptr) return;
+	DecodeMovement(p, player);
+}
+
+void NLS::Handle::DecodeMovement(Packet &p, Physics*player) {
+	p.Read<int32_t>(); // Unknown, should be X and Y...?
+
+	uint8_t actions = p.Read<uint8_t>();
+	for (auto i = 0; i < actions; i++) {
+		uint8_t type = p.Read<uint8_t>();
+		Movement move(type);
+		if (move.type == 0 || move.type == 5) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.vx = p.Read<int16_t>();
+			move.vy = p.Read<int16_t>();
+			move.fh = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+			move.t = p.Read<int16_t>();
+		}
+		else if (move.type == 1 || move.type == 2 || move.type == 6 || move.type == 13) {
+			move.vx = p.Read<int16_t>();
+			move.vy = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+			move.fh = p.Read<int16_t>();
+		}
+		else if (move.type == 15) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.vx = p.Read<int16_t>();
+			move.vy = p.Read<int16_t>();
+			p.Read<int16_t>(); // TODO find out
+			move.fh = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+			move.t = p.Read<int16_t>();
+		}
+		else if (move.type == 11) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.fh = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+			move.t = p.Read<int16_t>(); // Not sure
+		}
+		else if (move.type == 10) {
+			p.Read<int8_t>(); // TODO find out
+			continue;
+		}
+		else if (move.type == 16) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.fh = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>(); // I guess
+		}
+		else if (move.type == 17) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.fh = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+			p.Read<int32_t>();
+			move.t = p.Read<int16_t>();
+		}
+		else if (move.type == 12) {
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.fh = p.Read<int16_t>();
+			move.t = p.Read<int16_t>(); // NOT SURE
+		}
+		else if (move.type == 14) { // NOT SURE
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.vx = p.Read<int16_t>();
+			move.vy = p.Read<int16_t>();
+			move.t = p.Read<int16_t>();
+		}
+		else if (move.type == 3 || move.type == 4 || (move.type >= 7 && move.type <= 9)) { // NOT SURE
+			move.x = p.Read<int16_t>();
+			move.y = p.Read<int16_t>();
+			move.vx = p.Read<int16_t>();
+			move.vy = p.Read<int16_t>();
+			move.stance = p.Read<int8_t>();
+		}
+		player->moves.push_back(move);
 	}
 }
 
@@ -245,11 +477,12 @@ void NLS::Send::Pong() {
 }
 
 void NLS::Send::Pang() {
-		NLS::Packet packet(0x14);
-		packet.Write<int32_t>(3); // Special Character!
-		packet.Send();
-		//NLS::Packet packet(0x18);
-		//packet.Send();
+	// Loading special character for local testserver.
+	NLS::Packet packet(0x14);
+	packet.Write<int32_t>(3); // Special Character!
+	packet.Send();
+	//NLS::Packet packet(0x18);
+	//packet.Send();
 }
 
 void NLS::Send::Handshake() {
@@ -270,5 +503,93 @@ void NLS::Send::Handshake() {
 	packet.Write<uint16_t>(Network::Version);
 	packet.Write<uint16_t>(subversion);
 	packet.Send();
+}
+
+void NLS::Send::PlayerMove() {
+	NLS::Packet p(0x28);
+	p.Write<int8_t>(ThisPlayer->currentPortal);
+	p.Write<int32_t>(0); // Move X and Y??
+	p.Write<int16_t>(ThisPlayer->x);
+	p.Write<int16_t>(ThisPlayer->y);
+	p.Write<int8_t>(ThisPlayer->moves.size());
+
+	for (auto i = 0; i < ThisPlayer->moves.size(); i++) {
+		Movement move = ThisPlayer->moves[i];
+		p.Write<int8_t>(move.type);
+		if (move.type == 0 || move.type == 5) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.vx);
+			p.Write<int16_t>(move.vy);
+			p.Write<int16_t>(move.fh);
+			p.Write<int8_t>(move.stance);
+			p.Write<int16_t>(move.t);
+		}
+		else if (move.type == 1 || move.type == 2 || move.type == 6 || move.type == 13) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int8_t>(move.stance);
+			p.Write<int16_t>(move.fh);
+		}
+		else if (move.type == 15) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.vx);
+			p.Write<int16_t>(move.vy);
+			p.Write<int16_t>(0); // TODO find out
+			p.Write<int16_t>(move.fh);
+			p.Write<int8_t>(move.stance);
+			p.Write<int16_t>(move.t);
+		}
+		else if (move.type == 11) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.fh);
+			p.Write<int8_t>(move.stance);
+			p.Write<int16_t>(move.t); // Not sure
+		}
+		else if (move.type == 10) {
+			p.Write<int8_t>(0); // TODO find out
+		}
+		else if (move.type == 16) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.fh);
+			p.Write<int8_t>(move.stance); // I guess
+		}
+		else if (move.type == 17) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.fh);
+			p.Write<int8_t>(move.stance);
+			p.Write<int32_t>(0);
+			p.Write<int16_t>(move.t);
+		}
+		else if (move.type == 12) {
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.fh);
+			p.Write<int16_t>(move.t); // NOT SURE
+		}
+		else if (move.type == 14) { // NOT SURE
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.vx);
+			p.Write<int16_t>(move.vy);
+			p.Write<int16_t>(move.t);
+		}
+		else if (move.type == 3 || move.type == 4 || (move.type >= 7 && move.type <= 9)) { // NOT SURE
+			p.Write<int16_t>(move.x);
+			p.Write<int16_t>(move.y);
+			p.Write<int16_t>(move.vx);
+			p.Write<int16_t>(move.vy);
+			p.Write<int8_t>(move.stance);
+		}
+	}
+	p.Write<int64_t>(0);
+	p.Write<int64_t>(0);
+	p.Write<int64_t>(0);
+	p.Send();
+	ThisPlayer->moves.clear();
 }
 #pragma endregion

@@ -46,11 +46,43 @@ void NLS::Physics::Init() {
 	Node n = WZ["Map"]["Physics"];
 }
 
-NLS::Physics::Physics() : notAPlayer(false), speedMin(0) {
+string NLS::Physics::StanceToString(int8_t stance) {
+	// Stances
+	// +1 for look
+	// 0 = walk
+	// 2 = walk
+	// 4 = stand
+	// 6 = jump
+	// 8 = alert
+	// 10 = prone
+	// 12 = swim
+	// 14 = climb
+	// 16 = ropeclimb
+	// 18 = dead
+	// 20 = chairsit
+	// 22... = walk
+
+	stance -= stance % 2;
+	switch (stance) {
+	case 2: return string("walk2");
+	case 4: return string("stand1");
+	case 6: return string("jump");
+	case 8: return string("alert");
+	case 10: return string("prone");
+	case 12: return string("fly");
+	case 14: return string("ladder");
+	case 16: return string("rope");
+	case 18: return string("dead");
+	case 20: return string("chair");
+	default: return string("walk1");
+	}
+}
+
+NLS::Physics::Physics() : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
 	Reset(0, 0);
 }
 
-NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0) {
+NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
 	Reset(x, y);
 }
 
@@ -456,6 +488,76 @@ void NLS::Physics::Update() {
 			vx = 0;
 		}
 	}
+	
+	if (control) {
+		int32_t now = clock();
+		if (now - 30 >= lastAction) {
+			lastAction = now;
+			if (down && !didLieDown) {
+				didLieDown = true;
+				AddMovement(0);
+			}
+			else if (!down && didLieDown) {
+				didLieDown = false;
+				AddMovement(0);
+			}
+			if (x != lastx || y != lasty) {
+				lastx = x;
+				lasty = y;
+				AddMovement(0);
+			}
+		}
+	}
+	else {
+		if (moves.size() == 0) return;
+		Movement currentMovement = moves.front();
+		double dx = (double)currentMovement.x, dy = (double)currentMovement.y;
+		bool hasx = x >= dx - 1.0 && x <= dx + 1.0;
+		bool hasy = y >= dy - 1.0 && y <= dy + 1.0;
+		if (currentMovement.type == 0) { // Walk
+			if (hasx && hasy) {
+				moves.erase(moves.begin());
+			}
+			if (!hasx) {
+				// Get facing direction
+				//f = currentMovement.stance % 2;
+				if (x < dx) {
+					right = true;
+					left = up = down = false;
+				}
+				else if (x > dx) {
+					left = true;
+					right = up = down = false;
+				}
+			}
+			if (true /*currentMovement.stance / 2 == 16 || currentMovement.stance / 2 == 18*/) {
+				if (y > dy) {
+					up = true;
+					down = false;
+				}
+				else if (y < dy) {
+					up = false;
+					down = true;
+				}
+			}
+			else {
+				up = down = false;
+			}
+		}
+		else if (currentMovement.type == 1) {
+			Jump(); // lol
+			moves.erase(moves.begin());
+		}
+		else if (currentMovement.type == 14) {
+			down = true;
+			Jump(); // lol
+			moves.erase(moves.begin());
+		}
+		if (moves.size() == 0) {
+			left = right = up = down = false;
+			return;
+		}
+	}
 }
 
 void NLS::Physics::MouseFly() {
@@ -499,4 +601,16 @@ void NLS::Physics::Jump() {
 	} else if (flying) {
 		vy = (int)Map::node["info"]["swim"]?-shoe::swimSpeedV*wat3:-shoe::flySpeed*flySpeed;
 	}
+}
+
+void NLS::Physics::AddMovement(int8_t action) {
+	int16_t fhid = ThisPlayer->fh == nullptr ? 0 : ThisPlayer->fh->id;
+	int16_t retf = !f;
+	if (lr != nullptr) retf += 14;
+	else if (fh == nullptr) retf += 6;
+	else if (left || ThisPlayer->right) retf += 0;
+	else if (down) retf += 10;
+	else retf += 4;
+
+	moves.push_back(Movement(action, retf, x, y, fhid, 30));
 }

@@ -68,10 +68,13 @@ namespace NLS {
 		void ChangeMap(Packet&);
 		void PlayerSpawn(Packet&);
 		void PlayerDespawn(Packet&);
+		void PlayerMove(Packet&);
+		void DecodeMovement(Packet&, Physics*);
 	}
 	namespace Send {
 		void Pong();
 		void Pang();
 		void Handshake();
+		void PlayerMove();
 	}
 }

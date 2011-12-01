@@ -88,43 +88,13 @@ bool NLS::Loop() {
 	Network::Loop();
 
 	static int derpi = 0;
-	if (GoTest && clock() - 50 >= derpi) {
-		derpi = clock();
-		NLS::Packet p(0x28);
-		p.Write<int8_t>(1);
-		p.Write<int32_t>(0); // Move X and Y??
-		p.Write<int16_t>(ThisPlayer->x);
-		p.Write<int16_t>(ThisPlayer->y);
-		p.Write<int8_t>(1);
-		
-		p.Write<int8_t>(0);
-		p.Write<int16_t>(ThisPlayer->x);
-		p.Write<int16_t>(ThisPlayer->y);
-		p.Write<int32_t>(12);
-		p.Write<int16_t>(ThisPlayer->fh == nullptr ? 0 : ThisPlayer->fh->id);
-		// 0 = walk
-		// 2 = walk
-		// 4 = stand
-		// 6 = fly
-		// 8 = alert
-		// 10 = lie
-		// 12 = swim
-		// 14 = climb
-		// 16 = ropeclimb
-		// 18 = dead
-		// 20 = chairsit
-		int16_t f = !ThisPlayer->f;
-		if (ThisPlayer->lr != nullptr) f += 14;
-		else if (ThisPlayer->fh == nullptr) f += 6;
-		else if (ThisPlayer->left || ThisPlayer->right) f += 0;
-		else if (ThisPlayer->down) f += 10;
-		else f += 4;
-		p.Write<int16_t>(f);
-		p.Write<int16_t>(90);
-		p.Write<int64_t>(0);
-		p.Write<int64_t>(0);
-		p.Write<int64_t>(0);
-		p.Send();
+	int32_t now = clock();
+	// 500 msecs for new change
+	if (GoTest && now - 500 >= derpi) {
+		derpi = now;
+		if (ThisPlayer->moves.size() > 0) {
+			Send::PlayerMove();
+		}
 	}
 
 	return window->IsOpened();

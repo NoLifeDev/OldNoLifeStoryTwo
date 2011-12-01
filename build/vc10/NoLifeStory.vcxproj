@@ -105,6 +105,7 @@
     <ClInclude Include="..\..\src\AES.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Chat.h" />
     <ClInclude Include="..\..\src\NoLifeStory\ChatDialog.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\GameInfo.h" />
     <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Life.h" />
