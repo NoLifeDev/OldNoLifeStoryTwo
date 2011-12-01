@@ -365,6 +365,8 @@ void NLS::Img::Parse() {
 					file->seekg(temp);
 					break;
 				}
+			case 0xFE://WZ[Map][Obj][acc4][toyCastle2][machine][] - Why?
+				return;
 			default:
 				cerr << "Unknown Property type" << endl;
 				throw(273);

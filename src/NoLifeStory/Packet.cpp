@@ -362,12 +362,14 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 	player->state = player->StanceToString(stance);
 	player->f = !(stance % 2);
 	int16_t foothold = p.Read<int16_t>();
-	for (set<Foothold*>::iterator iter = Foothold::begin(); iter != Foothold::end(); iter++) {
-		if ((*iter)->id == foothold) {
-			player->fh = (*iter);
-		}
+	auto it = find_if(Foothold::begin(), Foothold::end(), [&](Foothold* fh){return fh->id == foothold;});
+	if (it != Foothold::end()) {
+		player->fh = *it;
+		player->r = pdis(player->x, player->y, player->fh->x1, player->fh->y1);
+	} else {
+		player->fh = nullptr;
 	}
-	
+	//Ladders? Velocity?
 
 	// More to come...
 
@@ -501,7 +503,7 @@ void NLS::Send::Handshake() {
 	if (Network::Locale == 0x08 && Network::Version <= 100) return; // GMS V.100 and lower didn't have this.
 	if (Network::Locale == 0x07 && Network::Version <= 111) return; // MSEA V.111 and lower didn't have this. |NOTSURE|
 
-	uint16_t subversion = atoi(Network::Patch.c_str());
+	uint16_t subversion = toint(Network::Patch);
 	uint16_t header = 0;
 	if (Network::Locale == 0x08) {
 		if (Network::Version >= 101) header = 0x14;

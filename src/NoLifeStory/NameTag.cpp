@@ -22,7 +22,7 @@ void NLS::NameTag::Draw(int x, int y) {
 		int r = x+xm+3;
 		int t = y+5;
 		int b = y+18;
-		glColor4f(0, 0, 0, 0.7);
+		glColor4f(0, 0, 0, 0.7f);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBegin(GL_QUADS);
 		glVertex2i(l, t);

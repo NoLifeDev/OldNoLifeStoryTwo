@@ -80,7 +80,7 @@ void NLS::Map::Load() {
 		Load();
 		return;
 	}
-	if (!curmap.empty()) {
+	if (!curmap.empty() and !Profiling) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
 		glBlendFunc(GL_ONE, GL_ONE);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -116,7 +116,8 @@ void NLS::Map::Load() {
 	Backgrounds.clear();
 	Foregrounds.clear();
 
-	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p) { delete p.second; });
+	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p) {delete p.second;});
+	Players.clear();
 
 	Sprite::Unload();
 	Foothold::Load(node);

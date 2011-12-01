@@ -4,6 +4,9 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+bool NLS::Profiling = false;
+vector<string> NLS::ProfileMaps;
+
 void NLS::Config::Load() {
 	ifstream file("client.config");
 	if (!file.is_open()) return LoadDefault();
@@ -23,6 +26,8 @@ void NLS::Config::Load() {
 			Network::IP = value;
 		} else if (key == "ms_port") {
 			Network::Port = atoi(value.c_str());
+		} else if (key == "profile") {
+			Profiling = value == "true";
 		}
 	}
 	Config::Save();
@@ -39,11 +44,9 @@ void NLS::Config::LoadDefault() {
 void NLS::Config::Save() {
 	ofstream file("client.config");
 	if (!file.is_open()) return;
-
 	auto Write = [&](string key, string value){
 		file << key << "=" << value << endl;
 	};
-
 	for_each(Paths.begin(), Paths.end(), [&](path s){Write("path", s);});
 	Write("mindfuck", Mindfuck?"true":"false");
 	Write("fullscreen", Fullscreen?"true":"false");
@@ -55,4 +58,5 @@ void NLS::Config::Save() {
 	}
 	Write("ms_ip", Network::IP);
 	Write("ms_port", tostring(Network::Port));
+	Write("profile", Profiling?"true":"false");
 }

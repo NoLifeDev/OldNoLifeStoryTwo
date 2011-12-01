@@ -19,6 +19,6 @@ namespace NLS {
 		u32string text;
 		int fsize;
 		int width, height;
-		sf::RenderTexture* tex;
+		sf::Texture tex;
 	};
 }

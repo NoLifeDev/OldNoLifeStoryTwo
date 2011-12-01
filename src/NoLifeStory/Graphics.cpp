@@ -123,7 +123,7 @@ void NLS::Graphics::Draw() {
 	UI::Draw();
 	Mouse::Draw();
 	Time::Step();
-	if (Map::fade > 0) {
+	if (Map::fade > 0 and !Profiling) {
 		glBlendEquation(GL_FUNC_REVERSE_SUBTRACT);
 		glBlendFunc(GL_ONE, GL_ONE);
 		glBindTexture(GL_TEXTURE_2D, 0);

@@ -82,7 +82,7 @@ void NLS::Network::Loop() {
 				Locale = p.Read<uint8_t>();
 				cout << "Connected to server at " << IP << ":" << Port << endl;
 				cout << "Server version: " << Version << endl;
-				cout << "Patch location: " << Patch << endl;
+				cout << "Minor version: " << Patch << endl;
 				cout << "Locale: " << (uint16_t)Locale << endl;
 				cout << "SendIV: " << siv << endl;
 				cout << "RecvIV: " << riv << endl;

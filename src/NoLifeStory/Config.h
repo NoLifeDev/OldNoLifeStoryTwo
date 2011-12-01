@@ -9,4 +9,6 @@ namespace NLS {
 		void LoadDefault();
 		void Save();
 	}
+	extern bool Profiling;
+	extern vector<string> ProfileMaps;
 }

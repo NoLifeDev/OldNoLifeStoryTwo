@@ -49,7 +49,17 @@ void NLS::Init() {
 	} else {
 		MainChat << Text::Color(255, 20, 50) << "[INFO] Not connected with any MapleStory server!" << cendl;
 	}
-	Map::Load("100000000", "");
+	if (Profiling) {
+		Node n = WZ["Map"]["Map"];
+		for (int i = 0; i < 10; i++) {
+			Node nn = n["Map"+tostring(i)];
+			if (nn)
+			for_each(nn.begin(), nn.end(), [](pair<string, Node> p){
+				ProfileMaps.push_back(p.first);
+			});
+		}
+	}
+	Map::Load("0", "");
 	Map::Load();
 }
 
@@ -82,6 +92,11 @@ bool NLS::Loop() {
 		}
 	}
 	Graphics::Draw();
+	if (Profiling) {
+		if (ProfileMaps.empty()) return false;
+		Map::Load(ProfileMaps.back(), "");
+		ProfileMaps.pop_back();
+	}
 	if (!Map::nextmap.empty()) {
 		Map::Load();
 	}

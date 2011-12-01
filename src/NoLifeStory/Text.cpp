@@ -5,10 +5,13 @@
 #include "Global.h"
 
 sf::Font* font;
+sf::RenderTexture* rtex;
 
 void NLS::Text::Init() {
 	font = new sf::Font();
 	font->LoadFromFile("font.ttf");
+	rtex = new sf::RenderTexture();
+	rtex->Create(512, 512);
 }
 void NLS::Text::Unload() {
 	delete font;
@@ -26,11 +29,9 @@ u32string NLS::Text::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 NLS::Text::Text() {
 	width = 0;
 	height = 0;
-	tex = nullptr;
 }
 
 NLS::Text::~Text() {
-	if (tex) delete tex;
 }
 
 void NLS::Text::Set(u32string str, int size) {
@@ -76,9 +77,8 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	x = 0;
 	y = fsize;
-	if (!tex) tex = new sf::RenderTexture();
-	tex->Create(width, height);
-	tex->SetActive();
+	tex.Create(width, height);
+	rtex->SetActive();
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_BLEND);
@@ -125,8 +125,10 @@ void NLS::Text::Set(u32string str, int size) {
 		x += advance;
 	}
 	glEnd();
-	tex->Display();
+	rtex->Display();
 	window->SetActive();
+	tex.Bind();
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
 }
 
 int NLS::Text::Width() {
@@ -139,12 +141,11 @@ int NLS::Text::Height() {
 
 void NLS::Text::Draw(int x, int y) {
 	if (text.empty()) return;
-	if (!tex) return;
 	glPushMatrix();
 	glTranslatef(x, y, 0);
 	glColor4f(1, 1, 1, 1);
-	tex->GetTexture().Bind();
-	const auto& b = tex->GetTexture().GetTexCoords(sf::IntRect(0, 0, width, height));
+	tex.Bind();
+	const auto& b = tex.GetTexCoords(sf::IntRect(0, 0, width, height));
 	glBegin(GL_QUADS);
 	glTexCoord2f(b.Left, b.Top);
 	glVertex2i(0, 0);
