@@ -24,7 +24,7 @@ namespace Functors {
 }
 */
 void NLS::UI::Init() {
-	
+	new StatusBar();
 }
 void NLS::UI::Draw() {
 	for_each(Window::begin(), Window::end(), [](Window* w){
@@ -32,12 +32,22 @@ void NLS::UI::Draw() {
 	});
 }
 
+NLS::UI::Window::Window(int x, int y, int width, int height, bool focusable, bool stealsfocus)
+	: x(x), y(y), width(width), height(height), focusable(focusable), stealsfocus(stealsfocus) {
+	All.push_back(this);
+}
+NLS::UI::Window::~Window() {
+	All.erase(find(begin(), end(), this));
+}
+void NLS::UI::Window::Add(Element* e) {
+	Elements.push_back(e);
+	e->parent = this;
+}
 void NLS::UI::Window::Draw() {
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
 		e->Draw();
 	});
 }
-
 void NLS::UI::Window::Focus() {
 	if (!focusable) return;
 	if (All.back() == this) return;
@@ -49,6 +59,63 @@ void NLS::UI::Window::Focus() {
 	}
 	All.erase(it);
 	All.push_back(this);
+}
+NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false), text(20, 20, 400) {
+	Add(&text);
+	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
+}
+void NLS::UI::StatusBar::Draw() {
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+	glColor4f((float)rand()/RAND_MAX, (float)rand()/RAND_MAX, (float)rand()/RAND_MAX, 1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBegin(GL_QUADS);
+	glVertex2i(0, 0);
+	glVertex2i(width, 0);
+	glVertex2i(width, height);
+	glVertex2i(0, height);
+	glEnd();
+	glPopMatrix();
+	Window::Draw();
+}
+void NLS::UI::TextBox::Send() {
+	Map::Load(u8(str), "");
+	str.clear();
+	text.Set(str, 12);
+}
+void NLS::UI::TextBox::HandleChar(char32_t key) {
+	switch (key) {
+	case '\r':
+	case '\n':
+		return;
+	case '\b':
+		if (!str.empty()) str.erase(str.end());
+		return;
+	}
+	str += key;
+	cout << key << endl;
+	text.Set(str, 12);
+}
+void NLS::UI::TextBox::Draw() {
+	if (Active) {
+		Key::Left = false;
+		Key::Right = false;
+		Key::Up = false;
+		Key::Down = false;
+	}
+	glPushMatrix();
+	glTranslatef(CalcX(), CalcY(), 0);
+	if (Active != this) glColor4f((float)rand()/RAND_MAX, (float)rand()/RAND_MAX, (float)rand()/RAND_MAX, 1);
+	else glColor4f(1, 1, 1, 1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBegin(GL_QUADS);
+	glVertex2i(0, 0);
+	glVertex2i(width, 0);
+	glVertex2i(width, height);
+	glVertex2i(0, height);
+	glEnd();
+	text.Draw(3, 3);
+	glPopMatrix();
 }
 	/*
 	NLS::UI::Window *window = new NLS::UI::Window();

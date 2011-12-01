@@ -4,7 +4,8 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-map<int32_t, string> NLS::Player::emotes;
+array<string, 23> emotes = {"default", "hit", "smile", "troubled", "cry", "angry", "bewildered", "stunned", "vomit", "oops", "cheers"
+							"chu", "wink", "pain", "glitter", "blaze", "shine", "love", "despair", "hum", "bowing", "hot", "dam"};
 
 NLS::Player::Player() : Physics() {
 	state = "jump";
@@ -17,57 +18,41 @@ NLS::Player::Player() : Physics() {
 	face = 20000;
 	hair = 30000;
 	level = 8;
-	name = "NotYourself";
-	nametag.Set(name, false);
+	name = "NoLifer";
+	nametag.Set(name, NameTag::Normal);
 	guildname = "";
-	guildtag.Set(guildname, false);
+	guildtag.Set(guildname, NameTag::Normal);
 	for (int8_t i = 0; i < 20; i++) {
 		SetItemBySlot(i, 0);
 	}
-	lastEmote = "default";
 }
 
-void NLS::Player::Init() {
-	emotes[0] = "default";
-	emotes[1] = "hit";
-	emotes[2] = "smile";
-    emotes[3] = "troubled";
-	emotes[4] = "cry";
-	emotes[5] = "angry";
-	emotes[6] = "bewildered";
-	emotes[7] = "stunned";
-	emotes[8] = "vomit";
-	emotes[9] = "oops";
-	emotes[10] = "cheers";
-	emotes[11] = "chu";
-	emotes[12] = "wink";
-	emotes[13] = "pain";
-	emotes[14] = "glitter";
-	emotes[15] = "blaze";
-	emotes[16] = "shine";
-	emotes[17] = "love";
-	emotes[18] = "despair";
-	emotes[19] = "hum";
-	emotes[20] = "bowing";
-	emotes[21] = "hot";
-	emotes[22] = "dam";
+void NLS::Player::Init() {}
+
+string NLS::Player::GetEmoteNameByID(int id) {
+	if (id > 22 or id < 0) return emotes[0];
+	return emotes[id];
 }
 
-string NLS::Player::GetEmoteNameByID(int32_t id) {
-	return emotes.find(id) == emotes.end() ? emotes[0] : emotes[id];
+int NLS::Player::GetEmoteIDByName(string name) {
+	auto it = find(emotes.begin(), emotes.end(), name);
+	if (it != emotes.end()) return it-emotes.begin();
+	return 0;
 }
 
-int32_t NLS::Player::GetEmoteIDByName(string name) {
-	for (map<int32_t, string>::iterator iter = emotes.begin(); iter != emotes.end(); iter++) {
-		if (iter->second == name) {
-			return iter->first;
-		}
+void NLS::Player::ChangeEmote(int id) {
+	string newemo = GetEmoteNameByID(id);
+	if (control) Send::PlayerEmote(GetEmoteIDByName(newemo));
+	if (newemo != emote) {
+		emotee = 0;
+		emotef = 0;
+		emoted = 0;
+		emote = newemo;
 	}
-	return 0; // Default.
 }
 
 void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
-	slotid = abs(slotid);
+	slotid = abs(slotid);//Who sends negative stuff?
 	switch (slotid) {
 	case 1: cap = itemid; break;
 	case 2: forehead = itemid; break;
@@ -86,14 +71,6 @@ void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
 void NLS::Player::Draw() {
 	Physics::Update();
 	if (y > View::ymax+1000) Map::Load("999999999", "sp");
-
-	if (emote != lastEmote && emote != "blink" && control) {
-		lastEmote = emote;
-		emotee = 0;
-		emotef = 0;
-		Send::PlayerEmote(GetEmoteIDByName(emote));
-	}
-
 	if (emote != "default") {
 		emoted += Time::delta*1000;
 		emotee += Time::delta*1000;
@@ -108,14 +85,15 @@ void NLS::Player::Draw() {
 				}
 			}
 		}
-		if (control && emotee > 4000) {
-			emote = "default";
-			emotee = 0;
+		if (control and emotee > 4000) {
+			ChangeEmote(0);
 		}
 	} else {
 		if (rand()%5000 < Time::delta*1000) {
 			emote = "blink";
 			emotee = 0;
+			emoted = 0;
+			emotef = 0;
 		}
 	}
 	if (!lr or (up^down)) {
@@ -150,17 +128,18 @@ void NLS::Player::Draw() {
 		delay = 0;
 		if (weird) {
 			frame--;
-			if (frame == -1) {
-				weird = false;
-				frame = 0;
-			}
-		}
-		else {
+			if (!frame)	weird = false;
+		} else {
 			frame++;
-			if (!skinData[state][frame]) {
-				weird = true;
-				frame--;
-			}
+			weird = false;
+		}
+	}
+	if (!skinData[state][frame]) {
+		if (state == "stand1" or state == "stand2") {
+			frame = 1;
+			weird = true;
+		} else {
+			frame = 0;
 		}
 	}
 	Node zmap = WZ["zmap"];
@@ -168,14 +147,16 @@ void NLS::Player::Draw() {
 	parts.push_back(skinData[state][frame]);
 	parts.push_back(headData[state][frame]);
 	parts.push_back(WZ["Character"]["Hair"][tostring(hair, 8)][state][frame]);
-	if ((int)skinData[state][frame]["face"]) {
-		if (emote == "default") {
-			parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
-		} else {
-			parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
-		}
-	}
-	GetEquips(parts);
+	//You jelly of my braceless ifs?
+	if ((int)skinData[state][frame]["face"])
+	if (emote == "default") parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
+	else parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
+	if (clothes)
+	if (clothes < 1050000) parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
+	else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
+	if (pants) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
+	if (cap) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
+	if (shoes) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);
 
 	struct part {
 		Sprite spr;
@@ -194,12 +175,8 @@ void NLS::Player::Draw() {
 	maps["navel"].y = y+(double)base["body"]["map"]["navel"]["y"];
 	for (auto it = parts.begin(); it != parts.end(); ++it) {
 		Node n = *it;
-		if (!n) {
-			continue;
-		}
-		if (n["action"]) {
-			n = n[".."][".."][n["action"]][n["frame"]];
-		}
+		if (!n) continue;
+		if (n["action"]) n = n[".."][".."][n["action"]][n["frame"]];
 		for (auto it = n.begin(); it != n.end(); ++it) {
 			string name = it->first;
 			Node nn = it->second;
@@ -240,18 +217,4 @@ void NLS::Player::Draw() {
 	}
 	nametag.Draw(x, y);
 	guildtag.Draw(x, y+15);
-}
-
-void NLS::Player::GetEquips(vector<Node>& parts) {
-	if (clothes > 0) {
-		if (clothes < 1050000){
-			parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
-		}
-		else {
-			parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
-		}
-	}
-	if (pants > 0) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
-	if (cap > 0) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
-	if (shoes > 0) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);
 }

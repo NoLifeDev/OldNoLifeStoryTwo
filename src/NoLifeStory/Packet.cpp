@@ -207,7 +207,7 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		int32_t mapid = p.Read<int32_t>();
 		int8_t mappos = p.Read<int8_t>();
 
-		ThisPlayer->nametag.Set(ThisPlayer->name, false);
+		ThisPlayer->nametag.Set(ThisPlayer->name, NameTag::Normal);
 		Map::nextmap = tostring(mapid);
 		Map::nextportalID = mappos;
 	}
@@ -371,8 +371,8 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 
 	// More to come...
 
-	player->guildtag.Set(player->guildname, false);
-	player->nametag.Set(player->name, false);
+	player->guildtag.Set(player->guildname, NameTag::Normal);
+	player->nametag.Set(player->name, NameTag::Normal);
 	Map::Players[id] = player;
 }
 

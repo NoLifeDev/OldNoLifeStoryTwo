@@ -19,6 +19,7 @@ inline string u8(const u32string& str) {
 }
 
 inline void pad(string& str, char c, size_t l) {
+	if (str.size() >= l) return;
 	str.insert(0, l-str.size(), c);
 }
 inline vector<string> split(const string& str, char c) {

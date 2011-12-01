@@ -59,6 +59,7 @@ bool NLS::Loop() {
 		switch (e.Type) {
 		case sf::Event::TextEntered:
 		case sf::Event::KeyPressed:
+		case sf::Event::KeyReleased:
 			Key::Handle(e);
 			break;
 		case sf::Event::MouseButtonPressed:

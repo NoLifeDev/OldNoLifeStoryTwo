@@ -3,13 +3,16 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 #include "Global.h"
-void NLS::NameTag::Set(const string& s, bool life) {
-	u32string text;
-	if (life) text += Text::Color(255, 255, 0);
-	else text += Text::Color(255, 255, 255);
-	text += u32(s);
-
-	t.Set(text, 12);
+void NLS::NameTag::Set(const string& str, Style style) {
+	switch (style) {
+	case Normal:
+	default:
+		t.Set(Text::Color(255, 255, 255)+u32(str), 12);
+		break;
+	case Life:
+		t.Set(Text::Color(255, 255, 0)+u32(str), 12);
+		break;
+	}
 }
 void NLS::NameTag::Draw(int x, int y) {
 	if (!t.Width()) return;

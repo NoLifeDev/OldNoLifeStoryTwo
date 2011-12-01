@@ -5,9 +5,14 @@
 namespace NLS {
 	class NameTag {
 	public:
-		void Set(const string&, bool);
+		enum Style {
+			Normal,
+			Life
+		};
+		void Set(const string&, Style);
 		void Draw(int x, int y);
 	private:
 		Text t;
+		Style s;
 	};
 }

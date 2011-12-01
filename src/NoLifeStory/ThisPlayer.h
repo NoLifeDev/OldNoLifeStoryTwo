@@ -8,7 +8,6 @@ namespace NLS {
 		_ThisPlayer();
 		void Draw();
 		void UsePortal();
-		void CheckEmoteKey();
 		double pdelay;
 		uint8_t currentPortal;
 	};

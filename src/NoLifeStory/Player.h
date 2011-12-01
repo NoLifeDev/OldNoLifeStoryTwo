@@ -7,7 +7,6 @@ namespace NLS {
 	public:
 		Player();
 		void Draw();
-		void GetEquips(vector<Node>&);
 		uint32_t charid;
 		uint8_t level, gender;
 		string name;
@@ -25,11 +24,10 @@ namespace NLS {
 		int gloves, pants, belt, ring3;
 		int ring4, shoes, petmp, tamingmob;
 		int saddle, mobequip, petacc, pethp;
-		string lastEmote;
+		void ChangeEmote(int id);
 		void SetItemBySlot(int8_t slotid, int32_t itemid);
-		static string GetEmoteNameByID(int32_t id);
-		static int32_t GetEmoteIDByName(string name);
-		static map<int32_t, string> emotes;
+		static string GetEmoteNameByID(int id);
+		static int GetEmoteIDByName(string name);
 		static void Init();
 	};
 }
