@@ -5,8 +5,6 @@
 #include "Global.h"
 
 bool NLS::Mindfuck = false;
-bool NLS::GoTest = false;
-int16_t NLS::tderp = 0;
 float bgVolume;
 
 void NLS::Init() {
@@ -34,6 +32,7 @@ void NLS::Init() {
 		BASS_ChannelPlay(s, true);
 	}
 	Text::Init();
+	Player::Init();
 	ThisPlayer = new _ThisPlayer;
 	View::Init();
 	Mouse::Init();
@@ -86,17 +85,6 @@ bool NLS::Loop() {
 		Map::Load();
 	}
 	Network::Loop();
-
-	static int derpi = 0;
-	int32_t now = clock();
-	// 500 msecs for new change
-	if (GoTest && now - 500 >= derpi) {
-		derpi = now;
-		if (ThisPlayer->moves.size() > 0) {
-			Send::PlayerMove();
-		}
-	}
-
 	return window->IsOpened();
 }
 

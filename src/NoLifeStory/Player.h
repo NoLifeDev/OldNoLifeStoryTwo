@@ -25,6 +25,11 @@ namespace NLS {
 		int gloves, pants, belt, ring3;
 		int ring4, shoes, petmp, tamingmob;
 		int saddle, mobequip, petacc, pethp;
+		string lastEmote;
 		void SetItemBySlot(int8_t slotid, int32_t itemid);
+		static string GetEmoteNameByID(int32_t id);
+		static int32_t GetEmoteIDByName(string name);
+		static map<int32_t, string> emotes;
+		static void Init();
 	};
 }

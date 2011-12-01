@@ -142,6 +142,7 @@ void NLS::Handle::Init() {
 			Packet::Handlers[0x91] = &NLS::Handle::PlayerSpawn;
 			Packet::Handlers[0x92] = &NLS::Handle::PlayerDespawn;
 			Packet::Handlers[0xA7] = &NLS::Handle::PlayerMove;
+			Packet::Handlers[0xAF] = &NLS::Handle::PlayerEmote;
 		}
 	}
 
@@ -209,7 +210,6 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		ThisPlayer->nametag.Set(ThisPlayer->name);
 		Map::nextmap = tostring(mapid);
 		Map::nextportalID = mappos;
-		GoTest = true;
 	}
 }
 
@@ -358,13 +358,16 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 	p.Read<int32_t>(); // Chair
 	player->x = p.Read<int16_t>();
 	player->y = p.Read<int16_t>();
-	player->state = player->StanceToString(p.Read<int8_t>());
+	int8_t stance = p.Read<int8_t>();
+	player->state = player->StanceToString(stance);
+	player->f = !(stance % 2);
 	int16_t foothold = p.Read<int16_t>();
 	for (set<Foothold*>::iterator iter = Foothold::begin(); iter != Foothold::end(); iter++) {
 		if ((*iter)->id == foothold) {
 			player->fh = (*iter);
 		}
 	}
+	
 
 	// More to come...
 
@@ -388,6 +391,15 @@ void NLS::Handle::PlayerMove(Packet &p) {
 	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
 	if (player == nullptr) return;
 	DecodeMovement(p, player);
+}
+
+void NLS::Handle::PlayerEmote(Packet &p) {
+	uint32_t id = p.Read<uint32_t>();
+	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	if (player == nullptr) return;
+
+	int32_t emoteID = p.Read<int32_t>();
+	player->emote = player->GetEmoteNameByID(emoteID);
 }
 
 void NLS::Handle::DecodeMovement(Packet &p, Physics*player) {
@@ -502,6 +514,12 @@ void NLS::Send::Handshake() {
 	packet.Write<uint8_t>(Network::Locale);
 	packet.Write<uint16_t>(Network::Version);
 	packet.Write<uint16_t>(subversion);
+	packet.Send();
+}
+
+void NLS::Send::PlayerEmote(int32_t emote) {
+	NLS::Packet packet(0x32);
+	packet.Write<int32_t>(emote);
 	packet.Send();
 }
 

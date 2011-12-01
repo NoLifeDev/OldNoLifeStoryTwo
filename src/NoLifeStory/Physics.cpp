@@ -99,6 +99,7 @@ void NLS::Physics::Reset(double x, double y) {
 	group = 0;
 	freefall = 0;
 	djump = nullptr;
+	left = right = up = down = false;
 }
 
 void NLS::Physics::Update() {

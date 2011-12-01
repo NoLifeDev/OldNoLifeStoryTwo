@@ -69,6 +69,7 @@ namespace NLS {
 		void PlayerSpawn(Packet&);
 		void PlayerDespawn(Packet&);
 		void PlayerMove(Packet&);
+		void PlayerEmote(Packet&);
 		void DecodeMovement(Packet&, Physics*);
 	}
 	namespace Send {
@@ -76,5 +77,6 @@ namespace NLS {
 		void Pang();
 		void Handshake();
 		void PlayerMove();
+		void PlayerEmote(int32_t emote);
 	}
 }

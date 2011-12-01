@@ -4,6 +4,8 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
+map<int32_t, string> NLS::Player::emotes;
+
 NLS::Player::Player() : Physics() {
 	state = "jump";
 	frame = 0;
@@ -19,10 +21,49 @@ NLS::Player::Player() : Physics() {
 	nametag.Set(name);
 	guildname = "";
 	guildtag.Set(guildname);
-	left = right = up = down = false;
 	for (int8_t i = 0; i < 20; i++) {
 		SetItemBySlot(i, 0);
 	}
+	lastEmote = "default";
+}
+
+void NLS::Player::Init() {
+	emotes[0] = "default";
+	emotes[1] = "hit";
+	emotes[2] = "smile";
+    emotes[3] = "troubled";
+	emotes[4] = "cry";
+	emotes[5] = "angry";
+	emotes[6] = "bewildered";
+	emotes[7] = "stunned";
+	emotes[8] = "vomit";
+	emotes[9] = "oops";
+	emotes[10] = "cheers";
+	emotes[11] = "chu";
+	emotes[12] = "wink";
+	emotes[13] = "pain";
+	emotes[14] = "glitter";
+	emotes[15] = "blaze";
+	emotes[16] = "shine";
+	emotes[17] = "love";
+	emotes[18] = "despair";
+	emotes[19] = "hum";
+	emotes[20] = "bowing";
+	emotes[21] = "hot";
+	emotes[22] = "dam";
+}
+
+string NLS::Player::GetEmoteNameByID(int32_t id) {
+	return emotes.find(id) == emotes.end() ? emotes[0] : emotes[id];
+}
+
+int32_t NLS::Player::GetEmoteIDByName(string name) {
+	for (map<int32_t, string>::iterator iter = emotes.begin(); iter != emotes.end(); iter++) {
+		if (iter->second == name) {
+			return iter->first;
+		}
+	}
+	return 0; // Default.
 }
 
 void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
@@ -45,6 +86,14 @@ void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
 void NLS::Player::Draw() {
 	Physics::Update();
 	if (y > View::ymax+1000) Map::Load("999999999", "sp");
+
+	if (emote != lastEmote && emote != "blink" && control) {
+		lastEmote = emote;
+		emotee = 0;
+		emotef = 0;
+		Send::PlayerEmote(GetEmoteIDByName(emote));
+	}
+
 	if (emote != "default") {
 		emoted += Time::delta*1000;
 		emotee += Time::delta*1000;
@@ -59,7 +108,7 @@ void NLS::Player::Draw() {
 				}
 			}
 		}
-		if (emotee > 4000) {
+		if (control && emotee > 4000) {
 			emote = "default";
 			emotee = 0;
 		}
@@ -99,20 +148,19 @@ void NLS::Player::Draw() {
 	static bool weird = false;
 	if (delay > d) {
 		delay = 0;
-		if (weird and state == "stand1") {
+		if (weird) {
 			frame--;
-			weird = false;
-		} else {
-			frame++;
-			weird = false;
+			if (frame == -1) {
+				weird = false;
+				frame = 0;
+			}
 		}
-	}
-	if (!skinData[state][frame]) {
-		if (state == "stand1") {
-			frame = 1;
-			weird = true;
-		} else {
-			frame = 0;
+		else {
+			frame++;
+			if (!skinData[state][frame]) {
+				weird = true;
+				frame--;
+			}
 		}
 	}
 	Node zmap = WZ["zmap"];
