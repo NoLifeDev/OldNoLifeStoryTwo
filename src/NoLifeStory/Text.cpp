@@ -126,9 +126,9 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	glEnd();
 	rtex->Display();
-	window->SetActive();
 	tex.Bind();
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
+	window->SetActive();
 }
 
 int NLS::Text::Width() {
@@ -147,13 +147,13 @@ void NLS::Text::Draw(int x, int y) {
 	tex.Bind();
 	const auto& b = tex.GetTexCoords(sf::IntRect(0, 0, width, height));
 	glBegin(GL_QUADS);
-	glTexCoord2f(b.Left, b.Top);
-	glVertex2i(0, 0);
-	glTexCoord2f(b.Left+b.Width, b.Top);
-	glVertex2i(width, 0);
-	glTexCoord2f(b.Left+b.Width, b.Top+b.Height);
-	glVertex2i(width, height);
 	glTexCoord2f(b.Left, b.Top+b.Height);
+	glVertex2i(0, 0);
+	glTexCoord2f(b.Left+b.Width, b.Top+b.Height);
+	glVertex2i(width, 0);
+	glTexCoord2f(b.Left+b.Width, b.Top);
+	glVertex2i(width, height);
+	glTexCoord2f(b.Left, b.Top);
 	glVertex2i(0, height);
 	glEnd();
 	glPopMatrix();

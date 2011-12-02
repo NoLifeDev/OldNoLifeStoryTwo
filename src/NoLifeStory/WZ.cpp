@@ -365,11 +365,9 @@ void NLS::Img::Parse() {
 					file->seekg(temp);
 					break;
 				}
-			case 0xFE://WZ[Map][Obj][acc4][toyCastle2][machine][] - Why?
-				return;
 			default:
-				cerr << "Unknown Property type" << endl;
-				throw(273);
+				cerr << "Unknown Property type " << a << endl;
+				return;
 			}
 		}
 	};
@@ -425,8 +423,8 @@ void NLS::Img::Parse() {
 				throw(273);
 			}
 		} else {
-			cerr << "Unknown ExtendedProperty type" << endl;
-			throw(273);
+			cerr << "Unknown ExtendedProperty type " << name << endl;
+			return;
 		};
 	};
 	Resolve = [&Resolve](Node n) {
@@ -452,21 +450,28 @@ void NLS::Img::Parse() {
 		}
 	};
 	cout << "Parsing " << n.Name() << ".img" << endl;
+	if (file->fail()) {
+		cerr << "File, why u so faily?" << endl;
+		file->clear();
+	}
 	file->seekg(offset);
 	uint8_t a = Read<uint8_t>(file);
 	if (a != 0x73) {
 		cerr << "Invalid WZ image!" << endl;
-		throw(273);
+		delete this;
+		return;
 	}
 	string s = ReadEncString(file);
 	if (s != "Property") {
 		cerr << "Invalid WZ image!" << endl;
-		throw(273);
+		delete this;
+		return;
 	}
 	uint16_t b = Read<uint16_t>(file);
 	if (b != 0) {
 		cerr << "Invalid WZ image!" << endl;
-		throw(273);
+		delete this;
+		return;
 	}
 	SubProperty(file, n, offset);
 	Resolve(n);
@@ -500,6 +505,7 @@ void NLS::PNGProperty::Parse() {
 	static uint8_t Buf2[0x1000000];
 	uint8_t* Src = Buf1;
 	uint8_t* Dest = Buf2;
+	bool abort = false;
 	auto Swap = [&]() {
 		swap(Src, Dest);
 	};
@@ -516,6 +522,8 @@ void NLS::PNGProperty::Parse() {
 		int err = inflate(&strm, Z_FINISH);
 		if (err != Z_BUF_ERROR) {
 			cerr << "Unexpected error from zlib: " << err << endl;
+			abort = true;
+			return;
 		}
 		inflateEnd(&strm);
 		Swap();
@@ -528,6 +536,10 @@ void NLS::PNGProperty::Parse() {
 			for (p = 0, i = 0; i < len-1;) {
 				uint32_t blen = *(uint32_t*)&Src[i];
 				i += 4;
+				if (i+blen > len) {
+					abort = true;
+					return;
+				}
 				for (int j = 0; j < blen; j++) {
 					Dest[p+j] = Src[i+j]^WZKey[j];
 				}
@@ -536,14 +548,17 @@ void NLS::PNGProperty::Parse() {
 			}
 			Swap();
 			DecompressBlock(p);
+			if (abort) return;
 		}
 	};
+	if (file->fail()) {
+		cerr << "File, why u so faily?" << endl;
+		file->clear();
+	}
 	file->seekg(offset);
 	file->read((char*)Dest, length);
 	Swap();
 	int32_t f = format+format2;
-	glGenTextures(1, &sprite.data->texture);
-	glBindTexture(GL_TEXTURE_2D, sprite.data->texture);
 	GLsizei ww = sprite.data->width;
 	GLsizei hh = sprite.data->height;
 	GLsizei w = ww;
@@ -561,12 +576,20 @@ void NLS::PNGProperty::Parse() {
 		}
 		Swap();
 	};
+	Decompress(length);
+	if (abort) {
+		sprite.data->texture = 0;
+		sprite.data->png = nullptr;
+		delete this;
+		return;
+	}
+	glGenTextures(1, &sprite.data->texture);
+	glBindTexture(GL_TEXTURE_2D, sprite.data->texture);
 	auto SetTex = [&](GLenum type){glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, type, Src);};
 	switch (f) {
 	case 1:
 		{
 			uint32_t len = 2*ww*hh;
-			Decompress(length);
 			if (ww%2 and Graphics::NPOT or Graphics::Shit) {
 				for (uint32_t i = 0; i < len; i++) {
 					Dest[i*2] = (Src[i]&0x0F)*0x11;
@@ -587,7 +610,6 @@ void NLS::PNGProperty::Parse() {
 		}
 	case 2:
 		{
-			Decompress(length);
 			if (!Graphics::NPOT) {
 				Resize(4);
 			}
@@ -596,7 +618,6 @@ void NLS::PNGProperty::Parse() {
 		}
 	case 513:
 		{
-			Decompress(length);
 			if (!Graphics::NPOT) {
 				Resize(2);
 			}
@@ -611,7 +632,6 @@ void NLS::PNGProperty::Parse() {
 			}
 			w >>= 4;
 			h >>= 4;
-			Decompress(length);
 			SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
 			break;
 		}
@@ -669,13 +689,9 @@ private:
 	NodeData& operator= (const NodeData&);
 };
 
-NLS::Node::Node() {
-	data = 0;
-}
+NLS::Node::Node() : data(nullptr) {}
 
-NLS::Node::Node(const Node& other) {
-	data = other.data;
-}
+NLS::Node::Node(const Node& other) : data(other.data) {}
 
 NLS::Node& NLS::Node::operator= (const Node& other) {
 	data = other.data;

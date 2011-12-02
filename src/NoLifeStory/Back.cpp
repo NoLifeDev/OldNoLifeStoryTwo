@@ -33,6 +33,11 @@ void NLS::Back::Load(Node n) {
 		}
 		if (b->ani) {
 			bd = bd["ani"][type2];
+			if (!bd) {
+				cerr << "Failed to find images for background of " << type1 << "/" << type2 << endl;
+				delete b;
+				continue;
+			}
 			b->aspr.Set(bd);
 			bd = bd[0];
 			if (b->cx == 0) {
@@ -43,6 +48,11 @@ void NLS::Back::Load(Node n) {
 			}
 		} else {
 			bd = bd["back"][type2];
+			if (!bd) {
+				cerr << "Failed to find images for background of " << type1 << "/" << type2 << endl;
+				delete b;
+				continue;
+			}
 			b->spr = bd;
 			if (b->cx == 0) {
 				b->cx = Sprite(bd).data->width;

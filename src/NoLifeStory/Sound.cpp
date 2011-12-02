@@ -38,6 +38,7 @@ NLS::Sound::~Sound() {
 }
 
 void NLS::Sound::Play(bool loop) {
+	if (!data) return;
 	if (!stream) {
 		stream = data->GetStream(loop);
 	}
