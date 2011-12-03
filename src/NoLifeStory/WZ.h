@@ -9,17 +9,17 @@ namespace NLS {
 		Node();
 		Node(const Node&);
 		Node& operator= (const Node&);
-		Node operator[] (const string&);
-		Node operator[] (const char[]);
-		Node operator[] (const int&);
-		Node operator[] (const Node&);
+		Node operator[] (const string&) const;
+		Node operator[] (const char[]) const;
+		Node operator[] (const int&) const;
+		Node operator[] (const Node&) const;
 		Node g(const string&);
-		map<string, Node>::iterator begin();
-		map<string, Node>::iterator end();
-		map<string, Node>::reverse_iterator rbegin();
-		map<string, Node>::reverse_iterator rend();
-		string Name();
-		void Name(const string&);
+		map<string, Node>::const_iterator begin() const;
+		map<string, Node>::const_iterator end() const;
+		map<string, Node>::const_reverse_iterator rbegin() const;
+		map<string, Node>::const_reverse_iterator rend() const;
+		string Name() const;
+		void InitTop(const string&);
 		void Assign(const Node&);
 		operator bool() const;
 		operator string() const;
@@ -34,6 +34,7 @@ namespace NLS {
 		void Set(const class Sound&);
 		void Set(const class Sprite&);
 	private:
+		Node(const Node&, const string&);
 		class NodeData* data;
 	};
 	class PNGProperty {

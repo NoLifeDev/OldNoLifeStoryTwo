@@ -8,7 +8,7 @@ map<uint16_t, function<void(NLS::Packet&)>> NLS::Packet::Handlers;
 
 
 void NLS::Packet::Send() {
-	if (!Network::Online) return;
+	if (!Network::Online or Profiling) return;
 	uint16_t a = (Network::SendIV[3]<<8)+Network::SendIV[2];
 	a ^= Network::Version;
 	uint16_t b = a^(data.size()-4);

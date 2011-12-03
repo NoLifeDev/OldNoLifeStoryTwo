@@ -304,13 +304,13 @@ void NLS::InitWZ() {
 		WZPath = Paths[i];
 		if (exists(WZPath/path("Data.wz"))) {
 			cout << "Loading beta WZ file structure from " << WZPath << endl;
-			WZ.Name("Data");
+			WZ.InitTop("Data");
 			File(WZ);
 			return;
 		}
 		if (exists(WZPath/path("Base.wz"))) {
 			cout << "Loading standard WZ file structure from " << WZPath << endl;
-			WZ.Name("Base");
+			WZ.InitTop("Base");
 			File(WZ);
 			return;
 		}
@@ -670,11 +670,11 @@ uint32_t NLS::SoundProperty::GetStream(bool loop) {
 #pragma region Node Stuff
 class NLS::NodeData {
 public:
-	NodeData() {
-		image = 0;
-		intValue = 0;
-		floatValue = 0;
-	}
+	NodeData(const Node& parent, const string& name)
+		:parent(parent), name(name), image(nullptr), intValue(0), floatValue(0) {}
+	NodeData(const NodeData& other, Node&& parent)
+		:stringValue(other.stringValue), floatValue(other.floatValue), intValue(other.intValue), children(other.children),
+		sprite(other.sprite), sound(other.sound), name(other.name), image(other.image), parent(parent) {}
 	string stringValue;
 	double floatValue;
 	int intValue;
@@ -686,19 +686,20 @@ public:
 	map <string, Node> children;
 private:
 	NodeData(const NodeData&);
-	NodeData& operator= (const NodeData&);
 };
 
 NLS::Node::Node() : data(nullptr) {}
 
 NLS::Node::Node(const Node& other) : data(other.data) {}
 
+NLS::Node::Node(const Node& other, const string& name) : data(new NodeData(other, name)) {}
+
 NLS::Node& NLS::Node::operator= (const Node& other) {
 	data = other.data;
 	return *this;
 }
 
-NLS::Node NLS::Node::operator[] (const string& key) {
+NLS::Node NLS::Node::operator[] (const string& key) const {
 	if (!data) {
 		return Node();
 	}
@@ -720,75 +721,53 @@ NLS::Node NLS::Node::operator[] (const string& key) {
 	return n->second;
 }
 
-NLS::Node NLS::Node::operator[] (const char key[]) {
+NLS::Node NLS::Node::operator[] (const char key[]) const {
 	return (*this)[string(key)];
 }
 
-NLS::Node NLS::Node::operator[] (const int& key) {
+NLS::Node NLS::Node::operator[] (const int& key) const {
 	return (*this)[tostring(key)];
 }
-NLS::Node NLS::Node::operator[] (const Node& key) {
+NLS::Node NLS::Node::operator[] (const Node& key) const {
 	return (*this)[(string)key];
 }
 
 NLS::Node NLS::Node::g(const string& key) {
-	assert(data);
-	Node& n = data->children[key];
-	n.data = new NodeData();
-	n.data->parent = *this;
-	n.data->name = key;
-	return n;
+	return data->children.emplace(pair<const string&, const Node&>(key, Node(*this, key))).first->second;
 }
 
-map<string, NLS::Node>::iterator NLS::Node::begin() {
-	if (!data) {
-		return map<string, NLS::Node>::iterator();
-	}
+map<string, NLS::Node>::const_iterator NLS::Node::begin() const {
+	if (!data) return map<string, NLS::Node>::const_iterator();
 	return data->children.begin();
 }
 
-map<string, NLS::Node>::iterator NLS::Node::end() {
-	if (!data) {
-		return map<string, NLS::Node>::iterator();
-	}
+map<string, NLS::Node>::const_iterator NLS::Node::end() const {
+	if (!data) return map<string, NLS::Node>::const_iterator();
 	return data->children.end();
 }
 
-map<string, NLS::Node>::reverse_iterator NLS::Node::rbegin() {
-	if (!data) {
-		return map<string, NLS::Node>::reverse_iterator();
-	}
+map<string, NLS::Node>::const_reverse_iterator NLS::Node::rbegin() const {
+	if (!data) return map<string, NLS::Node>::const_reverse_iterator();
 	return data->children.rbegin();
 }
 
-map<string, NLS::Node>::reverse_iterator NLS::Node::rend() {
-	if (!data) {
-		return map<string, NLS::Node>::reverse_iterator();
-	}
+map<string, NLS::Node>::const_reverse_iterator NLS::Node::rend() const {
+	if (!data) return map<string, NLS::Node>::const_reverse_iterator();
 	return data->children.rend();
 }
 
-string NLS::Node::Name() {
-	if (!data) {
-		return string();
-	}
+string NLS::Node::Name() const {
+	if (!data) return string();
 	return data->name;
 }
 
-void NLS::Node::Name(const string& s) {
-	if (!data) {
-		data = new NodeData();
-	}
-	data->name = s;
+void NLS::Node::InitTop(const string& s) {
+	data = new NodeData(Node(), s);
 }
 
 void NLS::Node::Assign(const Node& other) {
-	data->children = other.data->children;
-	data->floatValue = other.data->floatValue;
-	data->intValue = other.data->intValue;
-	data->stringValue = other.data->stringValue;
-	data->sprite = other.data->sprite;
-	data->image = other.data->image;
+	Node parent = other.data->parent;
+	new(data) NodeData(*other.data, move(parent));
 }
 
 NLS::Node::operator bool() const {
@@ -796,37 +775,27 @@ NLS::Node::operator bool() const {
 }
 
 NLS::Node::operator string() const {
-	if (!data) {
-		return string();
-	}
+	if (!data) return string();
 	return data->stringValue;
 }
 
 NLS::Node::operator double() const {
-	if (!data) {
-		return 0;
-	}
+	if (!data) return 0;
 	return data->floatValue;
 }
 
 NLS::Node::operator int() const {
-	if (!data) {
-		return 0;
-	}
+	if (!data) return 0;
 	return data->intValue;
 }
 
 NLS::Node::operator NLS::Sprite() const {
-	if (!data) {
-		return Sprite();
-	}
+	if (!data) return Sprite();
 	return data->sprite;
 }
 
 NLS::Node::operator NLS::Sound() const {
-	if (!data) {
-		return Sound();
-	}
+	if (!data) return Sound();
 	return data->sound;
 }
 

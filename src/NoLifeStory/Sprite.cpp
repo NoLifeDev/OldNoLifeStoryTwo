@@ -68,13 +68,6 @@ void NLS::Sprite::Draw(int x, int y, bool flipped, float alpha, float rotation) 
 }
 
 void NLS::Sprite::GetTexture() {
-	/*Caused issues with text drawing :|
-	static SpriteData* lastData = 0;
-	if (data == lastData) {
-		return;
-	}
-	lastData = data;
-	*/
 	if (!data) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		return;

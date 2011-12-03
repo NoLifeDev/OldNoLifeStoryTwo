@@ -189,7 +189,9 @@ void NLS::Player::Draw() {
 			np.z = zmap[nn["z"]];
 			np.x = x;
 			np.y = y;
-			for (auto it = nn["map"].rbegin(); it != nn["map"].rend(); ++it) {
+			nn = nn["map"];
+			if (!nn) continue;
+			for (auto it = nn.rbegin(); it != nn.rend(); ++it) {
 				string mname = it->first;
 				Node mn = it->second;
 				if (maps.find(mname) == maps.end()) {
