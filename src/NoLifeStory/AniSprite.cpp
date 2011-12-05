@@ -21,26 +21,20 @@ void NLS::AniSprite::Set(Node n) {
 	a = 1;
 	up = true;
 	done = false;
-	zigzag = !!n["zigzag"];
+	zigzag = (int)n["zigzag"];
 }
 
 void NLS::AniSprite::Draw(int x, int y, bool flipped, float rotation) {
-	if (!n) {
-		return;
-	}
+	if (!n) return;
 	Sprite s = f;
 	s.Draw(x, y, flipped, a, rotation);
 }
 
 void NLS::AniSprite::Step() {
-	if (!n) {
-		return;
-	}
+	if (!n) return;
 	delay += Time::delta*1000;
 	int d = f["delay"];
-	if (d == 0) {
-		d = 100;
-	}
+	if (d == 0) d = 100;
 	if (delay > d) {
 		delay = 0;
 		if (zigzag) {
@@ -51,24 +45,20 @@ void NLS::AniSprite::Step() {
 					if (up) {
 						frame--;
 						up = false;
-					}
-					else {
+					} else {
 						frame = 0;
 						up = true;
 					}
-				}
-				else {
+				} else {
 					frame--;
 				}
 			}
-		}
-		else {
+		} else {
 			frame++;
 			if (!n[frame]) {
 				if (repeat) {
 					frame = 0;
-				} 
-				else {
+				} else {
 					frame--;
 					done = true;
 				}
@@ -76,9 +66,9 @@ void NLS::AniSprite::Step() {
 		}
 		f = n[frame];
 	}
-	if (f["a0"] && (!repeat || f["a1"])) {
-            double a0 = f["a0"];
-            double a1 = f["a1"];
-            a = (a0-(a0-a1)*delay/d)/255;
+	if (f["a0"] and (!repeat || f["a1"])) {
+		double a0 = f["a0"];
+		double a1 = f["a1"];
+		a = (a0-(a0-a1)*delay/d)/255;
     }
 }

@@ -95,7 +95,7 @@ void NLS::Physics::Reset(double x, double y) {
 	vr = 0;
 	fh = nullptr;
 	lr = nullptr;
-	layer = 0;
+	layer = 7;
 	group = 0;
 	freefall = 0;
 	djump = nullptr;
@@ -251,24 +251,14 @@ void NLS::Physics::Update() {
 		}
 		if (y < lr->y1) {
 			if (lr->uf) {
-				if (notAPlayer) {
-					left = right = false;
-				}
-				else {
-					y = lr->y1-5;
-					lr = nullptr;
-				}
+				y = lr->y1-5;
+				lr = nullptr;
 			} else {
 				y = lr->y1;
 			}
 		} else if (y > lr->y2) {
-			if (notAPlayer) {
-				left = right = false;
-			}
-			else {
-				y = lr->y2+1;
-				lr = nullptr;
-			}
+			y = lr->y2+1;
+			lr = nullptr;
 		}
 	} else {
 		if (flying) {
@@ -369,7 +359,7 @@ void NLS::Physics::Update() {
 				if (fh->next->walk) {
 					r = r-fh->len;
 					fh = fh->next;
-				} else if (fh->next->y2 > fh->next->y1) {
+				} else if (fh->next->y2 > fh->next->y1 and !lemming) {
 					x = fh->x2+0.1;
 					y = fh->y2+0.1;
 					vx = ldx(vr, fh->dir);
@@ -378,13 +368,22 @@ void NLS::Physics::Update() {
 				} else {
 					r = fh->len-0.1;
 					vr = 0;
+					if (lemming) {
+						left = true;
+						right = false;
+					}
 				}
-			} else {
+			} else if (!lemming) {
 				x = fh->x2+0.1;
 				y = fh->y2+0.1;
 				vx = ldx(vr, fh->dir);
 				vy = ldy(vr, fh->dir);
 				fh = nullptr;
+			} else {
+				r = fh->len-0.1;
+				vr = 0;
+				left = true;
+				right = false;
 			}
 		} else if (r < 0) {
 			if (fh->prev) {

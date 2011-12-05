@@ -32,6 +32,7 @@ void NLS::Network::Loop() {
 	static uint16_t len = 0;
 	static uint8_t header[4];
 	static uint8_t data[0x10000];
+	static double timeout = 0;
 	auto Receive = [&](uint8_t* data, size_t len) -> bool{
 		size_t received = 0;
 		sf::Socket::Status err = Socket.Receive((char *)data+pos, len-pos, received);
@@ -42,6 +43,14 @@ void NLS::Network::Loop() {
 				cerr << "Disconnected from the server" << endl;
 				Connected = false;
 				Online = false;
+				//TODO - Pop up message saying they got disconnected and ask if they want to play offline, or login again.
+				Map::Load("0", "");
+			} else {
+				cerr << "Failed to connect to the server" << endl;
+				Connected = false;
+				Online = false;
+				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
+				Map::Load("0", "");
 			}
 			return false;
 		case sf::Socket::Error:
@@ -50,6 +59,13 @@ void NLS::Network::Loop() {
 			Online = false;
 			return false;
 		case sf::Socket::NotReady:
+			if (connecting and timeout > 5000) {
+				cerr << "Connection to the server timed out" << endl;
+				Connected = false;
+				Online = false;
+				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
+				Map::Load("0", "");
+			}
 			return false;
 		default:
 			connecting = false;
@@ -64,7 +80,9 @@ void NLS::Network::Loop() {
 		initial = true;
 		ghead = true;
 		pos = 0;
+		timeout = 0;
 	}
+	timeout += Time::delta;
 	while (true) {
 		if (initial) {
 			if (ghead) {

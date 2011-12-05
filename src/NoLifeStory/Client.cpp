@@ -93,10 +93,8 @@ void NLS::Init() {
 			});
 		}
 	}
-	if (!Network::Online) {
-		Map::Load("0", "");
-		Map::Load();
-	}
+	Map::Load(Network::Online?"MapLogin":"0", "");
+	Map::Load();
 }
 
 bool NLS::Loop() {
@@ -132,8 +130,10 @@ bool NLS::Loop() {
 		if (ProfileMaps.empty()) return false;
 		Map::Load(ProfileMaps.back(), "");
 		ProfileMaps.pop_back();
+		Map::Load();
 	}
-	if (!Map::nextmap.empty()) {
+	else
+	if (!Map::nextmap.empty() and Map::fade < 0) {
 		Map::Load();
 	}
 	Network::Loop();

@@ -51,7 +51,7 @@ void NLS::Portal::Load(Node n) {
 		p->onlyonce = pn["onlyOnce"];
 		p->hidetooltip = pn["hideTooltip"];
 		p->delay = pn["delay"];
-		p->derp.Set(portalNames[p->pt], NameTag::Normal);
+		p->derp.Set(portalNames[p->pt]+(p->script.empty()?"":": "+p->script), NameTag::Normal);
 		p->phState = Portal::Nothing;
 		All.insert(p);
 	}
@@ -68,15 +68,13 @@ void NLS::Portal::Draw() {
 		pvsprite.Draw(x, y);
 		break;
 	case 10:
-		if (abs(ThisPlayer->x - x) <= 60 && h >= -90 && h <= 10) {
+		if (abs(ThisPlayer->x - x) < 60 and h > -90 and h < 10) {
 			if (phState == Portal::Nothing || phState == Portal::Exit) {
 				phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalStart"]);
 				phState = Portal::Start;
 				phsprite.repeat = false;
-			}
-			else if (phsprite.done) {
+			} else if (phsprite.done) {
 				if (phState == Portal::Start) {
-					// Goto continue!
 					phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalContinue"]);
 					phState = Portal::Continue;
 					phsprite.repeat = true;
@@ -85,8 +83,7 @@ void NLS::Portal::Draw() {
 			phsprite.Draw(x, y);
 			phsprite.Step();
 			break;
-		}
-		else if (phState != Portal::Nothing) {
+		} else if (phState != Portal::Nothing) {
 			if (phState != Portal::Exit) {
 				phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalExit"]);
 				phState = Portal::Exit;
@@ -96,14 +93,12 @@ void NLS::Portal::Draw() {
 				phsprite.Draw(x, y);
 				phsprite.Step();
 				break;
-			}
-			else if (phState == Portal::Exit) {
+			} else if (phState == Portal::Exit) {
 				phState = Portal::Nothing;
 			}
 		}
 	default:
 		sprites[pt].Draw(x, y);
 	}
-
 	derp.Draw(x, y);
 }

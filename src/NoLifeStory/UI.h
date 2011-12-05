@@ -13,9 +13,10 @@ namespace NLS {
 			virtual void Draw();
 			virtual void HandleClick(sf::Event::MouseButtonEvent) {}
 			void Focus();
-			virtual void HandleKey(sf::Keyboard::Key) {}
+			bool HandleKey(sf::Keyboard::Key);
 			void Add(Element* e);
 			vector<Element*> Elements;
+			map<sf::Keyboard::Key, function<void()>> actions;
 			int x, y;
 			int width, height;
 			bool focusable, stealsfocus;

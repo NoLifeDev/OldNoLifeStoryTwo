@@ -15,6 +15,7 @@ vector<NLS::Back*> NLS::Map::Foregrounds;
 map<uint32_t, NLS::Player*> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
+bool NLS::Map::Login;
 //NLS::Text NLS::Map::scrollingHeader;
 
 void NLS::Map::Load(const string& id, const string& portal) {
@@ -59,11 +60,13 @@ void NLS::Map::Load() {
 	Node mn;
 	if (nextmap == "MapLogin" || nextmap == "MapLogin2") {
 		mn = WZ["UI"][nextmap];
-		throw(273);//We don't deal with this shit yet
+		Login = true;
+		Network::Online = true;
 	} else {
 		pad(nextmap, '0', 9);
 		char zone = nextmap[0];
 		mn = WZ["Map"]["Map"][string("Map")+zone][nextmap];
+		Login = false;
 	}
 	if (curmap == nextmap) {
 		cerr << "Map " << nextmap << " is already loaded" << endl;
@@ -120,17 +123,17 @@ void NLS::Map::Load() {
 			bgmusic.Play(true);
 		}
 	}
+
 	for (uint8_t i = 0; i < 8; ++i) {
 		Layers[i].Tiles.clear();
 		Layers[i].Objs.clear();
 	}
 	Backgrounds.clear();
 	Foregrounds.clear();
-
 	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p) {delete p.second;});
 	Players.clear();
-
 	Sprite::Unload();
+
 	Foothold::Load(node);
 	Tile::Load(node);
 	Obj::Load(node);
@@ -176,6 +179,9 @@ void NLS::Map::Draw() {
 	}
 	for (uint8_t i = 0; i < 8; i++) {
 		Layers[i].Draw();
+		if (!Login and ThisPlayer->layer == i) {
+			ThisPlayer->Draw();
+		}
 	}
 	for (uint32_t i = 0; i < Life::Mobs.size(); ++i) {
 		Life::Mobs[i]->Draw();
@@ -185,8 +191,6 @@ void NLS::Map::Draw() {
 	}
 
 	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p){p.second->Draw();});
-
-	ThisPlayer->Draw();
 
 	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
 

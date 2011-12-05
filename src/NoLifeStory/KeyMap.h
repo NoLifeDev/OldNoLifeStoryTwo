@@ -5,20 +5,9 @@
 
 namespace NLS {
 	namespace Key {
-		class Action {
-		public:
-			Action();
-			Action(function<void()>);
-			function<void()> action;
-			void operator() () {
-				if (action) {
-					return action();
-				}
-			}
-		};
 		void Init();
 		void Set(sf::Keyboard::Key, function<void()>);
-		extern map <sf::Keyboard::Key, Action> Map;
+		extern map <sf::Keyboard::Key, function<void()>> Map;
 		void Handle(sf::Event);
 		extern bool Left, Right, Up, Down;
 	}

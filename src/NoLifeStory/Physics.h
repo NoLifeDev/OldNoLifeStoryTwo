@@ -18,6 +18,7 @@ namespace NLS {
 		bool didLieDown;
 		bool f;
 		bool notAPlayer, control;
+		bool lemming;
 		float speedMin;
 		Foothold* djump;
 		vector<Movement> moves;

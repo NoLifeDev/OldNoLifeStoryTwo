@@ -60,6 +60,12 @@ void NLS::UI::Window::Focus() {
 	All.erase(it);
 	All.push_back(this);
 }
+bool NLS::UI::Window::HandleKey(sf::Keyboard::Key key) {
+	if (actions[key]) actions[key]();
+	else return false;
+	return true;
+}
+
 NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false), text(20, 20, 400) {
 	Add(&text);
 	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
