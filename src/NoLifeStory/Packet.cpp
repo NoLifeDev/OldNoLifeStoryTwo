@@ -6,7 +6,6 @@
 
 map<uint16_t, function<void(NLS::Packet&)>> NLS::Packet::Handlers;
 
-
 void NLS::Packet::Send() {
 	if (!Network::Online or Profiling) return;
 	uint16_t a = (Network::SendIV[3]<<8)+Network::SendIV[2];
@@ -176,6 +175,7 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		p.Read<uint32_t>();
 
 		// Flag. Just ignore and load everything xd
+		// Info: real client actually uses this!!!
 		p.Read<uint64_t>(); // Most likely FF FF FF FF FF FF FF FF for every flag.
 
 		ThisPlayer->charid = p.Read<uint32_t>();
@@ -185,28 +185,74 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		ThisPlayer->face = p.Read<int32_t>();
 		ThisPlayer->hair = p.Read<int32_t>();
 
-		p.Read<int64_t>(); // Pet ID's
+		p.Read<int64_t>(); // Taken out Pet ID's
 		p.Read<int64_t>();
 		p.Read<int64_t>();
 
 		ThisPlayer->level = p.Read<uint8_t>();
-		p.Read<int16_t>(); // job
-		p.Read<int16_t>(); // Strength
-		p.Read<int16_t>(); // Dex
-		p.Read<int16_t>(); // Int
-		p.Read<int16_t>(); // Luk
-		p.Read<int16_t>(); // HP
-		p.Read<int16_t>(); // MaxHP
-		p.Read<int16_t>(); // MP
-		p.Read<int16_t>(); // MaxMP
-		p.Read<int16_t>(); // AP
-		p.Read<int16_t>(); // SP
-		p.Read<int32_t>(); // EXP
-		p.Read<int16_t>(); // Fame
+		Player::Stats stats;
+		stats.Job = p.Read<int16_t>(); // job
+		stats.Str = p.Read<int16_t>(); // Strength
+		stats.Dex = p.Read<int16_t>(); // Dex
+		stats.Int = p.Read<int16_t>(); // Int
+		stats.Luk = p.Read<int16_t>(); // Luk
+		stats.HP = p.Read<int16_t>(); // HP
+		stats.MaxHP = p.Read<int16_t>(); // MaxHP
+		stats.MP = p.Read<int16_t>(); // MP
+		stats.MaxMP = p.Read<int16_t>(); // MaxMP
+		stats.AP = p.Read<int16_t>(); // AP
+		stats.SP[0] = p.Read<int16_t>(); // SP
+		stats.EXP = p.Read<int32_t>(); // EXP
+		stats.Fame = p.Read<int16_t>(); // Fame
+		stats.GachaEXP = p.Read<int32_t>(); // GachaEXP
+		ThisPlayer->stats = stats;
 
-		p.Read<int32_t>(); // GachaEXP
 		int32_t mapid = p.Read<int32_t>();
 		int8_t mappos = p.Read<int8_t>();
+
+		p.Read<int32_t>(); // Added around .62
+		p.Read<int8_t>(); // Buddylist length
+
+		Player::Inventory inventory;
+		inventory.mesos = p.Read<int32_t>();
+		
+		for (int8_t i = 0; i < 5; i++) {
+			inventory.inventorySlots[i] = p.Read<int8_t>();
+		}
+
+
+		while (true) {
+			int8_t slot = p.Read<int8_t>();
+			if (slot == 0) break;
+			auto item = DecodeItem(p);
+			inventory.shownEquips[slot] = item;
+			ThisPlayer->SetItemBySlot(slot, item->m_id);
+		}
+
+		while (true) {
+			int8_t slot = p.Read<int8_t>();
+			if (slot == 0) break;
+			auto item = DecodeItem(p);
+			ThisPlayer->inventory.hiddenEquips[slot] = item;
+		}
+
+		while (true) {
+			int8_t slot = p.Read<int8_t>();
+			if (slot == 0) break;
+			auto item = DecodeItem(p);
+			//ThisPlayer->inventory.hiddenEquips[slot] = item;
+		}
+
+		for (auto i = 0; i < 5; i++) {
+			while (true) {
+				int8_t slot = p.Read<int8_t>();
+				if (slot == 0) break;
+				auto item = DecodeItem(p);
+				ThisPlayer->inventory.inventoryItems[i][slot] = item;
+			}
+		}
+
+		ThisPlayer->inventory = inventory; // For DecodeItem.
 
 		ThisPlayer->nametag.Set(ThisPlayer->name, NameTag::Normal);
 		Map::nextmap = tostring(mapid);
@@ -484,6 +530,72 @@ void NLS::Handle::DecodeMovement(Packet &p, Physics*player) {
 		}
 		player->moves.push_back(move);
 	}
+}
+
+NLS::Item * NLS::Handle::DecodeItem(Packet &p) {
+	Item *item = new Item();
+	int8_t type = p.Read<int8_t>();
+	int32_t itemid = p.Read<int32_t>();
+	item->m_id = itemid;
+	bool isCash = p.Read<bool>();
+	if (isCash) {
+		item->m_cashId = p.Read<int64_t>();
+	}
+	else {
+		item->m_cashId = 0;
+	}
+	item->m_expiration = p.Read<int64_t>();
+
+	if (type == Items::PacketTypes::Item) {
+		item->m_amount = p.Read<int16_t>();
+		item->m_name = p.Read<string>();
+		item->m_flags = p.Read<int16_t>();
+		// Rechargable load
+		int32_t i = item->m_id / 10000;
+		if (i == 207 || i == 233) {
+			p.Read<int64_t>();
+		}
+	}
+	else if (type == Items::PacketTypes::Equip) {
+		item->m_slots = p.Read<int8_t>();
+		item->m_scrolls = p.Read<int8_t>();
+		item->m_str = p.Read<int16_t>();
+		item->m_dex = p.Read<int16_t>();
+		item->m_int = p.Read<int16_t>();
+		item->m_luk = p.Read<int16_t>();
+		item->m_hp = p.Read<int16_t>();
+		item->m_mp = p.Read<int16_t>();
+		item->m_watk = p.Read<int16_t>();
+		item->m_matk = p.Read<int16_t>();
+		item->m_wdef = p.Read<int16_t>();
+		item->m_mdef = p.Read<int16_t>();
+		item->m_acc = p.Read<int16_t>();
+		item->m_avo = p.Read<int16_t>();
+		item->m_hands = p.Read<int16_t>();
+		item->m_speed = p.Read<int16_t>();
+		item->m_jump = p.Read<int16_t>();
+		item->m_name = p.Read<string>();
+		item->m_flags = p.Read<int16_t>();
+		if (item->m_cashId != 0) {
+			p.Read<int32_t>();
+			p.Read<int16_t>();
+			p.Read<int32_t>();
+		}
+		else {
+			p.Read<int8_t>();
+			p.Read<int8_t>();
+			p.Read<int16_t>();
+			p.Read<int16_t>();
+			item->m_hammers = p.Read<int32_t>();
+			p.Read<int64_t>();
+		}
+		p.Read<int64_t>();
+		p.Read<int32_t>();
+	}
+	else if (type == Items::PacketTypes::Pet) {
+
+	}
+	return item;
 }
 
 void NLS::Send::Pong() {

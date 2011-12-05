@@ -39,6 +39,7 @@ void NLS::Time::Step() {
 	delta = temp-tdelta;
 	tdelta = temp;
 #endif
+
 	fps = fps*0.98+1/max(delta, 0.001)*0.02;
 	if (fps < 0 or fps > 1000) {
 		fps = 0;

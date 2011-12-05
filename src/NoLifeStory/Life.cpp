@@ -100,12 +100,12 @@ void NLS::Life::Update() {
 			case 0:
 				left = true;
 				right = false;
-				timeToNextAction = rand() % (type == "n" ? 90 : 100);
+				timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
 				break;
 			case 1:
 				left = false;
 				right = true;
-				timeToNextAction = rand() % (type == "n" ? 90 : 100);
+				timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
 				break;
 			case 2:
 				left = false;

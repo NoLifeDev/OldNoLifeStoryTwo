@@ -37,9 +37,18 @@ void NLS::Map::Load() {
 				possible.push_back(p);
 			}
 		});
-		if (possible.empty()) {
-			possible.insert(possible.end(), Portal::begin(), Portal::end());
+		if (possible.size() == 0) {
+			if (Portal::All.size() > 0) {
+				// Insert the first one
+				possible.insert(possible.end(), Portal::begin(), Portal::end());
+			}
+			else {
+				// Oh god.
+				cerr << "Could not determine a spawnplace. Map " << nextmap << endl;
+				throw(273);
+			}
 		}
+
 		int r = rand()%possible.size();
 		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
 		if (change) {

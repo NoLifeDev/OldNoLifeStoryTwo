@@ -26,6 +26,28 @@ namespace NLS {
 		int saddle, mobequip, petacc, pethp;
 		void ChangeEmote(int id);
 		void SetItemBySlot(int8_t slotid, int32_t itemid);
+
+		
+		struct Stats {
+			uint16_t Job, Str, Dex, Int, Luk, AP;
+			uint32_t HP, MaxHP, MP, MaxMP, EXP, GachaEXP;
+			int32_t Fame;
+			array<int16_t, 4> SP;
+			// Changes:
+			// Since Evan and newer jobs they split the amount of SP per job.
+			// V.98 afaik has higher fame cap (short -> int)
+		} stats;
+
+		class Inventory {
+		public:
+			int32_t mesos;
+			array<Item *, 50> shownEquips;
+			array<Item *, 50> hiddenEquips;
+			map<Item *, int32_t> specialEquips; // Anything not in the shown/hidden equips list, such as Android equips and such
+			array<map<int16_t, Item *>, 5> inventoryItems;
+			array<int8_t, 5> inventorySlots;
+		} inventory;
+
 		static string GetEmoteNameByID(int id);
 		static int GetEmoteIDByName(string name);
 		static void Init();

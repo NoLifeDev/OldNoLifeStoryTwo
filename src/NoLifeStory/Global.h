@@ -26,6 +26,7 @@
 #include "Foothold.h"
 #include "LadderRope.h"
 #include "Physics.h"
+#include "Item.h"
 #include "Player.h"
 #include "ThisPlayer.h"
 #include "Client.h"

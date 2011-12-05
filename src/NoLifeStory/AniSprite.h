@@ -14,6 +14,7 @@ namespace NLS {
 		int delay;
 		int frame;
 		float a;
-		bool repeat;
+		bool repeat, zigzag;
+		bool up;
 	};
 }

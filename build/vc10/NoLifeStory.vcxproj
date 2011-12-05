@@ -106,6 +106,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\Chat.h" />
     <ClInclude Include="..\..\src\NoLifeStory\ChatDialog.h" />
     <ClInclude Include="..\..\src\NoLifeStory\GameInfo.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\Item.h" />
     <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Life.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="..\..\src\NoLifeStory\Config.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Foothold.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Graphics.cpp" />
+    <ClCompile Include="..\..\src\NoLifeStory\Item.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\KeyMap.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\Keys.cpp" />
     <ClCompile Include="..\..\src\NoLifeStory\LadderRope.cpp" />

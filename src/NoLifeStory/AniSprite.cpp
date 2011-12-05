@@ -8,6 +8,8 @@ NLS::AniSprite::AniSprite() {
 	frame = 0;
 	delay = 0;
 	repeat = true;
+	zigzag = false;
+	up = true;
 }
 
 void NLS::AniSprite::Set(Node n) {
@@ -16,6 +18,8 @@ void NLS::AniSprite::Set(Node n) {
 	this->n = n;
 	f = n[0];
 	a = 1;
+	up = true;
+	zigzag = !!n["zigzag"];
 }
 
 void NLS::AniSprite::Draw(int x, int y, bool flipped, float rotation) {
@@ -36,13 +40,35 @@ void NLS::AniSprite::Step() {
 		d = 100;
 	}
 	if (delay > d) {
-		delay  = 0;
-		frame++;
-		if (!n[frame]) {
-			if (repeat) {
-				frame = 0;
-			} else {
-				frame--;
+		delay = 0;
+		if (zigzag) {
+			if (up) frame++;
+			else frame--;
+			if (!n[frame]) {
+				if (repeat) {
+					if (up) {
+						frame--;
+						up = false;
+					}
+					else {
+						frame = 0;
+						up = true;
+					}
+				}
+				else {
+					frame--;
+				}
+			}
+		}
+		else {
+			frame++;
+			if (!n[frame]) {
+				if (repeat) {
+					frame = 0;
+				} 
+				else {
+					frame--;
+				}
 			}
 		}
 		f = n[frame];

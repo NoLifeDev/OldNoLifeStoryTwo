@@ -13,7 +13,9 @@ void NLS::Config::Load() {
 	while (!file.eof()) {
 		string line;
 		getline(file, line);
+		if (line.size() == 0 || line[0] == '#') continue; // Skip lines with comments or just nothing at all
 		size_t pos = line.find_first_of('=');
+		if (pos == string::npos) continue;
 		string key = line.substr(0, pos);
 		string value =  line.substr(pos+1);
 		if (key == "path") {
@@ -22,10 +24,12 @@ void NLS::Config::Load() {
 			Mindfuck = value == "true";
 		} else if (key == "fullscreen") {
 			Fullscreen = value == "true";
-		} else if (key == "ms_ip") {
+		} else if (key == "online") {
+			Network::Online = value == "true";
+		}else if (key == "ms_ip") {
 			Network::IP = value;
 		} else if (key == "ms_port") {
-			Network::Port = atoi(value.c_str());
+			Network::Port = toint(value);
 		} else if (key == "profile") {
 			Profiling = value == "true";
 		}
@@ -56,6 +60,7 @@ void NLS::Config::Save() {
 	if (Network::Port == 0) {
 		Network::Port = 8484;
 	}
+	Write("online", Network::Online?"true":"false");
 	Write("ms_ip", Network::IP);
 	Write("ms_port", tostring(Network::Port));
 	Write("profile", Profiling?"true":"false");

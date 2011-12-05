@@ -23,13 +23,14 @@ namespace NLS {
 		NameTag nametag;
 		AniSprite currentAnimation;
 		bool hide;
+		bool isNPC;
 		static vector <Mob*> Mobs;
 		static vector <Npc*> Npcs;
 	};
 
 	class Npc : public Life {
 	public:
-		Npc::Npc() : hasMapleTVAnim(false) { }
+		Npc::Npc() : hasMapleTVAnim(false) { isNPC = true; }
 		void Draw();
 		string function;
 		NameTag functiontag;
@@ -41,6 +42,7 @@ namespace NLS {
 
 	class Mob : public Life {
 	public:
+		Mob() { isNPC = false; }
 		void Draw();
 	};
 }
