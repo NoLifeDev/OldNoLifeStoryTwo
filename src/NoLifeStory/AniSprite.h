@@ -15,6 +15,6 @@ namespace NLS {
 		int frame;
 		float a;
 		bool repeat, zigzag;
-		bool up;
+		bool up, done;
 	};
 }

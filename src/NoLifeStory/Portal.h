@@ -18,8 +18,15 @@ namespace NLS {
 		int delay;
 		int hidetooltip;
 		bool close;
+		NameTag derp;
 		static set<Portal*> All;
 		static set<Portal*>::iterator begin() {return All.begin();}
 		static set<Portal*>::iterator end() {return All.end();}
+		enum PhPortalStates {
+			Nothing,
+			Start,
+			Continue,
+			Exit
+		} phState;
 	};
 }

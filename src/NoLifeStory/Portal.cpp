@@ -8,6 +8,8 @@ set<NLS::Portal*> NLS::Portal::All;
 bool loaded = false;
 NLS::Sprite sprites[15];
 NLS::AniSprite pvsprite;
+NLS::AniSprite phsprite;
+string portalNames[15] = {"sp", "pi", "pv", "pc", "pg", "pgi", "tp", "ps", "psi", "pcs", "ph", "psh", "pcj", "pci", "pcig"};
 
 void NLS::Portal::Load(Node n) {
 	if (!loaded) {
@@ -49,6 +51,8 @@ void NLS::Portal::Load(Node n) {
 		p->onlyonce = pn["onlyOnce"];
 		p->hidetooltip = pn["hideTooltip"];
 		p->delay = pn["delay"];
+		p->derp.Set(portalNames[p->pt], NameTag::Normal);
+		p->phState = Portal::Nothing;
 		All.insert(p);
 	}
 }
@@ -58,15 +62,48 @@ void NLS::Portal::Update() {
 }
 
 void NLS::Portal::Draw() {
+	int32_t h = ThisPlayer->y - y;
 	switch (pt) {
 	case 2:
 		pvsprite.Draw(x, y);
 		break;
+	case 10:
+		if (abs(ThisPlayer->x - x) <= 60 && h >= -90 && h <= 10) {
+			if (phState == Portal::Nothing || phState == Portal::Exit) {
+				phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalStart"]);
+				phState = Portal::Start;
+				phsprite.repeat = false;
+			}
+			else if (phsprite.done) {
+				if (phState == Portal::Start) {
+					// Goto continue!
+					phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalContinue"]);
+					phState = Portal::Continue;
+					phsprite.repeat = true;
+				}
+			}
+			phsprite.Draw(x, y);
+			phsprite.Step();
+			break;
+		}
+		else if (phState != Portal::Nothing) {
+			if (phState != Portal::Exit) {
+				phsprite.Set(WZ["Map"]["MapHelper"]["portal"]["game"]["ph"]["default"]["portalExit"]);
+				phState = Portal::Exit;
+				phsprite.repeat = false;
+			}
+			if (!phsprite.done) {
+				phsprite.Draw(x, y);
+				phsprite.Step();
+				break;
+			}
+			else if (phState == Portal::Exit) {
+				phState = Portal::Nothing;
+			}
+		}
 	default:
 		sprites[pt].Draw(x, y);
 	}
-	if (!script.empty()) {
-		//NLS::Text txt(Text::Color(255, 255, 255) + u32(script), 18);
-		//txt.Draw(x-txt.Width()/2, y);
-	}
+
+	derp.Draw(x, y);
 }

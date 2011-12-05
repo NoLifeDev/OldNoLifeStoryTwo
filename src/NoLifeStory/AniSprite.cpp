@@ -10,6 +10,7 @@ NLS::AniSprite::AniSprite() {
 	repeat = true;
 	zigzag = false;
 	up = true;
+	done = false;
 }
 
 void NLS::AniSprite::Set(Node n) {
@@ -19,6 +20,7 @@ void NLS::AniSprite::Set(Node n) {
 	f = n[0];
 	a = 1;
 	up = true;
+	done = false;
 	zigzag = !!n["zigzag"];
 }
 
@@ -68,6 +70,7 @@ void NLS::AniSprite::Step() {
 				} 
 				else {
 					frame--;
+					done = true;
 				}
 			}
 		}

@@ -492,7 +492,7 @@ void NLS::Physics::Update() {
 	
 	if (control) {
 		int32_t now = clock();
-		if (now - 30 >= lastAction) {
+		if (now - 100 >= lastAction) {
 			lastAction = now;
 			if (down && !didLieDown) {
 				didLieDown = true;
@@ -513,8 +513,8 @@ void NLS::Physics::Update() {
 		if (moves.size() == 0) return;
 		Movement currentMovement = moves.front();
 		double dx = (double)currentMovement.x, dy = (double)currentMovement.y;
-		bool hasx = x >= dx - 1.0 && x <= dx + 1.0;
-		bool hasy = y >= dy - 1.0 && y <= dy + 1.0;
+		bool hasx = x >= dx - 2.0 && x <= dx + 2.0;
+		bool hasy = y >= dy - 2.0 && y <= dy + 2.0;
 		if (currentMovement.type == 0) { // Walk
 			if (hasx && hasy) {
 				moves.erase(moves.begin());
@@ -606,12 +606,12 @@ void NLS::Physics::Jump() {
 
 void NLS::Physics::AddMovement(int8_t action) {
 	int16_t fhid = ThisPlayer->fh == nullptr ? 0 : ThisPlayer->fh->id;
-	int16_t retf = !f;
+	int16_t retf = f;
 	if (lr != nullptr) retf += 14;
 	else if (fh == nullptr) retf += 6;
 	else if (left || ThisPlayer->right) retf += 0;
 	else if (down) retf += 10;
 	else retf += 4;
 
-	moves.push_back(Movement(action, retf, x, y, fhid, 30));
+	moves.push_back(Movement(action, retf, x, y, fhid, 100));
 }

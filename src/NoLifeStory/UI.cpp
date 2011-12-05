@@ -67,7 +67,7 @@ NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false), text(2
 void NLS::UI::StatusBar::Draw() {
 	glPushMatrix();
 	glTranslatef(x, y, 0);
-	glColor4f((float)rand()/RAND_MAX, (float)rand()/RAND_MAX, (float)rand()/RAND_MAX, 1);
+	glColor4f(1,1,1, 1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBegin(GL_QUADS);
 	glVertex2i(0, 0);
