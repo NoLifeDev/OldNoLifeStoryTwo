@@ -8,4 +8,5 @@ namespace NLS {
 	bool Loop();
 	void Unload();
 	extern bool Mindfuck;
+	extern bool bMute;
 }

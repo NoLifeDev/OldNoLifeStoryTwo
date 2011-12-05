@@ -23,6 +23,11 @@ void NLS::Map::Load(const string& id, const string& portal) {
 	nextportal = portal;
 }
 
+void ChangeLoginStep(char step) {
+	NLS::View::x = NLS::View::tx = NLS::View::vx = - 400;
+	NLS::View::y = NLS::View::ty = NLS::View::vy = (step == 0 ? 12 : -32) - (600 * step);
+}
+
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
 		if (portal.empty() && nextportalID >= 0) {
@@ -122,6 +127,8 @@ void NLS::Map::Load() {
 			bgmusic = WZ["Sound"][p[0]][p[1]];
 			bgmusic.Play(true);
 		}
+		if(bMute)
+			bgmusic.SetVolume(0);
 	}
 
 	for (uint8_t i = 0; i < 8; ++i) {
@@ -163,6 +170,12 @@ void NLS::Map::Load() {
 		View::ymax += 128;
 		View::ymin -= View::height;
 	}
+	if(Login) {
+		View::ymin -= 4400;
+		View::xmax -= 90;
+		View::xmin -= 9;
+		ChangeLoginStep(0);
+	}
 	teleport(nextportal, true);
 	nextmap = "";
 	nextportal = "";
@@ -198,6 +211,11 @@ void NLS::Map::Draw() {
 		Foregrounds[i]->Draw();
 	}
 	DrawClock();
+
+	if(Login) {
+		NLS::Sprite frameImg = WZ["UI"]["Login"]["Common"]["frame"];
+		frameImg.Draw(View::x+400,View::y+300);
+	}
 }
 
 void NLS::Map::Layer::Draw() {

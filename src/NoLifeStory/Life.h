@@ -34,6 +34,7 @@ namespace NLS {
 		void Draw();
 		string function;
 		NameTag functiontag;
+		bool CheckPosition(int _x,int _y);
 	private:
 		AniSprite mapleTVanim;
 		AniSprite mapleTVanimMsg;

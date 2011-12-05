@@ -5,6 +5,7 @@
 namespace NLS {
 	namespace Mouse {
 		void Init();
+		void updateState();
 		void HandleEvent(sf::Event&);
 		void Draw();
 		enum MState {

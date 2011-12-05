@@ -56,6 +56,12 @@ void NLS::Key::Handle(sf::Event e) {
 				UI::TextBox::Active = nullptr;
 			}
 			break;
+		case sf::Keyboard::Delete:
+		case sf::Keyboard::Back:
+			if (UI::TextBox::Active) {
+				UI::TextBox::Active->HandleKey(e.Key.Code);
+			}
+			break;
 		case sf::Keyboard::Escape:
 			UI::TextBox::Active = nullptr;
 			break;
@@ -78,16 +84,28 @@ void NLS::Key::Handle(sf::Event e) {
 			}
 			break;
 		case sf::Keyboard::Left:
-			Left = true;
+			if (!UI::TextBox::Active) 
+				Left = true;
+			else
+				UI::TextBox::Active->HandleKey(e.Key.Code);
 			break;
 		case sf::Keyboard::Right:
-			Right = true;
+			if (!UI::TextBox::Active) 
+				Right = true;
+			else
+				UI::TextBox::Active->HandleKey(e.Key.Code);
 			break;
 		case sf::Keyboard::Up:
-			Up = true;
+			if (!UI::TextBox::Active) 
+				Up = true;
+			else
+				UI::TextBox::Active->HandleKey(e.Key.Code);
 			break;
 		case sf::Keyboard::Down:
-			Down = true;
+			if (!UI::TextBox::Active) 
+				Down = true;
+			else
+				UI::TextBox::Active->HandleKey(e.Key.Code);
 			break;
 		}
 		if (UI::Focused)

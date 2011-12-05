@@ -92,7 +92,7 @@ void NLS::Text::Set(u32string str, int size) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glColor4f(0, 0, 0, 1);
-	//ftex.Bind();
+	ftex.Bind();
 	glBegin(GL_QUADS);
 	for (int i = 0; i < text.size(); ++i) {
 		char32_t cur = text[i];
@@ -127,8 +127,8 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	glEnd();
 	rtex->Display();
-	//tex.Bind();//Commented out until I fix it later
-	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
+	tex.Bind();//Commented out until I fix it later
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
 	window->SetActive();
 }
 
