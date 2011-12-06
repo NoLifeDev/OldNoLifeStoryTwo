@@ -72,6 +72,8 @@ namespace NLS {
 		void PlayerEmote(Packet&);
 		void DecodeMovement(Packet&, Physics*);
 		Item * DecodeItem(Packet&);
+		void MobSpawn(Packet&);
+		void NpcSpawn(Packet&);
 	}
 	namespace Send {
 		void Pong();

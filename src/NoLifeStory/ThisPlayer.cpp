@@ -74,10 +74,11 @@ void NLS::_ThisPlayer::UsePortal() {
 void NLS::_ThisPlayer::TryNpcChat() {
 	if (lr) return;
 	bool done = false;
-	for_each(Life::Npcs.begin(), Life::Npcs.end(), [&](Npc* n){
+	for_each(Life::Npcs.begin(), Life::Npcs.end(), [&](pair<uint32_t, Npc*> p){
+		Npc *n = p.second;
 		if (!done and x+50 > n->x and x-50 < n->x and y+50 > n->y and y-50 < n->y) {
 			if (Network::Connected) {
-				Send::NpcChatStart(toint(n->id));
+				Send::NpcChatStart(p.first);
 			}
 			done = true;
 		}

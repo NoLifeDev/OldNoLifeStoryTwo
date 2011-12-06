@@ -4,21 +4,27 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-vector <NLS::Mob *> NLS::Life::Mobs;
-vector <NLS::Npc *> NLS::Life::Npcs;
+map <uint32_t, NLS::Mob *> NLS::Life::Mobs;
+map <uint32_t, NLS::Npc *> NLS::Life::Npcs;
+
+uint32_t NLS::Life::NpcStart = 100;
+uint32_t NLS::Life::MobStart = 0;
 
 void NLS::Life::Load() {
+	NpcStart = 100;
+	MobStart = 0;
+
 	for (auto it = Mobs.begin(); it != Mobs.end(); it++) {
-		delete *it;
+		delete it->second;
 	}
 	Mobs.clear();
 	for (auto it = Npcs.begin(); it != Npcs.end(); it++) {
-		delete *it;
+		delete it->second;
 	}
 	Npcs.clear();
 
 	Node data = Map::node["life"];
-	if (!data) return;
+	if (!data || Network::Connected) return;
 	
 	for (auto it = data.begin(); it != data.end(); it++) {
 		Node rn = it->second;
@@ -26,20 +32,9 @@ void NLS::Life::Load() {
 		string type = (string) rn["type"];
 		if (type == "n")	{
 			r = new Npc;
-			r->id = (string)rn["id"];
-			r->data = WZ["Npc"][r->id];
-			auto str =  WZ["String"]["Npc"][r->id];
-			r->name = (string)str["name"];
-			((Npc*)r)->function = (string)str["func"];
-			((Npc*)r)->functiontag.Set(((Npc*)r)->function, NameTag::Life);
-			r->speedMin = 30;
 		}
 		else if (type == "m") {
 			r = new Mob;
-			r->id = (string)rn["id"];
-			r->data = WZ["Mob"][r->id];
-			r->name = (string)WZ["String"]["Mob"][r->id]["name"];
-			r->speedMin = (double)abs((int)r->data["info"]["speed"]) + 10;
 		}
 		else {
 			cerr << "[WARN] Loading unknown 'life'! Map: " << Map::curmap << ", Life list ID: " << it->first << ", Type: " << r->type << endl;
@@ -49,6 +44,7 @@ void NLS::Life::Load() {
 			// Rage mode, Peter style
 			throw(273); // Goodbye cruel world.
 		}
+		r->id = (string)rn["id"];
 		r->x = rn["x"];
 		r->y = rn["y"];
 		r->cx = rn["cx"];
@@ -57,23 +53,35 @@ void NLS::Life::Load() {
 		r->rx1 = rn["ry1"];
 		r->f = (int)rn["f"];
 		r->time = rn["mobTime"];
-		r->type = type;
-		r->down = false;
-		r->up = false;
-		r->notAPlayer = true;
-		r->nametag.Set(r->name, NameTag::Life);
-		if (r->data["info"]["link"]) {
-			r->data = r->data[".."][r->data["info"]["link"]];
-			// Linked mobs... common!
-		}
 		r->Init();
 		r->Reset(r->x, r->y);
-		if (r->type == "n") Npcs.push_back((NLS::Npc*)r);
-		else if (r->type == "m") Mobs.push_back((NLS::Mob*)r);
+		if (r->type == "n") Npcs[NpcStart++] = (NLS::Npc*)r;
+		else if (r->type == "m") Mobs[MobStart++] = (NLS::Mob*)r;
 	}
 }
 
 void NLS::Life::Init() {
+	if (type == "m") {
+		data = WZ["Mob"][id];
+		name = (string)WZ["String"]["Mob"][id]["name"];
+		speedMin = (double)abs((int)data["info"]["speed"]) + 10;
+	}
+	else if (type == "n") {
+		data = WZ["Npc"][id];
+		speedMin = 30;
+		auto str =  WZ["String"]["Npc"][id];
+		name = (string)str["name"];
+		((Npc*)this)->function = (string)str["func"];
+		((Npc*)this)->functiontag.Set(((Npc*)this)->function, NameTag::Life);
+	}
+
+	down = false;
+	up = false;
+	notAPlayer = true;
+	nametag.Set(name, NameTag::Life);
+	if (data["info"]["link"]) {
+		data = data[".."][data["info"]["link"]];
+	}
 	defaultState = data["info"]["flySpeed"] ? "fly" : "stand";
 	ChangeState(defaultState);
 }

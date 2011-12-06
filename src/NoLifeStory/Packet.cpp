@@ -143,6 +143,7 @@ void NLS::Handle::Init() {
 			Packet::Handlers[0x92] = &NLS::Handle::PlayerDespawn;
 			Packet::Handlers[0xA7] = &NLS::Handle::PlayerMove;
 			Packet::Handlers[0xAF] = &NLS::Handle::PlayerEmote;
+			Packet::Handlers[0xE3] = &NLS::Handle::NpcSpawn;
 		}
 	}
 
@@ -621,6 +622,29 @@ NLS::Item * NLS::Handle::DecodeItem(Packet &p) {
 
 	}
 	return item;
+}
+
+void NLS::Handle::MobSpawn(Packet &packet) {
+	uint32_t oid = packet.Read<uint32_t>();
+	if (Life::Mobs.find(oid) != Life::Mobs.end()) return;
+}
+
+void NLS::Handle::NpcSpawn(Packet &packet) {
+	uint32_t oid = packet.Read<uint32_t>();
+	if (Life::Npcs.find(oid) != Life::Npcs.end()) return;
+
+	Npc *npc = new Npc;
+	npc->id = tostring(packet.Read<int32_t>());
+	npc->Init();
+	npc->x = npc->cx = packet.Read<int16_t>();
+	npc->y = npc->cy = packet.Read<int16_t>();
+	npc->f = !packet.Read<bool>();
+	packet.Read<int16_t>(); // Foothold
+	npc->rx0 = packet.Read<int16_t>();
+	npc->rx1 = packet.Read<int16_t>();
+	npc->time = 0;
+	npc->Reset(npc->x, npc->y);
+	Life::Npcs[Life::NpcStart++] = npc;
 }
 
 void NLS::Send::Pong() {
