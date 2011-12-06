@@ -102,6 +102,10 @@ inline int pot(int x) {
 	return x+1;
 }
 
+inline bool is_extendsp_job(int32_t job) {
+  return job / 1000 == 3 || job / 100 == 22 || job == 2001;
+}
+
 string GetClipboardText() {
 #ifdef NLS_WINDOWS
 	if (OpenClipboard(nullptr)) {

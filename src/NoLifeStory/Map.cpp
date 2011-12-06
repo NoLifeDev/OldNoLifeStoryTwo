@@ -25,7 +25,7 @@ void NLS::Map::Load(const string& id, const string& portal) {
 
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
-		if (portal.empty() && nextportalID >= 0) {
+		if (portal.empty() && nextportalID == -1) {
 			if (change) {
 				portal = "sp";
 			} else {

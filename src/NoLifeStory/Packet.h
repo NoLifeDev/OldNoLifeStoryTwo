@@ -78,6 +78,11 @@ namespace NLS {
 		void Pang();
 		void Handshake();
 		void PlayerMove();
-		void PlayerEmote(int32_t emote);
+		void PlayerEmote(int32_t);
+		void UsePortal(const string &);
+		void UsePortalScripted(const string &);
+		void Revive();
+		void GmMapTeleport(int32_t);
+		void NpcChatStart(int32_t);
 	}
 }

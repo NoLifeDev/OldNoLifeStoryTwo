@@ -170,9 +170,10 @@ void NLS::Handle::ChangeMap(Packet &p) {
 
 	if (channelConnect) {
 		// RNG's
-		p.Read<uint32_t>();
-		p.Read<uint32_t>();
-		p.Read<uint32_t>();
+		uint32_t s1 = p.Read<uint32_t>();
+		uint32_t s2 = p.Read<uint32_t>();
+		uint32_t s3 = p.Read<uint32_t>();
+		ThisPlayer->damageRNG.reset(s1, s2, s3);
 
 		// Flag. Just ignore and load everything xd
 		// Info: real client actually uses this!!!
@@ -202,7 +203,19 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		stats.MP = p.Read<int16_t>(); // MP
 		stats.MaxMP = p.Read<int16_t>(); // MaxMP
 		stats.AP = p.Read<int16_t>(); // AP
-		stats.SP[0] = p.Read<int16_t>(); // SP
+		if (is_extendsp_job(stats.Job)) {
+			int8_t spslots = p.Read<int8_t>();
+			for (auto i = 0; i < spslots; i++) {
+				int8_t slot = p.Read<int8_t>();
+				int8_t amount = p.Read<int8_t>();
+				if (slot < stats.SP.size()) {
+					stats.SP[slot] = amount;
+				}
+			}
+		}
+		else {
+			stats.SP[0] = p.Read<int16_t>();
+		}
 		stats.EXP = p.Read<int32_t>(); // EXP
 		stats.Fame = p.Read<int16_t>(); // Fame
 		stats.GachaEXP = p.Read<int32_t>(); // GachaEXP
@@ -259,6 +272,16 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		Map::nextmap = tostring(mapid);
 		Map::nextportalID = mappos;
 	}
+	else {
+		int32_t mapid = p.Read<int32_t>();
+		int8_t mappos = p.Read<int8_t>();
+		ThisPlayer->stats.HP = p.Read<int16_t>();
+		p.Read<int8_t>(); // unk
+		p.Read<int64_t>(); // Filetime time time
+		Map::nextmap = tostring(mapid);
+		Map::nextportalID = mappos;
+	}
+	Map::Load();
 }
 
 void NLS::Handle::PlayerSpawn(Packet &p) {
@@ -637,6 +660,45 @@ void NLS::Send::Handshake() {
 void NLS::Send::PlayerEmote(int32_t emote) {
 	NLS::Packet packet(0x32);
 	packet.Write<int32_t>(emote);
+	packet.Send();
+}
+
+void NLS::Send::UsePortal(const string &portalname) {
+	NLS::Packet packet(0x25);
+	packet.Write<uint8_t>(ThisPlayer->currentPortal);
+	packet.Write<int32_t>(-1);
+	packet.Write<string>(portalname);
+	packet.Send();
+}
+
+void NLS::Send::UsePortalScripted(const string &portalname) {
+	NLS::Packet packet(0x63);
+	packet.Write<uint8_t>(ThisPlayer->currentPortal);
+	packet.Write<string>(portalname);
+	packet.Send();
+}
+
+void NLS::Send::Revive() {
+	NLS::Packet packet(0x25);
+	packet.Write<uint8_t>(ThisPlayer->currentPortal);
+	packet.Write<int32_t>(0);
+	packet.Write<string>("");
+	packet.Write<int8_t>(0);
+	packet.Write<bool>(false);
+	packet.Send();
+}
+
+void NLS::Send::GmMapTeleport(int32_t mapid) {
+	NLS::Packet packet(0x25);
+	packet.Write<uint8_t>(ThisPlayer->currentPortal);
+	packet.Write<int32_t>(mapid);
+	packet.Send();
+}
+
+void NLS::Send::NpcChatStart(int32_t npcid) {
+	NLS::Packet packet(0x39);
+	packet.Write<uint8_t>(ThisPlayer->currentPortal);
+	packet.Write<int32_t>(npcid);
 	packet.Send();
 }
 

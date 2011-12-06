@@ -77,15 +77,27 @@ void NLS::Network::Loop() {
 	};
 	if (!Online) return;
 	if (!Connected) {
-		Socket.Connect(IP, Port);
-		Connected = true;
-		connecting = true;
-		initial = true;
-		ghead = true;
-		pos = 0;
-		timeout = 0;
+		Socket.SetBlocking(true);
+		cout << "Trying to connect to " << IP << ":" << Port << endl;
+		if (Socket.Connect(IP, Port, 1000) != sf::Socket::Done) {
+			cerr << "Could not connect to server." << endl;
+#ifdef _WIN32
+				cerr << "WSAGetLastError(): " << WSAGetLastError() << endl;
+#endif
+			Online = false;
+		}
+		else {
+			Socket.SetBlocking(false);
+			Connected = true;
+			connecting = true;
+			initial = true;
+			ghead = true;
+			pos = 0;
+			timeout = 0;
+		}
 	}
 	timeout += Time::delta;
+	if (!Connected) return;
 	while (true) {
 		if (initial) {
 			if (ghead) {
@@ -134,7 +146,7 @@ void NLS::Network::Loop() {
 				else cerr << "No packet handler for opcode: " << opcode << endl;
 				ghead = true;
 				pos = 0;
-				break;
+				//break;
 			}
 		}
 	}
