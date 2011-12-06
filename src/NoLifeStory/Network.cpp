@@ -53,7 +53,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				Map::Load("0", "");
+				Map::Load("0", "sp");
 			}
 			return false;
 		case sf::Socket::Error:
@@ -67,7 +67,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				Map::Load("0", "");
+				Map::Load("0", "sp");
 			}
 			return false;
 		default:
@@ -76,9 +76,8 @@ void NLS::Network::Loop() {
 		return pos == len;
 	};
 	if (!Online) return;
-	if (!Connected) {
+	if (!Connected and !connecting) {
 		Socket.Connect(IP, Port);
-		Connected = true;
 		connecting = true;
 		initial = true;
 		ghead = true;

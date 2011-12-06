@@ -4,6 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 void NLS::NameTag::Set(const string& str, Style style) {
+	if (str.empty()) return;
 	switch (style) {
 	case Normal:
 	default:

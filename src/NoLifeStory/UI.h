@@ -3,6 +3,8 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 
+//TODO - Fix all the yucks
+
 namespace NLS {
 	namespace UI {
 		class Element;
@@ -12,8 +14,8 @@ namespace NLS {
 			virtual ~Window();
 			virtual void Draw();
 			void setBackground(NLS::Sprite bg);
-			virtual void HandleClick(UINT x,UINT y,sf::Mouse::Button b);
-			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);
+			virtual void HandleClick(UINT x,UINT y,sf::Mouse::Button b);//Yuck
+			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
 			void Focus();
 			bool HandleKey(sf::Keyboard::Key);
 			void Add(Element* e);
@@ -21,7 +23,7 @@ namespace NLS {
 			map<sf::Keyboard::Key, function<void()>> actions;
 			int x, y;
 			int width, height;
-			bool focusable, stealsfocus,bVisible;
+			bool focusable, stealsfocus,bVisible;//Yuck
 			NLS::Sprite background;
 			static list<Window*> All;
 			static list<Window*>::iterator begin() {return All.begin();}
@@ -36,8 +38,8 @@ namespace NLS {
 			virtual ~Element() {}
 			virtual void Draw() {};
 			void setBackground(NLS::Sprite bg);
-			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);
-			virtual void Click(sf::Mouse::Button) {};
+			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
+			virtual void Click(sf::Mouse::Button) {};//Yuck
 			int CalcX() {return x+parent->x;}
 			int CalcY() {return y+parent->y;}
 			int x, y;
@@ -58,7 +60,7 @@ namespace NLS {
 		};
 		class Button : public Element {
 		public:
-			enum EBState {
+			enum EBState {//Yuck
 				BTN_NORMAL,
 				BTN_MOUSE_OVER,
 				BTN_PRESSED,
@@ -68,26 +70,26 @@ namespace NLS {
 			Button(int x, int y)
 				: Element(x, y, 0, 0) {
 					iState = BTN_INVISIBLE;
-					action = NULL;
+					action = NULL;//Yuck
 			}
 			void Click(sf::Mouse::Button);
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);
+			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
 			void setNode(NLS::Node nNode);
 			void setState(EBState iState);
 			function<void()> action;
-			NLS::Node nNode;
-			EBState iState;
+			NLS::Node nNode;//Yuck
+			EBState iState;//Yuck
 		};
 		class CheckBox : public Element {
 		public:
 			CheckBox(int x,int y) : Element(x,y,0,0) {}
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);
-			void Click(sf::Mouse::Button);
-			void setNode(NLS::Node nNode);
-			NLS::Node nNode;
-			bool bChecked;
+			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
+			void Click(sf::Mouse::Button);//Yuck
+			void setNode(NLS::Node nNode);//Yuck
+			NLS::Node nNode;//Yuck
+			bool bChecked;//Yuck
 		};
 		class TextBox : public Element {
 		public:
@@ -96,13 +98,13 @@ namespace NLS {
 			static TextBox* Active;
 			void Send();
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);
-			void Click(sf::Mouse::Button);
+			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
+			void Click(sf::Mouse::Button);//Yuck
 			void HandleChar(char32_t);
-			void HandleKey(sf::Keyboard::Key);
-			void updateText();
+			void HandleKey(sf::Keyboard::Key);//Yuck
+			void updateText();//Yuck
 			u32string str;
-			int szIndex;
+			int szIndex;//Yuck
 			Text text;
 		};
 		class ScrollBar : public Element {
@@ -123,7 +125,7 @@ namespace NLS {
 			TextBox tUsername;
 			TextBox tPassword;
 			CheckBox cbRemember;
-			Button bRemember;
+			Button bRemember;//Yuck
 			Button bLoginLost;
 			Button bPassLost;
 			Button bNew;
@@ -131,13 +133,13 @@ namespace NLS {
 			Button bQuit;
 			Button bLogin;
 		};
-		class BaseGUI : public Window {
+		class BaseGUI : public Window {//Yuck
 		public:
 			BaseGUI();
 			void Draw();
-			TextBox tChat;
+			TextBox tChat;//Yuck
 
-			Static sLevelBG;
+			Static sLevelBG;//Yuck
 			Static sLevelCover;
 			Static sGaugeBG;
 			Static sGaugeCover;
@@ -145,7 +147,7 @@ namespace NLS {
 			Static sChatCover;
 			Static sChatSpace;
 
-			Button bCashshop;
+			Button bCashshop;//Yuck
 			Button bChattarget;
 			Button bCharacter;
 			Button bChat;

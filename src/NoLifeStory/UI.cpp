@@ -24,9 +24,12 @@ namespace Functors {
 }
 */
 void NLS::UI::Init() {
-//	new StatusBar();
-	new LoginDialog();
-	new BaseGUI();
+	if (WZ["UI"]["StatusBar2"]) {
+
+	}
+	new StatusBar();
+	//new LoginDialog();
+	//new BaseGUI();
 }
 void NLS::UI::Draw() {
 	for_each(Window::begin(), Window::end(), [](Window* w){
@@ -55,7 +58,7 @@ void NLS::UI::Window::Draw() {
 	});
 }
 bool NLS::UI::Window::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
-	if(!bVisible)
+	/*if(!bVisible)
 		return false;
 	bool bFound = FALSE;
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
@@ -63,7 +66,8 @@ bool NLS::UI::Window::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
 		if(bFound == FALSE)
 			bFound = bOver;
 	});
-	return bFound;
+	return bFound;*/
+	return false;
 }
 void NLS::UI::Window::HandleClick(UINT x,UINT y,sf::Mouse::Button b) {
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
@@ -88,6 +92,11 @@ void NLS::UI::Window::Focus() {
 	}
 	All.erase(it);
 	All.push_back(this);
+}
+bool NLS::UI::Window::HandleKey(sf::Keyboard::Key key) {
+	if (actions[key]) actions[key]();
+	else return false;
+	return true;
 }
 
 bool NLS::UI::Element::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
@@ -222,21 +231,16 @@ void NLS::UI::BaseGUI::Draw() {
 	}
 }
 
-bool NLS::UI::Window::HandleKey(sf::Keyboard::Key key) {
-	if (actions[key]) actions[key]();
-	else return false;
-	return true;
-}
-
 NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false), text(20, 20, 400) {
 	Add(&text);
 	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
+	Key::Set(sf::Keyboard::H, [](){Map::Load("100000000", "");});
 }
 void NLS::UI::StatusBar::Draw() {
 
 	glPushMatrix();
 	glTranslatef(x, y, 0);
-	glColor4f(1,1,1, 1);
+	glColor4f(0.5, 0.5, 1, 1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBegin(GL_QUADS);
 	glVertex2i(0, 0);
@@ -329,13 +333,7 @@ void NLS::UI::CheckBox::Click(sf::Mouse::Button b) {
 	}
 }
 bool NLS::UI::TextBox::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
-	bool bFound = FALSE;
-	if (mouseX >= CalcX()-background.data->originx && mouseX <= CalcX() - background.data->originx + width) {
-		if (mouseY >= CalcY()-background.data->originy && mouseY <= CalcY() - background.data->originy + height) {
-			bFound = TRUE;
-		}
-	}
-	return bFound;
+	return Mouse::x > CalcX() and Mouse::x <= CalcX()+width and Mouse::y >= CalcY() and Mouse::y <= CalcY()+height;
 }
 
 void NLS::UI::TextBox::Click(sf::Mouse::Button b) {
@@ -347,9 +345,9 @@ void NLS::UI::TextBox::Click(sf::Mouse::Button b) {
 	szIndex = iIndex;*/
 }
 void NLS::UI::TextBox::Send() {
-	//Map::Load(u8(str), "");
-	//str.clear();
-	//updateText();
+	Map::Load(u8(str), "");
+	str.clear();
+	updateText();
 }
 void NLS::UI::TextBox::updateText() {
 	text.Set(str, 12);
@@ -364,8 +362,7 @@ void NLS::UI::TextBox::HandleChar(char32_t key) {
 		if (!str.empty()) str.erase(str.end());
 		return;
 	}
-
-	str.insert(szIndex++,1,key);
+	str += key;
 	updateText();
 }
 
@@ -388,6 +385,20 @@ void NLS::UI::TextBox::HandleKey(sf::Keyboard::Key key) {
 
 }
 void NLS::UI::TextBox::Draw() {
+	glPushMatrix();
+	glTranslatef(CalcX(), CalcY(), 0);
+	if (Active != this) glColor4f((float)rand()/RAND_MAX, (float)rand()/RAND_MAX, (float)rand()/RAND_MAX, 1);
+	else glColor4f(1, 1, 1, 1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBegin(GL_QUADS);
+	glVertex2i(0, 0);
+	glVertex2i(width, 0);
+	glVertex2i(width, height);
+	glVertex2i(0, height);
+	glEnd();
+	text.Draw(3, 3);
+	glPopMatrix();
+	/*
 	if (Active) {
 		Key::Left = false;
 		Key::Right = false;
@@ -419,6 +430,7 @@ void NLS::UI::TextBox::Draw() {
 			glEnd();
 		}
 	}
+	*/
 }
 void NLS::UI::Element::setBackground(NLS::Sprite bg) {
 	width = bg.data->width;

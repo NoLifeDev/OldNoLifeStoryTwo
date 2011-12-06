@@ -57,12 +57,8 @@ void NLS::Config::Save() {
 	Write("mindfuck", Mindfuck?"true":"false");
 	Write("mute", bMute?"true":"false");
 	Write("fullscreen", Fullscreen?"true":"false");
-	if (Network::IP == "") {
-		Network::IP = "63.251.217.3";
-	}
-	if (Network::Port == 0) {
-		Network::Port = 8484;
-	}
+	if (Network::IP == "") Network::IP = "63.251.217.3";
+	if (Network::Port == 0) Network::Port = 8484;
 	Write("online", Network::Online?"true":"false");
 	Write("ms_ip", Network::IP);
 	Write("ms_port", tostring(Network::Port));

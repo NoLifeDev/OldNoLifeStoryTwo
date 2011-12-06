@@ -37,6 +37,7 @@ NLS::Text::~Text() {
 
 void NLS::Text::Set(u32string str, int size) {
 	if (str.empty()) {
+		text.clear();
 		width = 0;
 		height = 0;
 		return;
@@ -72,13 +73,13 @@ void NLS::Text::Set(u32string str, int size) {
 	width = max(width, x);
 	height = y+linespace;
 	if (width == 0) {
+		text.clear();
 		width = 0;
 		height = 0;
 		return;
 	}
 	x = 0;
 	y = fsize;
-	tex.Create(width, height);
 	rtex->SetActive();
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -127,7 +128,8 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	glEnd();
 	rtex->Display();
-	tex.Bind();//Commented out until I fix it later
+	tex.Create(width, height);
+	tex.Bind();
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
 	window->SetActive();
 }
@@ -141,7 +143,7 @@ int NLS::Text::Height() {
 }
 
 void NLS::Text::Draw(int x, int y) {
-	if (text.empty()) return;
+	if (!width) return;
 	glPushMatrix();
 	glTranslatef(x, y, 0);
 	glColor4f(1, 1, 1, 1);
