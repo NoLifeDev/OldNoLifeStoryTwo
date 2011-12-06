@@ -89,7 +89,7 @@ void NLS::Life::ChangeState(const string &newState) {
 
 void NLS::Life::Draw() {
 	Update();
-	currentAnimation.Draw(x, y, f);
+	currentAnimation.Draw(x, y, data["info"]["noFlip"] ? 0 : f);
 	nametag.Draw(x, y);
 }
 

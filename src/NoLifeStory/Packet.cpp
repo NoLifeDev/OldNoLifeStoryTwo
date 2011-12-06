@@ -190,6 +190,7 @@ void NLS::Handle::ChangeMap(Packet &p) {
 		p.Read<int64_t>();
 
 		ThisPlayer->level = p.Read<uint8_t>();
+
 		Player::Stats stats;
 		stats.Job = p.Read<int16_t>(); // job
 		stats.Str = p.Read<int16_t>(); // Strength
@@ -263,7 +264,8 @@ void NLS::Handle::ChangeMap(Packet &p) {
 void NLS::Handle::PlayerSpawn(Packet &p) {
 	// Spawn player
 	uint32_t id = p.Read<uint32_t>();
-	// TODO: Should check if player in list... oh w/e
+	if (Map::Players.find(id) != Map::Players.end()) return; // We don't want to spawn someone twice!
+
 	Player *player = new Player;
 	player->charid = id;
 	player->name = p.Read<string>();
@@ -428,7 +430,7 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 void NLS::Handle::PlayerDespawn(Packet &p) {
 	// Spawn player
 	uint32_t id = p.Read<uint32_t>();
-	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	Player *player = Map::GetPlayer(id);
 	if (player == nullptr) return;
 	Map::Players.erase(id);
 	delete player;
@@ -437,14 +439,14 @@ void NLS::Handle::PlayerDespawn(Packet &p) {
 
 void NLS::Handle::PlayerMove(Packet &p) {
 	uint32_t id = p.Read<uint32_t>();
-	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	Player *player = Map::GetPlayer(id);
 	if (player == nullptr) return;
 	DecodeMovement(p, player);
 }
 
 void NLS::Handle::PlayerEmote(Packet &p) {
 	uint32_t id = p.Read<uint32_t>();
-	Player *player = Map::Players.find(id) != Map::Players.end() ? Map::Players[id] : nullptr;
+	Player *player = Map::GetPlayer(id);
 	if (player == nullptr) return;
 
 	int32_t emoteID = p.Read<int32_t>();
