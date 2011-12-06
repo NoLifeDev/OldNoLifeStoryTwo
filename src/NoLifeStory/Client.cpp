@@ -5,6 +5,7 @@
 #include "Global.h"
 
 bool NLS::Mindfuck = false;
+bool NLS::bMute = false;
 float bgVolume;
 
 void NLS::Init() {
@@ -93,7 +94,8 @@ void NLS::Init() {
 			});
 		}
 	}
-	Map::Load(Network::Online?"MapLogin":"0", "");
+
+	Map::Load(Network::Online?"MapLogin":"100000000", "");
 	Map::Load();
 }
 
@@ -109,6 +111,7 @@ bool NLS::Loop() {
 		case sf::Event::MouseButtonPressed:
 		case sf::Event::MouseButtonReleased:
 		case sf::Event::MouseWheelMoved:
+		case sf::Event::MouseMoved:
 			Mouse::HandleEvent(e);
 			break;
 		case sf::Event::Closed:
@@ -119,7 +122,11 @@ bool NLS::Loop() {
 			NLS::Map::bgmusic.SetVolume(0);
 			break;
 		case sf::Event::GainedFocus:
-			NLS::Map::bgmusic.SetVolume(bgVolume);
+			if(bMute) {
+				NLS::Map::bgmusic.SetVolume(0);
+			} else {
+				NLS::Map::bgmusic.SetVolume(bgVolume);
+			}
 			break;
 		default:
 			break;

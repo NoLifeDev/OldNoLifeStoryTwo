@@ -22,6 +22,8 @@ void NLS::Config::Load() {
 			Paths.push_back(value);
 		} else if (key == "mindfuck") {
 			Mindfuck = value == "true";
+		} else if (key == "mute") {
+			bMute = value == "true";
 		} else if (key == "fullscreen") {
 			Fullscreen = value == "true";
 		} else if (key == "online") {
@@ -53,6 +55,7 @@ void NLS::Config::Save() {
 	};
 	for_each(Paths.begin(), Paths.end(), [&](path s){Write("path", s);});
 	Write("mindfuck", Mindfuck?"true":"false");
+	Write("mute", bMute?"true":"false");
 	Write("fullscreen", Fullscreen?"true":"false");
 	if (Network::IP == "") {
 		Network::IP = "63.251.217.3";

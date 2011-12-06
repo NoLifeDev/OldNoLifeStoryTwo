@@ -52,8 +52,44 @@ void NLS::Mouse::Draw() {
 	curSprite.Draw(x, y);
 }
 
-void NLS::Mouse::HandleEvent(sf::Event& e) {
-	switch (e.Type) {
+void NLS::Mouse::updateState() {
+	for_each(NLS::UI::Window::All.begin(), NLS::UI::Window::All.end(), [](NLS::UI::Window* w) {
+		w->CheckPosition(x,y,State == OnOverClickableLocked);
+	});
 
+	if(State != OnOverClickableLocked) {
+		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](NLS::Npc* n) {
+			if(n->CheckPosition(View::x+x,View::y+y)) {
+				State = OnOverClickable;
+			}
+		});
+	}
+}
+
+void NLS::Mouse::HandleEvent(sf::Event& e) {
+	State = Normal;
+	switch (e.Type) {
+	case sf::Event::MouseButtonPressed:
+		State = OnOverClickableLocked;
+		break;
+	case sf::Event::MouseButtonReleased:
+		State = Normal;
+		break;
+	}
+
+	auto p = sf::Mouse::GetPosition(*window);
+	x = p.x;
+	y = p.y;
+
+	static bool bPressed = sf::Mouse::IsButtonPressed(sf::Mouse::Left); //left
+
+	updateState();
+
+	if(e.Type == sf::Event::MouseButtonPressed) {
+		for_each(NLS::UI::Window::All.begin(), NLS::UI::Window::All.end(), [](NLS::UI::Window* w) {
+			if(w->CheckPosition(x,y,State == OnOverClickableLocked)) {
+				w->HandleClick(x,y,sf::Mouse::Left);
+			}
+		});
 	}
 }
