@@ -18,6 +18,7 @@ NLS::Player::Player() : Physics() {
 	face = 20000;
 	hair = 30000;
 	level = 8;
+	lemming = true;
 	name = "NoLifer";
 	nametag.Set(name, NameTag::Normal);
 	guildname = "";
@@ -52,7 +53,7 @@ void NLS::Player::ChangeEmote(int id) {
 }
 
 void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
-	slotid = abs(slotid);//Who sends negative stuff?
+	slotid = slotid;//Who sends negative stuff?
 	switch (slotid) {
 	case 1: cap = itemid; break;
 	case 2: forehead = itemid; break;

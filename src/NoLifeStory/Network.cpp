@@ -47,6 +47,9 @@ void NLS::Network::Loop() {
 				Map::Load("0", "");
 			} else {
 				cerr << "Failed to connect to the server" << endl;
+#ifdef _WIN32
+				cerr << "WSAGetLastError(): " << WSAGetLastError() << endl;
+#endif
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.

@@ -78,11 +78,13 @@ string NLS::Physics::StanceToString(int8_t stance) {
 	}
 }
 
-NLS::Physics::Physics() : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
+NLS::Physics::Physics() : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1),
+lemming(false) {
 	Reset(0, 0);
 }
 
-NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
+NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1),
+lemming(false) {
 	Reset(x, y);
 }
 
@@ -95,7 +97,7 @@ void NLS::Physics::Reset(double x, double y) {
 	vr = 0;
 	fh = nullptr;
 	lr = nullptr;
-	layer = 7;
+	layer = 1;
 	group = 0;
 	freefall = 0;
 	djump = nullptr;
@@ -359,7 +361,7 @@ void NLS::Physics::Update() {
 				if (fh->next->walk) {
 					r = r-fh->len;
 					fh = fh->next;
-				} else if (fh->next->y2 > fh->next->y1 and !lemming) {
+				} else if (fh->next->y2 > fh->next->y1 and lemming) {
 					x = fh->x2+0.1;
 					y = fh->y2+0.1;
 					vx = ldx(vr, fh->dir);
@@ -373,7 +375,7 @@ void NLS::Physics::Update() {
 						right = false;
 					}
 				}
-			} else if (!lemming) {
+			} else if (lemming) {
 				x = fh->x2+0.1;
 				y = fh->y2+0.1;
 				vx = ldx(vr, fh->dir);
@@ -390,7 +392,7 @@ void NLS::Physics::Update() {
 				if (fh->prev->walk) {
 					fh = fh->prev;
 					r = r+fh->len;
-				} else if (fh->prev->y2 < fh->prev->y1) {
+				} else if (fh->prev->y2 < fh->prev->y1 and lemming) {
 					x = fh->x1-0.1;
 					y = fh->y1-0.1;
 					vx = ldx(vr, fh->dir);
@@ -400,7 +402,7 @@ void NLS::Physics::Update() {
 					r = 0.1;
 					vr = 0;
 				}
-			} else {
+			} else if (lemming) {
 				x = fh->x1-0.1;
 				y = fh->y1-0.1;
 				vx = ldx(vr, fh->dir);
