@@ -249,5 +249,8 @@ void NLS::Map::DrawClock() {
 
 	digit = clockImgs[tostring(digit_4)];
 	digit.Draw(x, y);
+}
 
+NLS::Player * NLS::Map::GetPlayer(uint32_t playerid) {
+	return Players.find(playerid) != Players.end() ? Players[playerid] : nullptr;
 }

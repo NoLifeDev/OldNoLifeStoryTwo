@@ -110,6 +110,7 @@
     <ClInclude Include="..\..\src\NoLifeStory\KeyMap.h" />
     <ClInclude Include="..\..\src\NoLifeStory\LadderRope.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Life.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\MapleRNG.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Mouse.h" />
     <ClInclude Include="..\..\src\NoLifeStory\NameTag.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Packet.h" />
