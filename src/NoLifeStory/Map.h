@@ -9,6 +9,7 @@ namespace NLS {
 		void Load();
 		void Draw();
 		void DrawClock();
+		Player * GetPlayer(uint32_t);
 		extern Node node;
 		extern string nextmap;
 		extern string nextportal;
