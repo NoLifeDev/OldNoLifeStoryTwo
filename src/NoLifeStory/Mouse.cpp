@@ -4,18 +4,7 @@
 ////////////////////////////////////////////////////
 #include "Global.h"
 
-NLS::AniSprite normal;
-NLS::AniSprite onOverGrab;
-NLS::AniSprite onOverGift;
-NLS::AniSprite onOverClickable;
-NLS::AniSprite onOverClickableMinigame;
-NLS::AniSprite onOverClickablePersonalShop;
-NLS::AniSprite onOverScrollbarHorizontal;
-NLS::AniSprite onOverScrollbarVertical;
-NLS::AniSprite onOverScrollbarHorizontalLocked;
-NLS::AniSprite onOverScrollbarVerticalLocked;
-NLS::AniSprite grabbed;
-NLS::AniSprite onOverClickableLocked;
+array<NLS::AniSprite, NLS::Mouse::Total> Sprites;
 
 int NLS::Mouse::x = 0;
 int NLS::Mouse::y = 0;
@@ -23,40 +12,28 @@ NLS::Mouse::MState NLS::Mouse::State = NLS::Mouse::Normal;
 
 void NLS::Mouse::Init() {
 	Node base = WZ["UI"]["Basic"]["Cursor"];
-	normal.Set(base["0"]);
-	onOverClickable.Set(base["1"]); // Same as 4 and 13 ?
-	onOverClickableMinigame.Set(base["2"]);
-	onOverClickablePersonalShop.Set(base["3"]);
-	onOverGrab.Set(base["5"]);
-	onOverGift.Set(base["6"]);
-	onOverScrollbarVertical.Set(base["7"]);
-	onOverScrollbarHorizontal.Set(base["8"]);
-	onOverScrollbarVerticalLocked.Set(base["9"]);
-	onOverScrollbarHorizontalLocked.Set(base["10"]);
-	grabbed.Set(base["11"]);
-	onOverClickableLocked.Set(base["12"]);
+	for (int i = 0; i < Total; ++i) {
+		Sprites[i].Set(base[i]);
+	}
 }
 
 void NLS::Mouse::Draw() {
-	NLS::AniSprite curSprite;
-	switch (State) {
-	case NLS::Mouse::Normal: curSprite = normal; break;
-	case NLS::Mouse::Grabbed: curSprite = grabbed; break;
-	case NLS::Mouse::OnOverClickable: curSprite = onOverClickable; break;
-	case NLS::Mouse::OnOverClickableLocked: curSprite = onOverClickableLocked; break;
-	default: curSprite = normal; break;
-	}
-	auto p = sf::Mouse::GetPosition(*window);
+	sf::Vector2i p = sf::Mouse::GetPosition(*window);
 	x = p.x;
 	y = p.y;
-	curSprite.Draw(x, y);
-}
 
-void NLS::Mouse::updateState() {
-	for_each(NLS::UI::Window::All.begin(), NLS::UI::Window::All.end(), [](NLS::UI::Window* w) {
-		w->CheckPosition(x,y,State == OnOverClickableLocked);
+	Sprites[State].Step();
+	Sprites[State].Draw(x, y);
+
+	for_each(UI::Window::All.rbegin(), UI::Window::All.rend(), [](UI::Window* w) {
+		if (x > w->x and x < w->x+w->width and y > w->y and y < w->y+w->height) {
+			for_each(w->Elements.rbegin(), w->Elements.rend(), [](UI::Element* e) {
+				if (x > e->CalcX() and x < e->CalcX()+e->width and y > e->CalcY() and y < e->CalcY()+e->height) {
+					e->hover = true;
+				}
+			});
+		}
 	});
-
 	if(State != OnOverClickableLocked) {
 		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](NLS::Npc* n) {
 			if(n->CheckPosition(View::x+x,View::y+y)) {
@@ -71,25 +48,20 @@ void NLS::Mouse::HandleEvent(sf::Event& e) {
 	switch (e.Type) {
 	case sf::Event::MouseButtonPressed:
 		State = OnOverClickableLocked;
+		for_each(UI::Window::All.rbegin(), UI::Window::All.rend(), [&](UI::Window* w) {
+			if (x > w->x and x < w->x+w->width and y > w->y and y < w->y+w->height) {
+				w->Focus();
+				sf::Mouse::Button button = e.MouseButton.Button;
+				for_each(w->Elements.rbegin(), w->Elements.rend(), [&](UI::Element* m) {
+					if (x > m->CalcX() and x < m->CalcX()+m->width and y > m->CalcY() and y < m->CalcY()+m->height) {
+						m->Click(button);
+					}
+				});
+			}
+		});
 		break;
 	case sf::Event::MouseButtonReleased:
 		State = Normal;
 		break;
-	}
-
-	auto p = sf::Mouse::GetPosition(*window);
-	x = p.x;
-	y = p.y;
-
-	static bool bPressed = sf::Mouse::IsButtonPressed(sf::Mouse::Left); //left
-
-	updateState();
-
-	if(e.Type == sf::Event::MouseButtonPressed) {
-		for_each(NLS::UI::Window::All.begin(), NLS::UI::Window::All.end(), [](NLS::UI::Window* w) {
-			if(w->CheckPosition(x,y,State == OnOverClickableLocked)) {
-				w->HandleClick(x,y,sf::Mouse::Left);
-			}
-		});
 	}
 }

@@ -180,7 +180,6 @@ void NLS::Map::Load() {
 	nextmap = "";
 	nextportal = "";
 	nextportalID = -1;
-	//scrollingHeader.Set(Text::Color(255,255,0)+u32("TEST"), 14);
 }
 
 void NLS::Map::Draw() {
@@ -202,16 +201,12 @@ void NLS::Map::Draw() {
 	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
 		Life::Npcs[i]->Draw();
 	}
-
 	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p){p.second->Draw();});
-
 	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
-
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();
 	}
 	DrawClock();
-
 	if(Login) {
 		NLS::Sprite frameImg = WZ["UI"]["Login"]["Common"]["frame"];
 		frameImg.Draw(View::x+400,View::y+300);

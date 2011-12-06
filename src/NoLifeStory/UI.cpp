@@ -25,7 +25,9 @@ namespace Functors {
 */
 void NLS::UI::Init() {
 	if (WZ["UI"]["StatusBar2"]) {
-
+		Style = Modern;
+	} else {
+		Style = Clean;
 	}
 	new StatusBar();
 	//new LoginDialog();
@@ -37,9 +39,8 @@ void NLS::UI::Draw() {
 	});
 }
 
-NLS::UI::Window::Window(int x, int y, int width, int height, bool focusable, bool stealsfocus)
-	: x(x), y(y), width(width), height(height), focusable(focusable), stealsfocus(stealsfocus) {
-	bVisible = TRUE;
+NLS::UI::Window::Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible)
+	: x(x), y(y), width(width), height(height), focusable(focusable), stealsfocus(stealsfocus), visible(visible) {
 	All.push_back(this);
 }
 NLS::UI::Window::~Window() {
@@ -50,37 +51,12 @@ void NLS::UI::Window::Add(Element* e) {
 	e->parent = this;
 }
 void NLS::UI::Window::Draw() {
-	if (!bVisible)
-		return;
-	background.Draw(x, y);
+	if (!visible) return;
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
 		e->Draw();
 	});
 }
-bool NLS::UI::Window::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
-	/*if(!bVisible)
-		return false;
-	bool bFound = FALSE;
-	for_each(Elements.begin(), Elements.end(), [&](Element* e){
-		BOOL bOver = e->CheckPosition(mouseX,mouseY,bPressed);
-		if(bFound == FALSE)
-			bFound = bOver;
-	});
-	return bFound;*/
-	return false;
-}
-void NLS::UI::Window::HandleClick(UINT x,UINT y,sf::Mouse::Button b) {
-	for_each(Elements.begin(), Elements.end(), [&](Element* e){
-		if(e->CheckPosition(x,y,TRUE)) {
-			e->Click(b);
-		}
-	});
-}
-void NLS::UI::Window::setBackground(NLS::Sprite bg) {
-	width = bg.data->width;
-	height = bg.data->height;
-	background = bg;
-}
+
 void NLS::UI::Window::Focus() {
 	if (!focusable) return;
 	if (All.back() == this) return;

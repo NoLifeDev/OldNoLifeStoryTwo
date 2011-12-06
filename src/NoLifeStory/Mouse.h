@@ -3,25 +3,33 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 namespace NLS {
+	class Grab {
+
+	};
 	namespace Mouse {
 		void Init();
-		void updateState();
 		void HandleEvent(sf::Event&);
 		void Draw();
 		enum MState {
 			Normal,
-			OnOverGrab,
 			OnOverClickable,
 			OnOverClickableMinigame,
 			OnOverClickablePersonalShop,
-			OnOverScrollbarHorizontal,
+			OnOverClickable2,
+			OnOverGrab,
+			OnOverGift,
 			OnOverScrollbarVertical,
-			OnOverScrollbarHorizontalLocked,
+			OnOverScrollbarHorizontal,
 			OnOverScrollbarVerticalLocked,
+			OnOverScrollbarHorizontalLocked,
 			Grabbed,
 			OnOverClickableLocked,
+			OnOverClickable3,
+			Total
 		};
 		extern MState State;
 		extern int x, y;
+		extern int grabx, graby;
+		extern Grab grabbing;
 	}
 }

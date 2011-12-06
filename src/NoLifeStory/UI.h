@@ -10,12 +10,9 @@ namespace NLS {
 		class Element;
 		class Window {
 		public:
-			Window(int x, int y, int width, int height, bool focusable, bool stealsfocus);
+			Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible);
 			virtual ~Window();
 			virtual void Draw();
-			void setBackground(NLS::Sprite bg);
-			virtual void HandleClick(UINT x,UINT y,sf::Mouse::Button b);//Yuck
-			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
 			void Focus();
 			bool HandleKey(sf::Keyboard::Key);
 			void Add(Element* e);
@@ -23,8 +20,7 @@ namespace NLS {
 			map<sf::Keyboard::Key, function<void()>> actions;
 			int x, y;
 			int width, height;
-			bool focusable, stealsfocus,bVisible;//Yuck
-			NLS::Sprite background;
+			bool focusable, stealsfocus, visible;
 			static list<Window*> All;
 			static list<Window*>::iterator begin() {return All.begin();}
 			static list<Window*>::iterator end() {return All.end();}
@@ -34,52 +30,46 @@ namespace NLS {
 		class Element {
 		public:
 			Element(int x, int y, int width, int height)
-				: x(x), y(y), width(width), height(height) {}
+				: x(x), y(y), width(width), height(height), hover(false) {}
 			virtual ~Element() {}
 			virtual void Draw() {};
-			void setBackground(NLS::Sprite bg);
-			virtual bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
-			virtual void Click(sf::Mouse::Button) {};//Yuck
+			virtual void Click(sf::Mouse::Button) {};
 			int CalcX() {return x+parent->x;}
 			int CalcY() {return y+parent->y;}
 			int x, y;
 			int width, height;
 			Window* parent;
-			NLS::Sprite background;
 			vector<Element*> children;
+			bool hover;
 		private:
 			Element(const Element&);
 		};
 		class Movable : public Element {
 		public:
 		};
-		class Static: public Element {
+		class Image: public Element {
 		public:
-			Static(int x,int y) : Element(x,y,0,0) {}
+			Image(int x, int y, Node n);
 			void Draw();
+			Node node;
 		};
 		class Button : public Element {
 		public:
-			enum EBState {//Yuck
+			enum StateEnum {//Yuck
 				BTN_NORMAL,
 				BTN_MOUSE_OVER,
 				BTN_PRESSED,
 				BTN_DISABLED,
 				BTN_INVISIBLE
 			};
-			Button(int x, int y)
-				: Element(x, y, 0, 0) {
-					iState = BTN_INVISIBLE;
-					action = NULL;//Yuck
-			}
+			Button(int x, int y);
 			void Click(sf::Mouse::Button);
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
 			void setNode(NLS::Node nNode);
-			void setState(EBState iState);
+			void setState(StateEnum);
 			function<void()> action;
 			NLS::Node nNode;//Yuck
-			EBState iState;//Yuck
+			StateEnum state;
 		};
 		class CheckBox : public Element {
 		public:
@@ -166,5 +156,12 @@ namespace NLS {
 		void Init();
 		void Draw();
 		extern bool Focused;
+		enum StyleEnum {
+			Beta,//The non-hand mouse and other cool stuff
+			Classic,//Pre big-bang
+			Modern,//Post big-bang garbage
+			Clean//No images, just rectangles :D
+		};
+		extern StyleEnum Style;
 	}
 }
