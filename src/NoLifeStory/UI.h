@@ -3,8 +3,6 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 
-//TODO - Fix all the yucks
-
 namespace NLS {
 	namespace UI {
 		class Element;
@@ -50,7 +48,7 @@ namespace NLS {
 		};
 		class Button : public Element {
 		public:
-			Button(int x, int y, Node n);
+			Button(int x, int y, Node n, function<void()> action);
 			void Click(sf::Mouse::Button);
 			void Draw();
 			function<void()> action;
@@ -72,7 +70,7 @@ namespace NLS {
 			static TextBox* Active;
 			void Send();
 			void Draw();
-			void Click(sf::Mouse::Button);//Yuck
+			void Click(sf::Mouse::Button);
 			void HandleChar(char32_t);
 			void HandleKey(sf::Event::KeyEvent);
 			void UpdateText();

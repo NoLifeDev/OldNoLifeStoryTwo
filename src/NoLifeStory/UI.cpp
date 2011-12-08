@@ -146,6 +146,7 @@ void NLS::UI::LoginDialog::Draw() {
 #pragma region StatusBar
 NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false, true, false), text(20, 20, 400) {
 	Add(&text);
+	Add(new Button(500, 20, Node(), [](){Map::Load("100000000", "");}));
 	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
 /*
 NLS::UI::BaseGUI::BaseGUI() : Window(512, 515+84, 0, 0, false, false,false) , tChat(25,0,0), 
@@ -232,9 +233,12 @@ void NLS::UI::Image::Draw() {
 #pragma endregion
 
 #pragma region Button
+NLS::UI::Button::Button(int x, int y, Node n, function<void()> action)
+	:Element(x, y, 80, 40), node(n), action(action) {}
+
 void NLS::UI::Button::Draw() {
 	if (this == Mouse::over) {
-		if (Mouse::State == Mouse::OnOverClickable) {
+		if (Mouse::State == Mouse::Normal) {
 			if (pressed) {
 				if (action) action();
 				pressed = false;
@@ -250,6 +254,7 @@ void NLS::UI::Button::Draw() {
 		if (pressed) glColor4f(0.5, 0.5, 0.5, 1);
 		else glColor4f(0.7, 0.7, 0.7, 1);
 	}
+	Element::Draw();
 }
 void NLS::UI::Button::Click(sf::Mouse::Button b) {
 	if (b == sf::Mouse::Left) pressed = true;
@@ -407,7 +412,7 @@ void NLS::UI::TextBox::Draw() {
 			glEnd();
 		} else {
 			int w = text.Width(index)+1;
-			if (Time::tdelta-floor(Time::tdelta) < 0.5) {
+			if (fmod(Time::tdelta, 0.8) < 0.5) {
 				glColor4f(0, 0, 0, 1);
 				glBindTexture(GL_TEXTURE_2D, 0);
 				glBegin(GL_LINES);

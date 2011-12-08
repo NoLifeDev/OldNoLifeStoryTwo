@@ -29,9 +29,10 @@ void NLS::Mouse::Draw() {
 	Sprites[State].Step();
 	Sprites[State].Draw(x, y);
 
-	for_each(UI::Window::All.rbegin(), UI::Window::All.rend(), [](UI::Window* w) {
+	over = nullptr;
+	for_each(UI::Window::begin(), UI::Window::end(), [](UI::Window* w) {
 		if (x > w->x and x < w->x+w->width and y > w->y and y < w->y+w->height) {
-			for_each(w->Elements.rbegin(), w->Elements.rend(), [](UI::Element* e) {
+			for_each(w->Elements.begin(), w->Elements.end(), [](UI::Element* e) {
 				if (x > e->CalcX() and x < e->CalcX()+e->width and y > e->CalcY() and y < e->CalcY()+e->height) {
 					over = e;
 				}
@@ -41,7 +42,7 @@ void NLS::Mouse::Draw() {
 	if(State != OnOverClickableLocked) {
 		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](NLS::Npc* n) {
 			if(n->CheckPosition(View::x+x,View::y+y)) {
-				State = OnOverClickable;
+				//State = OnOverClickable;
 			}
 		});
 	}
@@ -51,6 +52,7 @@ void NLS::Mouse::HandleEvent(sf::Event& e) {
 	switch (e.Type) {
 	case sf::Event::MouseButtonPressed:
 		State = OnOverClickableLocked;
+		UI::TextBox::Active = nullptr;
 		for_each(UI::Window::All.rbegin(), UI::Window::All.rend(), [&](UI::Window* w) {
 			if (x > w->x and x < w->x+w->width and y > w->y and y < w->y+w->height) {
 				w->Focus();
