@@ -3,14 +3,11 @@
 // Please see SuperGlobal.h for more information. //
 ////////////////////////////////////////////////////
 namespace NLS {
-	class Grab {
-
-	};
 	namespace Mouse {
 		void Init();
 		void HandleEvent(sf::Event&);
 		void Draw();
-		enum MState {
+		enum StateEnum {
 			Normal,
 			OnOverClickable,
 			OnOverClickableMinigame,
@@ -27,9 +24,10 @@ namespace NLS {
 			OnOverClickable3,
 			Total
 		};
-		extern MState State;
+		extern StateEnum State;
 		extern int x, y;
-		extern int grabx, graby;
-		extern Grab grabbing;
+		extern UI::Element* over;
+		extern int cx, cy;
+		extern bool active;
 	}
 }

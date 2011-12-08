@@ -97,7 +97,7 @@ void NLS::Physics::Reset(double x, double y) {
 	vr = 0;
 	fh = nullptr;
 	lr = nullptr;
-	layer = 1;
+	layer = 7;
 	group = 0;
 	freefall = 0;
 	djump = nullptr;
@@ -324,7 +324,7 @@ void NLS::Physics::Update() {
 				vy = min(0., vy+floatDrag2/shoe::mass*Time::delta);
 			}
 			vy += gravityAcc*Time::delta;
-			vy = max(min(vy, fallSpeed), -fallSpeed);
+			vy = min(vy, fallSpeed);
 			if (moving) {
 				double l = floatDrag2*wat1;
 				if (left) {

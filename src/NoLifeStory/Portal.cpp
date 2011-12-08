@@ -48,6 +48,8 @@ void NLS::Portal::Load(Node n) {
 		p->script = (string) pn["script"];
 		p->hi = pn["horizontalImpact"];
 		p->vi = pn["verticalImpact"];
+		if (!p->hi and p->pt==12) p->hi = 300;
+		if (!p->vi and p->pt==12) p->vi = 2200;
 		p->onlyonce = pn["onlyOnce"];
 		p->hidetooltip = pn["hideTooltip"];
 		p->delay = pn["delay"];

@@ -27,13 +27,9 @@ u32string NLS::Text::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 	return u32string(s, 2);
 }
 
-NLS::Text::Text() {
-	width = 0;
-	height = 0;
-}
+NLS::Text::Text() : width(0), height(0) {}
 
-NLS::Text::~Text() {
-}
+NLS::Text::~Text() {}
 
 void NLS::Text::Set(u32string str, int size) {
 	if (str.empty()) {
@@ -44,42 +40,27 @@ void NLS::Text::Set(u32string str, int size) {
 	}
 	text = str;
 	fsize = size;
-	width = 0;
-	height = 0;
-	char32_t prev = 0;
-	int x = 0;
-	int y = 0;
 	const auto& ftex = font->GetTexture(fsize);
-	int linespace = font->GetLineSpacing(fsize);
+	width = 0;
+	height = font->GetLineSpacing(fsize);
+	char32_t prev = 0;
 	for (int i = 0; i < text.size(); ++i) {
 		char32_t cur = text[i];
 		if (cur == 0xFFFFFF) {
 			++i;
 			continue;
 		}
-		x += font->GetKerning(prev, cur, fsize);
+		width += font->GetKerning(prev, cur, fsize);
 		prev = cur;
-		switch (cur) {
-		case '\n':
-		case '\r':
-			y += linespace;
-			width = max(width, x);
-			x = 0;
-			break;
-		}
 		const auto& glyph = font->GetGlyph(cur, fsize, false);
-		x += glyph.Advance;
+		width += glyph.Advance;
 	}
-	width = max(width, x);
-	height = y+linespace;
 	if (width == 0) {
 		text.clear();
 		width = 0;
 		height = 0;
 		return;
 	}
-	x = 0;
-	y = fsize;
 	rtex->SetActive();
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -95,6 +76,7 @@ void NLS::Text::Set(u32string str, int size) {
 	glColor4f(0, 0, 0, 1);
 	ftex.Bind();
 	glBegin(GL_QUADS);
+	int x = 0;
 	for (int i = 0; i < text.size(); ++i) {
 		char32_t cur = text[i];
 		if (cur == 0xFFFFFF) {
@@ -104,26 +86,18 @@ void NLS::Text::Set(u32string str, int size) {
 		}
 		x += font->GetKerning(prev, cur, fsize);
 		prev = cur;
-		switch (cur) {
-		case '\n':
-		case '\r':
-			y += linespace;
-			width = max(width, x);
-			x = 0;
-			continue;
-		}
 		const auto& glyph = font->GetGlyph(cur, fsize, false);
 		const auto& advance = glyph.Advance;
 		const auto& b = glyph.Bounds;
 		const auto& c = ftex.GetTexCoords(glyph.SubRect);
 		glTexCoord2f(c.Left, c.Top);
-		glVertex2i(x+b.Left, y+b.Top);
+		glVertex2i(x+b.Left, fsize+b.Top);
 		glTexCoord2f(c.Left+c.Width, c.Top);
-		glVertex2i(x+b.Left+b.Width, y+b.Top);
+		glVertex2i(x+b.Left+b.Width, fsize+b.Top);
 		glTexCoord2f(c.Left+c.Width, c.Top+c.Height);
-		glVertex2i(x+b.Left+b.Width, y+b.Top+b.Height);
+		glVertex2i(x+b.Left+b.Width, fsize+b.Top+b.Height);
 		glTexCoord2f(c.Left, c.Top+c.Height);
-		glVertex2i(x+b.Left, y+b.Top+b.Height);
+		glVertex2i(x+b.Left, fsize+b.Top+b.Height);
 		x += advance;
 	}
 	glEnd();
@@ -138,12 +112,30 @@ int NLS::Text::Width() {
 	return width;
 }
 
+int NLS::Text::Width(int n) {
+	if (text.empty()) return 0;
+	int x = 0;
+	char32_t prev = 0;
+	for (int i = 0; i < n; ++i) {
+		char32_t cur = text[i];
+		if (cur == 0xFFFFFF) {
+			++i;
+			continue;
+		}
+		x += font->GetKerning(prev, cur, fsize);
+		prev = cur;
+		const auto& glyph = font->GetGlyph(cur, fsize, false);
+		x += glyph.Advance;
+	}
+	return x;
+}
+
 int NLS::Text::Height() {
-	return fsize;
+	return height;
 }
 
 void NLS::Text::Draw(int x, int y) {
-	if (!width) return;
+	if (text.empty()) return;
 	glPushMatrix();
 	glTranslatef(x, y, 0);
 	glColor4f(1, 1, 1, 1);
@@ -160,4 +152,31 @@ void NLS::Text::Draw(int x, int y) {
 	glVertex2i(0, height);
 	glEnd();
 	glPopMatrix();
+}
+
+int NLS::Text::GetPos(int x, bool breakspace) {
+	if (text.empty()) return 0;
+	int xx = 0;
+	char32_t prev = 0;
+	bool broke = false;
+	int last = 0;
+	for (int i = 0; i < text.size(); ++i) {
+		char32_t cur = text[i];
+		if (cur == 0xFFFFFF) {
+			++i;
+			continue;
+		}
+		xx += font->GetKerning(prev, cur, fsize);
+		prev = cur;
+		const auto& glyph = font->GetGlyph(cur, fsize, false);
+		xx += glyph.Advance;
+		if (!breakspace or cur == ' ') {
+			broke = true;
+			last = i;
+		} else if (!broke) {
+			last = i;
+		}
+		if (xx > x) return last;
+	}
+	return text.size();
 }

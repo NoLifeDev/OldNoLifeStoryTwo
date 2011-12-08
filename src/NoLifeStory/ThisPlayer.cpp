@@ -27,13 +27,9 @@ void NLS::_ThisPlayer::Draw() {
 					Map::Load(p->tm, p->tn);
 				}
 			}
-			if (vy > 0) {
-				vy += p->vi;
-				if (f) {
-					vx += p->hi;
-				} else {
-					vx -= p->hi;
-				}
+			if (vy > 0 and (p->vi or p->hi)) {
+				vy = -p->vi;
+				f?(vx=p->hi):(vx=-p->hi);
 			}
 		}
 	});

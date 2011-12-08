@@ -150,11 +150,11 @@ void NLS::Player::Draw() {
 	parts.push_back(WZ["Character"]["Hair"][tostring(hair, 8)][state][frame]);
 	//You jelly of my braceless ifs?
 	if ((int)skinData[state][frame]["face"])
-	if (emote == "default") parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
-	else parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
+		if (emote == "default") parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
+		else parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
 	if (clothes)
-	if (clothes < 1050000) parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
-	else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
+		if (clothes < 1050000) parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
+		else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
 	if (pants) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
 	if (cap) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
 	if (shoes) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);

@@ -29,72 +29,54 @@ namespace NLS {
 		};
 		class Element {
 		public:
-			Element(int x, int y, int width, int height)
-				: x(x), y(y), width(width), height(height), hover(false) {}
+			Element(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
 			virtual ~Element() {}
-			virtual void Draw() {};
-			virtual void Click(sf::Mouse::Button) {};
+			virtual void Draw() {}
+			virtual void Click(sf::Mouse::Button) {}
 			int CalcX() {return x+parent->x;}
 			int CalcY() {return y+parent->y;}
 			int x, y;
 			int width, height;
 			Window* parent;
 			vector<Element*> children;
-			bool hover;
 		private:
 			Element(const Element&);
 		};
-		class Movable : public Element {
-		public:
-		};
 		class Image: public Element {
 		public:
-			Image(int x, int y, Node n)  : node(n), Element(x,y,0,0) {}
+			Image(int x, int y, Node n) : node(n), Element(x, y, 0, 0) {}
 			void Draw();
 			Node node;
 		};
 		class Button : public Element {
 		public:
-			enum StateEnum {//Yuck
-				BTN_NORMAL,
-				BTN_MOUSE_OVER,
-				BTN_PRESSED,
-				BTN_DISABLED,
-				BTN_INVISIBLE
-			};
-			Button(int x, int y) : Element(x,y,0,0) {}
+			Button(int x, int y, Node n);
 			void Click(sf::Mouse::Button);
 			void Draw();
-			void setNode(NLS::Node nNode);
-			void setState(StateEnum);
 			function<void()> action;
-			NLS::Node nNode;//Yuck
-			StateEnum state;
+			NLS::Node node;
+			bool disabled;
 		};
 		class CheckBox : public Element {
 		public:
-			CheckBox(int x,int y) : Element(x,y,0,0) {}
+			CheckBox(int x, int y, Node n);
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
-			void Click(sf::Mouse::Button);//Yuck
-			void setNode(NLS::Node nNode);//Yuck
-			NLS::Node nNode;//Yuck
-			bool bChecked;//Yuck
+			void Click(sf::Mouse::Button);
+			NLS::Node node;
+			bool checked;
 		};
 		class TextBox : public Element {
 		public:
 			TextBox(int x, int y, int width)
-				: szIndex(0), Element(x, y, width, 20) {}
+				: upper(0), lower(0), Element(x, y, width, 20) {}
 			static TextBox* Active;
 			void Send();
 			void Draw();
-			bool CheckPosition(INT mouseX,INT mouseY,bool bPressed);//Yuck
 			void Click(sf::Mouse::Button);//Yuck
 			void HandleChar(char32_t);
-			void HandleKey(sf::Keyboard::Key);//Yuck
-			void updateText();//Yuck
+			void UpdateText();
 			u32string str;
-			int szIndex;//Yuck
+			int lower, upper;
 			Text text;
 		};
 		class ScrollBar : public Element {
@@ -107,27 +89,7 @@ namespace NLS {
 			StatusBar();
 			void Draw();
 			TextBox text;
-		};
-		class LoginDialog : public Window {
-		public:
-			LoginDialog();
-			void Draw();
-			TextBox tUsername;
-			TextBox tPassword;
-			CheckBox cbRemember;
-			Button bRemember;//Yuck
-			Button bLoginLost;
-			Button bPassLost;
-			Button bNew;
-			Button bHomePage;
-			Button bQuit;
-			Button bLogin;
-		};
-		class BaseGUI : public Window {//Yuck
-		public:
-			BaseGUI();
-			void Draw();
-			TextBox tChat;//Yuck
+			/*TextBox tChat;//Yuck
 
 			Image sLevelBG;//Yuck
 			Image sLevelCover;
@@ -151,8 +113,26 @@ namespace NLS {
 			Button bSkill;
 			Button bStat;
 			Button bSystem;
-			Button bChatclose;
+			Button bChatclose;*/
 		};
+		class LoginDialog : public Window {
+		public:
+			LoginDialog();
+			void Draw();
+			/*
+			TextBox tUsername;
+			TextBox tPassword;
+			CheckBox cbRemember;
+			Button bRemember;//Yuck
+			Button bLoginLost;
+			Button bPassLost;
+			Button bNew;
+			Button bHomePage;
+			Button bQuit;
+			Button bLogin;
+			*/
+		};
+
 		void Init();
 		void Draw();
 		extern bool Focused;

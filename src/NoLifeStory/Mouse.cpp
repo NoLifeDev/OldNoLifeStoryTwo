@@ -8,7 +8,11 @@ array<NLS::AniSprite, NLS::Mouse::Total> Sprites;
 
 int NLS::Mouse::x = 0;
 int NLS::Mouse::y = 0;
-NLS::Mouse::MState NLS::Mouse::State = NLS::Mouse::Normal;
+NLS::Mouse::StateEnum NLS::Mouse::State = NLS::Mouse::Normal;
+NLS::UI::Element* NLS::Mouse::over = nullptr;
+int NLS::Mouse::cx = 0;
+int NLS::Mouse::cy = 0;
+bool NLS::Mouse::active = false;
 
 void NLS::Mouse::Init() {
 	Node base = WZ["UI"]["Basic"]["Cursor"];
@@ -29,7 +33,7 @@ void NLS::Mouse::Draw() {
 		if (x > w->x and x < w->x+w->width and y > w->y and y < w->y+w->height) {
 			for_each(w->Elements.rbegin(), w->Elements.rend(), [](UI::Element* e) {
 				if (x > e->CalcX() and x < e->CalcX()+e->width and y > e->CalcY() and y < e->CalcY()+e->height) {
-					e->hover = true;
+					over = e;
 				}
 			});
 		}
