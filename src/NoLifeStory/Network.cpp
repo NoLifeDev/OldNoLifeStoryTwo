@@ -44,7 +44,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying they got disconnected and ask if they want to play offline, or login again.
-				Map::Load("0", "");
+				//Map::Load("0", "");
 			} else {
 				cerr << "Failed to connect to the server" << endl;
 #ifdef _WIN32
@@ -53,7 +53,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				Map::Load("0", "sp");
+				//Map::Load("0", "sp");
 			}
 			return false;
 		case sf::Socket::Error:
