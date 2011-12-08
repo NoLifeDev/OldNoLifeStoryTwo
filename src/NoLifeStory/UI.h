@@ -10,7 +10,7 @@ namespace NLS {
 		class Element;
 		class Window {
 		public:
-			Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible);
+			Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible, bool login);
 			virtual ~Window();
 			virtual void Draw();
 			void Focus();
@@ -20,7 +20,7 @@ namespace NLS {
 			map<sf::Keyboard::Key, function<void()>> actions;
 			int x, y;
 			int width, height;
-			bool focusable, stealsfocus, visible;
+			bool focusable, stealsfocus, visible, login;
 			static list<Window*> All;
 			static list<Window*>::iterator begin() {return All.begin();}
 			static list<Window*>::iterator end() {return All.end();}
@@ -31,7 +31,7 @@ namespace NLS {
 		public:
 			Element(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
 			virtual ~Element() {}
-			virtual void Draw() {}
+			virtual void Draw();
 			virtual void Click(sf::Mouse::Button) {}
 			int CalcX() {return x+parent->x;}
 			int CalcY() {return y+parent->y;}
@@ -55,7 +55,7 @@ namespace NLS {
 			void Draw();
 			function<void()> action;
 			NLS::Node node;
-			bool disabled;
+			bool disabled, pressed;
 		};
 		class CheckBox : public Element {
 		public:
@@ -68,16 +68,20 @@ namespace NLS {
 		class TextBox : public Element {
 		public:
 			TextBox(int x, int y, int width)
-				: upper(0), lower(0), Element(x, y, width, 20) {}
+				: index(0), size(0), sel1(0), sel2(0), selecting(false), Element(x, y, width, 14) {}
 			static TextBox* Active;
 			void Send();
 			void Draw();
 			void Click(sf::Mouse::Button);//Yuck
 			void HandleChar(char32_t);
+			void HandleKey(sf::Event::KeyEvent);
 			void UpdateText();
+			void UpdateSelection();
 			u32string str;
-			int lower, upper;
+			int index, size;
 			Text text;
+			int sel1, sel2;
+			bool selecting;
 		};
 		class ScrollBar : public Element {
 		public:

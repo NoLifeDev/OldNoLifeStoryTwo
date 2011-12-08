@@ -28,6 +28,5 @@ namespace NLS {
 		extern int x, y;
 		extern UI::Element* over;
 		extern int cx, cy;
-		extern bool active;
 	}
 }

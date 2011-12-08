@@ -9,21 +9,6 @@ bool NLS::UI::Focused = false;
 NLS::UI::StyleEnum NLS::UI::Style = NLS::UI::Clean;
 list<NLS::UI::Window*> NLS::UI::Window::All;
 
-/*
-namespace Functors {
-	struct TestMessageBoxKeyHandler {
-		bool operator()(NLS::UI::Element *elem, sf::Keyboard::Key key) {
-			if (key == sf::Keyboard::Space) {
-				elem->setVisible(false);
-				NLS::UI::RemoveWindow((NLS::UI::Window *)elem);
-				elem = nullptr;
-				return true;
-			}
-			return false;
-		}
-	};
-}
-*/
 #pragma region UI
 void NLS::UI::Init() {
 	new StatusBar();
@@ -32,14 +17,14 @@ void NLS::UI::Init() {
 }
 void NLS::UI::Draw() {
 	for_each(Window::begin(), Window::end(), [](Window* w){
-		w->Draw();
+		if (w->visible and w->login == Map::Login) w->Draw();
 	});
 }
 #pragma endregion
 
 #pragma region Window
-NLS::UI::Window::Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible)
-	: x(x), y(y), width(width), height(height), focusable(focusable), stealsfocus(stealsfocus), visible(visible) {
+NLS::UI::Window::Window(int x, int y, int width, int height, bool focusable, bool stealsfocus, bool visible, bool login)
+	: x(x), y(y), width(width), height(height), focusable(focusable), stealsfocus(stealsfocus), visible(visible), login(login) {
 	All.push_back(this);
 }
 NLS::UI::Window::~Window() {
@@ -51,6 +36,15 @@ void NLS::UI::Window::Add(Element* e) {
 }
 void NLS::UI::Window::Draw() {
 	if (!visible) return;
+	if (Style == Clean) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBegin(GL_QUADS);
+		glVertex2i(x, y);
+		glVertex2i(x+width, y);
+		glVertex2i(x+width, y+height);
+		glVertex2i(x, y+height);
+		glEnd();
+	}
 	for_each(Elements.begin(), Elements.end(), [&](Element* e){
 		e->Draw();
 	});
@@ -59,6 +53,7 @@ void NLS::UI::Window::Focus() {
 	if (!focusable) return;
 	if (All.back() == this) return;
 	if (All.back()->stealsfocus) return;
+	if (Map::Login != login) return;
 	auto it = find(begin(), end(), this);
 	if (it == end()) {
 		cerr << "The UI is screwed up D:" << endl;
@@ -74,8 +69,24 @@ bool NLS::UI::Window::HandleKey(sf::Keyboard::Key key) {
 }
 #pragma endregion
 
+#pragma region Element
+void NLS::UI::Element::Draw() {
+	if (Style == Clean) {
+		int x = CalcX();
+		int y = CalcY();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBegin(GL_QUADS);
+		glVertex2i(x, y);
+		glVertex2i(x+width, y);
+		glVertex2i(x+width, y+height);
+		glVertex2i(x, y+height);
+		glEnd();
+	}
+}
+#pragma endregion
+
 #pragma region LoginDialog
-NLS::UI::LoginDialog::LoginDialog() : Window(400-22, 300, 0, 0, false, false, true)/*, tUsername(-100, -51, 0), tPassword(-100, -26, 0), cbRemember(-100,4), bRemember(-90,0), bLoginLost(-14,0), bPassLost(55,2), bNew(-100,20), bHomePage(-27,20), bQuit(45,20), bLogin(65,-51) */{
+NLS::UI::LoginDialog::LoginDialog() : Window(378, 300, 0, 0, false, false, true, true)/*, tUsername(-100, -51, 0), tPassword(-100, -26, 0), cbRemember(-100,4), bRemember(-90,0), bLoginLost(-14,0), bPassLost(55,2), bNew(-100,20), bHomePage(-27,20), bQuit(45,20), bLogin(65,-51) */{
 /*	tUsername.setBackground(WZ["UI"]["Login"]["Title"]["ID"]);
 	tPassword.setBackground(WZ["UI"]["Login"]["Title"]["PW"]);
 	cbRemember.setNode(WZ["UI"]["Login"]["Title"]["check"]);
@@ -128,13 +139,12 @@ NLS::UI::LoginDialog::LoginDialog() : Window(400-22, 300, 0, 0, false, false, tr
 //	setBackground(WZ["UI"]["Login"]["Title"]["signboard"]);
 }
 void NLS::UI::LoginDialog::Draw() {
-	if(NLS::Map::curmap == "MapLogin")
-		Window::Draw();
+	Window::Draw();
 }
 #pragma endregion
 
 #pragma region StatusBar
-NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false, false), text(20, 20, 400) {
+NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false, true, false), text(20, 20, 400) {
 	Add(&text);
 	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
 /*
@@ -196,19 +206,7 @@ NLS::UI::BaseGUI::BaseGUI() : Window(512, 515+84, 0, 0, false, false,false) , tC
 */
 }
 void NLS::UI::StatusBar::Draw() {
-
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-	glColor4f(0.5, 0.5, 1, 1);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBegin(GL_QUADS);
-	glVertex2i(0, 0);
-	glVertex2i(width, 0);
-	glVertex2i(width, height);
-	glVertex2i(0, height);
-	glEnd();
-	glPopMatrix();
-
+	glColor4f(0.2, 0.2, 1, 1);
 	Window::Draw();
 /*
 void NLS::UI::BaseGUI::Draw() {
@@ -235,104 +233,207 @@ void NLS::UI::Image::Draw() {
 
 #pragma region Button
 void NLS::UI::Button::Draw() {
-	//if (this == Mouse::over)
-
-	//background.Draw(CalcX(),CalcY());
+	if (this == Mouse::over) {
+		if (Mouse::State == Mouse::OnOverClickable) {
+			if (pressed) {
+				if (action) action();
+				pressed = false;
+			}
+			glColor4f(1, 1, 1, 1);
+		} else if (Mouse::State == Mouse::OnOverClickableLocked) {
+			glColor4f(0.5, 0.5, 0.5, 1);
+		} else {
+			glColor4f(1, 0, 0, 1);
+		}
+	} else {
+		if (Mouse::State != Mouse::OnOverClickableLocked) pressed = false;
+		if (pressed) glColor4f(0.5, 0.5, 0.5, 1);
+		else glColor4f(0.7, 0.7, 0.7, 1);
+	}
 }
 void NLS::UI::Button::Click(sf::Mouse::Button b) {
-	if (action and b == sf::Mouse::Left) action();
+	if (b == sf::Mouse::Left) pressed = true;
 }
+#pragma endregion
 
+#pragma region CheckBox
 void NLS::UI::CheckBox::Draw() {
 	NLS::Sprite s = node[checked ?"1":"0"];
-	s.Draw(CalcX(),CalcY());
+	s.Draw(CalcX(), CalcY());
 }
-
 void NLS::UI::CheckBox::Click(sf::Mouse::Button b) {
-	if(b == sf::Mouse::Left) checked = !checked;
+	if (b == sf::Mouse::Left) checked = !checked;
 }
+#pragma endregion
 
+#pragma region TextBox
 void NLS::UI::TextBox::Click(sf::Mouse::Button b) {
 	if (b == sf::Mouse::Left) {
 		TextBox::Active = this;
-		int n = text.GetPos(Mouse::x-CalcX(), false);
+		if (sf::Keyboard::IsKeyPressed(sf::Keyboard::RShift) or sf::Keyboard::IsKeyPressed(sf::Keyboard::LShift)) {
+			sel2 = text.GetPos(Mouse::x-CalcX(), false);
+		} else {
+			sel1 = sel2 = text.GetPos(Mouse::x-CalcX(), false);
+		}
+		selecting = true;
 	}
-	/*INT iIndex = 0;
-	iIndex = (sf::Mouse::GetPosition().x - this->x+2) / 7;
-	if(iIndex > str.length())
-		iIndex = str.length();
-	szIndex = iIndex;*/
 }
 void NLS::UI::TextBox::Send() {
 	Map::Load(u8(str), "");
 	str.clear();
 	UpdateText();
+	index = 0;
+	size = 0;
+	sel1 = 0;
+	sel2 = 0;
 }
 void NLS::UI::TextBox::UpdateText() {
 	text.Set(str, 12);
 }
 void NLS::UI::TextBox::HandleChar(char32_t key) {
 	switch (key) {
+	case 3:
+		SetClipboardText(u8(str.substr(index, size)));
+		return;
+	case 22:
+		{
+			u32string more = u32(GetClipboardText());
+			str.replace(index, size, more);
+			sel1 = sel2 = index+more.size();
+			UpdateSelection();
+			UpdateText();
+			return;
+		}
+	case 24:
+		SetClipboardText(u8(str.substr(index, size)));
+		str.erase(index, size);
+		sel1 = sel2 = index;
+		UpdateSelection();
+		UpdateText();
+		return;
 	case '\r':
 	case '\n':
 	case '\t':
 		return;
 	case '\b':
-		if (!str.empty()) str.erase(str.end());
+		if (size) {
+			str.erase(index, size);
+			sel1 = sel2 = index;
+		} else if (index) {
+			str.erase(index-1, 1);
+			sel1 = sel2 = index-1;
+		}
+		UpdateSelection();
+		UpdateText();
 		return;
 	}
-	str += key;
+	cout << key << endl;
+	str.replace(index, size, 1, key);
+	sel1 = sel2 = index+1;
+	UpdateSelection();
 	UpdateText();
 }
-
-void NLS::UI::TextBox::Draw() {
-	glPushMatrix();
-	glTranslatef(CalcX(), CalcY(), 0);
-	if (Active != this) glColor4f((float)rand()/RAND_MAX, (float)rand()/RAND_MAX, (float)rand()/RAND_MAX, 1);
-	else glColor4f(1, 1, 1, 1);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBegin(GL_QUADS);
-	glVertex2i(0, 0);
-	glVertex2i(width, 0);
-	glVertex2i(width, height);
-	glVertex2i(0, height);
-	glEnd();
-	text.Draw(3, 3);
-	glPopMatrix();
-	/*
-	if (Active) {
-		Key::Left = false;
-		Key::Right = false;
-		Key::Up = false;
-		Key::Down = false;
+void NLS::UI::TextBox::HandleKey(sf::Event::KeyEvent key) {
+	switch (key.Code) {
+	case sf::Keyboard::Left:
+		if (key.Shift) sel2 = max(0, sel2-1);
+		else sel1 = sel2 = max(0, sel1-1);
+		UpdateSelection();
+		break;
+	case sf::Keyboard::Right:
+		if (key.Shift) sel2 = min(str.size(), sel2+1);
+		else sel1 = sel2 = min(str.size(), sel1+1);
+		UpdateSelection();
+		break;
+	case sf::Keyboard::Home:
+		sel2 = 0;
+		if (!key.Shift) sel1 = sel2;
+		UpdateSelection();
+		break;
+	case sf::Keyboard::End:
+		sel2 = str.size();
+		if (!key.Shift) sel1 = sel2;
+		UpdateSelection();
+		break;
+	case sf::Keyboard::Delete:
+		if (size) {
+			str.erase(index, size);
+			sel1 = sel2 = index;
+		} else if (index < str.size()) {
+			str.erase(index, 1);
+			sel1 = sel2 = index;
+		}
+		UpdateSelection();
+		UpdateText();
+		break;
 	}
-	UINT _x = CalcX() + 3;
-	UINT _y = CalcY() + 5;
-	if(str.length() == 0)
-		background.Draw(x,y);
-
-	text.Draw(_x, _y);
-
-	if(Active == this) {
-		if(GetTickCount() % 1000 < 500) {
-			glColor4f(0, 0, 0, 1);
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glBegin(GL_QUADS);
-
-			UINT nCarret = str.length() == 0 ? 0 : text.Width() / str.length();
-			_x = _x - 1 + (szIndex * nCarret);
-			_y = CalcY()  + 2;
-
-			int32_t h = background.data->height-4;
-			glVertex2i(_x, _y);
-			glVertex2i(_x + 1, _y);
-			glVertex2i(_x + 1, _y + h);
-			glVertex2i(_x, _y + h);
-			glEnd();
+}
+void NLS::UI::TextBox::UpdateSelection() {
+	if (sel1 < sel2) {
+		index = sel1;
+		size = sel2-sel1;
+	} else if (sel1 > sel2) {
+		index = sel2;
+		size = sel1-sel2;
+	} else {
+		index = sel1;
+		size = 0;
+	}
+}
+void NLS::UI::TextBox::Draw() {
+	if (selecting) {
+		if (Mouse::State == Mouse::OnOverClickableLocked) {
+			sel2 = text.GetPos(Mouse::x-CalcX(), false);
+			UpdateSelection();
+		} else {
+			selecting = false;
 		}
 	}
-	*/
+	if (this == Active) glColor4f(1, 1, 1, 1);
+	else glColor4f(0.7, 0.7, 0.7, 1);
+	Element::Draw();
+	text.Draw(CalcX(), CalcY());
+	if (this == Active) {
+		if (size) {
+			int w1 = text.Width(index);
+			int w2 = text.Width(index+size);
+			glColor4f(0, 0, 0, 0.5);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glBegin(GL_QUADS);
+			glVertex2i(CalcX()+w1, CalcY());
+			glVertex2i(CalcX()+w1, CalcY()+height);
+			glVertex2i(CalcX()+w2, CalcY()+height);
+			glVertex2i(CalcX()+w2, CalcY());
+			glEnd();
+		} else {
+			int w = text.Width(index)+1;
+			if (Time::tdelta-floor(Time::tdelta) < 0.5) {
+				glColor4f(0, 0, 0, 1);
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glBegin(GL_LINES);
+				glVertex2i(CalcX()+w, CalcY());
+				glVertex2i(CalcX()+w, CalcY()+height);
+				glEnd();
+			}
+		}
+	}
 }
+#pragma endregion
+
+#pragma region Old crap
+/*namespace Functors {
+	struct TestMessageBoxKeyHandler {
+		bool operator()(NLS::UI::Element *elem, sf::Keyboard::Key key) {
+			if (key == sf::Keyboard::Space) {
+				elem->setVisible(false);
+				NLS::UI::RemoveWindow((NLS::UI::Window *)elem);
+				elem = nullptr;
+				return true;
+			}
+			return false;
+		}
+	};
+}*/
 /*void NLS::UI::Element::setBackground(NLS::Sprite bg) {
 	width = bg.data->width;
 	height = bg.data->height;
@@ -742,3 +843,4 @@ void NLS::UI::AddChatlog(const string& msg, NLS::Text::TextColor color) {
 	chatlogCurrentTopmostLine = chatlog.size() < maxLinesShown ? 0 : chatlog.size() - maxLinesShown;
 }
 */
+#pragma endregion
