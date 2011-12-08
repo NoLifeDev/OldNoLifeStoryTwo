@@ -102,17 +102,33 @@ inline int pot(int x) {
 	return x+1;
 }
 
-string GetClipboardText() {
+inline string GetClipboardText() {
 #ifdef NLS_WINDOWS
 	if (OpenClipboard(nullptr)) {
-		char* clip = (char*)GetClipboardData(CF_TEXT);
-		return clip;
+		void* data = GetClipboardData(CF_TEXT);
+		char* s = (char*)GlobalLock(data);
+		GlobalUnlock(data);
+		CloseClipboard();
+		return s;
 	}
 #else
 #endif
 	return string();
 }
-
+inline void SetClipboardText(const string& s) {
+#ifdef NLS_WINDOWS
+	if (OpenClipboard(nullptr)) {
+		EmptyClipboard();
+		void* data = GlobalAlloc(GMEM_DDESHARE, s.size()+1);
+		char* sdata = (char*)GlobalLock(data);
+		strcpy(sdata, s.c_str());
+		GlobalUnlock(data);
+		SetClipboardData(CF_TEXT, sdata);
+		CloseClipboard();
+	}
+#else
+#endif
+}
 #ifndef NLS_TR2
 class path : public string {
 public:

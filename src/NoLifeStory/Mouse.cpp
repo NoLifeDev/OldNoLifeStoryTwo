@@ -12,13 +12,13 @@ NLS::Mouse::StateEnum NLS::Mouse::State = NLS::Mouse::Normal;
 NLS::UI::Element* NLS::Mouse::over = nullptr;
 int NLS::Mouse::cx = 0;
 int NLS::Mouse::cy = 0;
-bool NLS::Mouse::active = false;
 
 void NLS::Mouse::Init() {
 	Node base = WZ["UI"]["Basic"]["Cursor"];
 	for (int i = 0; i < Total; ++i) {
 		Sprites[i].Set(base[i]);
 	}
+	State = Normal;
 }
 
 void NLS::Mouse::Draw() {
@@ -48,7 +48,6 @@ void NLS::Mouse::Draw() {
 }
 
 void NLS::Mouse::HandleEvent(sf::Event& e) {
-	State = Normal;
 	switch (e.Type) {
 	case sf::Event::MouseButtonPressed:
 		State = OnOverClickableLocked;
@@ -66,6 +65,8 @@ void NLS::Mouse::HandleEvent(sf::Event& e) {
 		break;
 	case sf::Event::MouseButtonReleased:
 		State = Normal;
+		break;
+	case sf::Event::MouseMoved:
 		break;
 	}
 }

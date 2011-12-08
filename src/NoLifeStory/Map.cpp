@@ -22,12 +22,6 @@ void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
 	nextportal = portal;
 }
-
-void ChangeLoginStep(char step) {
-	NLS::View::x = NLS::View::tx = NLS::View::vx = - 400;
-	NLS::View::y = NLS::View::ty = NLS::View::vy = (step == 0 ? 12 : -32) - (600 * step);
-}
-
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
 		if (portal.empty() && nextportalID >= 0) {
@@ -45,21 +39,16 @@ void NLS::Map::Load() {
 		});
 		if (possible.size() == 0) {
 			if (Portal::All.size() > 0) {
-				// Insert the first one
 				possible.insert(possible.end(), Portal::begin(), Portal::end());
-			}
-			else {
-				// Oh god.
+			} else {
 				cerr << "Could not determine a spawnplace. Map " << nextmap << endl;
 				throw(273);
 			}
 		}
-
 		int r = rand()%possible.size();
 		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
 		if (change) {
-			View::vx = ThisPlayer->x-View::width/2;
-			View::vy = ThisPlayer->y-View::height/2;
+			View::Move(ThisPlayer->x, ThisPlayer->y);
 		}
 	};
 	Node mn;
@@ -149,8 +138,7 @@ void NLS::Map::Load() {
 	Reactor::Load(node);
 	LadderRope::Load(node);
 	Life::Load();
-	View::tx = 0;
-	View::ty = 0;
+	View::Reset();
 	if (node["info"]["VRLeft"]) {
 		View::xmin = node["info"]["VRLeft"];
 		View::xmax = node["info"]["VRRight"];
@@ -170,12 +158,7 @@ void NLS::Map::Load() {
 		View::ymax += 128;
 		View::ymin -= View::height;
 	}
-	if(Login) {
-		View::ymin -= 4400;
-		View::xmax -= 90;
-		View::xmin -= 9;
-		ChangeLoginStep(0);
-	}
+	if(Login) View::LoginStage(0);
 	teleport(nextportal, true);
 	nextmap = "";
 	nextportal = "";

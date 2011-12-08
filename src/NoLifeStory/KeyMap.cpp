@@ -59,6 +59,8 @@ void NLS::Key::Handle(sf::Event e) {
 		case sf::Keyboard::Escape:
 			UI::TextBox::Active = nullptr;
 			break;
+		default:
+			UI::TextBox::Active->HandleKey(e.Key);
 		}
 		break;
 	case sf::Event::TextEntered:

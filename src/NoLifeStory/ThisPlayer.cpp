@@ -17,8 +17,7 @@ void NLS::_ThisPlayer::Draw() {
 	up = Key::Up;
 	down = Key::Down;
 	Player::Draw();
-	View::tx = x;
-	View::ty = y;
+	View::Follow(x, y);
 	pdelay += Time::delta;
 	for_each(Portal::begin(), Portal::end(), [&](Portal* p){
 		if (x+50 > p->x and x-50 < p->x and y+50 > p->y and y-50 < p->y) {

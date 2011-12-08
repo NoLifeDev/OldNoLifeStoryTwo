@@ -94,8 +94,8 @@ void NLS::Init() {
 			});
 		}
 	}
-
-	Map::Load(Network::Online?"MapLogin":"100000000", "");
+	if (Network::Online) Map::Load("MapLogin", "");
+	else Map::Load("100000000", "");
 	Map::Load();
 }
 
