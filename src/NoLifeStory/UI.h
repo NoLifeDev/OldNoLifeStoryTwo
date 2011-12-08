@@ -49,7 +49,7 @@ namespace NLS {
 		};
 		class Image: public Element {
 		public:
-			Image(int x, int y, Node n);
+			Image(int x, int y, Node n)  : node(n), Element(x,y,0,0) {}
 			void Draw();
 			Node node;
 		};
@@ -62,7 +62,7 @@ namespace NLS {
 				BTN_DISABLED,
 				BTN_INVISIBLE
 			};
-			Button(int x, int y);
+			Button(int x, int y) : Element(x,y,0,0) {}
 			void Click(sf::Mouse::Button);
 			void Draw();
 			void setNode(NLS::Node nNode);
@@ -129,13 +129,13 @@ namespace NLS {
 			void Draw();
 			TextBox tChat;//Yuck
 
-			Static sLevelBG;//Yuck
-			Static sLevelCover;
-			Static sGaugeBG;
-			Static sGaugeCover;
-			Static sNotice;
-			Static sChatCover;
-			Static sChatSpace;
+			Image sLevelBG;//Yuck
+			Image sLevelCover;
+			Image sGaugeBG;
+			Image sGaugeCover;
+			Image sNotice;
+			Image sChatCover;
+			Image sChatSpace;
 
 			Button bCashshop;//Yuck
 			Button bChattarget;

@@ -6,6 +6,7 @@
 
 NLS::UI::TextBox* NLS::UI::TextBox::Active = nullptr;
 bool NLS::UI::Focused;
+NLS::UI::StyleEnum NLS::UI::Style;
 list<NLS::UI::Window*> NLS::UI::Window::All;
 
 /*
@@ -75,19 +76,10 @@ bool NLS::UI::Window::HandleKey(sf::Keyboard::Key key) {
 	return true;
 }
 
-bool NLS::UI::Element::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
-	bool bFound = FALSE;
-	if (mouseX >= CalcX() && mouseX <= CalcX() - width) {
-		if (mouseY >= CalcY() && mouseY <= CalcY() + height) {
-			bFound = TRUE;
-		}
-	}
-	return bFound;
-}
-NLS::UI::LoginDialog::LoginDialog() : Window(400-22, 300, 0, 0, false, false), tUsername(-100, -51, 0), tPassword(-100, -26, 0), cbRemember(-100,4), bRemember(-90,0), bLoginLost(-14,0), bPassLost(55,2), bNew(-100,20), bHomePage(-27,20), bQuit(45,20), bLogin(65,-51) {
-	tUsername.setBackground(WZ["UI"]["Login"]["Title"]["ID"]);
+NLS::UI::LoginDialog::LoginDialog() : Window(400-22, 300, 0, 0, false, false, true), tUsername(-100, -51, 0), tPassword(-100, -26, 0), cbRemember(-100,4), bRemember(-90,0), bLoginLost(-14,0), bPassLost(55,2), bNew(-100,20), bHomePage(-27,20), bQuit(45,20), bLogin(65,-51) {
+/*	tUsername.setBackground(WZ["UI"]["Login"]["Title"]["ID"]);
 	tPassword.setBackground(WZ["UI"]["Login"]["Title"]["PW"]);
-	cbRemember.setNode(WZ["UI"]["Login"]["Title"]["check"]);
+	*/cbRemember.setNode(WZ["UI"]["Login"]["Title"]["check"]);
 	bRemember.setNode(WZ["UI"]["Login"]["Title"]["BtLoginIDSave"]);
 	bLoginLost.setNode(WZ["UI"]["Login"]["Title"]["BtLoginIDLost"]);
 	bPassLost.setNode(WZ["UI"]["Login"]["Title"]["BtPasswdLost"]);
@@ -133,22 +125,24 @@ NLS::UI::LoginDialog::LoginDialog() : Window(400-22, 300, 0, 0, false, false), t
 	Add(&bQuit);
 	Add(&bLogin);
 
-	setBackground(WZ["UI"]["Login"]["Title"]["signboard"]);
+//	setBackground(WZ["UI"]["Login"]["Title"]["signboard"]);
 }
 void NLS::UI::LoginDialog::Draw() {
 	if(NLS::Map::curmap == "MapLogin")
 		Window::Draw();
 }
-NLS::UI::BaseGUI::BaseGUI() : Window(512, 515+84, 0, 0, false, false) , tChat(25,0,0), sLevelBG(0,0), sLevelCover(0,0), sGaugeBG(0,0), sGaugeCover(0,0), sNotice(0,0), sChatCover(0,0), sChatSpace(0,0), bCashshop(0,0), bChattarget(0,0), bCharacter(0,0), bChat(0,0), bClaim(0,0), bEquip(0,0), bInvent(0,0), bKeySettings(0,0), bMenu(0,0), bMTS(0,0), bQuest(0,0), bSkill(0,0), bStat(0,0), bSystem(0,0), bChatclose(0,0) {
-	tChat.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["chatEnter"]);
+NLS::UI::BaseGUI::BaseGUI() : Window(512, 515+84, 0, 0, false, false,false) , tChat(25,0,0), 
+	sLevelBG(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["lvBacktrnd"]), 
+	sLevelCover(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["lvCover"]), 
+	sGaugeBG(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["gaugeBackgrd"]), 
+	sGaugeCover(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["gaugeCover"]), 
+	sNotice(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["notice"]), 
+	sChatCover(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["chatCover"]), 
+	sChatSpace(0,0,WZ["UI"]["StatusBar2"]["mainBar"]["chatSpace2"]), 
+	bCashshop(0,0), bChattarget(0,0), bCharacter(0,0), bChat(0,0), bClaim(0,0), bEquip(0,0), bInvent(0,0), bKeySettings(0,0), bMenu(0,0), bMTS(0,0), bQuest(0,0), bSkill(0,0), bStat(0,0), bSystem(0,0), bChatclose(0,0) {
+	/*tChat.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["chatEnter"]);
 
-	sLevelBG.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["lvBacktrnd"]);
-	sLevelCover.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["lvCover"]);
-	sGaugeBG.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["gaugeBackgrd"]);
-	sGaugeCover.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["gaugeCover"]);
-	sNotice.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["notice"]);
-	sChatCover.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["chatCover"]);
-	sChatSpace.setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["chatSpace2"]);
+	*/
 
 	bCashshop.setNode(WZ["UI"]["StatusBar2"]["mainBar"]["BtCashShop"]);
 	bChattarget.setNode(WZ["UI"]["StatusBar2"]["mainBar"]["chatTarget"]["base"]);
@@ -192,7 +186,7 @@ NLS::UI::BaseGUI::BaseGUI() : Window(512, 515+84, 0, 0, false, false) , tChat(25
 
 	Add(&tChat);
 	
-	setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["backgrnd"]);
+//	setBackground(WZ["UI"]["StatusBar2"]["mainBar"]["backgrnd"]);
 }
 void NLS::UI::BaseGUI::Draw() {
 	if(NLS::Map::curmap != "MapLogin") {
@@ -207,7 +201,7 @@ void NLS::UI::BaseGUI::Draw() {
 	}
 }
 
-NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false), text(20, 20, 400) {
+NLS::UI::StatusBar::StatusBar() : Window(0, 500, 800, 100, false, false, false), text(20, 20, 400) {
 	Add(&text);
 	Key::Set(sf::Keyboard::Return, [this](){TextBox::Active = &this->text;});
 	Key::Set(sf::Keyboard::H, [](){Map::Load("100000000", "");});
@@ -228,28 +222,15 @@ void NLS::UI::StatusBar::Draw() {
 
 	Window::Draw();
 }
-void NLS::UI::Static::Draw() {
-	background.Draw(CalcX(),CalcY());
+void NLS::UI::Image::Draw() {
+	//background.Draw(CalcX(),CalcY());
 }
 void NLS::UI::Button::setNode(NLS::Node nNode) {
 	this->nNode = nNode;
 	setState(BTN_NORMAL);
 }
 void NLS::UI::Button::Draw() {
-	background.Draw(CalcX(),CalcY());
-}
-bool NLS::UI::Button::CheckPosition(INT mouseX,INT mouseY,bool bPressed) {
-	bool bFound = FALSE;
-	if (mouseX >= CalcX()-background.data->originx && mouseX <= CalcX() - background.data->originx + width) {
-		if (mouseY >= CalcY()-background.data->originy && mouseY <= CalcY() - background.data->originy + height) {
-			bFound = TRUE;
-		}
-	}
-	if(bFound) {
-		setState(bPressed ? BTN_PRESSED : BTN_MOUSE_OVER);
-	} else
-		setState(BTN_NORMAL);
-	return bFound;
+	//background.Draw(CalcX(),CalcY());
 }
 
 void NLS::UI::Button::Click(sf::Mouse::Button b) {
@@ -259,8 +240,8 @@ void NLS::UI::Button::Click(sf::Mouse::Button b) {
 	}
 }
 
-void NLS::UI::Button::setState(EBState iState) {
-	if(this->iState == iState)
+void NLS::UI::Button::setState(StateEnum iState) {
+	if(state == iState)
 		return;
 	std::string szState;
 	switch(iState) {
@@ -279,8 +260,8 @@ void NLS::UI::Button::setState(EBState iState) {
 		default:
 			return;
 	}
-	setBackground(nNode[szState][0]);
-	this->iState = iState;
+//	setBackground(nNode[szState][0]);
+	state = iState;
 }
 void NLS::UI::CheckBox::setNode(NLS::Node nNode) {
 	this->nNode = nNode;
@@ -408,11 +389,11 @@ void NLS::UI::TextBox::Draw() {
 	}
 	*/
 }
-void NLS::UI::Element::setBackground(NLS::Sprite bg) {
+/*void NLS::UI::Element::setBackground(NLS::Sprite bg) {
 	width = bg.data->width;
 	height = bg.data->height;
 	background = bg;
-}
+}*/
 	/*
 	NLS::UI::Window *window = new NLS::UI::Window();
 	NLS::Sprite sprite = WZ["UI"]["StatusBar"]["base"]["backgrnd"];
