@@ -71,7 +71,8 @@ void NLS::Life::Init() {
 		speedMin = 30;
 		auto str =  WZ["String"]["Npc"][id];
 		name = (string)str["name"];
-		((Npc*)this)->function = (string)str["func"];
+		string scriptname = (string)data["info"]["script"]["0"]["script"];
+		((Npc*)this)->function = (string)str["func"] + (scriptname.empty() ? "" : " (" + scriptname + ")");
 		((Npc*)this)->functiontag.Set(((Npc*)this)->function, NameTag::Life);
 	}
 
@@ -98,7 +99,9 @@ void NLS::Life::ChangeState(const string &newState) {
 void NLS::Life::Draw() {
 	Update();
 	currentAnimation.Draw(x, y, data["info"]["noFlip"] ? 0 : f);
-	nametag.Draw(x, y);
+	if (!data["info"]["hideName"]) {
+		nametag.Draw(x, y);
+	}
 }
 
 void NLS::Life::Update() {
