@@ -24,7 +24,7 @@ void NLS::Map::Load(const string& id, const string& portal) {
 }
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
-		if (portal.empty() && nextportalID >= 0) {
+		if (portal.empty() && nextportalID == -1) {
 			if (change) {
 				portal = "sp";
 			} else {
@@ -178,12 +178,8 @@ void NLS::Map::Draw() {
 			ThisPlayer->Draw();
 		}
 	}
-	for (uint32_t i = 0; i < Life::Mobs.size(); ++i) {
-		Life::Mobs[i]->Draw();
-	}
-	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
-		Life::Npcs[i]->Draw();
-	}
+	for_each(Life::Mobs.begin(), Life::Mobs.end(), [](pair<uint32_t, Mob*> p){p.second->Draw();});
+	for_each(Life::Npcs.begin(), Life::Npcs.end(), [](pair<uint32_t, Npc*> p){p.second->Draw();});
 	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p){p.second->Draw();});
 	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {

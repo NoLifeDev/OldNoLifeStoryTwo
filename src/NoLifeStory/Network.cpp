@@ -77,6 +77,7 @@ void NLS::Network::Loop() {
 	};
 	if (!Online) return;
 	if (!Connected and !connecting) {
+		cout << "Trying to connect to " << IP << ":" << Port << endl;
 		Socket.Connect(IP, Port);
 		connecting = true;
 		initial = true;
@@ -85,6 +86,7 @@ void NLS::Network::Loop() {
 		timeout = 0;
 	}
 	timeout += Time::delta;
+	if (!Connected) return;
 	while (true) {
 		if (initial) {
 			if (ghead) {
@@ -133,7 +135,7 @@ void NLS::Network::Loop() {
 				else cerr << "No packet handler for opcode: " << opcode << endl;
 				ghead = true;
 				pos = 0;
-				break;
+				//break;
 			}
 		}
 	}
