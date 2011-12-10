@@ -146,7 +146,6 @@ void NLS::Network::Loop() {
 				else cerr << "No packet handler for opcode: " << opcode << endl;
 				ghead = true;
 				pos = 0;
-				//break;
 			}
 		}
 	}

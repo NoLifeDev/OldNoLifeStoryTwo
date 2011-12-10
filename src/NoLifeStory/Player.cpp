@@ -157,7 +157,11 @@ void NLS::Player::Draw() {
 		else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
 	if (pants) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
 	if (cap) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
+	if (mantle) parts.push_back(WZ["Character"]["Cape"][tostring(mantle, 8)][state][tostring(frame)]);
 	if (shoes) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);
+	if (gloves) parts.push_back(WZ["Character"]["Gloves"][tostring(gloves, 8)][state][tostring(frame)]);
+	if (weapon) parts.push_back(WZ["Character"]["Weapon"][tostring(weapon, 8)][state][tostring(frame)]);
+	if (shield) parts.push_back(WZ["Character"]["Shield"][tostring(shield, 8)][state][tostring(frame)]);
 
 	struct part {
 		Sprite spr;

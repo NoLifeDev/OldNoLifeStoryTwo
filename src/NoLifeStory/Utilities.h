@@ -113,7 +113,7 @@ inline string GetClipboardText() {
 		char* s = (char*)GlobalLock(data);
 		GlobalUnlock(data);
 		CloseClipboard();
-		return s;
+		return s != 0 ? s : string();
 	}
 #else
 #endif

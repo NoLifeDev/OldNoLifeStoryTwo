@@ -39,11 +39,33 @@ void NLS::Mouse::Draw() {
 		}
 	});
 	if(State != OnOverClickableLocked) {
-		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](pair<uint32_t, NLS::Npc*> n) {
+		bool found = false;
+		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [&found](pair<uint32_t, NLS::Npc*> n) {
 			if(n.second->CheckPosition(View::x+x,View::y+y)) {
-				State = OnOverClickable;
+				if (sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
+					State = OnOverClickableLocked;
+					n.second->MouseFly();
+				}
+				else {
+					State = OnOverClickable;
+				}
+				found = true;
 			}
 		});
+		if (!found) {
+			for_each(NLS::Life::Mobs.begin(), NLS::Life::Mobs.end(), [&found](pair<uint32_t, NLS::Mob*> n) {
+				if(!found && n.second->CheckPosition(View::x+x,View::y+y)) {
+					if (sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
+						State = OnOverClickableLocked;
+						n.second->MouseFly();
+						found = true;
+					}
+				}
+			});
+		}
+		if (!found) {
+			State = Normal;
+		}
 	}
 }
 
