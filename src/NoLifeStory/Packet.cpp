@@ -304,55 +304,66 @@ void NLS::Handle::PlayerSpawn(Packet &p) {
 	// OK THIS IS MADNESS. BRB GUYS
 
 	// ok.. there we go. Started 1-12-2011
+	using namespace NLS::BuffValueTypes;
 
-	p.Read<int32_t>();
-	p.Read<int32_t>();
-
-	// oh my gah
-
-	uint64_t buffFlags = p.Read<uint64_t>();
-	// gets WvsBeta
+	uint32_t buffFlags = p.Read<uint32_t>();
 	{
-		using namespace NLS::BuffValueTypes;
-		if (buffFlags & Speed) {
+		//using namespace NLS::BuffValueTypes::ValuesInt4;
+		// Not yet used... lol
+	}
+	buffFlags = p.Read<uint32_t>();
+	{
+		using namespace NLS::BuffValueTypes::ValuesInt3;
+		
+	}
+
+	buffFlags = p.Read<uint32_t>();
+	{
+		using namespace NLS::BuffValueTypes::ValuesInt2;
+		
+	}
+
+	buffFlags = p.Read<uint32_t>();
+	{
+		using namespace NLS::BuffValueTypes::ValuesInt1;
+		if (buffFlags & GetFlagFromBit(Speed)) {
 			p.Read<int8_t>(); // Value
 		}
-		if (buffFlags & ComboAttack) {
+		if (buffFlags & GetFlagFromBit(ComboAttack)) {
 			p.Read<int8_t>(); // Value
 		}
-		if (buffFlags & Charges) {
+		if (buffFlags & GetFlagFromBit(Charges)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Stun) {
+		if (buffFlags & GetFlagFromBit(Stun)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Darkness) {
+		if (buffFlags & GetFlagFromBit(Darkness)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Seal) {
+		if (buffFlags & GetFlagFromBit(Seal)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Weakness) {
+		if (buffFlags & GetFlagFromBit(Weakness)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Curse) {
+		if (buffFlags & GetFlagFromBit(Curse)) {
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & Poison) {
+		if (buffFlags & GetFlagFromBit(Poison)) {
 			p.Read<int16_t>(); // 'value'?
 			p.Read<int32_t>(); // SkillID
 		}
-		if (buffFlags & ShadowPartner) {
+		if (buffFlags & GetFlagFromBit(ShadowPartner)) {
 			
 		}
-		if (buffFlags & DarkSight) {
+		if (buffFlags & GetFlagFromBit(DarkSight)) {
 			
 		}
-		if (buffFlags & SoulArrow) {
+		if (buffFlags & GetFlagFromBit(SoulArrow)) {
 			
 		}
 	}
-	// Ok.. could be worse. Need to handle more types on different versions (V.88 has 2 longs)
 	
 	p.Read<int32_t>();
 	p.Read<int32_t>();

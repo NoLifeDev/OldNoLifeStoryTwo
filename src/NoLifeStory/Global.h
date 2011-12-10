@@ -19,6 +19,7 @@
 #include "AniSprite.h"
 #include "Graphics.h"
 #include "Text.h"
+#include "ChatBalloon.h"
 #include "NameTag.h"
 #include "Time.h"
 #include "UI.h"

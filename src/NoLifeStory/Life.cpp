@@ -74,6 +74,7 @@ void NLS::Life::Init() {
 		string scriptname = (string)data["info"]["script"]["0"]["script"];
 		((Npc*)this)->function = (string)str["func"] + (scriptname.empty() ? "" : " (" + scriptname + ")");
 		((Npc*)this)->functiontag.Set(((Npc*)this)->function, NameTag::Life);
+		((Npc*)this)->cb.Set("Welkom op NoLifeStory! Praat tegen mij als je dood wilt. Lol.", "3");
 	}
 
 	down = false;
@@ -105,24 +106,84 @@ void NLS::Life::Draw() {
 }
 
 void NLS::Life::Update() {
-	if (data["move"]) {
-		if (timeToNextAction-- <= 0) {
-			switch (rand()%3) {
-			case 0:
-				left = true;
-				right = false;
-				timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
-				break;
-			case 1:
+	if (timeToNextAction-- <= 0) {
+		if (isNPC) {
+			bool walk = rand()%2 == 1;
+			if (walk && data["move"]) {
+				switch (rand()%4) {
+				case 0:
+					left = true;
+					right = false;
+					timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
+					break;
+				case 1:
+					left = false;
+					right = true;
+					timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
+					break;
+				case 2: // Just stand.
+					left = false;
+					right = false;
+					timeToNextAction = rand() % (type == "n" ? 5000 : 1000);
+					break;
+				}
+			}
+			else {
+				bool found = false;
+				Node chosenNode;
+				for (auto i = 0; i < 4; i++) {
+					for_each(data.begin(), data.end(), [&](pair<string, Node>node) {
+						Node realnode = node.second;
+						if (!found && realnode["speak"] && rand() % 5 == 2) {
+							chosenNode = realnode;
+							ChangeState(node.first);
+							found = true;
+						}
+					});
+					if (found) break;
+				}
+				if (found) {
+					Node speakLines = chosenNode["speak"];
+					string line = "";
+					found = false;
+					for (auto i = 0; i < 4; i++) {
+						for_each(speakLines.begin(), speakLines.end(), [&](pair<string, Node>node) {
+							Node realnode = node.second;
+							if (!found && rand() % 5 == 2) {
+								found = true;
+								line = node.second;
+							}
+						});
+						if (found) break;
+					}
+					if (!line.empty()) {
+						((Npc*)this)->cb.Set((string)WZ["String"]["Npc"][id][line], "npc");
+					}
+				}
 				left = false;
-				right = true;
-				timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
-				break;
-			case 2:
-				left = false;
 				right = false;
-				timeToNextAction = rand() % (type == "n" ? 5000 : 1000);
-				break;
+				timeToNextAction = rand() % 500;
+			}
+		}
+		else {
+			if (data["move"]) {
+				switch (rand()%3) {
+				case 0:
+					left = true;
+					right = false;
+					timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
+					break;
+				case 1:
+					left = false;
+					right = true;
+					timeToNextAction = (isNPC ? 0 : 100) + rand() % (type == "n" ? 90 : 100);
+					break;
+				case 2:
+					left = false;
+					right = false;
+					timeToNextAction = rand() % (type == "n" ? 5000 : 1000);
+					break;
+				}
 			}
 		}
 	}
@@ -151,9 +212,12 @@ void NLS::Npc::Draw() {
 	if (!function.empty()) {
 		functiontag.Draw(x, y+15);
 	}
+
+	cb.Draw(x, y - ((Sprite)currentAnimation.n[currentAnimation.frame]).data->height - 10);
+
 	if (data["info"]["MapleTV"] && (int)data["info"]["MapleTV"] == 1) {
 		int32_t mx = x + (int)data["info"]["MapleTVadX"];
-		int32_t my = cy + (int)data["info"]["MapleTVadY"];
+		int32_t my = y + (int)data["info"]["MapleTVadY"];
 
 		NLS::Sprite sprite = WZ["UI"]["MapleTV"]["TVmedia"]["1"]["0"];
 		my += sprite.data->height;
@@ -169,7 +233,7 @@ void NLS::Npc::Draw() {
 
 		sprite = WZ["UI"]["MapleTV"]["TVbasic"]["0"];
 
-		my = cy + (int)data["info"]["MapleTVmsgY"] + sprite.data->height;
+		my = y + (int)data["info"]["MapleTVmsgY"] + sprite.data->height;
 		mx = x + (int16_t)(int)data["info"]["MapleTVmsgX"];
 		
 		sprite.Draw(mx, my, f);

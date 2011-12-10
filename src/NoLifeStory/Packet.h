@@ -34,6 +34,10 @@ namespace NLS {
 
 		string ReadStringLen(size_t size) {
 			string s((char*)&data[pos], size);
+			size_t nullstart = s.find_first_of('\0');
+			if (nullstart != string::npos) {
+				s = s.substr(0, nullstart);
+			}
 			pos += size;
 			return s;
 		}

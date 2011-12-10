@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\AES.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Chat.h" />
+    <ClInclude Include="..\..\src\NoLifeStory\ChatBalloon.h" />
     <ClInclude Include="..\..\src\NoLifeStory\ChatDialog.h" />
     <ClInclude Include="..\..\src\NoLifeStory\GameInfo.h" />
     <ClInclude Include="..\..\src\NoLifeStory\Item.h" />
