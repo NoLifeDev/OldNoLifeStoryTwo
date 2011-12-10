@@ -102,7 +102,7 @@ void NLS::Graphics::Draw() {
 	Map::Draw();
 #ifdef _DEBUG
 	Foothold::Draw();
-#endid
+#endif
 	View::Reset();
 	UI::Draw();
 	Mouse::Draw();
