@@ -167,6 +167,7 @@ void NLS::Npc::Draw() {
 		sprite = WZ["UI"]["MapleTV"]["TVbasic"]["0"];
 
 		my = cy + (int)data["info"]["MapleTVmsgY"] + sprite.data->height;
+		mx = x + (int16_t)(int)data["info"]["MapleTVmsgX"];
 		
 		sprite.Draw(mx, my, f);
 	}
