@@ -78,12 +78,20 @@ void NLS::Network::Loop() {
 	if (!Online) return;
 	if (!Connected and !connecting) {
 		cout << "Trying to connect to " << IP << ":" << Port << endl;
-		Socket.Connect(IP, Port);
+		Socket.SetBlocking(true);
 		connecting = true;
-		initial = true;
-		ghead = true;
-		pos = 0;
-		timeout = 0;
+		if (Socket.Connect(IP, Port) == sf::Socket::Done) {
+			Socket.SetBlocking(false);
+			Connected = true;
+			initial = true;
+			ghead = true;
+			pos = 0;
+			timeout = 0;
+		}
+		else {
+			Connected = false;
+			cout << "Could not connect." << endl;
+		}
 	}
 	timeout += Time::delta;
 	if (!Connected) return;
