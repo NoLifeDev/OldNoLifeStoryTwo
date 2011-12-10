@@ -171,16 +171,6 @@ void NLS::Npc::Draw() {
 		sprite.Draw(mx, my, f);
 	}
 }
-bool NLS::Npc::CheckPosition(int _x,int _y) {
-	bool bFound = FALSE;
-	Sprite s = currentAnimation.f;
-	if (_x >= x - s.data->originx && _x <= x - s.data->originx + s.data->width) {
-		if (_y >= y - s.data->originy && _y <= y - s.data->originy + s.data->height) {
-			bFound = TRUE;
-		}
-	}
-	return bFound;
-}
 
 void NLS::Mob::Draw() {
 	NLS::Life::Draw();

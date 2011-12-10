@@ -616,3 +616,13 @@ void NLS::Physics::AddMovement(int8_t action) {
 
 	moves.push_back(Movement(action, retf, x, y, fhid, 100));
 }
+
+bool NLS::Physics::CheckPosition(int32_t _x, int32_t _y) {
+	bool bFound = false;
+	if (_x >= x - 40 && _x <= x + 40) {
+		if (_y >= y - 70 && _y <= y + 10) {
+			bFound = true;
+		}
+	}
+	return bFound;
+}

@@ -29,6 +29,7 @@ namespace NLS {
 		void Jump();
 		void MouseFly();
 		void AddMovement(int8_t action);
+		bool CheckPosition(int32_t _x, int32_t _y);
 		static void Init();
 		static string StanceToString(int8_t stance);
 	};
