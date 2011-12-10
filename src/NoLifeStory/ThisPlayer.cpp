@@ -49,10 +49,33 @@ void NLS::_ThisPlayer::UsePortal() {
 	if (lr) return;
 	for_each(Portal::begin(), Portal::end(), [&](Portal* p){
 		if (x+50 > p->x and x-50 < p->x and y+50 > p->y and y-50 < p->y) {
-			if (p->tm != "999999999" or p->tn != "") {
-				Map::Load(p->tm, p->tn);
+			if (!p->script.empty()) {
+				Send::UsePortalScripted(p->pn);
 				pdelay = 0;
 			}
+			else if (p->tm != "999999999" or p->tn != "") {
+				if (Network::Connected && p->tm != Map::curmap) {
+					Send::UsePortal(p->pn);
+				}
+				else {
+					Map::Load(p->tm, p->tn);
+				}
+				pdelay = 0;
+			}
+		}
+	});
+}
+
+void NLS::_ThisPlayer::TryNpcChat() {
+	if (lr) return;
+	bool done = false;
+	for_each(Life::Npcs.begin(), Life::Npcs.end(), [&](pair<uint32_t, Npc*> p){
+		Npc *n = p.second;
+		if (!done and x+50 > n->x and x-50 < n->x and y+50 > n->y and y-50 < n->y) {
+			if (Network::Connected) {
+				Send::NpcChatStart(p.first);
+			}
+			done = true;
 		}
 	});
 }

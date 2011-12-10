@@ -39,8 +39,8 @@ void NLS::Mouse::Draw() {
 		}
 	});
 	if(State != OnOverClickableLocked) {
-		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](NLS::Npc* n) {
-			if(n->CheckPosition(View::x+x,View::y+y)) {
+		for_each(NLS::Life::Npcs.begin(), NLS::Life::Npcs.end(), [](pair<uint32_t, NLS::Npc*> n) {
+			if(n.second->CheckPosition(View::x+x,View::y+y)) {
 				State = OnOverClickable;
 			}
 		});
