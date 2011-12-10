@@ -16,7 +16,6 @@ map<uint32_t, NLS::Player*> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
 bool NLS::Map::Login;
-//NLS::Text NLS::Map::scrollingHeader;
 
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
@@ -181,6 +180,7 @@ void NLS::Map::Draw() {
 			ThisPlayer->Draw();
 		}
 	}
+
 	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();

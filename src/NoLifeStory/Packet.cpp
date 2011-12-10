@@ -648,9 +648,16 @@ void NLS::Handle::NpcSpawn(Packet &packet) {
 	npc->id = tostring(packet.Read<int32_t>());
 	npc->Init();
 	npc->x = npc->cx = packet.Read<int16_t>();
-	npc->y = npc->cy = packet.Read<int16_t>();
+	npc->y = npc->cy = packet.Read<int16_t>() - 5;
 	npc->f = !packet.Read<bool>();
-	packet.Read<int16_t>(); // Foothold
+	int16_t foothold = packet.Read<int16_t>();
+	auto it = find_if(Foothold::begin(), Foothold::end(), [&](Foothold* fh){return fh->id == foothold;});
+	if (it != Foothold::end()) {
+		npc->fh = *it;
+		npc->r = pdis(npc->x, npc->y, npc->fh->x1, npc->fh->y1);
+	} else {
+		npc->fh = nullptr;
+	}
 	npc->rx0 = packet.Read<int16_t>();
 	npc->rx1 = packet.Read<int16_t>();
 	npc->time = 0;

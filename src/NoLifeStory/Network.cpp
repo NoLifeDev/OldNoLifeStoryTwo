@@ -44,7 +44,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying they got disconnected and ask if they want to play offline, or login again.
-				//Map::Load("0", "");
+				Map::Load("0", "sp");
 			} else {
 				cerr << "Failed to connect to the server" << endl;
 #ifdef _WIN32
@@ -53,13 +53,14 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				//Map::Load("0", "sp");
+				Map::Load("0", "sp");
 			}
 			return false;
 		case sf::Socket::Error:
 			cerr << "Network error occured " << endl;
 			Connected = false;
 			Online = false;
+			Map::Load("0", "sp");
 			return false;
 		case sf::Socket::NotReady:
 			if (connecting and timeout > 5000) {
@@ -70,32 +71,35 @@ void NLS::Network::Loop() {
 				Map::Load("0", "sp");
 			}
 			return false;
-		default:
+		case sf::Socket::Done:
 			connecting = false;
+			return pos == len;
+		default:
+			cerr << "Wat wat" << endl;
+			return false;
 		}
-		return pos == len;
 	};
 	if (!Online) return;
 	if (!Connected and !connecting) {
 		cout << "Trying to connect to " << IP << ":" << Port << endl;
 		Socket.SetBlocking(true);
-		connecting = true;
 		if (Socket.Connect(IP, Port) == sf::Socket::Done) {
+			cout << "Connected to server at " << IP << ":" << Port << endl;
 			Socket.SetBlocking(false);
 			Connected = true;
 			initial = true;
 			ghead = true;
 			pos = 0;
-			timeout = 0;
 		}
 		else {
-			Connected = false;
-			cout << "Could not connect." << endl;
+			cout << "Could not connect. Switching to offline mode." << endl;
+			Online = false;
+			Map::Load("0", "sp");
 		}
 	}
 	timeout += Time::delta;
 	if (!Connected) return;
-	while (true) {
+	while (Connected) {
 		if (initial) {
 			if (ghead) {
 				if (!Receive(header, 2)) return;
@@ -110,7 +114,6 @@ void NLS::Network::Loop() {
 				uint32_t siv = p.Read<uint32_t>();
 				uint32_t riv = p.Read<uint32_t>();
 				Locale = p.Read<uint8_t>();
-				cout << "Connected to server at " << IP << ":" << Port << endl;
 				cout << "Server version: " << Version << endl;
 				cout << "Minor version: " << Patch << endl;
 				cout << "Locale: " << (uint16_t)Locale << endl;
