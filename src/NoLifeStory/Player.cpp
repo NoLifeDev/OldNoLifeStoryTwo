@@ -18,6 +18,7 @@ NLS::Player::Player() : Physics() {
 	face = 20000;
 	hair = 30000;
 	level = 8;
+	lemming = true;
 	name = "NoLifer";
 	nametag.Set(name, NameTag::Normal);
 	guildname = "";
@@ -52,7 +53,7 @@ void NLS::Player::ChangeEmote(int id) {
 }
 
 void NLS::Player::SetItemBySlot(int8_t slotid, int32_t itemid) {
-	slotid = abs(slotid);//Who sends negative stuff?
+	slotid = slotid;//Who sends negative stuff?
 	switch (slotid) {
 	case 1: cap = itemid; break;
 	case 2: forehead = itemid; break;
@@ -149,14 +150,18 @@ void NLS::Player::Draw() {
 	parts.push_back(WZ["Character"]["Hair"][tostring(hair, 8)][state][frame]);
 	//You jelly of my braceless ifs?
 	if ((int)skinData[state][frame]["face"])
-	if (emote == "default") parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
-	else parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
+		if (emote == "default") parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote]);
+		else parts.push_back(WZ["Character"]["Face"][tostring(face, 8)][emote][emotef]);
 	if (clothes)
-	if (clothes < 1050000) parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
-	else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
+		if (clothes < 1050000) parts.push_back(WZ["Character"]["Coat"][tostring(clothes, 8)][state][tostring(frame)]);
+		else parts.push_back(WZ["Character"]["Longcoat"][tostring(clothes, 8)][state][tostring(frame)]);
 	if (pants) parts.push_back(WZ["Character"]["Pants"][tostring(pants, 8)][state][tostring(frame)]);
 	if (cap) parts.push_back(WZ["Character"]["Cap"][tostring(cap, 8)][state][tostring(frame)]);
+	if (mantle) parts.push_back(WZ["Character"]["Cape"][tostring(mantle, 8)][state][tostring(frame)]);
 	if (shoes) parts.push_back(WZ["Character"]["Shoes"][tostring(shoes, 8)][state][tostring(frame)]);
+	if (gloves) parts.push_back(WZ["Character"]["Gloves"][tostring(gloves, 8)][state][tostring(frame)]);
+	if (weapon) parts.push_back(WZ["Character"]["Weapon"][tostring(weapon, 8)][state][tostring(frame)]);
+	if (shield) parts.push_back(WZ["Character"]["Shield"][tostring(shield, 8)][state][tostring(frame)]);
 
 	struct part {
 		Sprite spr;

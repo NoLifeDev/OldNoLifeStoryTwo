@@ -44,13 +44,16 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying they got disconnected and ask if they want to play offline, or login again.
-				Map::Load("0", "");
+				//Map::Load("0", "");
 			} else {
 				cerr << "Failed to connect to the server" << endl;
+#ifdef _WIN32
+				cerr << "WSAGetLastError(): " << WSAGetLastError() << endl;
+#endif
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				Map::Load("0", "");
+				//Map::Load("0", "sp");
 			}
 			return false;
 		case sf::Socket::Error:
@@ -64,7 +67,7 @@ void NLS::Network::Loop() {
 				Connected = false;
 				Online = false;
 				//TODO - Pop up message saying unable to connect and ask if they want to play offline, or retry to connect.
-				Map::Load("0", "");
+				Map::Load("0", "sp");
 			}
 			return false;
 		default:
@@ -73,16 +76,28 @@ void NLS::Network::Loop() {
 		return pos == len;
 	};
 	if (!Online) return;
-	if (!Connected) {
-		Socket.Connect(IP, Port);
-		Connected = true;
-		connecting = true;
-		initial = true;
-		ghead = true;
-		pos = 0;
-		timeout = 0;
+	if (!Connected and !connecting) {
+		Socket.SetBlocking(true);
+		cout << "Trying to connect to " << IP << ":" << Port << endl;
+		if (Socket.Connect(IP, Port, 1000) != sf::Socket::Done) {
+			cerr << "Could not connect to server." << endl;
+#ifdef _WIN32
+				cerr << "WSAGetLastError(): " << WSAGetLastError() << endl;
+#endif
+			Online = false;
+		}
+		else {
+			Socket.SetBlocking(false);
+			Connected = true;
+			connecting = true;
+			initial = true;
+			ghead = true;
+			pos = 0;
+			timeout = 0;
+		}
 	}
 	timeout += Time::delta;
+	if (!Connected) return;
 	while (true) {
 		if (initial) {
 			if (ghead) {
@@ -131,7 +146,6 @@ void NLS::Network::Loop() {
 				else cerr << "No packet handler for opcode: " << opcode << endl;
 				ghead = true;
 				pos = 0;
-				break;
 			}
 		}
 	}

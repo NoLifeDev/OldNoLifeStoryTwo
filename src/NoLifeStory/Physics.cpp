@@ -78,11 +78,13 @@ string NLS::Physics::StanceToString(int8_t stance) {
 	}
 }
 
-NLS::Physics::Physics() : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
+NLS::Physics::Physics() : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1),
+lemming(false) {
 	Reset(0, 0);
 }
 
-NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1) {
+NLS::Physics::Physics(double x, double y) : notAPlayer(false), speedMin(0), control(false), didLieDown(false), lastAction(-1),
+lemming(false) {
 	Reset(x, y);
 }
 
@@ -322,7 +324,7 @@ void NLS::Physics::Update() {
 				vy = min(0., vy+floatDrag2/shoe::mass*Time::delta);
 			}
 			vy += gravityAcc*Time::delta;
-			vy = max(min(vy, fallSpeed), -fallSpeed);
+			vy = min(vy, fallSpeed);
 			if (moving) {
 				double l = floatDrag2*wat1;
 				if (left) {
@@ -359,7 +361,7 @@ void NLS::Physics::Update() {
 				if (fh->next->walk) {
 					r = r-fh->len;
 					fh = fh->next;
-				} else if (fh->next->y2 > fh->next->y1 and !lemming) {
+				} else if (fh->next->y2 > fh->next->y1 and lemming) {
 					x = fh->x2+0.1;
 					y = fh->y2+0.1;
 					vx = ldx(vr, fh->dir);
@@ -373,7 +375,7 @@ void NLS::Physics::Update() {
 						right = false;
 					}
 				}
-			} else if (!lemming) {
+			} else if (lemming) {
 				x = fh->x2+0.1;
 				y = fh->y2+0.1;
 				vx = ldx(vr, fh->dir);
@@ -390,7 +392,7 @@ void NLS::Physics::Update() {
 				if (fh->prev->walk) {
 					fh = fh->prev;
 					r = r+fh->len;
-				} else if (fh->prev->y2 < fh->prev->y1) {
+				} else if (fh->prev->y2 < fh->prev->y1 and lemming) {
 					x = fh->x1-0.1;
 					y = fh->y1-0.1;
 					vx = ldx(vr, fh->dir);
@@ -400,7 +402,7 @@ void NLS::Physics::Update() {
 					r = 0.1;
 					vr = 0;
 				}
-			} else {
+			} else if (lemming) {
 				x = fh->x1-0.1;
 				y = fh->y1-0.1;
 				vx = ldx(vr, fh->dir);
@@ -613,4 +615,14 @@ void NLS::Physics::AddMovement(int8_t action) {
 	else retf += 4;
 
 	moves.push_back(Movement(action, retf, x, y, fhid, 100));
+}
+
+bool NLS::Physics::CheckPosition(int32_t _x, int32_t _y) {
+	bool bFound = false;
+	if (_x >= x - 40 && _x <= x + 40) {
+		if (_y >= y - 70 && _y <= y + 10) {
+			bFound = true;
+		}
+	}
+	return bFound;
 }

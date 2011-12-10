@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 11
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoLifeStory", "NoLifeStory.vcxproj", "{0A12B499-321B-47C5-8595-4E0BD970C4E0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoLifeServer", "NoLifeServer.vcxproj", "{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,10 +13,6 @@ Global
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Debug|Win32.Build.0 = Debug|Win32
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Release|Win32.ActiveCfg = Release|Win32
 		{0A12B499-321B-47C5-8595-4E0BD970C4E0}.Release|Win32.Build.0 = Release|Win32
-		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Debug|Win32.Build.0 = Debug|Win32
-		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Release|Win32.ActiveCfg = Release|Win32
-		{3D6A2DDC-E7AF-4E44-81B5-040BA3F4877D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

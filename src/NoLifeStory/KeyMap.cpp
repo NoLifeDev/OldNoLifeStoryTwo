@@ -59,6 +59,8 @@ void NLS::Key::Handle(sf::Event e) {
 		case sf::Keyboard::Escape:
 			UI::TextBox::Active = nullptr;
 			break;
+		default:
+			UI::TextBox::Active->HandleKey(e.Key);
 		}
 		break;
 	case sf::Event::TextEntered:
@@ -92,7 +94,7 @@ void NLS::Key::Handle(sf::Event e) {
 		}
 		if (UI::Focused)
 		if (UI::Window::All.back()->HandleKey(e.Key.Code) or UI::Window::All.back()->stealsfocus) return;
-		if (!Map::Login and Map[e.Key.Code]) Map[e.Key.Code]();
+		if (/*!Map::Login and */Map[e.Key.Code]) Map[e.Key.Code]();
 		break;
 	case sf::Event::KeyReleased:
 		switch (e.Key.Code) {

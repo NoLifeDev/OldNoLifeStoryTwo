@@ -17,8 +17,7 @@ void NLS::_ThisPlayer::Draw() {
 	up = Key::Up;
 	down = Key::Down;
 	Player::Draw();
-	View::tx = x;
-	View::ty = y;
+	View::Follow(x, y);
 	pdelay += Time::delta;
 	for_each(Portal::begin(), Portal::end(), [&](Portal* p){
 		if (x+50 > p->x and x-50 < p->x and y+50 > p->y and y-50 < p->y) {
@@ -27,13 +26,9 @@ void NLS::_ThisPlayer::Draw() {
 					Map::Load(p->tm, p->tn);
 				}
 			}
-			if (vy > 0) {
-				vy += p->vi;
-				if (f) {
-					vx += p->hi;
-				} else {
-					vx -= p->hi;
-				}
+			if (vy > 0 and (p->vi or p->hi)) {
+				vy = -p->vi;
+				f?(vx=p->hi):(vx=-p->hi);
 			}
 		}
 	});
@@ -54,10 +49,33 @@ void NLS::_ThisPlayer::UsePortal() {
 	if (lr) return;
 	for_each(Portal::begin(), Portal::end(), [&](Portal* p){
 		if (x+50 > p->x and x-50 < p->x and y+50 > p->y and y-50 < p->y) {
-			if (p->tm != "999999999" or p->tn != "") {
-				Map::Load(p->tm, p->tn);
+			if (!p->script.empty()) {
+				Send::UsePortalScripted(p->pn);
 				pdelay = 0;
 			}
+			else if (p->tm != "999999999" or p->tn != "") {
+				if (Network::Connected && p->tm != Map::curmap) {
+					Send::UsePortal(p->pn);
+				}
+				else {
+					Map::Load(p->tm, p->tn);
+				}
+				pdelay = 0;
+			}
+		}
+	});
+}
+
+void NLS::_ThisPlayer::TryNpcChat() {
+	if (lr) return;
+	bool done = false;
+	for_each(Life::Npcs.begin(), Life::Npcs.end(), [&](pair<uint32_t, Npc*> p){
+		Npc *n = p.second;
+		if (!done and x+50 > n->x and x-50 < n->x and y+50 > n->y and y-50 < n->y) {
+			if (Network::Connected) {
+				Send::NpcChatStart(p.first);
+			}
+			done = true;
 		}
 	});
 }

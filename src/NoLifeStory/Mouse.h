@@ -7,20 +7,26 @@ namespace NLS {
 		void Init();
 		void HandleEvent(sf::Event&);
 		void Draw();
-		enum MState {
+		enum StateEnum {
 			Normal,
-			OnOverGrab,
 			OnOverClickable,
 			OnOverClickableMinigame,
 			OnOverClickablePersonalShop,
-			OnOverScrollbarHorizontal,
+			OnOverClickable2,
+			OnOverGrab,
+			OnOverGift,
 			OnOverScrollbarVertical,
-			OnOverScrollbarHorizontalLocked,
+			OnOverScrollbarHorizontal,
 			OnOverScrollbarVerticalLocked,
+			OnOverScrollbarHorizontalLocked,
 			Grabbed,
 			OnOverClickableLocked,
+			OnOverClickable3,
+			Total
 		};
-		extern MState State;
+		extern StateEnum State;
 		extern int x, y;
+		extern UI::Element* over;
+		extern int cx, cy;
 	}
 }

@@ -8,7 +8,7 @@ int NLS::View::x, NLS::View::y;
 double NLS::View::vx, NLS::View::vy;
 double NLS::View::tx, NLS::View::ty;
 int NLS::View::xmin, NLS::View::xmax, NLS::View::ymin, NLS::View::ymax;
-int NLS::View::width, NLS::View::height;
+int NLS::View::width = 800, NLS::View::height = 600;
 bool NLS::View::relative;
 
 void NLS::View::Init() {
@@ -22,8 +22,6 @@ void NLS::View::Init() {
 	xmax = 0;
 	ymin = 0;
 	ymax = 0;
-	width = 800;
-	height = 600;
 }
 
 void NLS::View::Step() {
@@ -41,7 +39,6 @@ void NLS::View::Step() {
 		mxmax += dif/2;
 		mxmin -= dif/2;
 	}
-
 	double ttx = tx-width/2;
 	double tty = ty-height/2;
 	double dx = ttx-vx;
@@ -49,6 +46,7 @@ void NLS::View::Step() {
 	dx = max(abs(dx)-20, 0.0)*sign(dx);
 	dy = max(abs(dy)-20, 0.0)*sign(dy);
 	if (Mindfuck) {
+		srand(Time::tdelta*10000);
 		dx += (double)rand()/RAND_MAX*200-100;
 		dy += (double)rand()/RAND_MAX*200-100;
 		dx *= (double)rand()/RAND_MAX;
@@ -56,7 +54,7 @@ void NLS::View::Step() {
 	}
 	vx += Time::delta*dx*5;
 	vy += Time::delta*dy*5;
-	if (!Mindfuck) {
+	if (!Mindfuck and !Map::Login) {
 		vx = max(min(vx, mxmax-width), mxmin);
 		vy = max(min(vy, mymax-height), mymin);
 	}
@@ -70,4 +68,21 @@ void NLS::View::Step() {
 void NLS::View::Reset() {
 	glLoadIdentity();
 	relative = false;
+}
+
+void NLS::View::LoginStage(int n) {
+	tx = -400;
+	ty = (n?-32:12)-600*n;
+}
+
+void NLS::View::Follow(int x, int y) {
+	tx = x;
+	ty = y;
+}
+
+void NLS::View::Move(int xx, int yy) {
+	tx = xx;
+	ty = yy;
+	x = vx = tx-width/2;
+	y = vy = ty-height/2;
 }

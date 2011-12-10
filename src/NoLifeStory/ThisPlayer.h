@@ -8,8 +8,10 @@ namespace NLS {
 		_ThisPlayer();
 		void Draw();
 		void UsePortal();
+		void TryNpcChat();
 		double pdelay;
 		uint8_t currentPortal;
+		MapleRNG damageRNG;
 	};
 	extern _ThisPlayer* ThisPlayer;
 }

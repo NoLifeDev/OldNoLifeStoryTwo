@@ -72,12 +72,19 @@ namespace NLS {
 		void PlayerEmote(Packet&);
 		void DecodeMovement(Packet&, Physics*);
 		Item * DecodeItem(Packet&);
+		void MobSpawn(Packet&);
+		void NpcSpawn(Packet&);
 	}
 	namespace Send {
 		void Pong();
 		void Pang();
 		void Handshake();
 		void PlayerMove();
-		void PlayerEmote(int32_t emote);
+		void PlayerEmote(int32_t);
+		void UsePortal(const string &);
+		void UsePortalScripted(const string &);
+		void Revive();
+		void GmMapTeleport(int32_t);
+		void NpcChatStart(int32_t);
 	}
 }

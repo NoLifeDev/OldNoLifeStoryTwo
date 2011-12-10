@@ -14,7 +14,9 @@ namespace NLS {
 		void Set(u32string str, int size);
 		void Draw(int x, int y);
 		int Width();
+		int Width(int n);
 		int Height();
+		int GetPos(int x, bool breakspace);
 	private:
 		u32string text;
 		int fsize;

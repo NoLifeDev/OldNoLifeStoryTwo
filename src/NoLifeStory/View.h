@@ -13,5 +13,8 @@ namespace NLS {
 		void Init();
 		void Step();
 		void Reset();
+		void LoginStage(int n);
+		void Follow(int x, int y);
+		void Move(int x, int y);
 	}
 }

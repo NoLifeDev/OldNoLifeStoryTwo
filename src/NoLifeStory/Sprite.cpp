@@ -85,7 +85,7 @@ void NLS::Sprite::GetTexture() {
 }
 
 void NLS::Sprite::Unload() {
-	while (loaded.size() > 200) {
+	while (loaded.size() > 0) {
 		glDeleteTextures(1, &loaded.front()->texture);
 		loaded.front()->loaded = false;
 		loaded.pop_front();

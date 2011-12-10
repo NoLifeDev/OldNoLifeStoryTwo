@@ -16,16 +16,14 @@ map<uint32_t, NLS::Player*> NLS::Map::Players;
 NLS::Sound NLS::Map::bgmusic;
 float NLS::Map::fade;
 bool NLS::Map::Login;
-//NLS::Text NLS::Map::scrollingHeader;
 
 void NLS::Map::Load(const string& id, const string& portal) {
 	nextmap = id;
 	nextportal = portal;
 }
-
 void NLS::Map::Load() {
 	auto teleport = [&](string portal, bool change) {
-		if (portal.empty() && nextportalID >= 0) {
+		if (portal.empty() && nextportalID == -1) {
 			if (change) {
 				portal = "sp";
 			} else {
@@ -40,21 +38,16 @@ void NLS::Map::Load() {
 		});
 		if (possible.size() == 0) {
 			if (Portal::All.size() > 0) {
-				// Insert the first one
 				possible.insert(possible.end(), Portal::begin(), Portal::end());
-			}
-			else {
-				// Oh god.
+			} else {
 				cerr << "Could not determine a spawnplace. Map " << nextmap << endl;
 				throw(273);
 			}
 		}
-
 		int r = rand()%possible.size();
 		ThisPlayer->Reset(possible[r]->x, possible[r]->y-16);
 		if (change) {
-			View::vx = ThisPlayer->x-View::width/2;
-			View::vy = ThisPlayer->y-View::height/2;
+			View::Move(ThisPlayer->x, ThisPlayer->y);
 		}
 	};
 	Node mn;
@@ -122,6 +115,8 @@ void NLS::Map::Load() {
 			bgmusic = WZ["Sound"][p[0]][p[1]];
 			bgmusic.Play(true);
 		}
+		if(bMute)
+			bgmusic.SetVolume(0);
 	}
 
 	for (uint8_t i = 0; i < 8; ++i) {
@@ -142,8 +137,7 @@ void NLS::Map::Load() {
 	Reactor::Load(node);
 	LadderRope::Load(node);
 	Life::Load();
-	View::tx = 0;
-	View::ty = 0;
+	View::Reset();
 	if (node["info"]["VRLeft"]) {
 		View::xmin = node["info"]["VRLeft"];
 		View::xmax = node["info"]["VRRight"];
@@ -163,11 +157,11 @@ void NLS::Map::Load() {
 		View::ymax += 128;
 		View::ymin -= View::height;
 	}
+	if(Login) View::LoginStage(0);
 	teleport(nextportal, true);
 	nextmap = "";
 	nextportal = "";
 	nextportalID = -1;
-	//scrollingHeader.Set(Text::Color(255,255,0)+u32("TEST"), 14);
 }
 
 void NLS::Map::Draw() {
@@ -183,21 +177,19 @@ void NLS::Map::Draw() {
 			ThisPlayer->Draw();
 		}
 	}
-	for (uint32_t i = 0; i < Life::Mobs.size(); ++i) {
-		Life::Mobs[i]->Draw();
-	}
-	for (uint32_t i = 0; i < Life::Npcs.size(); ++i) {
-		Life::Npcs[i]->Draw();
-	}
+	for_each(Life::Mobs.begin(), Life::Mobs.end(), [](pair<uint32_t, Mob*> p){p.second->Draw();});
+	for_each(Life::Npcs.begin(), Life::Npcs.end(), [](pair<uint32_t, Npc*> p){p.second->Draw();});
 
 	for_each(Players.begin(), Players.end(), [](pair<uint32_t, Player*> p){p.second->Draw();});
-
 	for_each(Portal::begin(), Portal::end(), [](Portal* p){p->Draw();});
-
 	for (uint32_t i = 0; i < Foregrounds.size(); ++i) {
 		Foregrounds[i]->Draw();
 	}
 	DrawClock();
+	if(Login) {
+		NLS::Sprite frameImg = WZ["UI"]["Login"]["Common"]["frame"];
+		frameImg.Draw(View::x+400,View::y+300);
+	}
 }
 
 void NLS::Map::Layer::Draw() {
@@ -249,5 +241,8 @@ void NLS::Map::DrawClock() {
 
 	digit = clockImgs[tostring(digit_4)];
 	digit.Draw(x, y);
+}
 
+NLS::Player * NLS::Map::GetPlayer(uint32_t playerid) {
+	return Players.find(playerid) != Players.end() ? Players[playerid] : nullptr;
 }

@@ -100,26 +100,10 @@ void NLS::Graphics::Draw() {
 		}
 	}
 	Map::Draw();
+#ifdef _DEBUG
+	Foothold::Draw();
+#endid
 	View::Reset();
-	
-	/*
-	if (Map::scrollingHeader.Width() != 0) {
-		static int x = 800;
-		glColor4f(0, 0, 0, 0.6);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glBegin(GL_QUADS);
-		glVertex2i(0, 0);
-		glVertex2i(800, 0);
-		glVertex2i(800, 20);
-		glVertex2i(0, 20);
-		glEnd();
-		Map::scrollingHeader.Draw(x--, 0);
-		if (x + Map::scrollingHeader.Width() <= 0) {
-			x = 800;
-		}
-	}
-	*/
-
 	UI::Draw();
 	Mouse::Draw();
 	Time::Step();

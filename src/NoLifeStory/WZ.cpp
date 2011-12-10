@@ -588,53 +588,45 @@ void NLS::PNGProperty::Parse() {
 	auto SetTex = [&](GLenum type){glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h, 0, GL_BGRA, type, Src);};
 	switch (f) {
 	case 1:
-		{
+		if (ww%2 and Graphics::NPOT or Graphics::Shit) {
 			uint32_t len = 2*ww*hh;
-			if (ww%2 and Graphics::NPOT or Graphics::Shit) {
-				for (uint32_t i = 0; i < len; i++) {
-					Dest[i*2] = (Src[i]&0x0F)*0x11;
-					Dest[i*2+1] = ((Src[i]&0xF0)>>4)*0x11;
-				}
-				Swap();
-				if (!Graphics::NPOT) {
-					Resize(4);
-				}
-				SetTex(GL_UNSIGNED_BYTE);
-			} else {
-				if (!Graphics::NPOT) {
-					Resize(2);
-				}
-				SetTex(GL_UNSIGNED_SHORT_4_4_4_4_REV);
+			for (uint32_t i = 0; i < len; i++) {
+				Dest[i*2] = (Src[i]&0x0F)*0x11;
+				Dest[i*2+1] = ((Src[i]&0xF0)>>4)*0x11;
 			}
-			break;
-		}
-	case 2:
-		{
+			Swap();
 			if (!Graphics::NPOT) {
 				Resize(4);
 			}
 			SetTex(GL_UNSIGNED_BYTE);
-			break;
-		}
-	case 513:
-		{
+		} else {
 			if (!Graphics::NPOT) {
 				Resize(2);
 			}
-			SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
-			break;
+			SetTex(GL_UNSIGNED_SHORT_4_4_4_4_REV);
 		}
+		break;
+	case 2:
+		if (!Graphics::NPOT) {
+			Resize(4);
+		}
+		SetTex(GL_UNSIGNED_BYTE);
+		break;
+	case 513:
+		if (!Graphics::NPOT) {
+			Resize(2);
+		}
+		SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
+		break;
 	case 517:
-		{
-			if (pot(ww) != ww or pot(hh) != hh) {
-				cerr << "Non-square type 517 sprite found" << endl;
-				throw(273);
-			}
-			w >>= 4;
-			h >>= 4;
-			SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
-			break;
+		if (pot(ww) != ww or pot(hh) != hh) {
+			cerr << "Non-square type 517 sprite found" << endl;
+			throw(273);
 		}
+		w >>= 4;
+		h >>= 4;
+		SetTex(GL_UNSIGNED_SHORT_5_6_5_REV);
+		break;
 	default:
 		cerr << "Unknown sprite format " << f << endl;
 		throw(273);
